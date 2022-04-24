@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mappers.memberMapper">
+
+	<!-- 일반 회원 가입 -->
+	<insert id="signUp">
+		insert into member_user (user_id, user_pw, user_name,
+				user_gender, user_birth, user_phoneNum, user_address, user_email)
+		values (#{user_id}, #{user_pw}, #{user_name}, #{user_gender}, 
+				#{user_birth}, #{user_phoneNum}, #{user_address}, #{user_email})
+	</insert>
+	
+	<!-- 기업 회원 가입 -->
+	<insert id="signUp_com">
+		insert into member_com (com_id, com_pw, com_name,
+				com_phoneNum, com_address, com_email)
+		values (#{com_id}, #{com_pw}, #{com_name}, 
+				#{com_phoneNum}, #{com_address}, #{com_email})
+	</insert>
+	
+	<!-- 일반 회원 아이디 중복 체크 -->
+	<select id="memberIdCheck" resultType="com.spring.dto.MemberDTO">
+		select user_id from member_user
+			where user_id = #{user_id}
+	</select>
+	
+	<!-- 기업 회원 아이디 중복 체크 -->
+	<select id="companyIdCheck" resultType="com.spring.dto.MemberDTO">
+		select com_id from member_com
+			where com_id = #{com_id}
+	</select>
+	
+	<!-- 일반 회원 로그인 -->
+	<select id="login" resultType="com.spring.dto.MemberDTO">
+		select user_id, user_name, user_pw
+		from member_user
+		where user_id = #{user_id}
+			and user_pw = #{user_pw}
+	</select>
+	
+	<!-- 기업 회원 로그인 -->
+	<select id="login_com" resultType="com.spring.dto.MemberDTO">
+		select com_id, com_name, com_pw
+		from member_com
+		where com_id = #{com_id}
+			and com_pw = #{com_pw}
+	</select>
+	
+	<!-- 회원정보 수정 -->
+	<update id="modify">
+		update member_user
+			set	user_pw = ${user_pw}
+			where user_name = #{user_name}
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<delete id="delete">
+		delete from member_user
+		where user_id = #{user_id}
+			and user_pw = #{user_pw}
+	</delete>
+</mapper>

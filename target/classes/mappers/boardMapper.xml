@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mappers.board">
+	
+	<!-- 게시물 목록 -->
+	<select id="list" resultType="com.spring.dto.BoardDTO">
+		select board_bno, board_title, board_content, 
+			board_writer, board_regDate, board_viewCnt
+		from member_board
+	</select>
+	
+	<!-- 게시물 작성 -->
+	<!-- 데이터를 넣을 땐 parameterType 사용 -->
+	<insert id="write" parameterType="com.spring.dto.BoardDTO">
+		insert into member_board(board_title, board_content, board_writer)
+					values(#{board_title}, #{board_content}, #{board_writer})
+	</insert>
+	
+	<!-- 게시물 조회 -->
+	<select id="view" parameterType="int" resultType="com.spring.dto.BoardDTO">
+		select board_bno, board_title, board_content, board_writer, board_regDate, board_viewCnt
+		from member_board
+		where board_bno = #{board_bno}		
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="modify" parameterType="com.spring.dto.BoardDTO">
+		update member_board
+			set
+				board_title = #{board_title},
+				board_writer = #{board_writer},
+				board_content = #{board_content}
+			where board_bno = #{board_bno}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from member_board
+		where board_bno = #{board_bno}
+	</delete>
+	
+	<!-- 게시글 총 갯수 -->
+	<select id="count" resultType="int">
+		select count(board_bno) from member_board
+	</select>
+	
+	<!-- 게시글 목록 + 페이징 -->
+	<select id="listPage" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
+		select board_bno, board_title, board_writer, board_regDate, board_viewCnt
+		from member_board
+		order by board_bno desc
+			limit #{displayPost}, #{postNum} 
+	</select>
+	
+	<!-- 게시글 목록 + 페이징 + 검색 -->
+	<select id="listPageSearch" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
+		select board_bno, board_title, board_writer, board_regDate, board_viewCnt
+		from member_board
+		
+		<if test='searchType.equals("title")'>
+			where board_title LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("content")'>
+			where board_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("title_content")'>
+			where board_title LIKE concat('%', #{keyword}, '%')
+			or board_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("writer")'>
+			where board_writer LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		order by board_bno desc
+			limit #{displayPost}, #{postNum} 
+	</select>
+	
+	<!-- 게시물 총 갯수 + 검색 적용 -->
+	<select id="searchCount" parameterType="hashMap" resultType="int">
+		select count(board_bno) from member_board  
+	  
+		<if test='searchType.equals("title")'>
+		 	WHERE board_title LIKE concat('%', #{keyword}, '%')
+		</if>
+		 
+		<if test='searchType.equals("content")'>
+			WHERE board_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		 
+		<if test='searchType.equals("title_content")'>
+			WHERE board_title LIKE concat('%', #{keyword}, '%') 
+			 or board_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		 
+		<if test='searchType.equals("writer")'>
+			WHERE board_writer LIKE concat('%', #{keyword}, '%')
+		</if>
+	 
+	</select>
+	
+</mapper>

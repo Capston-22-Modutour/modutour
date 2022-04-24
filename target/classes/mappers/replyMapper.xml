@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mappers.reply">
+	<!-- 댓글 조회 -->
+	<select id="replyList" parameterType="int" resultType="com.spring.dto.ReplyDTO">
+	    select
+	        reply_rno, board_bno, reply_writer, reply_content, reply_regDate
+	    from member_board_reply
+	        where board_bno = #{board_bno}        
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="replyWrite" parameterType="com.spring.dto.ReplyDTO">
+	    insert into member_board_reply(board_bno, reply_writer, reply_content, reply_regDate)
+	        value(#{board_bno}, #{reply_writer}, #{reply_content}, #{reply_regDate})
+	</insert>
+	    
+	<!-- 댓글 수정 -->
+	<update id="replyModify" parameterType="com.spring.dto.ReplyDTO">
+	    update member_board_reply set
+	        reply_writer = #{reply_writer},
+	        reply_content = #{reply_content}
+	    where reply_rno = #{reply_rno}
+	        and reply_bno = #{reply_bno}    
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="replyDelete" parameterType="com.spring.dto.ReplyDTO">
+	    delete from member_board_reply
+	    where reply_rno = #{reply_rno}
+	        and board_bno = ${board_bno}    
+	</delete>
+</mapper>
