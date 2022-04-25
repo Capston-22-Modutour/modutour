@@ -33,6 +33,31 @@
     
 	<%------------ header section  ------------%>
 	<jsp:include page="./fix/header.jsp" />
+	
+	<c:if test="${member == null}">
+		<form role="form" method="post" autocomplete="off"
+			action="/member/login">
+			<label>ID</label> <input type="text" name="user_id" id="user_id" /> &nbsp; 
+			<label>PW</label> <input type="password" name="user_pw" id="user_pw" />
+
+			<button type="submit">로그인</button>
+		</form>
+	</c:if>
+
+	<c:if test="${msg == false}">
+		<p style="color: #f00;">로그인에 실패했습니다. 올바른 아이디 또는 패스워드를 입력해 주십시오</p>
+	</c:if>
+
+	<c:if test="${member != null}">
+		<p>${member.user_name}님환영합니다!</p>
+		<p>${member.user_birth}님환영합니다!</p>
+		<p>${member.user_gender}님환영합니다!</p>
+		<p>${member.user_phoneNum}님환영합니다!</p>
+
+		<a href="member/modify">회원정보 수정</a>, 
+		<a href="member/logout">로그아웃</a>
+		<a href="member/delete">회원탈퇴</a>
+	</c:if>
 
     <!-- Main News Slider Start -->
     <div class="container-fluid">

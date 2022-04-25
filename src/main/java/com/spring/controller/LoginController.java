@@ -17,22 +17,28 @@ public class LoginController {
 		return "login/loginMain";
 	}
 
-	// 유저 로그인
+	// get 유저 로그인
 	@RequestMapping(value = "/login_member", method = RequestMethod.GET)
 	public void getLogin_member(Locale locale, Model model) {
 
 	}
 
-	// 유저 로그인
+	// post 유저 로그인
 	@RequestMapping(value = "/login_member", method = RequestMethod.POST)
 	public String postLogin_member(Locale locale, Model model) {
 
 		return "login/login_member";
 	}
 
-	// 기업 로그인
+	// get 기업 로그인
 	@RequestMapping(value = "/login_company", method = RequestMethod.GET)
-	public String login_company(Locale locale, Model model) {
+	public void getLogin_company(Locale locale, Model model) {
+
+	}
+
+	// post 기업 로그인
+	@RequestMapping(value = "/login_company", method = RequestMethod.POST)
+	public String postLogin_company(Locale locale, Model model) {
 
 		return "login/login_company";
 	}

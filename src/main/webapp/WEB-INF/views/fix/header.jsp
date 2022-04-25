@@ -60,7 +60,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">게시판</a>
                         <div class="dropdown-menu rounded-0 m-0">
-                            <a href="#" class="dropdown-item">자유게시판</a>
+                            <a href="/board/listPageSearch?num=1" class="dropdown-item">자유게시판</a>
                             <a href="#" class="dropdown-item">패키지 설계</a>
                             <a href="#" class="dropdown-item">여행사 입찰</a>
                             <a href="#" class="dropdown-item">패키지 판매</a>

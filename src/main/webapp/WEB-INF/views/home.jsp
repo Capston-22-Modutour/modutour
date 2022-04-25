@@ -48,9 +48,9 @@
 	<c:if test="${member != null}">
 		<p>${member.com_name}님환영합니다!</p>
 
-		<a href="member/modify">회원정보 수정</a>, 
-		<a href="member/logout">로그아웃</a>
-		<a href="member/delete">회원탈퇴</a>
+		<a href="/member/modify">회원정보 수정</a>, 
+		<a href="/member/logout">로그아웃</a>
+		<a href="/member/delete">회원탈퇴</a>
 	</c:if>
 
 
