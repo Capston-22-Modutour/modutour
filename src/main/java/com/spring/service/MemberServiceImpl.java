@@ -37,10 +37,16 @@ public class MemberServiceImpl implements MemberService {
 		return dao.login_com(dto);
 	}
 
-	// 회원정보 수정
+	// 일반 회원정보 수정
 	@Override
 	public void modify(MemberDTO dto) throws Exception {
 		dao.modify(dto);
+	}
+
+	// 기업 회원정보 수정
+	@Override
+	public void modify_com(MemberDTO dto) throws Exception {
+		dao.modify_com(dto);
 	}
 
 	// 회원 탈퇴

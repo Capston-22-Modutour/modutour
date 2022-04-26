@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,12 +23,50 @@
                         <li class="nav-item border-right border-secondary">
                             <a class="nav-link text-body small" href="#">Contact</a>
                         </li>
-                        <li class="nav-item border-right border-secondary">
-                            <a class="nav-link text-body small" href="/login/loginMain">로그인</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-body small" href="/member/signUpMain">회원가입</a>
-                        </li>
+                        
+                        <!-- 로그인 시 로그인, 회원가입 숨기기 시작 -->
+                        <!-- c:choose문은 if else문과 같음 -->
+                        <c:choose>
+                        	<c:when test = "${member != null || company != null}">
+					            <li class="nav-item border-right border-secondary">
+		                            <a class="nav-link text-body small" href="/login/loginMain" hidden="hidden">로그인</a>
+		                        </li>
+		                        <li class="nav-item">
+		                            <a class="nav-link text-body small" href="/member/signUpMain" hidden="hidden">회원가입</a>
+		                        </li>
+		                        
+		                        <!-- 기업 회원이 아닐 시 일반 유저 환영문구 + 로그아웃 -->
+		                        <c:if test="${company == null}">
+		                        	<li class="nav-item">
+		                        		<a class="nav-link text-body small">${member.user_name}님 환영합니다!</a>
+		                        	</li>
+		                        	<li class="nav-item">
+			                        	<a class="nav-link text-body small" href="/member/logout_member">로그아웃</a>
+			                        </li>
+		                        </c:if>
+		                        
+		                        <!-- 일반 회원이 아닐 시 기업 유저 환영문구 + 로그아웃 -->
+		                        <c:if test="${member == null}">
+		                        	<li class="nav-item">
+		                        		<a class="nav-link text-body small">${company.com_name}님 환영합니다!</a>
+		                        	</li>
+		                        	<li class="nav-item">
+			                        	<a class="nav-link text-body small" href="/member/logout_company">로그아웃</a>
+			                        </li>
+		                        </c:if>
+		                        
+				       		</c:when>
+				       		
+				       		<c:when test = "${member == null || company == null}">
+					            <li class="nav-item border-right border-secondary">
+		                            <a class="nav-link text-body small" href="/login/loginMain">로그인</a>
+		                        </li>
+		                        <li class="nav-item">
+		                            <a class="nav-link text-body small" href="/member/signUpMain">회원가입</a>
+		                        </li>
+				       		</c:when>
+                        </c:choose>
+                        <!-- 로그인 시 로그인, 회원가입 숨기기 끝 -->
                     </ul>
                 </nav>
             </div>
@@ -61,12 +100,12 @@
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">게시판</a>
                         <div class="dropdown-menu rounded-0 m-0">
                             <a href="/board/listPageSearch?num=1" class="dropdown-item">자유게시판</a>
-                            <a href="#" class="dropdown-item">패키지 설계</a>
+                            <a href="/want_board/want_listPageSearch?num=1" class="dropdown-item">패키지 설계</a>
                             <a href="#" class="dropdown-item">여행사 입찰</a>
                             <a href="#" class="dropdown-item">패키지 판매</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">마이페이지</a>
+                    <a href="/myPage" class="nav-item nav-link">마이페이지</a>
                 </div>
                 <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
                     <input type="text" class="form-control border-0" placeholder="Keyword">

@@ -4,51 +4,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>기업 유저 로그인</title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta charset="UTF-8">
+	<title>기업 유저 로그인</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<!-- Favicon -->
-<link rel="stylesheet"
-	href="<c:url value='/resources/img/favicon.ico'/>">
+	<!-- Favicon -->
+	<link rel="stylesheet" href="<c:url value='/resources/img/favicon.ico'/>">
 
-<!-- Google Web Fonts -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
-	rel="stylesheet">
+	<!-- Google Web Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- Font Awesome -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"
-	rel="stylesheet">
+	<!-- Font Awesome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
 
-<!-- Libraries Stylesheet -->
-<link rel="stylesheet"
-	href="<c:url value='/resources/lib/owlcarousel/assets/owl.carousel.min.css'/>">
+	<!-- Libraries Stylesheet -->
+	<link rel="stylesheet" href="<c:url value='/resources/lib/owlcarousel/assets/owl.carousel.min.css'/>">
 
-<!-- Customized Bootstrap Stylesheet -->
-<link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>">
+	<!-- Customized Bootstrap Stylesheet -->
+	<link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>">
 </head>
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
 
-	<div id="login">
+	<div id="login_com">
 		<h3 class="text-center text-white pt-5"></h3>
 		<div class="container">
 			<div id="login-row"	class="row justify-content-center align-items-center">
 				<div id="login-column" class="col-md-6">
 					<div id="login-box" class="col-md-12">
-						<form id="login-form" class="form" action="/member/login" method="post">
+						<form id="login-form" class="form" action="/member/login_com" method="post">
 							<h3 class="text-center text-info">기업 회원 로그인</h3>
 							<div class="form-group">
 								<label for="username" class="text-info">ID</label> <br/> 
-								<input type="text" name="username" id="user_id" class="form-control">
+								<input type="text" name="com_id" id="com_id" class="form-control">
 							</div>
 							<div class="form-group">
 								<label for="password" class="text-info">PW</label> <br/> 
-								<input type="password" name="password" id="user_pw" class="form-control">
+								<input type="password" name="com_pw" id="com_pw" class="form-control">
 							</div>
 							<div class="form-group">
 								<input type="submit" name="submit" class="btn btn-info btn-md" value="로그인">

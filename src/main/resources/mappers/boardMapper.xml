@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mappers.board">
 	
+	<!-- 자유 게시판 시작 -->
 	<!-- 게시물 목록 -->
 	<select id="list" resultType="com.spring.dto.BoardDTO">
 		select board_bno, board_title, board_content, 
@@ -102,5 +103,108 @@
 		</if>
 	 
 	</select>
+	<!-- 자유 게시판 끝 -->
+	
+	<!-- 패키지 설계 게시판 시작 -->
+	<!-- 게시물 목록 -->
+	<select id="want_list" resultType="com.spring.dto.BoardDTO">
+		select board_want_bno, board_want_title, board_want_destination, board_want_content, 
+			board_want_writer, board_want_people, board_want_start, board_want_end, 
+			board_want_viewCnt, board_want_like, board_want_regDate
+		from member_board_want
+	</select>
+	
+	<!-- 게시물 작성 -->
+	<!-- 데이터를 넣을 땐 parameterType 사용 -->
+	<insert id="want_write" parameterType="com.spring.dto.BoardDTO">
+		insert into member_board_want(board_want_title, board_want_destination, board_want_content, board_want_writer
+			board_want_people, board_want_start, board_want_end)
+					values(#{board_want_title}, #{board_want_destination}, #{board_want_content}, #{board_want_writer}, 
+						#{board_want_people}, #{board_want_start}, #{board_want_end})
+	</insert>
+	
+	<!-- 게시물 조회 -->
+	<select id="want_view" parameterType="int" resultType="com.spring.dto.BoardDTO">
+		select board_want_bno, board_want_title, board_want_destination, board_want_content, board_want_writer, 
+			board_want_people, board_want_start, board_want_end, board_want_viewCnt, board_want_like, board_want_regDate
+		from member_board_want
+		where board_want_bno = #{board_want_bno}		
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="want_modify" parameterType="com.spring.dto.BoardDTO">
+		update member_board_want
+			set
+				board_want_title = #{board_want_title},
+				board_want_writer = #{board_want_writer},
+				board_want_destination = #{board_want_destination},
+				board_want_content = #{board_want_content}
+				board_want_people = #{board_want_people},
+				board_want_start = #{board_want_start}
+				board_want_end = #{board_want_end},
+			where board_want_bno = #{board_want_bno}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="want_delete" parameterType="int">
+		delete from member_board_want
+		where board_want_bno = #{board_want_bno}
+	</delete>
+	
+	<!-- 게시글 총 갯수 -->
+	<select id="want_count" resultType="int">
+		select count(board_want_bno) from member_board_want
+	</select>
+	
+	
+	<!-- 게시글 목록 + 페이징 + 검색 -->
+	<select id="want_listPageSearch" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
+		select board_want_bno, board_want_title, board_want_writer, board_want_viewCnt, board_want_like, board_want_regDate
+		from member_board_want
+		
+		<if test='searchType.equals("title")'>
+			where board_want_title LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("content")'>
+			where board_want_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("title_content")'>
+			where board_want_title LIKE concat('%', #{keyword}, '%')
+			or board_want_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("writer")'>
+			where board_want_writer LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		order by board_want_bno desc
+			limit #{displayPost}, #{postNum} 
+	</select>
+	
+	<!-- 게시물 총 갯수 + 검색 적용 -->
+	<select id="want_searchCount" parameterType="hashMap" resultType="int">
+		select count(board_want_bno) from member_board_want  
+	  
+		<if test='searchType.equals("title")'>
+		 	WHERE board_want_title LIKE concat('%', #{keyword}, '%')
+		</if>
+		 
+		<if test='searchType.equals("content")'>
+			WHERE board_want_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		 
+		<if test='searchType.equals("title_content")'>
+			WHERE board_want_title LIKE concat('%', #{keyword}, '%') 
+			 or board_want_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		 
+		<if test='searchType.equals("writer")'>
+			WHERE board_want_writer LIKE concat('%', #{keyword}, '%')
+		</if>
+	 
+	</select>
+	<!-- 패키지 설계 게시판 끝 -->
 	
 </mapper>

@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>일반 유저 로그인</title>
+	<title>회사 정보 수정</title>
+
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
 	<!-- Favicon -->
@@ -28,35 +30,34 @@
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
 
-	<div id="login">
-		<h3 class="text-center text-white pt-5"></h3>
-		<div class="container">
-			<div id="login-row" class="row justify-content-center align-items-center">
-				<div id="login-column" class="col-md-6">
-					<div id="login-box" class="col-md-12">
-						<form id="login-form" class="form" action="/member/login" method="post">
-							<h3 class="text-center text-info">일반 회원 로그인</h3>
-							<div class="form-group">
-								<label for="username" class="text-info">ID</label><br> 
-								<input type="text" name="user_id" id="user_id" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="password" class="text-info">PW</label><br> 
-								<input type="password" name="user_pw" id="user_pw" class="form-control">
-							</div>
-							<div class="form-group">
-								<input type="submit" name="submit" class="btn btn-info btn-md" value="로그인">
-							</div>
-							<div id="register-link" class="text-right">
-								<a href="/member/signUp" class="text-info">일반 회원가입</a>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
+	<form role="form" method="post" autocomplete="off">
+		<label>ID</label>
+		<label name="user_id">${company.com_id}</label> <br>
+	
+		<label>이름</label>
+		<label name="user_name">${company.com_name}</label> <br>
+		
+		<label>전화번호</label>
+		<input type="text" name="user_phoneNum" value="${company.com_phoneNum}"> <br>
+		
+		<label>주소</label>
+		<input type="text" name="user_address" value="${company.com_address}"> <br>
+			
+		<label>이메일</label>
+		<input type="text" name="user_email" value="${company.com_email}"> <br>
+		
+		<!-- jstl:format 태그를 이용한 날짜 형식 변환 -->
+		<label>가입일자</label>
+		<fmt:formatDate value="${company.com_joinDate}" pattern="yyyy-MM-dd" /> <br>
+		
+		
+		<label>새로운 패스워드</label>
+		<input type="password" name="com_pw"> </br>
+		
+		<button type="submit">수정하기</button>
+		<input type="button" value="이전" onclick="history.go(-1)">
+	</form>
+	
 	<%------------ footer section  ------------%>
 	<jsp:include page="../fix/footer.jsp" />
 

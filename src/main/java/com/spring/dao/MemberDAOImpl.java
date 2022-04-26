@@ -41,10 +41,16 @@ public class MemberDAOImpl implements MemberDAO {
 		return sql.selectOne(namespcae + ".login_com", dto);
 	}
 
-	// 회원정보 수정
+	// 일반 회원정보 수정
 	@Override
 	public void modify(MemberDTO dto) throws Exception {
 		sql.update(namespcae + ".modify", dto);
+	}
+
+	// 기업 회원정보 수정
+	@Override
+	public void modify_com(MemberDTO dto) throws Exception {
+		sql.update(namespcae + ".modify_com", dto);
 	}
 
 	// 회원 탈퇴
@@ -53,7 +59,7 @@ public class MemberDAOImpl implements MemberDAO {
 		sql.delete(namespcae + ".delete", dto);
 	}
 
-	// 일반 회원  아이디 중복 체크
+	// 일반 회원 아이디 중복 체크
 	@Override
 	public MemberDTO memberIdCheck(String user_id) throws Exception {
 		return sql.selectOne(namespcae + ".memberIdCheck", user_id);

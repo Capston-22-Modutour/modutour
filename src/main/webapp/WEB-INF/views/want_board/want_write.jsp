@@ -1,11 +1,12 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>일반 유저 로그인</title>
+	<title>게시글 작성</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
 	<!-- Favicon -->
@@ -28,35 +29,55 @@
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
 
-	<div id="login">
-		<h3 class="text-center text-white pt-5"></h3>
-		<div class="container">
-			<div id="login-row" class="row justify-content-center align-items-center">
-				<div id="login-column" class="col-md-6">
-					<div id="login-box" class="col-md-12">
-						<form id="login-form" class="form" action="/member/login" method="post">
-							<h3 class="text-center text-info">일반 회원 로그인</h3>
-							<div class="form-group">
-								<label for="username" class="text-info">ID</label><br> 
-								<input type="text" name="user_id" id="user_id" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="password" class="text-info">PW</label><br> 
-								<input type="password" name="user_pw" id="user_pw" class="form-control">
-							</div>
-							<div class="form-group">
-								<input type="submit" name="submit" class="btn btn-info btn-md" value="로그인">
-							</div>
-							<div id="register-link" class="text-right">
-								<a href="/member/signUp" class="text-info">일반 회원가입</a>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div id="nav">
+		<%@ include file="../include/nav.jsp" %>
 	</div>
+	<c:if test="${msg != 'login_error'}">
+		<form method="post">
+			<label>제목</label>
+			<input type="text" name="board_want_title"> <br/>
+			
+			<label>작성자</label>
+			<input type="text" name="board_want_writer" value="${member.user_name}" readonly="readonly"> <br/>
+			
+			<label>제목</label>
+			<input type="text" name="board_want_destination"> <br/>
+			
+			<label>내용</label>
+			<textarea cols="50" rows="5" name="board_want_content"></textarea> <br/>
+			
+			<label>제목</label>
+			<input type="text" name="board_want_people"> <br/>
+			
+			<label>희망 출발일</label>
+			<input type="date" name="board_want_start"> <br/>
+			
+			<label>희망 도착일</label>
+			<input type="date" name="board_want_end"> <br/>
+			
+			<button type="submit">작성</button>
+		</form>
+	</c:if>
+	
+	<%-- <c:if test="${msg == 'login_error'}">
+		<p>로그인이 필요한 서비스 입니다</p>
+		<p><a href="/">홈으로</a></p>
+	</c:if> --%>
+	<c:if test="${company == null}">
+		<p>일반 회원만 작성이 가능합니다</p>
+	</c:if>
+	
+	<!-- 회원이 아닐 시 게시글 작성 불가 -->
+	<c:choose>
+		<c:when test="${member == null}">
+			<p>로그인이 필요한 서비스 입니다</p>
+			<p><a href="/">홈으로</a></p>
+		</c:when>
+	</c:choose>
 
+
+	<input type="button" value="이전" onclick="history.go(-1)">
+	
 	<%------------ footer section  ------------%>
 	<jsp:include page="../fix/footer.jsp" />
 

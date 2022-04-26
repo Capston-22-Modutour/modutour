@@ -25,4 +25,11 @@ public class HomeController {
 
 		return "index";
 	}
+
+	// 마이페이지
+	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
+	public String myPage(Locale locale, Model model) {
+
+		return "myPage";
+	}
 }

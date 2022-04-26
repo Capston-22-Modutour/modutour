@@ -6,11 +6,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>BizNews - Free News Website Template</title>
+    <title>모두의 투어</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- Favicon -->
-    <!-- <link href="../resources/img/favicon.ico" rel="icon"> -->
     <link rel="stylesheet" href="<c:url value='../resources/img/favicon.ico'/>">
 
     <!-- Google Web Fonts -->
@@ -21,11 +20,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-  <!--   <link href="../resources/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet"> -->
-     <link rel="stylesheet" href="<c:url value='../resources/lib/owlcarousel/assets/owl.carousel.min.css'/>">
+    <link rel="stylesheet" href="<c:url value='../resources/lib/owlcarousel/assets/owl.carousel.min.css'/>">
 
     <!-- Customized Bootstrap Stylesheet -->
- <!--    <link href="../resources/css/style.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="<c:url value='../resources/css/style.css'/>">
 </head>
 
@@ -33,30 +30,27 @@
     
 	<%------------ header section  ------------%>
 	<jsp:include page="./fix/header.jsp" />
-	
-	<c:if test="${member == null}">
-		<form role="form" method="post" autocomplete="off"
-			action="/member/login">
-			<label>ID</label> <input type="text" name="user_id" id="user_id" /> &nbsp; 
-			<label>PW</label> <input type="password" name="user_pw" id="user_pw" />
-
-			<button type="submit">로그인</button>
-		</form>
-	</c:if>
-
-	<c:if test="${msg == false}">
-		<p style="color: #f00;">로그인에 실패했습니다. 올바른 아이디 또는 패스워드를 입력해 주십시오</p>
-	</c:if>
 
 	<c:if test="${member != null}">
+		<p>${member.user_id}님환영합니다!</p>
+		<p>${member.user_pw}님환영합니다!</p>
 		<p>${member.user_name}님환영합니다!</p>
 		<p>${member.user_birth}님환영합니다!</p>
 		<p>${member.user_gender}님환영합니다!</p>
 		<p>${member.user_phoneNum}님환영합니다!</p>
 
-		<a href="member/modify">회원정보 수정</a>, 
-		<a href="member/logout">로그아웃</a>
-		<a href="member/delete">회원탈퇴</a>
+		<a href="/member/modify_member">회원정보 수정</a>, 
+		<a href="/member/delete_member">회원탈퇴</a>
+	</c:if>
+	
+	<c:if test="${company != null}">
+		<p>${company.com_id}님환영합니다!</p>
+		<p>${company.com_phoneNum}님환영합니다!</p>
+		<p>${company.com_name}님환영합니다!</p>
+		<p>${company.com_address}님환영합니다!</p>
+		
+		<a href="/member/modify_company">회원정보 수정</a>, 
+		<a href="/member/delete">회원탈퇴</a>
 	</c:if>
 
     <!-- Main News Slider Start -->
@@ -553,18 +547,12 @@
 
 
     <!-- JavaScript Libraries -->
-<!--     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="../resources/lib/easing/easing.min.js"></script>
-    <script src="../resources/lib/owlcarousel/owl.carousel.min.js"></script> -->
-    
     <script src="<c:url value='https://code.jquery.com/jquery-3.4.1.min.js'/>"></script>
     <script src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js'/>"></script>
     <script src="<c:url value='../resources/lib/easing/easing.min.js'/>"></script>
     <script src="<c:url value='../resources/lib/owlcarousel/owl.carousel.min.js'/>"></script>
 
     <!-- Template Javascript -->
-    <!-- <script src="../resources/js/main.js"></script> -->
     <script src="<c:url value='../resources/js/main.js'/>"></script>
 </body>
 

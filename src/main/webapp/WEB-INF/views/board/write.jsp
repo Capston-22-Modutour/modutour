@@ -43,21 +43,38 @@
 			<label>내용</label>
 			<textarea cols="50" rows="5" name="board_content"></textarea> <br/>
 			
-			<label>희망 출발일</label>
-			<input type="date" name="board_start"> <br/>
-			
-			<label>희망 도착일</label>
-			<input type="date" name="board_end"> <br/>
-			
 			<button type="submit">작성</button>
 		</form>
 	</c:if>
 	
-	<c:if test="${msg == 'login_error'}">
+	<%-- <c:if test="${msg == 'login_error'}">
 		<p>로그인이 필요한 서비스 입니다</p>
 		<p><a href="/">홈으로</a></p>
+	</c:if> --%>
+	<c:if test="${company != null}">
+		<form method="post">
+				<label>제목</label>
+				<input type="text" name="board_title"> <br/>
+				
+				<label>작성자</label>
+				<input type="text" name="board_writer" value="${company.com_name}" readonly="readonly"> <br/>
+				
+				<label>내용</label>
+				<textarea cols="50" rows="5" name="board_content"></textarea> <br/>
+				
+				<button type="submit">작성</button>
+			</form>
 	</c:if>
 	
+	<!-- 회원이 아닐 시 게시글 작성 불가 -->
+	<c:choose>
+		<c:when test="${member == null} || ${company == null}">
+			<p>로그인이 필요한 서비스 입니다</p>
+			<p><a href="/">홈으로</a></p>
+		</c:when>
+	</c:choose>
+
+
 	<input type="button" value="이전" onclick="history.go(-1)">
 	
 	<%------------ footer section  ------------%>

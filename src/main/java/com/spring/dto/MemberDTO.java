@@ -9,9 +9,6 @@ public class MemberDTO {
 	private String user_name;
 	private String user_gender;
 	private String user_birth;
-	private String user_phone1;
-	private String user_phone2;
-	private String user_phone3;
 	private String user_phoneNum;
 	private String user_address;
 	private String user_email;
@@ -57,33 +54,7 @@ public class MemberDTO {
 		this.user_birth = user_birth;
 	}
 
-	public String getUser_phone1() {
-		return user_phone1;
-	}
-
-	public void setUser_phone1(String user_phone1) {
-		this.user_phone1 = user_phone1;
-	}
-
-	public String getUser_phone2() {
-		return user_phone2;
-	}
-
-	public void setUser_phone2(String user_phone2) {
-		this.user_phone2 = user_phone2;
-	}
-
-	public String getUser_phone3() {
-		return user_phone3;
-	}
-
-	public void setUser_phone3(String user_phone3) {		
-		this.user_phone3 = user_phone3;
-	}
-
 	public String getUser_phoneNum() {
-		user_phoneNum = user_phone1 + user_phone2 + user_phone3;
-		
 		return user_phoneNum;
 	}
 
@@ -119,9 +90,6 @@ public class MemberDTO {
 	private String com_id;
 	private String com_pw;
 	private String com_name;
-	private String com_phone1;
-	private String com_phone2;
-	private String com_phone3;
 	private String com_phoneNum;
 	private String com_address;
 	private String com_email;
@@ -151,33 +119,7 @@ public class MemberDTO {
 		this.com_name = com_name;
 	}
 
-	public String getCom_phone1() {
-		return com_phone1;
-	}
-
-	public void setCom_phone1(String com_phone1) {
-		this.com_phone1 = com_phone1;
-	}
-
-	public String getCom_phone2() {
-		return com_phone2;
-	}
-
-	public void setCom_phone2(String com_phone2) {
-		this.com_phone2 = com_phone2;
-	}
-
-	public String getCom_phone3() {
-		return com_phone3;
-	}
-
-	public void setCom_phone3(String com_phone3) {
-		this.com_phone3 = com_phone3;
-	}
-
 	public String getCom_phoneNum() {
-		com_phoneNum = com_phone1 + com_phone2 + com_phone3;
-		
 		return com_phoneNum;
 	}
 

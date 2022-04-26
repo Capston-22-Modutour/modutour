@@ -36,13 +36,12 @@ public class MemberController {
 	// 회원가입 get
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
 	public void getSignUp() throws Exception {
-		logger.info("get signUp");
+
 	}
 
 	// 회원가입 post
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	public String postSignUp(MemberDTO dto) throws Exception {
-		logger.info("post signUp");
 
 		service.signUp(dto);
 
@@ -100,12 +99,11 @@ public class MemberController {
 	// 일반 로그인
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(MemberDTO dto, HttpServletRequest req, RedirectAttributes rttr) throws Exception {
-		logger.info("post login");
 
 		HttpSession session = req.getSession();
 
 		MemberDTO login = service.login(dto);
-
+		
 		if (login == null) {
 			session.setAttribute("member", null);
 			rttr.addFlashAttribute("msg", false);
@@ -119,24 +117,23 @@ public class MemberController {
 	// 기업 로그인
 	@RequestMapping(value = "/login_com", method = RequestMethod.POST)
 	public String login_com(MemberDTO dto, HttpServletRequest req, RedirectAttributes rttr) throws Exception {
-		logger.info("post login");
 
 		HttpSession session = req.getSession();
 
 		MemberDTO login_com = service.login_com(dto);
 
 		if (login_com == null) {
-			session.setAttribute("member", null);
+			session.setAttribute("company", null);
 			rttr.addFlashAttribute("msg", false);
 		} else {
-			session.setAttribute("member", login_com);
+			session.setAttribute("company", login_com);
 		}
 
 		return "redirect:/";
 	}
 
-	// 로그아웃
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	// 일반 로그아웃
+	@RequestMapping(value = "/logout_member", method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception {
 
 		session.invalidate();
@@ -144,15 +141,40 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	// 회원정보 수정 get
-	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	// 기업 로그아웃
+	@RequestMapping(value = "/logout_company", method = RequestMethod.GET)
+	public String logout_company(HttpSession session) throws Exception {
+
+		session.invalidate();
+
+		return "redirect:/";
+	}
+
+	// 일반 회원정보 수정 get
+	@RequestMapping(value = "/modify_member", method = RequestMethod.GET)
 	public void getModify() throws Exception {
 
 	}
 
-	// 회원정보 수정 post
-	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String postModify(HttpSession session, MemberDTO dto) throws Exception {
+	// 일반 회원정보 수정 post
+	@RequestMapping(value = "/modify_member", method = RequestMethod.POST)
+	public String postModify_member(HttpSession session, MemberDTO dto) throws Exception {
+
+		service.modify(dto);
+		session.invalidate();
+
+		return "redirect:/";
+	}
+
+	// 기업 회원정보 수정 get
+	@RequestMapping(value = "/modify_company", method = RequestMethod.GET)
+	public void getModify_company() throws Exception {
+
+	}
+
+	// 기업 회원정보 수정 post
+	@RequestMapping(value = "/modify_company", method = RequestMethod.POST)
+	public String postModify_company(HttpSession session, MemberDTO dto) throws Exception {
 
 		service.modify(dto);
 		session.invalidate();
@@ -161,13 +183,13 @@ public class MemberController {
 	}
 
 	// 화원 탈퇴 get
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete_member", method = RequestMethod.GET)
 	public void getDelete() throws Exception {
 
 	}
 
 	// 화원 탈퇴 post
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete_member", method = RequestMethod.POST)
 	public String postDelete(HttpSession session, MemberDTO dto, RedirectAttributes rttr) throws Exception {
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
 
@@ -176,7 +198,7 @@ public class MemberController {
 
 		if (!(oldPass.equals(newPass))) {
 			rttr.addFlashAttribute("msg", false);
-			return "redirect:/member/delete";
+			return "redirect:/member/delete_member";
 		}
 
 		service.delete(dto);

@@ -16,8 +16,11 @@ public interface MemberService {
 	// 기업 로그인
 	public MemberDTO login_com(MemberDTO dto) throws Exception;
 
-	// 회원정보 수정
+	// 일반 회원정보 수정
 	public void modify(MemberDTO dto) throws Exception;
+	
+	// 기업 회원정보 수정
+	public void modify_com(MemberDTO dto) throws Exception;
 
 	// 회원 탈퇴
 	public void delete(MemberDTO dto) throws Exception;
