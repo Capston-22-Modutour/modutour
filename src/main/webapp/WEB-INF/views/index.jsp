@@ -31,28 +31,6 @@
 	<%------------ header section  ------------%>
 	<jsp:include page="./fix/header.jsp" />
 
-	<c:if test="${member != null}">
-		<p>${member.user_id}님환영합니다!</p>
-		<p>${member.user_pw}님환영합니다!</p>
-		<p>${member.user_name}님환영합니다!</p>
-		<p>${member.user_birth}님환영합니다!</p>
-		<p>${member.user_gender}님환영합니다!</p>
-		<p>${member.user_phoneNum}님환영합니다!</p>
-
-		<a href="/member/modify_member">회원정보 수정</a>, 
-		<a href="/member/delete_member">회원탈퇴</a>
-	</c:if>
-	
-	<c:if test="${company != null}">
-		<p>${company.com_id}님환영합니다!</p>
-		<p>${company.com_phoneNum}님환영합니다!</p>
-		<p>${company.com_name}님환영합니다!</p>
-		<p>${company.com_address}님환영합니다!</p>
-		
-		<a href="/member/modify_company">회원정보 수정</a>, 
-		<a href="/member/delete">회원탈퇴</a>
-	</c:if>
-
     <!-- Main News Slider Start -->
     <div class="container-fluid">
         <div class="row">

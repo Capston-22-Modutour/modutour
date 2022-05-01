@@ -37,5 +37,32 @@ public class ReplyServiceImpl implements ReplyService {
 	@Override
 	public void delete(ReplyDTO dto) throws Exception {
 	    dao.delete(dto);
+	}
+	
+	//-------------
+	//패키지 댓글 조회
+	@Override
+	public List<ReplyDTO> want_list(int board_want_bno) throws Exception {
+		return dao.want_list(board_want_bno);
+	}
+
+	//패키지 댓글 작성
+	@Override
+	public void want_write(ReplyDTO dto) throws Exception {
+		dao.want_write(dto);
+	}
+
+	//패키지 댓글 수정
+	@Override
+	public void want_modify(ReplyDTO dto) throws Exception {
+		dao.want_modify(dto);
+	}
+
+	//패키지 댓글 삭제
+	@Override
+	public void want_delete(ReplyDTO dto) throws Exception {
+		dao.want_delete(dto);
 	}	
+	
+	//------------
 }

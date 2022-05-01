@@ -40,5 +40,40 @@ public class ReplyDTO {
 		this.reply_regDate = reply_regDate;
 	}
 	
-	
+	private int board_reply_rno;
+	private int board_want_bno;
+	private String board_want_reply_writer;
+	private String board_want_reply_content;
+	private Date board_want_reply_regDate;
+
+	public int getBoard_reply_rno() {
+		return board_reply_rno;
+	}
+	public void setBoard_reply_rno(int board_reply_rno) {
+		this.board_reply_rno = board_reply_rno;
+	}
+	public int getBoard_want_bno() {
+		return board_want_bno;
+	}
+	public void setBoard_want_bno(int board_want_bno) {
+		this.board_want_bno = board_want_bno;
+	}
+	public String getBoard_want_reply_writer() {
+		return board_want_reply_writer;
+	}
+	public void setBoard_want_reply_writer(String board_want_reply_writer) {
+		this.board_want_reply_writer = board_want_reply_writer;
+	}
+	public String getBoard_want_reply_content() {
+		return board_want_reply_content;
+	}
+	public void setBoard_want_reply_content(String board_want_reply_content) {
+		this.board_want_reply_content = board_want_reply_content;
+	}
+	public Date getBoard_want_reply_regDate() {
+		return board_want_reply_regDate;
+	}
+	public void setBoard_want_reply_regDate(Date board_want_reply_regDate) {
+		this.board_want_reply_regDate = board_want_reply_regDate;
+	}
 }

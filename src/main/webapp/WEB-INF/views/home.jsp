@@ -11,9 +11,11 @@
 	<c:if test="${member == null}">
 		<form role="form" method="post" autocomplete="off"
 			action="/member/login">
-			<label>ID</label> <input type="text" name="user_id" id="user_id" />
-			&nbsp; <label>PW</label> <input type="password" name="user_pw"
-				id="user_pw" /> <br />
+			<label>ID</label> 
+			<input type="text" name="user_id" id="user_id" /> &nbsp; 
+			
+			<label>PW</label> 
+			<input type="password" name="user_pw" id="user_pw" /> <br />
 
 			<button type="submit">로그인</button>
 			<a href="/member/signUp">일반회원가입</a> <a href="/member/signUp_com">기업회원가입</a>

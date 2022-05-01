@@ -14,7 +14,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 	@Inject
 	private SqlSession sql;
 
-	private static String namespace = "com.spring.mappers.reply";
+	private static String namespace = "com.spring.mappers.replyMapper";
 
 	// 댓글 조회
 	@Override
@@ -39,4 +39,30 @@ public class ReplyDAOImpl implements ReplyDAO {
 	public void delete(ReplyDTO dto) throws Exception {
 	    sql.delete(namespace + ".replyDelete", dto);
 	}
+	
+	//--------------
+	//패키지 댓글 조회
+	@Override
+	public List<ReplyDTO> want_list(int board_want_bno) throws Exception {
+		return sql.selectList(namespace + ".want_replyList", board_want_bno);
+	}
+
+	//패키지 댓글 작성
+	@Override
+	public void want_write(ReplyDTO dto) throws Exception {
+		sql.insert(namespace + ".want_replyWrite", dto);
+	}
+
+	//패키지 댓글 수정
+	@Override
+	public void want_modify(ReplyDTO dto) throws Exception {
+		sql.update(namespace + ".want_replyModify", dto);
+	}
+
+	//패키지 댓글 삭제
+	@Override
+	public void want_delete(ReplyDTO dto) throws Exception {
+		sql.delete(namespace + ".want_replyDelete", dto);
+	}	
+
 }

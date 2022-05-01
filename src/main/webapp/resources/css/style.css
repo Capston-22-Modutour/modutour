@@ -64,6 +64,19 @@ body {
   background-color: #EDEFF4;
 }
 
+.text-center {
+	text-align: center;
+}
+
+.bodybody {
+	display: flex;
+	height: 60%;
+}
+.leftSideBar, .rightSideBar {
+	width: 20%;
+	background-color: #ED7D31;
+}
+
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;
 }
@@ -9675,3 +9688,4 @@ h6,
   padding: 0;
   list-style-type: none;
 }
+

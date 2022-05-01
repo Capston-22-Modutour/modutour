@@ -49,10 +49,16 @@ public class MemberServiceImpl implements MemberService {
 		dao.modify_com(dto);
 	}
 
-	// 회원 탈퇴
+	// 일반 회원 탈퇴
 	@Override
 	public void delete(MemberDTO dto) throws Exception {
 		dao.delete(dto);
+	}
+
+	// 기업 회원 탈퇴
+	@Override
+	public void delete_com(MemberDTO dto) throws Exception {
+		dao.delete_com(dto);
 	}
 
 	// 일반 회원 아이디 중복 체크

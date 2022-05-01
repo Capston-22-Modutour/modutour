@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.dto.BoardDTO;
 import com.spring.dto.Page;
@@ -63,9 +64,9 @@ public class WantBoardController {
 		model.addAttribute("view", dto);
 
 		// 패키지 설계 댓글 조회
-		List<ReplyDTO> want_reply = null;
-		// want_reply = replyService.want_list(board_want_bno);
-		model.addAttribute("reply", want_reply);
+		List<ReplyDTO> reply = null;
+		reply = replyService.want_list(board_want_bno);
+		model.addAttribute("reply", reply);
 	}
 
 	// 패키지 설계 게시글 수정
@@ -84,7 +85,7 @@ public class WantBoardController {
 		return "redirect:/want_board/want_view?board_want_bno=" + dto.getBoard_want_bno();
 	}
 
-	// 자유 게시글 삭제
+	// 패키지 설계 게시글 삭제
 	@RequestMapping(value = "/want_delete", method = RequestMethod.GET)
 	public String getWantDelete(@RequestParam("board_want_bno") int board_want_bno) throws Exception {
 		service.want_delete(board_want_bno);
@@ -115,5 +116,31 @@ public class WantBoardController {
 		model.addAttribute("list", want_list);
 		model.addAttribute("page", page);
 		model.addAttribute("select", num);
+	}
+	
+	//게시물 추천 관련 메소드 get
+	@ResponseBody
+	@RequestMapping(value = "/want_updateLike", method = RequestMethod.GET)
+	public void getWantUpdateLike() throws Exception {
+
+	}
+	
+	// 게시물 추천 관련 메소드 post
+	@ResponseBody
+	@RequestMapping(value = "/want_updateLike", method = RequestMethod.POST)
+	public int postWantUpdateLike(int board_want_bno, int user_num) throws Exception {
+
+		int want_likeCheck = service.want_likeCheck(board_want_bno, user_num);
+		if (want_likeCheck == 0) {
+			// 좋아요 처음누름
+			service.want_insertLike(board_want_bno, user_num); // like테이블 삽입
+			service.want_updateLike(board_want_bno); // 게시판테이블 +1
+			service.want_updateLikeCheck(board_want_bno, user_num);// like테이블 구분자 1
+		} else if (want_likeCheck == 1) {
+			service.want_updateLikeCheckCancel(board_want_bno, user_num); // like테이블 구분자0
+			service.want_updateLikeCancel(board_want_bno); // 게시판테이블 - 1
+			service.want_deleteLike(board_want_bno, user_num); // like테이블 삭제
+		}
+		return want_likeCheck;
 	}
 }

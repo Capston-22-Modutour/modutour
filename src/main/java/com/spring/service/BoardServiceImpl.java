@@ -1,6 +1,8 @@
 package com.spring.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.dao.BoardDAO;
 import com.spring.dto.BoardDTO;
+import com.spring.dto.LikeDTO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -68,7 +71,43 @@ public class BoardServiceImpl implements BoardService {
 	public int searchCount(String searchType, String keyword) throws Exception {
 		return dao.searchCount(searchType, keyword);
 	}
+	
+	//게시글 추천관련 메소드 구현
+	@Override
+	public void updateLike(int board_bno) throws Exception {
+		dao.updateLike(board_bno);
+	}
 
+	@Override
+	public void updateLikeCancel(int board_bno) throws Exception {
+		dao.updateLikeCancel(board_bno);
+	}
+
+	@Override
+	public void insertLike(int board_bno, int user_num) throws Exception {
+		dao.insertLike(board_bno, user_num);
+	}
+
+	@Override
+	public void deleteLike(int board_bno, int user_num) throws Exception {
+		dao.deleteLike(board_bno, user_num);
+	}
+
+	@Override
+	public int likeCheck(int board_bno, int user_num) throws Exception {
+		return dao.likeCheck(board_bno, user_num);
+	}
+
+	@Override
+	public void updateLikeCheck(int board_bno, int user_num) throws Exception {
+		dao.updateLikeCheck(board_bno, user_num);
+	}
+
+	@Override
+	public void updateLikeCheckCancel(int board_bno, int user_num) throws Exception {
+		dao.updateLikeCheckCancel(board_bno, user_num);
+	}
+	
 	// -------------------------------------
 	// 게시물 목록
 	@Override
@@ -116,5 +155,41 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int want_searchCount(String searchType, String keyword) throws Exception {
 		return dao.want_searchCount(searchType, keyword);
+	}
+
+	//패키지 설계 게시글 추천관련 메소드 구현
+	@Override
+	public void want_updateLike(int board_want_bno) throws Exception {
+		dao.want_updateLike(board_want_bno);
+	}
+
+	@Override
+	public void want_updateLikeCancel(int board_want_bno) throws Exception {
+		dao.want_updateLikeCancel(board_want_bno);
+	}
+
+	@Override
+	public void want_insertLike(int board_want_bno, int user_num) throws Exception {
+		dao.want_insertLike(board_want_bno, user_num);
+	}
+
+	@Override
+	public void want_deleteLike(int board_want_bno, int user_num) throws Exception {
+		dao.want_deleteLike(board_want_bno, user_num);
+	}
+
+	@Override
+	public int want_likeCheck(int board_want_bno, int user_num) throws Exception {
+		return dao.want_likeCheck(board_want_bno, user_num);
+	}
+
+	@Override
+	public void want_updateLikeCheck(int board_want_bno, int user_num) throws Exception {
+		dao.want_updateLikeCheck(board_want_bno, user_num);
+	}
+
+	@Override
+	public void want_updateLikeCheckCancel(int board_want_bno, int user_num) throws Exception {
+		dao.want_updateLikeCheckCancel(board_want_bno, user_num);
 	}
 }

@@ -2,6 +2,7 @@ package com.spring.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -9,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.spring.dto.BoardDTO;
+import com.spring.dto.LikeDTO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -16,7 +18,8 @@ public class BoardDAOImpl implements BoardDAO {
 	@Inject
 	private SqlSession sql;
 
-	private static String namespace = "com.spring.mappers.board";
+	private static String namespace = "com.spring.mappers.boardMapper";
+	private static String like_namespace = "com.spring.mappers.likeMapper";
 
 	// 자유 게시물 목록
 	@Override
@@ -83,7 +86,7 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int searchCount(String searchType, String keyword) throws Exception {
 
-		HashMap data = new HashMap();
+		HashMap<String, Object> data = new HashMap();
 
 		data.put("searchType", searchType);
 		data.put("keyword", keyword);
@@ -91,6 +94,61 @@ public class BoardDAOImpl implements BoardDAO {
 		return sql.selectOne(namespace + ".searchCount", data);
 	}
 
+	// 게시글 추천관련 메소드 구현
+	public void updateLike(int board_bno) throws Exception {
+		sql.update(like_namespace + ".updateLike", board_bno);
+	}
+
+	@Override
+	public void updateLikeCancel(int board_bno) throws Exception {
+		sql.update(like_namespace + ".updateLikeCancel", board_bno);
+	}
+
+	@Override
+	public void insertLike(int board_bno, int user_num) throws Exception {
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		
+		data.put("board_bno", board_bno);
+		data.put("user_num", user_num);
+		
+		sql.insert(like_namespace + ".insertLike", data);
+	}
+
+	@Override
+	public void deleteLike(int board_bno, int user_num) throws Exception {
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		
+		data.put("board_bno", board_bno);
+		data.put("user_num", user_num);
+		sql.delete(like_namespace + ".deleteLike", data);
+	}
+
+	@Override
+	public int likeCheck(int board_bno, int user_num) throws Exception {
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("user_num", user_num);
+		data.put("board_bno", board_bno);
+		
+		return sql.selectOne(like_namespace + ".likeCheck", data);
+	}
+
+	@Override
+	public void updateLikeCheck(int board_bno, int user_num) throws Exception {
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("user_num", user_num);
+		data.put("board_bno", board_bno);
+		sql.update(like_namespace + ".updateLikeCheck", data);
+	}
+
+	@Override
+	public void updateLikeCheckCancel(int board_bno, int user_num) throws Exception {
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("user_num", user_num);
+		data.put("board_bno", board_bno);
+		sql.update(like_namespace + ".updateLikeCheckCancel", data);
+	}
+		
+	
 	// ------------------------------------
 	// 패키지 설계 게시물 목록
 	@Override
@@ -153,5 +211,59 @@ public class BoardDAOImpl implements BoardDAO {
 		data.put("keyword", keyword);
 
 		return sql.selectOne(namespace + ".want_searchCount", data);
+	}
+
+	// 게시글 추천관련 메소드 구현
+	public void want_updateLike(int board_want_bno) throws Exception {
+		sql.update(like_namespace + ".want_updateLike", board_want_bno);
+	}
+
+	@Override
+	public void want_updateLikeCancel(int board_want_bno) throws Exception {
+		sql.update(like_namespace + ".want_updateLikeCancel", board_want_bno);
+	}
+
+	@Override
+	public void want_insertLike(int board_want_bno, int user_num) throws Exception {
+		HashMap<String, Object> data = new HashMap<String, Object>();
+
+		data.put("board_want_bno", board_want_bno);
+		data.put("user_num", user_num);
+
+		sql.insert(like_namespace + ".want_insertLike", data);
+	}
+
+	@Override
+	public void want_deleteLike(int board_want_bno, int user_num) throws Exception {
+		HashMap<String, Object> data = new HashMap<String, Object>();
+
+		data.put("board_want_bno", board_want_bno);
+		data.put("user_num", user_num);
+		sql.delete(like_namespace + ".want_deleteLike", data);
+	}
+
+	@Override
+	public int want_likeCheck(int board_want_bno, int user_num) throws Exception {
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("user_num", user_num);
+		data.put("board_want_bno", board_want_bno);
+
+		return sql.selectOne(like_namespace + ".want_likeCheck", data);
+	}
+
+	@Override
+	public void want_updateLikeCheck(int board_want_bno, int user_num) throws Exception {
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("user_num", user_num);
+		data.put("board_want_bno", board_want_bno);
+		sql.update(like_namespace + ".want_updateLikeCheck", data);
+	}
+
+	@Override
+	public void want_updateLikeCheckCancel(int board_want_bno, int user_num) throws Exception {
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("user_num", user_num);
+		data.put("board_want_bno", board_want_bno);
+		sql.update(like_namespace + ".want_updateLikeCheckCancel", data);
 	}
 }

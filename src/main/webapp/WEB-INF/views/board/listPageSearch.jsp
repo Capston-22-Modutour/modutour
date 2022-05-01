@@ -30,75 +30,96 @@
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
 	<br/>
-	<div class="container">
-		<button type="button" class="btn btn-primary font-weight-semi-bold px-4" onclick="location.href='/board/write'">글 작성</button>
-	</div>
-	
-	<table>
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>작성일</th>
-				<th>작성자</th>
-				<th>조회수</th>
-			</tr>
-		</thead>
-		
-		<tbody>
-			<c:forEach items="${list}" var="list">
-				<tr>
-					<td>${list.board_bno}</td>
-					<td>
-						<a href="/board/view?board_bno=${list.board_bno}">${list.board_title}</a>
-					</td>
-					<td>
-						<fmt:formatDate value="${list.board_regDate}" pattern="yyyy-MM-dd" />
-					</td>
-					<td>${list.board_writer}</td>
-					<td>${list.board_viewCnt}</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-	
-	<div>
-		<c:if test="${page.prev}">
-			<span>[ <a href="/board/listPageSearch?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a>]</span>
-		</c:if>
-		
-		<c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
-			<span>
-				<c:if test="${select != num}">
-					<a href="/board/listPageSearch?num=${num}${page.searchTypeKeyword}">${num}</a>
-				</c:if>
-				
-				<c:if test="${select == num}">
-					<b>${num}</b>
-				</c:if>
-			</span>
-		</c:forEach>
-		
-		<c:if test="${page.next}">
-			<span>[ <a href="/board/listPageSearch?num=${page.endPageNum + 1}${page.searchTypeKeyword}">이전</a>]</span>
-		</c:if>
-		
-		<div>
-			<select name="searchType">
-				<!--  jstl에서는 .equals(); 대신 eq 로 짧게 사용 -->
-				<option value="title" <c:if test="${page.searchType eq 'title'}">selected</c:if>>제목</option>
-			    <option value="content" <c:if test="${page.searchType eq 'content'}">selected</c:if>>내용</option>
-			    <option value="title_content" <c:if test="${page.searchType eq 'title_content'}">selected</c:if>>제목+내용</option>
-			    <option value="writer" <c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
-			</select>
-			
-			<input type="text" name="keyword" value="${page.keyword}"/>
-			<button type="button" class="btn btn-primary font-weight-semi-bold px-4" id="searchBtn">검색</button>
-			
+
+	<!-- 자유게시판 Start -->
+	<div class="container-fluid mt-5 pt-3">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="section-title mb-0">
+						<h4 class="m-0 text-uppercase font-weight-bold">자유게시판</h4>
+							<button type="button" class="btn btn-primary font-weight-semi-bold px-4" onclick="location.href='/board/write'">글 작성</button>
+					</div>
+					<div class="bg-white border border-top-0 p-4 mb-3">
+						<div class="mb-4">
+							<h6 class="text-uppercase font-weight-bold">
+								<table>
+									<thead>
+										<tr>
+											<th>번호</th>
+											<th>제목</th>
+											<th>작성일</th>
+											<th>작성자</th>
+											<th>추천수</th>
+											<th>조회수</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<c:forEach items="${list}" var="list">
+											<tr>
+												<td>${list.board_bno}</td>
+												<td><a href="/board/view?board_bno=${list.board_bno}">${list.board_title}</a></td>
+												<td><fmt:formatDate value="${list.board_regDate}" pattern="yyyy-MM-dd"/></td>
+												<td>${list.board_writer}</td>
+												<td>${list.board_like}</td>
+												<td>${list.board_viewCnt}</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</h6>
+							<p class="mb-4">
+								<c:if test="${page.prev}">
+									<span>[ <a
+										href="/board/listPageSearch?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a>]
+									</span>
+								</c:if>
+
+								<c:forEach begin="${page.startPageNum}" end="${page.endPageNum}"
+									var="num">
+									<span> <c:if test="${select != num}">
+											<a
+												href="/board/listPageSearch?num=${num}${page.searchTypeKeyword}">${num}</a>
+										</c:if> <c:if test="${select == num}">
+											<b>${num}</b>
+										</c:if>
+									</span>
+								</c:forEach>
+
+								<c:if test="${page.next}">
+									<span>[ <a
+										href="/board/listPageSearch?num=${page.endPageNum + 1}${page.searchTypeKeyword}">이전</a>]
+									</span>
+								</c:if>
+							</p>
+							<div class="mb-3">
+								<div class="d-flex align-items-center mb-2">
+									<select name="searchType">
+										<!--  jstl에서는 .equals(); 대신 eq 로 짧게 사용 -->
+										<option value="title"
+											<c:if test="${page.searchType eq 'title'}">selected</c:if>>제목</option>
+										<option value="content"
+											<c:if test="${page.searchType eq 'content'}">selected</c:if>>내용</option>
+										<option value="title_content"
+											<c:if test="${page.searchType eq 'title_content'}">selected</c:if>>제목+내용</option>
+										<option value="writer"
+											<c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
+									</select> <input type="text" name="keyword" value="${page.keyword}" />
+									<button type="button"
+										class="btn btn-primary font-weight-semi-bold px-4"
+										id="searchBtn">검색</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		
 	</div>
-	
+	</div>
+	<!-- 자유게시판 End -->
+
 	<%------------ footer section  ------------%>
 	<jsp:include page="../fix/footer.jsp" />
 

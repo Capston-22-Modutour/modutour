@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>회원가입</title>
+	<title>일반 회원 가입</title>
 	
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 

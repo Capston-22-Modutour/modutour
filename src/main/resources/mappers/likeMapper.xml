@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mappers.likeMapper">
+	<!-- 자유 게시글 좋아요 start -->
+	<!-- 게시글 추천수 -->
+	<update id="updateLike" parameterType="int">
+		update member_board 
+		set	board_like = board_like + 1
+		where board_bno = #{board_bno}
+	</update>
+
+	<!-- 게시글 추천수취소 -->
+	<update id="updateLikeCancel" parameterType="int">
+		update member_board 
+		set	board_like = board_like - 1
+		where board_bno = #{board_bno}
+	</update>
+
+	<!-- 게시글 추천 시 Like 테이블에 insert -->
+	<insert id="insertLike" parameterType="com.spring.dto.LikeDTO">
+		insert into member_board_like(like_no , board_bno, user_num)
+		values((SELECT NVL(MAX(like_no), 0) + 1 FROM member_board_like m) ,#{board_bno} ,#{user_num})
+	</insert>
+
+	<!-- 게시글 추천취소 시 delete -->
+	<delete id="deleteLike">
+		delete from member_board_like where board_bno = #{board_bno} and user_num = #{user_num}
+	</delete>
+
+	<!-- 게시글 추천 시 Check를 1로 만들어서 중복방지 -->
+	<update id="updateLikeCheck">
+		update member_board_like set like_check = 1
+		where board_bno = #{board_bno} and user_num = #{user_num}
+	</update>
+
+	<!-- 게시글 추천취소 시 다시 0 -->
+	<update id="updateLikeCheckCancel">
+		update member_board_like set like_check = 0
+		where board_bno = #{board_bno} and user_num = #{user_num}
+	</update>
+
+	<!-- 게시글 추천 중복방지 select문 -->
+	<select id="likeCheck" resultType="int">
+		select count(*) from member_board_like where board_bno = #{board_bno} and user_num = #{user_num}
+	</select>
+	<!-- 자유 게시글 좋아요 end -->
+	
+	
+	<!-- 패키지 설계 게시글 좋아요 start -->
+	<!-- 게시글 추천수 -->
+	<update id="want_updateLike" parameterType="int">
+		update member_board_want
+		set	board_want_like = board_want_like + 1
+		where board_want_bno = #{board_want_bno}
+	</update>
+
+	<!-- 게시글 추천수취소 -->
+	<update id="want_updateLikeCancel" parameterType="int">
+		update member_board_want
+		set	board_want_like = board_want_like - 1
+		where board_want_bno = #{board_want_bno}
+	</update>
+
+	<!-- 게시글 추천 시 Like 테이블에 insert -->
+	<insert id="want_insertLike" parameterType="com.spring.dto.LikeDTO">
+		insert into member_board_want_like(want_like_no , board_want_bno, user_num)
+		values((SELECT NVL(MAX(want_like_no), 0) + 1 FROM member_board_want_like m) ,#{board_want_bno} ,#{user_num})
+	</insert>
+
+	<!-- 게시글 추천취소 시 delete -->
+	<delete id="want_deleteLike">
+		delete from member_board_want_like where board_want_bno = #{board_want_bno} and user_num = #{user_num}
+	</delete>
+
+	<!-- 게시글 추천 시 Check를 1로 만들어서 중복방지 -->
+	<update id="want_updateLikeCheck">
+		update member_board_want_like set want_like_check = 1
+		where board_want_bno = #{board_want_bno} and user_num = #{user_num}
+	</update>
+
+	<!-- 게시글 추천취소 시 다시 0 -->
+	<update id="want_updateLikeCheckCancel">
+		update member_board_want_like set want_like_check = 0
+		where board_want_bno = #{board_want_bno} and user_num = #{user_num}
+	</update>
+
+	<!-- 게시글 추천 중복방지 select문 -->
+	<select id="want_likeCheck" resultType="int">
+		select count(*) from member_board_want_like where board_want_bno = #{board_want_bno} and user_num = #{user_num}
+	</select>
+	<!-- 패키지 설계 게시글 좋아요 end -->
+</mapper>

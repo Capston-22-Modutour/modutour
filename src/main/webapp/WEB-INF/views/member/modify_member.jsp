@@ -29,40 +29,134 @@
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
-
-	<form role="form" method="post" autocomplete="off">
-		<label>ID</label>
-		<label name="user_id">${member.user_id}</label> <br>
 	
-		<label>이름</label>
-		<label name="user_name">${member.user_name}</label> <br>
-		
-		<label>생일</label>
-		<label name="user_birth">${member.user_birth}</label> <br>
-		
-		<label>성별</label>
-		<label name="user_gender">${member.user_gender}</label> <br>
-		
-		<label>전화번호</label>
-		<input type="text" name="user_phoneNum" value="${member.user_phoneNum}"> <br>
-		
-		<label>주소</label>
-		<input type="text" name="user_address" value="${member.user_address}"> <br>
-			
-		<label>이메일</label>
-		<input type="text" name="user_email" value="${member.user_email}"> <br>
-		
-		<!-- jstl:format 태그를 이용한 날짜 형식 변환 -->
-		<label>가입일자</label>
-		<fmt:formatDate value="${member.user_joinDate}" pattern="yyyy-MM-dd" /> <br>
-		
-		
-		<label>새로운 패스워드</label>
-		<input type="password" name="user_pw"> </br>
-		
-		<button type="submit">수정하기</button>
-		<input type="button" value="이전" onclick="history.go(-1)">
-	</form>
+	<!-- 일반 유저 정보 수정 start -->
+	<c:if test="${member != null}">
+		<div class="container-fluid mt-5 pt-3">
+			<div class="container">
+				<div class="row">
+					<!-- 좌측 사이드바 start -->
+					<div class="col-lg-2 sidebar pe-4 pb-3">
+						<aside class="single_sidebar_widget post_category_widget">
+							<nav class="navbar bg-light navbar-light">
+								<div class="navbar-nav w-100">
+									<div class="nav-item dropdown">
+										<a href="#" class="nav-link dropdown-toggle"
+											data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>회원정보</a>
+										<div class="dropdown-menu bg-transparent border-0">
+											<a href="/member/modify_member" class="dropdown-item">정보수정</a> <a
+												href="/member/delete_member" class="dropdown-item">회원탈퇴</a>
+										</div>
+									</div>
+									<div class="nav-item dropdown">
+									
+										<a href="#" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 구매내역</a>
+									</div>
+									<div class="nav-item dropdown">
+										<a href="#" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 내 게시글</a>
+									</div>
+								</div>
+							</nav>
+						</aside>
+					</div>
+					<!-- 좌측 사이드바 end -->
+				
+					<div class="col-lg-10">
+						<div class="section-title mb-0">
+							<h4 class="m-0 text-uppercase font-weight-bold">회원 정보</h4>
+						</div>
+						<form role="form" method="post" autocomplete="off">
+							<div class="bg-white border border-top-0 p-4 mb-3">
+								<div class="mb-4">
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-id-card-alt text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">ID</h6>
+										</div>
+										<p name="user_id" class="mb-4">${member.user_id}</p>
+										<input name="user_id" type="text" value="${member.user_id}" hidden="hidden">
+									</div>
+
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-signature text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">이름</h6>
+										</div>
+										<p name="user_name" class="mb-4">${member.user_name}</p>
+									</div>
+
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-genderless text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">성별</h6>
+										</div>
+										<p name="user_gender" class="mb-4">${member.user_gender}</p>
+									</div>
+
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-birthday-cake text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">생일</h6>
+										</div>
+										<p name="user_birth" class="mb-4">${member.user_birth}</p>
+									</div>
+
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-phone-alt text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">전화번호</h6>
+										</div>
+										<input name="user_phoneNum" type="text" class="m-0" value="${member.user_phoneNum}">
+									</div>
+
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-map-marker-alt text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">주소</h6>
+										</div>
+										<input name="user_address" type="text" class="m-0" value="${member.user_address}">
+									</div>
+
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-envelope-open text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">이메일</h6>
+										</div>
+										<input name="user_email" type="text" class="m-0" value="${member.user_email}">
+									</div>
+
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-calendar-check text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">가입일자</h6>
+										</div>
+										<p name="user_joinDate" class="m-0"><fmt:formatDate value="${member.user_joinDate}" pattern="yyyy-MM-dd" />
+										</p>
+									</div>
+									
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-calendar-check text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">비밀번호 확인</h6>
+										</div>
+										<input type="password" name="user_pw" class="m-0">
+										</p>
+									</div>
+								</div>
+
+								<div class="text-center">
+									<button type="submit" class="btn btn-primary font-weight-semi-bold px-4">수정하기</button>
+									&nbsp;
+									<button type="button" onclick="history.go(-1)" class="btn btn-primary font-weight-semi-bold px-4">취소하기</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:if>
+	<!-- 일반 유저 정보 수정 End -->
 	
 	<%------------ footer section  ------------%>
 	<jsp:include page="../fix/footer.jsp" />
@@ -81,3 +175,91 @@
     <script src="<c:url value='/resources/js/main.js'/>"></script>
 </body>
 </html>
+<style>
+.sidebar {
+    width: 400px;
+    height: 500px;
+    overflow-y: auto;
+    background: var(--light);
+    transition: 0.5s;
+    z-index: 999;
+}
+
+@media (min-width: 992px) {
+    .sidebar {
+        margin-left: 0;
+    }
+
+    .sidebar.open {
+        margin-left: -250px;
+    }
+
+    .content {
+        width: calc(100% - 250px);
+    }
+}
+
+@media (max-width: 991.98px) {
+    .sidebar {
+        margin-left: -250px;
+    }
+
+    .sidebar.open {
+        margin-left: 0;
+    }
+}
+
+.sidebar .navbar .navbar-nav .nav-link {
+    padding: 7px 10px;
+    color: var(--dark);
+    font-weight: 500;
+    border-left: 3px solid var(--light);
+    border-radius: 0 30px 30px 0;
+    outline: none;
+}
+
+.sidebar .navbar .navbar-nav .nav-link:hover,
+.sidebar .navbar .navbar-nav .nav-link.active {
+    color: var(--primary);
+    background: #FFFFFF;
+    border-color: var(--primary);
+}
+
+.sidebar .navbar .navbar-nav .nav-link i {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    border-radius: 40px;
+}
+
+.sidebar .navbar .navbar-nav .nav-link:hover i,
+.sidebar .navbar .navbar-nav .nav-link.active i {
+    background: var(--light);
+}
+
+.sidebar .navbar .dropdown-toggle::after {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    transition: .5s;
+}
+
+.sidebar .navbar .dropdown-toggle[aria-expanded=true]::after {
+    transform: rotate(-180deg);
+}
+
+.sidebar .navbar .dropdown-item {
+    padding-left: 25px;
+    border-radius: 0 30px 30px 0;
+} 
+</style>
+
+<!-- 드롭박스 기능 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

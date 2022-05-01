@@ -11,8 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.dto.BoardDTO;
+import com.spring.dto.LikeDTO;
 import com.spring.dto.Page;
 import com.spring.dto.ReplyDTO;
 import com.spring.service.BoardService;
@@ -53,7 +55,7 @@ public class BoardController {
 	public String postWrite(BoardDTO dto) throws Exception {
 		service.write(dto);
 
-		return "redirect:/board/list";
+		return "redirect:/board/listPageSearch?num=1";
 	}
 
 	// 자유 게시글 조회
@@ -67,6 +69,7 @@ public class BoardController {
 		List<ReplyDTO> reply = null;
 		reply = replyService.list(board_bno);
 		model.addAttribute("reply", reply);
+		
 	}
 
 	// 자유 게시글 수정
@@ -90,7 +93,7 @@ public class BoardController {
 	public String getDelete(@RequestParam("board_bno") int board_bno) throws Exception {
 		service.delete(board_bno);
 
-		return "redirect:/board/list";
+		return "redirect:/board/listPageSearch?num=1";
 	}
 
 	// 자유 게시글 목록 + 페이징 추가
@@ -132,97 +135,31 @@ public class BoardController {
 		model.addAttribute("page", page);
 		model.addAttribute("select", num);
 	}
-
-	// -------------------------------------
-	/*
-	// 패키지 설계 게시글 목록
-	@RequestMapping(value = "/want_list", method = RequestMethod.GET)
-	public void getWantList(Model model) throws Exception {
-		// Model = Controller와 View 연결해주는 역할
-		List<BoardDTO> want_list = null;
-		want_list = service.want_list();
-
-		model.addAttribute("want_list", want_list);
-	}
-
-	// 패키지 설계 게시글 작성 get
-	@RequestMapping(value = "/want_write", method = RequestMethod.GET)
-	public void getWantWrite(HttpSession session, Model model) throws Exception {
-		Object loginInfo = session.getAttribute("member");
-
-		if (loginInfo == null) {
-			model.addAttribute("msg", "login_error");
-		}
-	}
-
-	// 패키지 설계 게시글 작성 post
-	@RequestMapping(value = "/want_write", method = RequestMethod.POST)
-	public String postWantWrite(BoardDTO dto) throws Exception {
-		service.want_write(dto);
-
-		return "redirect:/want_board/want_list";
-	}
-
-	// 패키지 설계 게시글 조회
-	@RequestMapping(value = "/want_view", method = RequestMethod.GET)
-	public void getWantView(@RequestParam("board_want_bno") int board_want_bno, Model model) throws Exception {
-		BoardDTO dto = service.want_view(board_want_bno);
-
-		model.addAttribute("want_view", dto);
-
-		// 패키지 설계 댓글 조회
-		List<ReplyDTO> want_reply = null;
-		//want_reply = replyService.want_list(board_want_bno);
-		model.addAttribute("want_reply", want_reply);
-	}
-
-	// 패키지 설계 게시글 수정
-	@RequestMapping(value = "/want_modify", method = RequestMethod.GET)
-	public void getWantModify(@RequestParam("board_want_bno") int board_want_bno, Model model) throws Exception {
-		BoardDTO dto = service.want_view(board_want_bno);
-
-		model.addAttribute("want_view", dto);
-	}
-
-	// 패키지 설계 게시글 수정
-	@RequestMapping(value = "/want_modify", method = RequestMethod.POST)
-	public String postWantModify(BoardDTO dto) throws Exception {
-		service.want_modify(dto);
-
-		return "redirect:/want_board/want_view?board_want_bno=" + dto.getBoard_want_bno();
-	}
-
-	// 자유 게시글 삭제
-	@RequestMapping(value = "/want_delete", method = RequestMethod.GET)
-	public String getWantDelete(@RequestParam("board_want_bno") int board_want_bno) throws Exception {
-		service.want_delete(board_want_bno);
-
-		return "redirect:/want_board/want_list";
-	}
-
 	
-	// 패키지 설계 게시글 목록 + 페이징 추가 + 검색
-	@RequestMapping(value = "/want_listPageSearch", method = RequestMethod.GET)
-	public void getWantListPageSearch(Model model, @RequestParam("num") int num,
-			@RequestParam(value = "searchType", required = false, defaultValue = "want_title") String searchType,
-			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword)
-			throws Exception {
-
-		Page want_page = new Page();
-
-		want_page.setNum(num);
-		want_page.setCount(service.want_searchCount(searchType, keyword));
-
-		// 검색 타입과 검색어
-		want_page.setSearchType(searchType);
-		want_page.setKeyword(keyword);
-
-		List<BoardDTO> want_list = null;
-		want_list = service.want_listPageSearch(want_page.getDisplayPost(), want_page.getPostNum(), searchType, keyword);
-
-		model.addAttribute("list", want_list);
-		model.addAttribute("page", want_page);
-		model.addAttribute("select", num);
+	//게시물 추천 관련 메소드 get
+	@ResponseBody
+	@RequestMapping(value = "/updateLike", method = RequestMethod.GET)
+	public void gettUpdateLike() throws Exception {
+		
 	}
-	*/
+	
+	//게시물 추천 관련 메소드 post
+	@ResponseBody
+	@RequestMapping(value = "/updateLike" , method = RequestMethod.POST)
+	public int postUpdateLike(int board_bno, int user_num)throws Exception{
+
+		int likeCheck = service.likeCheck(board_bno, user_num);
+		if (likeCheck == 0) {
+			// 좋아요 처음누름
+			service.insertLike(board_bno, user_num); // like테이블 삽입
+			service.updateLike(board_bno); // 게시판테이블 +1
+			service.updateLikeCheck(board_bno, user_num);// like테이블 구분자 1
+		} else if (likeCheck == 1) {
+			service.updateLikeCheckCancel(board_bno, user_num); // like테이블 구분자0
+			service.updateLikeCancel(board_bno); // 게시판테이블 - 1
+			service.deleteLike(board_bno, user_num); // like테이블 삭제
+		}
+		return likeCheck;
+	}
+	
 }

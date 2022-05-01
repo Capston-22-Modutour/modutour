@@ -2,13 +2,13 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.spring.mappers.board">
+<mapper namespace="com.spring.mappers.boardMapper">
 	
 	<!-- 자유 게시판 시작 -->
 	<!-- 게시물 목록 -->
+	<!-- 쿼리를 실행한 뒤 결과가 있을 경우 resultType 사용 -->
 	<select id="list" resultType="com.spring.dto.BoardDTO">
-		select board_bno, board_title, board_content, 
-			board_writer, board_regDate, board_viewCnt
+		select *
 		from member_board
 	</select>
 	
@@ -21,7 +21,7 @@
 	
 	<!-- 게시물 조회 -->
 	<select id="view" parameterType="int" resultType="com.spring.dto.BoardDTO">
-		select board_bno, board_title, board_content, board_writer, board_regDate, board_viewCnt
+		select *
 		from member_board
 		where board_bno = #{board_bno}		
 	</select>
@@ -57,7 +57,7 @@
 	
 	<!-- 게시글 목록 + 페이징 + 검색 -->
 	<select id="listPageSearch" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
-		select board_bno, board_title, board_writer, board_regDate, board_viewCnt
+		select *
 		from member_board
 		
 		<if test='searchType.equals("title")'>
@@ -103,14 +103,14 @@
 		</if>
 	 
 	</select>
+	
+	
 	<!-- 자유 게시판 끝 -->
 	
 	<!-- 패키지 설계 게시판 시작 -->
 	<!-- 게시물 목록 -->
 	<select id="want_list" resultType="com.spring.dto.BoardDTO">
-		select board_want_bno, board_want_title, board_want_destination, board_want_content, 
-			board_want_writer, board_want_people, board_want_start, board_want_end, 
-			board_want_viewCnt, board_want_like, board_want_regDate
+		select *
 		from member_board_want
 	</select>
 	

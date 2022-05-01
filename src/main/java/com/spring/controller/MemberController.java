@@ -153,7 +153,7 @@ public class MemberController {
 	// 일반 회원정보 수정 get
 	@RequestMapping(value = "/modify_member", method = RequestMethod.GET)
 	public void getModify() throws Exception {
-
+		
 	}
 
 	// 일반 회원정보 수정 post
@@ -176,19 +176,19 @@ public class MemberController {
 	@RequestMapping(value = "/modify_company", method = RequestMethod.POST)
 	public String postModify_company(HttpSession session, MemberDTO dto) throws Exception {
 
-		service.modify(dto);
+		service.modify_com(dto);
 		session.invalidate();
 
 		return "redirect:/";
 	}
 
-	// 화원 탈퇴 get
+	// 일반 화원 탈퇴 get
 	@RequestMapping(value = "/delete_member", method = RequestMethod.GET)
 	public void getDelete() throws Exception {
 
 	}
 
-	// 화원 탈퇴 post
+	// 일반 화원 탈퇴 post
 	@RequestMapping(value = "/delete_member", method = RequestMethod.POST)
 	public String postDelete(HttpSession session, MemberDTO dto, RedirectAttributes rttr) throws Exception {
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
@@ -202,6 +202,32 @@ public class MemberController {
 		}
 
 		service.delete(dto);
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+	
+	// 기업 화원 탈퇴 get
+	@RequestMapping(value = "/delete_company", method = RequestMethod.GET)
+	public void getDeleteCompany() throws Exception {
+
+	}
+
+	// 기업 화원 탈퇴 post
+	@RequestMapping(value = "/delete_company", method = RequestMethod.POST)
+	public String postDeleteCompany(HttpSession session, MemberDTO dto, RedirectAttributes rttr) throws Exception {
+		MemberDTO member = (MemberDTO) session.getAttribute("company");
+
+		String oldPass = member.getCom_pw();
+		String newPass = dto.getCom_pw();
+
+		if (!(oldPass.equals(newPass))) {
+			rttr.addFlashAttribute("msg", false);
+			return "redirect:/member/delete_company";
+		}
+
+		service.delete_com(dto);
+		session.invalidate();
 
 		return "redirect:/";
 	}

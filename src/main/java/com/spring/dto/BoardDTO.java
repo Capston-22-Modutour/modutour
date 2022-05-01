@@ -39,7 +39,7 @@ public class BoardDTO {
 	public Date getBoard_regDate() {
 		return board_regDate;
 	}
-	public void setBoard_regdate(Date board_regdate) {
+	public void setBoard_regDate(Date board_regDate) {
 		this.board_regDate = board_regDate;
 	}
 	public int getBoard_viewCnt() {
@@ -134,9 +134,4 @@ public class BoardDTO {
 	public void setBoard_want_regDate(Date board_want_regDate) {
 		this.board_want_regDate = board_want_regDate;
 	}
-	public void setBoard_regDate(Date board_regDate) {
-		this.board_regDate = board_regDate;
-	}
-	
-	
 }

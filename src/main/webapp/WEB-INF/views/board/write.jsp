@@ -29,24 +29,37 @@
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
 
-	<div id="nav">
-		<%@ include file="../include/nav.jsp" %>
-	</div>
-	<c:if test="${msg != 'login_error'}">
-		<form method="post">
-			<label>제목</label>
-			<input type="text" name="board_title"> <br/>
-			
-			<label>작성자</label>
-			<input type="text" name="board_writer" value="${member.user_name}" readonly="readonly"> <br/>
-			
-			<label>내용</label>
-			<textarea cols="50" rows="5" name="board_content"></textarea> <br/>
-			
-			<button type="submit">작성</button>
+	<c:if test="${member != null}">
+		<form class="form" role="form" method="post" autocomplete="off">
+			<div class="container-fluid mt-5 pt-3">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8">
+							<div class="section-title mb-0">
+								<h4 class="m-0 text-uppercase font-weight-bold">
+									<input type="text" size="50" name="board_title" placeholder="제목">
+								</h4>
+							</div>
+							<div class="bg-white border border-top-0 p-4 mb-3">
+								<div class="mb-4">
+									<input type="text" name="board_writer" value="${member.user_name}" hidden="hidden">
+									<textarea cols="73" rows="10" name="board_content" placeholder="내용을 입력해 주세요"></textarea>
+									<br>
+									
+									<div class="text-center">
+										<button type="submit" class="btn btn-warning">작성</button> &nbsp;
+										<input type="button" class="btn btn-warning" value="취소" onclick="history.go(-1)">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</form>
 	</c:if>
 	
+
 	<%-- <c:if test="${msg == 'login_error'}">
 		<p>로그인이 필요한 서비스 입니다</p>
 		<p><a href="/">홈으로</a></p>
@@ -73,9 +86,6 @@
 			<p><a href="/">홈으로</a></p>
 		</c:when>
 	</c:choose>
-
-
-	<input type="button" value="이전" onclick="history.go(-1)">
 	
 	<%------------ footer section  ------------%>
 	<jsp:include page="../fix/footer.jsp" />

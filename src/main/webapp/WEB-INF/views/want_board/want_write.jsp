@@ -28,11 +28,53 @@
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
-
-	<div id="nav">
-		<%@ include file="../include/nav.jsp" %>
-	</div>
-	<c:if test="${msg != 'login_error'}">
+	
+	<%-- <c:if test="${company != null}">
+		<p>일반 회원만 작성이 가능합니다</p>
+	</c:if> --%>
+	
+	<!-- 회원이 아닐 시 게시글 작성 불가 -->
+	<c:choose>
+		<c:when test="${member == null}">
+			<p>일반 회원만 작성할 수 있습니다</p>
+		</c:when>
+	</c:choose>
+	
+	
+	<c:choose>
+		<c:when test="${company != null}">
+			<p>일반 회원만 작성이 가능합니다</p>
+		</c:when>
+		
+		<c:when test="${member != null}">
+			<form method="post">
+				<label>제목</label>
+				<input type="text" name="board_want_title"> <br/>
+				
+				<label>작성자</label>
+				<input type="text" name="board_want_writer" value="${member.user_name}" readonly="readonly"> <br/>
+				
+				<label>제목</label>
+				<input type="text" name="board_want_destination"> <br/>
+				
+				<label>내용</label>
+				<textarea cols="50" rows="5" name="board_want_content"></textarea> <br/>
+				
+				<label>제목</label>
+				<input type="text" name="board_want_people"> <br/>
+				
+				<label>희망 출발일</label>
+				<input type="date" name="board_want_start"> <br/>
+				
+				<label>희망 도착일</label>
+				<input type="date" name="board_want_end"> <br/>
+				
+				<button type="submit">작성</button>
+			</form>
+		</c:when>
+	</c:choose>
+	
+	<%-- <c:if test="${member != null}">
 		<form method="post">
 			<label>제목</label>
 			<input type="text" name="board_want_title"> <br/>
@@ -57,24 +99,14 @@
 			
 			<button type="submit">작성</button>
 		</form>
-	</c:if>
+	</c:if> --%>
 	
 	<%-- <c:if test="${msg == 'login_error'}">
 		<p>로그인이 필요한 서비스 입니다</p>
 		<p><a href="/">홈으로</a></p>
 	</c:if> --%>
-	<c:if test="${company == null}">
-		<p>일반 회원만 작성이 가능합니다</p>
-	</c:if>
 	
-	<!-- 회원이 아닐 시 게시글 작성 불가 -->
-	<c:choose>
-		<c:when test="${member == null}">
-			<p>로그인이 필요한 서비스 입니다</p>
-			<p><a href="/">홈으로</a></p>
-		</c:when>
-	</c:choose>
-
+	
 
 	<input type="button" value="이전" onclick="history.go(-1)">
 	

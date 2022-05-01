@@ -105,7 +105,25 @@
                             <a href="#" class="dropdown-item">패키지 판매</a>
                         </div>
                     </div>
-                    <a href="/myPage" class="nav-item nav-link">마이페이지</a>
+                    
+                    
+                    <c:choose>
+                        	<c:when test = "${member != null || company != null}">
+                        		<!-- 일반 유저 -->
+                        		<c:if test="${company == null}">
+                        			<a href="/myPage" class="nav-item nav-link">마이페이지</a>
+                        		</c:if>
+                        		
+                        		<!-- 회사 유저 -->
+					            <c:if test="${member == null}">
+                        			<a href="/myPage_com" class="nav-item nav-link">마이페이지</a>
+                        		</c:if>
+					            
+				       		</c:when>
+				       		
+                        </c:choose>
+                    
+                    
                 </div>
                 <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
                     <input type="text" class="form-control border-0" placeholder="Keyword">

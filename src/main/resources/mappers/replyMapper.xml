@@ -2,7 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.spring.mappers.reply">
+<mapper namespace="com.spring.mappers.replyMapper">
+	<!-- 자유 게시판 댓글 start -->
 	<!-- 댓글 조회 -->
 	<select id="replyList" parameterType="int" resultType="com.spring.dto.ReplyDTO">
 	    select
@@ -32,4 +33,38 @@
 	    where reply_rno = #{reply_rno}
 	        and board_bno = ${board_bno}    
 	</delete>
+	<!-- 자유 게시판 댓글 end -->
+	
+	
+	<!-- 패키지 설계 게시판  댓글 start-->
+	<!-- 댓글 조회 -->
+	<select id="want_replyList" parameterType="int" resultType="com.spring.dto.ReplyDTO">
+	    select
+	        board_reply_rno, board_want_bno, board_want_reply_writer, board_want_reply_content, board_want_reply_regDate
+	    from member_board_want_reply
+	        where board_want_bno = #{board_want_bno}        
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="want_replyWrite" parameterType="com.spring.dto.ReplyDTO">
+	    insert into member_board_want_reply(board_want_bno, board_want_reply_writer, board_want_reply_content, board_want_reply_regDate)
+	        value(#{board_want_bno}, #{board_want_reply_writer}, #{board_want_reply_content}, #{board_want_reply_regDate})
+	</insert>
+	    
+	<!-- 댓글 수정 -->
+	<update id="want_replyModify" parameterType="com.spring.dto.ReplyDTO">
+	    update member_board_want_reply set
+	        board_want_reply_writer = #{board_want_reply_writer},
+	        board_want_reply_content = #{board_want_reply_content}
+	    where board_reply_rno = #{board_reply_rno}
+	        and board_want_bno = #{board_want_bno}    
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="want_replyDelete" parameterType="com.spring.dto.ReplyDTO">
+	    delete from member_board_want_reply
+	    where board_reply_rno = #{board_reply_rno}
+	        and board_want_bno = ${board_want_bno}    
+	</delete>
+	<!-- 패키지 설계 게시판 댓글 end -->
 </mapper>

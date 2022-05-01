@@ -30,33 +30,91 @@
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
 
-	<form role="form" method="post" autocomplete="off">
-		<label>ID</label>
-		<label name="user_id">${company.com_id}</label> <br>
-	
-		<label>이름</label>
-		<label name="user_name">${company.com_name}</label> <br>
-		
-		<label>전화번호</label>
-		<input type="text" name="user_phoneNum" value="${company.com_phoneNum}"> <br>
-		
-		<label>주소</label>
-		<input type="text" name="user_address" value="${company.com_address}"> <br>
-			
-		<label>이메일</label>
-		<input type="text" name="user_email" value="${company.com_email}"> <br>
-		
-		<!-- jstl:format 태그를 이용한 날짜 형식 변환 -->
-		<label>가입일자</label>
-		<fmt:formatDate value="${company.com_joinDate}" pattern="yyyy-MM-dd" /> <br>
-		
-		
-		<label>새로운 패스워드</label>
-		<input type="password" name="com_pw"> </br>
-		
-		<button type="submit">수정하기</button>
-		<input type="button" value="이전" onclick="history.go(-1)">
-	</form>
+	<!-- 회사 정보 수정 start -->
+	<c:if test="${company != null}">
+		<div class="container-fluid mt-5 pt-3">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="section-title mb-0">
+							<h4 class="m-0 text-uppercase font-weight-bold">회원 정보</h4>
+						</div>
+						<form role="form" method="post" autocomplete="off">
+							<div class="bg-white border border-top-0 p-4 mb-3">
+								<div class="mb-4">
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-id-card-alt text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">ID</h6>
+										</div>
+										<p name="com_id" class="mb-4">${company.com_id}</p>
+										<input name="com_id" type="text" value="${company.com_id}" hidden="hidden">
+									</div>
+
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-signature text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">이름</h6>
+										</div>
+										<p name="com_name" class="mb-4">${company.com_name}</p>
+									</div>
+
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-phone-alt text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">전화번호</h6>
+										</div>
+										<input name="com_phoneNum" type="text" class="m-0" value="${company.com_phoneNum}">
+									</div>
+
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-map-marker-alt text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">주소</h6>
+										</div>
+										<input name="com_address" type="text" class="m-0" value="${company.com_address}">
+									</div>
+
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-envelope-open text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">이메일</h6>
+										</div>
+										<input name="com_email" type="text" class="m-0" value="${company.com_email}">
+									</div>
+
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-calendar-check text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">가입일자</h6>
+										</div>
+										<p name="com_joinDate" class="m-0"><fmt:formatDate value="${company.com_joinDate}" pattern="yyyy-MM-dd" />
+										</p>
+									</div>
+									
+									<div class="mb-3">
+										<div class="d-flex align-items-center mb-2">
+											<i class="fa fa-calendar-check text-primary mr-2"></i>
+											<h6 class="font-weight-bold mb-0">비밀번호 확인</h6>
+										</div>
+										<input type="password" name="com_pw" class="m-0">
+										</p>
+									</div>
+								</div>
+
+								<div class="text-center">
+									<button type="submit" class="btn btn-primary font-weight-semi-bold px-4">수정하기</button>
+									&nbsp;
+									<button type="button" onclick="history.go(-1)" class="btn btn-primary font-weight-semi-bold px-4">취소하기</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:if>
+	<!-- 회사 정보 수정 End -->
 	
 	<%------------ footer section  ------------%>
 	<jsp:include page="../fix/footer.jsp" />

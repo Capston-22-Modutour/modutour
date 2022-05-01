@@ -1,8 +1,11 @@
 package com.spring.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.spring.dto.BoardDTO;
+import com.spring.dto.LikeDTO;
 
 public interface BoardService {
 
@@ -32,7 +35,22 @@ public interface BoardService {
 
 	// 게시물 총 갯수 + 검색 적용
 	public int searchCount(String searchType, String keyword) throws Exception;
+	
+	// 게시글 추천관련
+	public void updateLike(int board_bno) throws Exception;
 
+	void updateLikeCancel(int board_bno) throws Exception;
+
+	void insertLike(int board_bno, int user_num) throws Exception;
+
+	void deleteLike(int board_bno, int user_num) throws Exception;
+
+	int likeCheck(int board_bno, int user_num) throws Exception;
+
+	void updateLikeCheck(int board_bno, int user_num) throws Exception;
+
+	void updateLikeCheckCancel(int board_bno, int user_num) throws Exception;
+	
 	// ----------------------------------------
 	// 패키지 설계 게시물 목록
 	public List<BoardDTO> want_list() throws Exception;
@@ -57,4 +75,19 @@ public interface BoardService {
 
 	// 패키지 설계 게시물 총 갯수 + 검색 적용
 	public int want_searchCount(String searchType, String keyword) throws Exception;
+	
+	// 게시글 추천관련
+	public void want_updateLike(int board_want_bno) throws Exception;
+
+	void want_updateLikeCancel(int board_want_bno) throws Exception;
+
+	void want_insertLike(int board_want_bno, int user_num) throws Exception;
+
+	void want_deleteLike(int board_want_bno, int user_num) throws Exception;
+
+	int want_likeCheck(int board_want_bno, int user_num) throws Exception;
+
+	void want_updateLikeCheck(int board_want_bno, int user_num) throws Exception;
+
+	void want_updateLikeCheckCancel(int board_want_bno, int user_num) throws Exception;
 }

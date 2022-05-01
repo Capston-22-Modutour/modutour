@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class MemberDTO {
 	//일반 유저 회원가입
+	private int user_num;
 	private String user_id;
 	private String user_pw;
 	private String user_name;
@@ -14,6 +15,14 @@ public class MemberDTO {
 	private String user_email;
 	private Date user_joinDate;
 	
+	public int getUser_num() {
+		return user_num;
+	}
+
+	public void setUser_num(int user_num) {
+		this.user_num = user_num;
+	}
+
 	public String getUser_id() {
 		return user_id;
 	}

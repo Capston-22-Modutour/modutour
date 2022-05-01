@@ -21,7 +21,7 @@ public class HomeController {
 
 	// 메인 화면 '/' 입력 시 메인화면으로 이동
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String index(Locale locale, Model model) {
 
 		return "index";
 	}
@@ -31,5 +31,12 @@ public class HomeController {
 	public String myPage(Locale locale, Model model) {
 
 		return "myPage";
+	}
+	
+	// 마이페이지
+	@RequestMapping(value = "/myPage_com", method = RequestMethod.GET)
+	public String myPageCom(Locale locale, Model model) {
+
+		return "myPage_com";
 	}
 }
