@@ -4,12 +4,19 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mappers.replyMapper">
 	<!-- 자유 게시판 댓글 start -->
-	<!-- 댓글 조회 -->
+	<!-- 댓글 목록 -->
 	<select id="replyList" parameterType="int" resultType="com.spring.dto.ReplyDTO">
 	    select
 	        reply_rno, board_bno, reply_writer, reply_content, reply_regDate
 	    from member_board_reply
 	        where board_bno = #{board_bno}        
+	</select>
+	
+	<!-- 댓글 조회 -->
+	<select id="view" parameterType="int" resultType="com.spring.dto.ReplyDTO">
+		select *
+		from member_board_reply
+		where reply_rno = #{reply_rno}
 	</select>
 	
 	<!-- 댓글 작성 -->
@@ -24,25 +31,30 @@
 	        reply_writer = #{reply_writer},
 	        reply_content = #{reply_content}
 	    where reply_rno = #{reply_rno}
-	        and reply_bno = #{reply_bno}    
 	</update>
 	
 	<!-- 댓글 삭제 -->
-	<delete id="replyDelete" parameterType="com.spring.dto.ReplyDTO">
+	<delete id="replyDelete" parameterType="int">
 	    delete from member_board_reply
 	    where reply_rno = #{reply_rno}
-	        and board_bno = ${board_bno}    
 	</delete>
 	<!-- 자유 게시판 댓글 end -->
 	
 	
 	<!-- 패키지 설계 게시판  댓글 start-->
-	<!-- 댓글 조회 -->
+	<!-- 댓글 목록 -->
 	<select id="want_replyList" parameterType="int" resultType="com.spring.dto.ReplyDTO">
 	    select
 	        board_reply_rno, board_want_bno, board_want_reply_writer, board_want_reply_content, board_want_reply_regDate
 	    from member_board_want_reply
 	        where board_want_bno = #{board_want_bno}        
+	</select>
+	
+	<!-- 댓글 조회 -->
+	<select id="want_view" parameterType="int" resultType="com.spring.dto.ReplyDTO">
+		select *
+		from member_board_want_reply
+		where board_reply_rno = #{board_reply_rno}
 	</select>
 	
 	<!-- 댓글 작성 -->
@@ -61,10 +73,9 @@
 	</update>
 	
 	<!-- 댓글 삭제 -->
-	<delete id="want_replyDelete" parameterType="com.spring.dto.ReplyDTO">
+	<delete id="want_replyDelete" parameterType="int">
 	    delete from member_board_want_reply
 	    where board_reply_rno = #{board_reply_rno}
-	        and board_want_bno = ${board_want_bno}    
 	</delete>
 	<!-- 패키지 설계 게시판 댓글 end -->
 </mapper>

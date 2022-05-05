@@ -68,8 +68,8 @@
 						-->
 						<c:if test="${member.user_name == view.board_want_writer}">
 							<div>
-								<a href="/board/modify?board_bno=${view.board_want_bno}">게시글 수정</a>
-								<a href="/board/delete?board_bno=${view.board_want_bno}">게시글 삭제</a>
+								<a href="/want_board/want_modify?board_want_bno=${view.board_want_bno}">게시글 수정</a>
+								<a href="/want_board/want_delete?board_want_bno=${view.board_want_bno}">게시글 삭제</a>
 							</div>
 						</c:if>
 					</div>
@@ -120,7 +120,7 @@
 				<div class="col-lg-8">
 					<div class="bg-white border border-top-0 p-4 mb-3">
 						<div class="mb-4">
-							<form method="post" action="/reply/want_write">
+							<form method="post" action="/want_reply/want_write">
 								<!-- 회원이 아닐 시 댓글 작성 불가 -->
 								<c:if test="${member == null && company == null}">
 									<p>로그인이 필요한 서비스 입니다</p>
@@ -162,9 +162,18 @@
 								<c:forEach items="${reply}" var="reply">
 									<li>
 										<div>
-											<p>${reply.board_want_reply_writer}
+											<p>${reply.board_want_reply_writer} / ${reply.board_reply_rno}
 												/
 												<fmt:formatDate value="${reply.board_want_reply_regDate}" pattern="yyyy-MM-dd" />
+												<c:if test="${member.user_name == reply.board_want_reply_writer}">
+													<a href="/want_reply/want_modify?board_reply_rno=${reply.board_reply_rno}">댓글 수정</a>
+													<a href="/want_reply/want_delete?board_reply_rno=${reply.board_reply_rno}">댓글 삭제</a>
+												</c:if>
+												
+												<c:if test="${company.com_name == reply.board_want_reply_writer}">
+													<a href="/want_reply/want_modify?board_reply_rno=${reply.board_reply_rno}">댓글 수정</a>
+													<a href="/want_reply/want_delete?board_reply_rno=${reply.board_reply_rno}">댓글 삭제</a>
+												</c:if>
 											</p>
 											<p>${reply.board_want_reply_content}</p>
 										</div>

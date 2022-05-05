@@ -117,8 +117,8 @@
 	<!-- 게시물 작성 -->
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="want_write" parameterType="com.spring.dto.BoardDTO">
-		insert into member_board_want(board_want_title, board_want_destination, board_want_content, board_want_writer
-			board_want_people, board_want_start, board_want_end)
+		insert into member_board_want(board_want_title, board_want_destination, board_want_content, board_want_writer,
+									board_want_people, board_want_start, board_want_end)
 					values(#{board_want_title}, #{board_want_destination}, #{board_want_content}, #{board_want_writer}, 
 						#{board_want_people}, #{board_want_start}, #{board_want_end})
 	</insert>
@@ -138,10 +138,10 @@
 				board_want_title = #{board_want_title},
 				board_want_writer = #{board_want_writer},
 				board_want_destination = #{board_want_destination},
-				board_want_content = #{board_want_content}
+				board_want_content = #{board_want_content},
 				board_want_people = #{board_want_people},
-				board_want_start = #{board_want_start}
-				board_want_end = #{board_want_end},
+				board_want_start = #{board_want_start},
+				board_want_end = #{board_want_end}
 			where board_want_bno = #{board_want_bno}
 	</update>
 	

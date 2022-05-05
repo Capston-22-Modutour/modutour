@@ -16,12 +16,18 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	private static String namespace = "com.spring.mappers.replyMapper";
 
-	// 댓글 조회
+	// 댓글 목록
 	@Override
 	public List<ReplyDTO> list(int board_bno) throws Exception {
 	    return sql.selectList(namespace + ".replyList", board_bno);
 	}
-
+	
+	// 댓글 조회
+	@Override
+	public ReplyDTO view(int reply_rno) throws Exception {
+		return sql.selectOne(namespace + ".view", reply_rno);
+	}	
+	
 	// 댓글 작성
 	@Override
 	public void write(ReplyDTO dto) throws Exception {
@@ -36,15 +42,21 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	// 댓글 삭제
 	@Override
-	public void delete(ReplyDTO dto) throws Exception {
-	    sql.delete(namespace + ".replyDelete", dto);
+	public void delete(int reply_rbno) throws Exception {
+	    sql.delete(namespace + ".replyDelete", reply_rbno);
 	}
 	
 	//--------------
-	//패키지 댓글 조회
+	//패키지 댓글 목록
 	@Override
 	public List<ReplyDTO> want_list(int board_want_bno) throws Exception {
 		return sql.selectList(namespace + ".want_replyList", board_want_bno);
+	}
+	
+	// 댓글 조회
+	@Override
+	public ReplyDTO want_view(int board_reply_rno) throws Exception {
+		return sql.selectOne(namespace + ".want_view", board_reply_rno);
 	}
 
 	//패키지 댓글 작성
@@ -61,8 +73,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	//패키지 댓글 삭제
 	@Override
-	public void want_delete(ReplyDTO dto) throws Exception {
-		sql.delete(namespace + ".want_replyDelete", dto);
-	}	
-
+	public void want_delete(int board_reply_rno) throws Exception {
+		sql.delete(namespace + ".want_replyDelete", board_reply_rno);
+	}
 }

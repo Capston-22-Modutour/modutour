@@ -137,17 +137,24 @@
 								<%-- <c:if test="${member == null && company == null}">
 									<p>로그인이 필요한 서비스 입니다</p>
 								</c:if> --%>
-
-
-
 							</form>
+							
 							<ul style="color: black;">
 								<c:forEach items="${reply}" var="reply">
 									<li>
 										<div>
-											<p>${reply.reply_writer}
+											<p>${reply.reply_writer} / ${reply.reply_rno}
 												/
 												<fmt:formatDate value="${reply.reply_regDate}" pattern="yyyy-MM-dd" />
+												<c:if test="${member.user_name == reply.reply_writer}">
+													<a href="/reply/modify?reply_rno=${reply.reply_rno}">댓글 수정</a>
+													<a href="/reply/delete?reply_rno=${reply.reply_rno}">댓글 삭제</a>
+												</c:if>
+												
+												<c:if test="${company.com_name == reply.reply_writer}">
+													<a href="/reply/modify?reply_rno=${reply.reply_rno}">댓글 수정</a>
+													<a href="/reply/delete?reply_rno=${reply.reply_rno}">댓글 삭제</a>
+												</c:if>
 											</p>
 											<p>${reply.reply_content}</p>
 										</div>

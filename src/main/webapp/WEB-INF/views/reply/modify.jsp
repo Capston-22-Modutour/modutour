@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>게시글 수정</title>
-
+	<meta charset="UTF-8">
+	<title>게시글 조회</title>
+	
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- Favicon -->
@@ -48,50 +48,56 @@
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
-	
-	<!-- 게시글 내용 Start -->
-	<form class="form" role="form" method="post" autocomplete="off">
-		<div class="container-fluid mt-5 pt-3">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-8">
-						<div class="section-title mb-0">
-							<h4 class="m-0 text-uppercase font-weight-bold">
-								<input type="text" size="50" name="board_want_title" value="${view.board_want_title}" />
-							</h4>
-						</div>
-						<div class="bg-white border border-top-0 p-4 mb-3">
-							<div class="mb-4">
-								<input type="text" name="board_want_writer" value="${member.user_name}" hidden="hidden">
-								<label>목적지</label> <br/> 
-								<input type="text" style="color: black;" name="board_want_destination" class="m-0 text-uppercase font-weight-bold px-8" value="${view.board_want_destination}"> <br /> 
-									
-								<label>희망사항</label> <br/>
-								<textarea cols="68" rows="5" name="board_want_content" class="m-0 text-uppercase font-weight-bold px-8" placeholder="${view.board_want_content}"></textarea>
-								<br /> 
-								
-								<label>인원수</label> <br/> 
-								<input type="text" style="color: black;" name="board_want_people" class="m-0 text-uppercase font-weight-bold px-8" value="${view.board_want_people}"> <br /> 
-								
-								<label>출발일</label> <br/>
-								<input type="date" style="color: black;" name="board_want_start" class="m-0 text-uppercase font-weight-bold px-8" value="<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />">
-								<br /> 
-								
-								<label>도착일</label> <br/>
-								<input type="date" style="color: black;" name="board_want_end" class="m-0 text-uppercase font-weight-bold px-8" value="<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />">
-							</div>
 
-							<div class="text-center">
-								<button type="submit" class="btn btn-warning">수정하기</button> &nbsp; 
-								<input type="button" class="btn btn-warning" value="취소" onclick="history.go(-1)">
-							</div>
+	<!-- 댓글 start -->
+	<div class="container-fluid mt-5 pt-3">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="bg-white border border-top-0 p-4 mb-3">
+						<div class="mb-4">
+							<form class="form" role="form" method="post" autocomplete="off">
+								<!-- 회원이 아닐 시 댓글 작성 불가 -->
+								<c:if test="${member == null && company == null}">
+									<p>로그인이 필요한 서비스 입니다</p>
+								</c:if>
+
+								<c:choose>
+									<c:when test="${member != null || company != null}">
+										<c:if test="${member != null}">
+											<!-- 일반 회원 댓글 -->
+											<p>
+												<input type="text" name="board_bno" value="${view.board_bno}" hidden="hidden">
+												<input type="text" name="reply_writer" value="${member.user_name}" hidden="hidden">
+												<textarea rows="5" cols="74" name="reply_content" value="${view.reply_content}" placeholder="${view.reply_content}"></textarea>
+											</p>
+											<p>
+												<button type="submit" class="btn btn-warning">댓글 수정</button>
+											</p>
+										</c:if>
+										
+										<!-- 기업 회원 댓글 -->
+										<c:if test="${company != null}">
+											<p>
+												<input type="text" name="board_bno" value="${view.board_bno}" hidden="hidden">
+												<input type="text" name="reply_writer" value="${company.com_name}" hidden="hidden">
+												<textarea rows="5" cols="74" name="reply_content" value="${view.reply_content}" placeholder="${view.reply_content}"></textarea>
+											</p>
+											<p>
+												<button type="submit" class="btn btn-warning">댓글 수정</button>
+											</p>
+										</c:if>
+									</c:when>
+								</c:choose>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</form>
-	<!-- 게시글 내용 end -->
+	</div>
+	<!-- 댓글 end -->
+
 	
 	<%------------ footer section  ------------%>
 	<jsp:include page="../fix/footer.jsp" />

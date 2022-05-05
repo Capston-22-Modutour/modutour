@@ -53,7 +53,7 @@ public class WantBoardController {
 	public String postWantWrite(BoardDTO dto) throws Exception {
 		service.want_write(dto);
 
-		return "redirect:/want_board/want_list";
+		return "redirect:/want_board/want_listPageSearch?num=1";
 	}
 
 	// 패키지 설계 게시글 조회
@@ -90,7 +90,7 @@ public class WantBoardController {
 	public String getWantDelete(@RequestParam("board_want_bno") int board_want_bno) throws Exception {
 		service.want_delete(board_want_bno);
 
-		return "redirect:/want_board/want_list";
+		return "redirect:/want_board/want_listPageSearch?num=1";
 	}
 
 	// 패키지 설계 게시글 목록 + 페이징 추가 + 검색

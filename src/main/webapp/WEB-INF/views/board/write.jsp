@@ -28,7 +28,27 @@
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
-
+	<c:if test="${member == null}">
+		
+		<div class="container-fluid mt-5 pt-3">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="section-title mb-0">
+							<div class="text-center">
+								<h4 class="m-0 text-uppercase font-weight-bold">
+									로그인이 필요한 서비스 입니다<br />
+								</h4>
+								<a href="/login/loginMain">로그인하러가기</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:if>
+	<!-- 회원이 아닐 시 게시글 작성 불가 -->
+	
 	<c:if test="${member != null}">
 		<form class="form" role="form" method="post" autocomplete="off">
 			<div class="container-fluid mt-5 pt-3">
@@ -78,14 +98,6 @@
 				<button type="submit">작성</button>
 			</form>
 	</c:if>
-	
-	<!-- 회원이 아닐 시 게시글 작성 불가 -->
-	<c:choose>
-		<c:when test="${member == null} || ${company == null}">
-			<p>로그인이 필요한 서비스 입니다</p>
-			<p><a href="/">홈으로</a></p>
-		</c:when>
-	</c:choose>
 	
 	<%------------ footer section  ------------%>
 	<jsp:include page="../fix/footer.jsp" />

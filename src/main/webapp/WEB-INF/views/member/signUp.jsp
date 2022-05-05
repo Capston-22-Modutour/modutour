@@ -57,21 +57,20 @@
 							</div>
 							<div class="form-group">
 								<label for="user_gender" class="text-info">성별</label> <br/> 
-								<input type="radio" name="user_gender" id="user_gender" value="m" checked>남성
-								<input type="radio" name="user_gender" id="user_gender" value="f">여성
+								<input type="radio" name="user_gender" id="user_gender" value="남성" checked>남성
+								<input type="radio" name="user_gender" id="user_gender" value="여성">여성
 							</div>
 							<div class="form-group">
 								<label for="user_birth" class="text-info">생일</label> <br/> 
 								<input type="date" name="user_birth" id="user_birth" class="form-control">
 							</div>
 							<div class="form-group">
-								<label for="user_phoneNum" class="text-info">전화번호</label> <br/> 
-								<select name="user_phone1">
+								<label class="text-info">전화번호</label> <br/> 
+								<select id="user_phone1" name="user_phone1">
 									<option>010</option>
 								</select> - 
-								<input type="text" name="user_phone2" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> - 
-								<input type="text" name="user_phone3" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br/>
-								<input type="text" name="user_phoneNum" value=(user_phone1+user_phone2+user_phone3) hidden="hidden">
+								<input type="text" id="user_phone2" name="user_phone2" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> - 
+								<input type="text" id="user_phone3" name="user_phone3" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br/>
 							</div>
 							<div class="form-group">
 								<label for="user_address" class="text-info">주소</label> <br/> 
@@ -94,44 +93,49 @@
 		</div>
 	</div>
 	
-	<script>
-		$(".memberIdCheck").click(function() {
-
-			var query = {
-				user_id : $("#user_id").val()
-			};
-
-			$.ajax({
-				url : "/member/memberIdCheck",
-				type : "post",
-				data : query,
-				success : function(data) {
-
-					if (data == 1) {
-						$(".result .msg").text("사용 불가");
-						$(".result .msg").attr("style", "color:#f00");
-
-						$("#submit").attr("disabled", "disabled");
-					} else {
-						$(".result .msg").text("사용 가능");
-						$(".result .msg").attr("style", "color:#00f");
-
-						$("#submit").removeAttr("disabled");
-					}
-				}
-			}); // ajax 끝
-		});
-
-		$("#user_id").keyup(function() {
-			$(".result .msg").text("아이디를 확인해주십시오.");
-			$(".result .msg").attr("style", "color:#000");
-
-			$("#submit").attr("disabled", "disabled");
-
-		});
-	</script>
+	
 	
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/footer.jsp" />
 </body>
 </html>
+<script>
+	//ID 중복 체크 start
+	$(".memberIdCheck").click(function() {
+
+		var query = {
+			user_id : $("#user_id").val()
+		};
+
+		$.ajax({
+			url : "/member/memberIdCheck",
+			type : "post",
+			data : query,
+			success : function(data) {
+
+				if (data == 1) {
+					$(".result .msg").text("사용 불가");
+					$(".result .msg").attr("style", "color:#f00");
+
+					$("#submit").attr("disabled", "disabled");
+				} else {
+					$(".result .msg").text("사용 가능");
+					$(".result .msg").attr("style", "color:#00f");
+
+					$("#submit").removeAttr("disabled");
+				}
+			}
+		}); // ajax 끝
+	});
+	//ID 중복 체크 end
+
+	//ID 확인 메시지 start
+	$("#user_id").keyup(function() {
+		$(".result .msg").text("아이디를 확인해주십시오.");
+		$(".result .msg").attr("style", "color:#000");
+
+		$("#submit").attr("disabled", "disabled");
+
+	});
+	//ID 확인 메시지 end
+</script>

@@ -36,79 +36,83 @@
 	<!-- 회원이 아닐 시 게시글 작성 불가 -->
 	<c:choose>
 		<c:when test="${member == null}">
-			<p>일반 회원만 작성할 수 있습니다</p>
-		</c:when>
-	</c:choose>
-	
-	
-	<c:choose>
-		<c:when test="${company != null}">
-			<p>일반 회원만 작성이 가능합니다</p>
+			<div class="container-fluid mt-5 pt-3">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8">
+							<div class="section-title mb-0">
+								<h4 class="m-0 text-uppercase font-weight-bold">
+									일반 회원만 작성이 가능합니다
+								</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</c:when>
 		
-		<c:when test="${member != null}">
-			<form method="post">
-				<label>제목</label>
-				<input type="text" name="board_want_title"> <br/>
-				
-				<label>작성자</label>
-				<input type="text" name="board_want_writer" value="${member.user_name}" readonly="readonly"> <br/>
-				
-				<label>제목</label>
-				<input type="text" name="board_want_destination"> <br/>
-				
-				<label>내용</label>
-				<textarea cols="50" rows="5" name="board_want_content"></textarea> <br/>
-				
-				<label>제목</label>
-				<input type="text" name="board_want_people"> <br/>
-				
-				<label>희망 출발일</label>
-				<input type="date" name="board_want_start"> <br/>
-				
-				<label>희망 도착일</label>
-				<input type="date" name="board_want_end"> <br/>
-				
-				<button type="submit">작성</button>
-			</form>
+		<c:when test="${company != null}">
+			<div class="container-fluid mt-5 pt-3">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8">
+							<div class="section-title mb-0">
+								<h4 class="m-0 text-uppercase font-weight-bold">
+									일반 회원만 작성이 가능합니다
+								</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</c:when>
 	</c:choose>
 	
-	<%-- <c:if test="${member != null}">
-		<form method="post">
-			<label>제목</label>
-			<input type="text" name="board_want_title"> <br/>
-			
-			<label>작성자</label>
-			<input type="text" name="board_want_writer" value="${member.user_name}" readonly="readonly"> <br/>
-			
-			<label>제목</label>
-			<input type="text" name="board_want_destination"> <br/>
-			
-			<label>내용</label>
-			<textarea cols="50" rows="5" name="board_want_content"></textarea> <br/>
-			
-			<label>제목</label>
-			<input type="text" name="board_want_people"> <br/>
-			
-			<label>희망 출발일</label>
-			<input type="date" name="board_want_start"> <br/>
-			
-			<label>희망 도착일</label>
-			<input type="date" name="board_want_end"> <br/>
-			
-			<button type="submit">작성</button>
+	<c:if test="${member != null}">
+		<!-- 게시글 내용 Start -->
+		<form class="form" role="form" method="post" autocomplete="off">
+			<div class="container-fluid mt-5 pt-3">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8">
+							<div class="section-title mb-0">
+								<h4 class="m-0 text-uppercase font-weight-bold">
+									<input type="text" size="50" name="board_want_title" placeholder="제목을 입력해 주세요"/>
+								</h4>
+							</div>
+							<div class="bg-white border border-top-0 p-4 mb-3">
+								<div class="mb-4">
+									<input type="text" name="board_want_writer" value="${member.user_name}" hidden="hidden">
+									<label>목적지</label> <br/> 
+									<input type="text" style="color: black;" name="board_want_destination" class="m-0 text-uppercase font-weight-bold px-8" placeholder="목적지를 입력해 주세요"> <br /> 
+										
+									<label>희망사항</label> <br/>
+									<textarea cols="68" rows="5" name="board_want_content" class="m-0 text-uppercase font-weight-bold px-8" placeholder="희망사항을 입력해 주세요"></textarea>
+									<br /> 
+										
+									<label>인원수</label> <br/> 
+									<input type="text" style="color: black;" name="board_want_people" class="m-0 text-uppercase font-weight-bold px-8" placeholder="인원수를 입력해 주세요"> <br /> 
+										
+									<label>출발일</label> <br/>
+									<input type="date" style="color: black;" name="board_want_start" class="m-0 text-uppercase font-weight-bold px-8">
+									<br /> 
+										
+									<label>도착일</label> <br/>
+									<input type="date" style="color: black;" name="board_want_end" class="m-0 text-uppercase font-weight-bold px-8">
+								</div>
+		
+								<div class="text-center">
+									<button type="submit" class="btn btn-warning">작성하기</button> &nbsp; 
+									<input type="button" class="btn btn-warning" value="취소" onclick="history.go(-1)">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</form>
-	</c:if> --%>
-	
-	<%-- <c:if test="${msg == 'login_error'}">
-		<p>로그인이 필요한 서비스 입니다</p>
-		<p><a href="/">홈으로</a></p>
-	</c:if> --%>
-	
-	
-
-	<input type="button" value="이전" onclick="history.go(-1)">
+		<!-- 게시글 내용 end -->
+	</c:if>
 	
 	<%------------ footer section  ------------%>
 	<jsp:include page="../fix/footer.jsp" />

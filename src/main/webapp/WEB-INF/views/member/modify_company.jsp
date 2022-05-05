@@ -64,7 +64,12 @@
 											<i class="fa fa-phone-alt text-primary mr-2"></i>
 											<h6 class="font-weight-bold mb-0">전화번호</h6>
 										</div>
-										<input name="com_phoneNum" type="text" class="m-0" value="${company.com_phoneNum}">
+										<select name="com_phone1" value="${company.com_phone1}">
+											<option>02</option>
+											<option>031</option>
+											<option>051</option>
+										</select> - <input type="text" name="com_phone2" value="${company.com_phone2}" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> - 
+										<input type="text" name="com_phone3" value="${company.com_phone3}" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br/>
 									</div>
 
 									<div class="mb-3">

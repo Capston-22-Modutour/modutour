@@ -106,7 +106,10 @@
 											<i class="fa fa-phone-alt text-primary mr-2"></i>
 											<h6 class="font-weight-bold mb-0">전화번호</h6>
 										</div>
-										<input name="user_phoneNum" type="text" class="m-0" value="${member.user_phoneNum}">
+										<label>010</label> - 
+										<input type="hidden" name="user_phone1" value="010">
+										<input type="text" name="user_phone2" value="${member.user_phone2}" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> - 
+										<input type="text" name="user_phone3" value="${member.user_phone3}" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br/>
 									</div>
 
 									<div class="mb-3">

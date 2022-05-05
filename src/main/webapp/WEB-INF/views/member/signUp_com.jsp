@@ -64,7 +64,6 @@
 								</select> - 
 								<input type="text" name="com_phone2" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> - 
 								<input type="text" name="com_phone3" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br/>
-								<input type="text" name="com_phoneNum" value=(com_phone1+com_phone2+com_phone3) hidden="hidden">
 							</div>
 							<div class="form-group">
 								<label for="com_address" class="text-info">주소</label> <br/> 

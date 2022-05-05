@@ -2,6 +2,8 @@ package com.spring.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class BoardDTO {
 	// 자유 게시판
 	private int board_bno;
@@ -62,8 +64,12 @@ public class BoardDTO {
 	private String board_want_content;
 	private String board_want_writer;
 	private int board_want_people;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date board_want_start;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date board_want_end;
+	
 	private int board_want_viewCnt;
 	private int board_want_like;
 	private Date board_want_regDate;
@@ -104,6 +110,7 @@ public class BoardDTO {
 	public void setBoard_want_people(int board_want_people) {
 		this.board_want_people = board_want_people;
 	}
+	
 	public Date getBoard_want_start() {
 		return board_want_start;
 	}

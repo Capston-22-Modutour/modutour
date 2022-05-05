@@ -7,16 +7,19 @@
 	<!-- 일반 회원 가입 -->
 	<insert id="signUp">
 		insert into member_user (user_id, user_pw, user_name,
-				user_gender, user_birth, user_phoneNum, user_address, user_email)
+				user_gender, user_birth, user_phone1, user_phone2, user_phone3,
+				user_phoneNum, user_address, user_email)
 		values (#{user_id}, #{user_pw}, #{user_name}, #{user_gender}, 
-				#{user_birth}, #{user_phoneNum}, #{user_address}, #{user_email})
+				#{user_birth}, #{user_phone1}, #{user_phone2}, #{user_phone3},
+				#{user_phoneNum}, #{user_address}, #{user_email})
 	</insert>
 	
 	<!-- 기업 회원 가입 -->
 	<insert id="signUp_com">
 		insert into member_com (com_id, com_pw, com_name,
+				com_phone1, com_phone2, com_phone3,
 				com_phoneNum, com_address, com_email)
-		values (#{com_id}, #{com_pw}, #{com_name}, 
+		values (#{com_id}, #{com_pw}, #{com_name}, #{com_phone1}, #{com_phone2}, #{com_phone3},
 				#{com_phoneNum}, #{com_address}, #{com_email})
 	</insert>
 	
@@ -51,14 +54,16 @@
 	<!-- 일반 회원정보 수정 -->
 	<update id="modify">
 		update member_user
-			set	user_phoneNum = '${user_phoneNum}', user_address = '${user_address}', user_email = '${user_email}'
+			set	user_phone2 = '${user_phone2}', user_phone3 = '${user_phone3}', user_phoneNum = '${user_phoneNum}',
+				user_address = '${user_address}', user_email = '${user_email}'
 			where user_id = #{user_id} and user_pw = ${user_pw}
 	</update>
 	
 	<!-- 기업 회원정보 수정 -->
 	<update id="modify_com">
 		update member_com
-			set	com_phoneNum = '${com_phoneNum}', com_address = '${com_address}', com_email = '${com_email}'
+			set	com_phone1 = '${com_phone1}', com_phone2 = '${com_phone2}', com_phone3 = '${com_phone3}', com_phoneNum = '${com_phoneNum}',
+			com_address = '${com_address}', com_email = '${com_email}'
 			where com_id = #{com_id} and com_pw = ${com_pw}
 	</update>
 	
