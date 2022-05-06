@@ -101,7 +101,7 @@
                         <div class="dropdown-menu rounded-0 m-0">
                             <a href="/board/listPageSearch?num=1" class="dropdown-item">자유게시판</a>
                             <a href="/want_board/want_listPageSearch?num=1" class="dropdown-item">패키지 설계</a>
-                            <a href="#" class="dropdown-item">여행사 입찰</a>
+                            <a href="/suggest_board/suggest_listPageSearch?num=1" class="dropdown-item">여행사 입찰</a>
                             <a href="#" class="dropdown-item">패키지 판매</a>
                         </div>
                     </div>

@@ -15,9 +15,9 @@ public interface BoardService {
 	// 게시물 작성
 	public void write(BoardDTO dto) throws Exception;
 
-	// 게시물 조회
+	// 게시물 조회, 조회수 증가
 	public BoardDTO view(int board_bno) throws Exception;
-
+	
 	// 게시글 수정
 	public void modify(BoardDTO dto) throws Exception;
 
@@ -58,7 +58,7 @@ public interface BoardService {
 	// 패키지 설계 게시물 작성
 	public void want_write(BoardDTO dto) throws Exception;
 
-	// 패키지 설계 게시물 조회
+	// 패키지 설계 게시물 조회, 조회수 증가
 	public BoardDTO want_view(int board_want_bno) throws Exception;
 
 	// 패키지 설계 게시글 수정
@@ -90,4 +90,32 @@ public interface BoardService {
 	void want_updateLikeCheck(int board_want_bno, int user_num) throws Exception;
 
 	void want_updateLikeCheckCancel(int board_want_bno, int user_num) throws Exception;
+	
+	//----------------------------------------
+	// 패키지 제안 게시물 목록
+	public List<BoardDTO> suggest_list() throws Exception;
+
+	// 패키지 제안 게시물 작성
+	public void suggest_write(BoardDTO dto) throws Exception;
+
+	// 패키지 제안 게시물 조회
+	public BoardDTO suggest_view(int suggest_bno) throws Exception;
+
+	// 패키지 제안 게시글 조회수 증가
+	public void suggest_updateViewCnt(int suggest_bno) throws Exception;
+
+	// 패지키 제안 게시글 수정
+	public void suggest_modify(BoardDTO dto) throws Exception;
+
+	// 패지키 제안 게시글 삭제
+	public void suggest_delete(int suggest_bno) throws Exception;
+
+	// 패지키 제안 게시글 총 갯수
+	public int suggest_count() throws Exception;
+
+	// 패키지 제안 게시글 목록 + 페이징 + 검색
+	public List<BoardDTO> suggest_listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception;
+
+	// 패지키 제안 게시글 총 갯수 + 검색 적용
+	public int suggest_searchCount(String searchType, String keyword) throws Exception;
 }

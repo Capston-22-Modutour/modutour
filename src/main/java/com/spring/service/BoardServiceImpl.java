@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.dao.BoardDAO;
 import com.spring.dto.BoardDTO;
@@ -30,12 +32,14 @@ public class BoardServiceImpl implements BoardService {
 		dao.write(dto);
 	}
 
-	// 게시물 조회
+	// 게시물 조회, 조회수 증가
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public BoardDTO view(int board_bno) throws Exception {
+		dao.updateViewCnt(board_bno);
 		return dao.view(board_bno);
 	}
-
+	
 	// 게시글 수정
 	@Override
 	public void modify(BoardDTO dto) throws Exception {
@@ -121,9 +125,11 @@ public class BoardServiceImpl implements BoardService {
 		dao.want_write(dto);
 	}
 
-	// 게시물 조회
+	// 게시물 조회, 조회수 증가
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public BoardDTO want_view(int board_want_bno) throws Exception {
+		dao.want_updateViewCnt(board_want_bno);
 		return dao.want_view(board_want_bno);
 	}
 
@@ -191,5 +197,60 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void want_updateLikeCheckCancel(int board_want_bno, int user_num) throws Exception {
 		dao.want_updateLikeCheckCancel(board_want_bno, user_num);
+	}
+	
+	// ------------------------------------
+	// 패지키 제안 게시물 목록
+	@Override
+	public List<BoardDTO> suggest_list() throws Exception {
+		return dao.suggest_list();
+	}
+
+	// 패키지 제안 게시물 작성
+	@Override
+	public void suggest_write(BoardDTO dto) throws Exception {
+		dao.suggest_write(dto);
+	}
+
+	// 패키지 제안 게시물 조회
+	@Override
+	public BoardDTO suggest_view(int suggest_bno) throws Exception {
+		return dao.suggest_view(suggest_bno);
+	}
+
+	// 패키지 제안 게시물 조회수 증가
+	@Override
+	public void suggest_updateViewCnt(int suggest_bno) throws Exception {
+		dao.suggest_updateViewCnt(suggest_bno);
+	}
+
+	// 패키지 제안 게시글 수정
+	@Override
+	public void suggest_modify(BoardDTO dto) throws Exception {
+		dao.suggest_modify(dto);
+	}
+
+	// 패키지 제안 게시글 삭제
+	@Override
+	public void suggest_delete(int suggest_bno) throws Exception {
+		dao.suggest_delete(suggest_bno);
+	}
+
+	// 패키지 제안 게시글 총 갯수
+	@Override
+	public int suggest_count() throws Exception {
+		return dao.suggest_count();
+	}
+
+	// 패키지 제안 게시물 목록 + 페이징 + 검색
+	@Override
+	public List<BoardDTO> suggest_listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception {
+		return dao.suggest_listPageSearch(displayPost, postNum, searchType, keyword);
+	}
+
+	// 패키지 제안 게시물 총 갯수 + 검색 적용
+	@Override
+	public int suggest_searchCount(String searchType, String keyword) throws Exception {
+		return dao.suggest_searchCount(searchType, keyword);
 	}
 }

@@ -125,6 +125,7 @@ public class MemberDTO {
 	}
 	
 	// 기업 회원 가입
+	private int com_regiNum;
 	private String com_id;
 	private String com_pw;
 	private String com_name;
@@ -135,6 +136,14 @@ public class MemberDTO {
 	private String com_address;
 	private String com_email;
 	private Date com_joinDate;
+
+	public int getCom_regiNum() {
+		return com_regiNum;
+	}
+
+	public void setCom_regiNum(int com_regiNum) {
+		this.com_regiNum = com_regiNum;
+	}
 
 	public String getCom_id() {
 		return com_id;

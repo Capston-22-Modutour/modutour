@@ -53,35 +53,43 @@
 	<div class="container-fluid mt-5 pt-3">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-6">
+				<div class="col-lg-8">
 					<div class="section-title mb-0">
-						<h4 class="m-0 text-uppercase font-weight-bold">${view.board_want_title}</h4>
+						<h4 class="m-0 text-uppercase font-weight-bold">${view.suggest_title}</h4>
 						<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-							<fmt:formatDate value="${view.board_want_regDate}" pattern="yyyy-MM-dd" />
+							<fmt:formatDate value="${view.suggest_regDate}" pattern="yyyy-MM-dd" />
 						</p>
 					</div>
 					<div class="section-title mb-1">
-						<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-0">${view.board_want_writer}</p>
-						<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-0">조회수 ${view.board_want_viewCnt}</p>
+						<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-0">${view.suggest_writer}</p>
+						<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-0">조회수 ${view.suggest_viewCnt}</p>
 						
 						<!-- 유저 이름과 게시글 작성자가 일치해야 게시글 수정, 삭제 가능 
 							  하지만 동명이인 일시? 추후 id로 개선 필요함
 						-->
-						<c:if test="${member.user_name == view.board_want_writer}">
+						<c:if test="${member.company_name == view.suggest_writer}">
 							<div>
-								<a href="/want_board/want_modify?board_want_bno=${view.board_want_bno}">게시글 수정</a>
-								<a href="/want_board/want_delete?board_want_bno=${view.board_want_bno}">게시글 삭제</a>
+								<a href="/suggest_board/suggest_modify?suggest_bno=${view.suggest_bno}">게시글 수정</a>
+								<a href="/suggest_board/suggest_delete?suggest_bno=${view.suggest_bno}">게시글 삭제</a>
 							</div>
 						</c:if>
 					</div>
 					<div class="bg-white border border-top-0 p-4 mb-3">
 						<div class="mb-4">
+							<label>요청자</label>
+							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_writer}</p>
+							<br/>
+							
 							<label>목적지</label>
 							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_destination}</p>
 							<br/>
 							
 							<label>희망사항</label>
 							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_content}</p>
+							<br/>
+							
+							<label>제안사항</label>
+							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.suggest_content}</p>
 							<br/>
 							
 							<label>인원수</label>
@@ -97,99 +105,31 @@
 							<label>도착일</label>
 							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
 								<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />
-							</p>
+							</p> <br/>
+							
+							<label>비용</label>
+							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.suggest_price}원</p>
+							<br/>
+							
+							<label>가이드 포함 여부</label>
+							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.suggest_guide}</p>
+							<br/>
+							
+							<label>항공사</label>
+							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.suggest_air}</p>
+							<br/>
+							
 							<!-- 로그인이 되어있고, 본인 글이 아닐경우에만 추천할 수 있도록 버튼을 출력 -->
 							<div class="text-center">
-								<c:if test="${member.user_id != null and member.user_name != dto.user_name}">
+								<c:if test="${member.user_id != null and member.user_id != dto.user_id}">
 									<div style="margin-right: 1px;">
 										<button type="button" class="btn btn-warning" id="like_btn" onclick="want_updateLike(); return false;">추천 ${view.board_want_like}</button>
 									</div>
 								</c:if>
 							</div>
-							
 						</div>
 					</div>
 				</div>
-				
-				<c:if test="${company != null}">
-				<!-- 여행사 제안 start -->
-				<div class="col-lg-6">
-					<div class="mb-3">
-						<div class="section-title mb-0">
-							<h4 class="m-0 text-uppercase font-weight-bold">제안합니다</h4>
-						</div>
-						<div class="bg-white border border-top-0 p-3">
-						<form class="form" role="form" method="post" autocomplete="off" action="/suggest_board/suggest_write">
-							<h4 class="m-0 text-uppercase font-weight-bold">
-								<input type="text" size="35" name="suggest_title" placeholder="제목을 입력해 주세요" />
-							</h4>
-							<br/>
-								<!-- 게시글 내용 Start -->
-									<div class="container">
-										<div class="row">
-											<div class="mb-4">
-												<input type="text" name="board_want_bno" value="${view.board_want_bno}" hidden="hidden">
-												<input type="text" name="board_want_writer"	value="${view.board_want_writer}" hidden="hidden"> 
-												<input type="text" name="com_regiNum" value="${company.com_regiNum}" hidden="hidden">
-												<input type="text" name="suggest_writer" value="${company.com_name}" hidden="hidden">
-												<input type="text" name="board_want_content" value="${view.board_want_content}" hidden="hidden">
-													
-												<label>목적지</label>	<br /> 
-												<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_destination}</label>
-												<input type="text" value="${view.board_want_destination}" name="board_want_destination" hidden="hidden"> <br/>
-														
-												<label>희망사항</label> <br />
-												<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_content}</label> <br/><br/>
-												
-												<label>제안사항</label> <br />
-												<textarea cols="35" rows="5" name="suggest_content" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8"></textarea> <br /> 
-												
-												<label>인원수</label> <br /> 
-												<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_people}</label>
-												<input type="text" value="${view.board_want_people}" name="board_want_people" hidden="hidden"> <br />
-															
-												<label>출발일</label> <br /> 
-												<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-													<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />
-												</p> 
-												<input type="date" name="board_want_start" value="<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />"hidden="hidden">
-												<br /> 
-															
-												<label>도착일</label> <br /> 
-												<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-													<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />
-												</p>
-												<input type="date" name="board_want_end" value="<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />"hidden="hidden">
-												<br/>
-															
-												<label>가격</label> <br /> 
-												<input type="number" name="suggest_price" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8"> <br/><br/>
-												
-												<label>가이드 포함 여부</label> <br /> 
-												<input type="text" name="suggest_guide" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8"> <br/><br/>
-												
-												<label>항공사</label> <br /> 
-												<select name="suggest_air" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-													<option>대한항공</option>
-													<option>아시아나항공</option>
-													<option>에어부산</option>
-													<option>티웨이</option>
-												</select> <br/><br/>
-												
-												<div class="text-center">
-													<button type="submit" class="btn btn-warning">제안하기</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</form>
-								<!-- 게시글 내용 end -->
-							
-						</div>
-					</div>
-				</div>
-				<!-- 여행사 제안 end -->
-				</c:if>
 			</div>
 		</div>
 	</div>
@@ -270,12 +210,6 @@
 	</div>
 	<!-- 댓글 end -->
 	
-	
-	
-                    
-                    
-	
-	
 	<%------------ footer section  ------------%>
 	<jsp:include page="../fix/footer.jsp" />
 	
@@ -292,7 +226,7 @@
     <script src="<c:url value='../resources/js/main.js'/>"></script>
 </body>
 </html>
-<script type="text/javascript">
+<script>
 var board_want_bno = ${view.board_want_bno};
 var user_num = ${member.user_num};
 

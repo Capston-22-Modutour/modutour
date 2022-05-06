@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class BoardDTO {
-	// 자유 게시판
+	// 자유 게시판 start
 	private int board_bno;
 	private String board_title;
 	private String board_content;
@@ -56,8 +56,9 @@ public class BoardDTO {
 	public void setBoard_like(int board_like) {
 		this.board_like = board_like;
 	}
+	// 자유 게시판 end
 	
-	//패키지 설계 게시판
+	// 패키지 설계 게시판 start
 	private int board_want_bno;
 	private String board_want_title;
 	private String board_want_destination;
@@ -141,4 +142,88 @@ public class BoardDTO {
 	public void setBoard_want_regDate(Date board_want_regDate) {
 		this.board_want_regDate = board_want_regDate;
 	}
+	// 패키지 설계 게시판 end
+	
+	// 여행사 입찰 게시판 start
+	private int com_regiNum;
+	private int suggest_bno;
+	private String suggest_writer;
+	private String suggest_title;
+	private String suggest_content;
+	private int suggest_price;
+	private String suggest_guide;
+	private String suggest_air;
+	private int suggest_like;
+	private int suggest_viewCnt;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date suggest_regDate;
+
+	public int getCom_regiNum() {
+		return com_regiNum;
+	}
+	public void setCom_regiNum(int com_regiNum) {
+		this.com_regiNum = com_regiNum;
+	}
+	public int getSuggest_bno() {
+		return suggest_bno;
+	}
+	public void setSuggest_bno(int suggest_bno) {
+		this.suggest_bno = suggest_bno;
+	}
+	public String getSuggest_writer() {
+		return suggest_writer;
+	}
+	public void setSuggest_writer(String suggest_writer) {
+		this.suggest_writer = suggest_writer;
+	}
+	public String getSuggest_title() {
+		return suggest_title;
+	}
+	public void setSuggest_title(String suggest_title) {
+		this.suggest_title = suggest_title;
+	}
+	public String getSuggest_content() {
+		return suggest_content;
+	}
+	public void setSuggest_content(String suggest_content) {
+		this.suggest_content = suggest_content;
+	}
+	public int getSuggest_price() {
+		return suggest_price;
+	}
+	public void setSuggest_price(int suggest_price) {
+		this.suggest_price = suggest_price;
+	}
+	public String getSuggest_guide() {
+		return suggest_guide;
+	}
+	public void setSuggest_guide(String suggest_guide) {
+		this.suggest_guide = suggest_guide;
+	}
+	public String getSuggest_air() {
+		return suggest_air;
+	}
+	public void setSuggest_air(String suggest_air) {
+		this.suggest_air = suggest_air;
+	}
+	public int getSuggest_like() {
+		return suggest_like;
+	}
+	public void setSuggest_like(int suggest_like) {
+		this.suggest_like = suggest_like;
+	}
+	public int getSuggest_viewCnt() {
+		return suggest_viewCnt;
+	}
+	public void setSuggest_viewCnt(int suggest_viewCnt) {
+		this.suggest_viewCnt = suggest_viewCnt;
+	}
+	public Date getSuggest_regDate() {
+		return suggest_regDate;
+	}
+	public void setSuggest_regDate(Date suggest_regDate) {
+		this.suggest_regDate = suggest_regDate;
+	}
+	// 여행사 입찰 게시판 end
+	
 }

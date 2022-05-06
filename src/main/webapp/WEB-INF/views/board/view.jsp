@@ -62,7 +62,7 @@
 					</div>
 					<div class="section-title mb-1">
 						<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-0">${view.board_writer}</p>
-						
+						<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-0">조회수 ${view.board_viewCnt}</p>
 						<!-- 유저 이름과 게시글 작성자가 일치해야 게시글 수정, 삭제 가능 
 							  하지만 동명이인 일시? 추후 id로 개선 필요함
 						-->

@@ -26,6 +26,13 @@
 		where board_bno = #{board_bno}		
 	</select>
 	
+	<!-- 게시글 조회수 증가 -->
+	<update id="updateViewCnt" parameterType="int">
+		update member_board
+			set board_viewCnt = board_viewCnt + 1
+		where board_bno = #{board_bno}
+	</update>
+	
 	<!-- 게시글 수정 -->
 	<update id="modify" parameterType="com.spring.dto.BoardDTO">
 		update member_board
@@ -103,8 +110,6 @@
 		</if>
 	 
 	</select>
-	
-	
 	<!-- 자유 게시판 끝 -->
 	
 	<!-- 패키지 설계 게시판 시작 -->
@@ -130,6 +135,13 @@
 		from member_board_want
 		where board_want_bno = #{board_want_bno}		
 	</select>
+	
+	<!-- 게시글 조회수 증가 -->
+	<update id="want_updateViewCnt" parameterType="int">
+		update member_board_want
+			set board_want_viewCnt = board_want_viewCnt + 1
+		where board_want_bno = #{board_want_bno}
+	</update>
 	
 	<!-- 게시글 수정 -->
 	<update id="want_modify" parameterType="com.spring.dto.BoardDTO">
@@ -207,4 +219,109 @@
 	</select>
 	<!-- 패키지 설계 게시판 끝 -->
 	
+	<!-- 패키지 제안 게시판 시작 -->
+	<!-- 게시물 목록 -->
+	<select id="suggest_list" resultType="com.spring.dto.BoardDTO">
+		select *
+		from suggest_board
+	</select>
+	
+	<!-- 게시물 작성 -->
+	<!-- 데이터를 넣을 땐 parameterType 사용 -->
+	<insert id="suggest_write" parameterType="com.spring.dto.BoardDTO">
+		insert into suggest_board(board_want_bno, com_regiNum, board_want_writer, suggest_writer, suggest_title, board_want_destination,
+			board_want_content, suggest_content, board_want_people, board_want_start, board_want_end, suggest_price, suggest_guide, suggest_air)
+					values(#{board_want_bno}, #{com_regiNum}, #{board_want_writer}, #{suggest_writer}, #{suggest_title}, #{board_want_destination},
+					#{board_want_content}, #{suggest_content}, #{board_want_people}, #{board_want_start}, #{board_want_end},
+					#{suggest_price}, #{suggest_guide}, #{suggest_air})
+	</insert>
+	
+	<!-- 게시물 조회 -->
+	<select id="suggest_view" parameterType="int" resultType="com.spring.dto.BoardDTO">
+		select *
+		from suggest_board
+		where suggest_bno = #{suggest_bno}		
+	</select>
+	
+	<!-- 게시글 조회수 증가 -->
+	<update id="suggest_updateViewCnt" parameterType="int">
+		update suggest_board
+			set board_want_viewCnt = board_want_viewCnt + 1
+		where board_want_bno = #{board_want_bno}
+	</update>
+	
+	<!-- 게시글 수정 -->
+	<update id="suggest_modify" parameterType="com.spring.dto.BoardDTO">
+		update suggest_board
+			set
+				board_want_title = #{board_want_title},
+				board_want_writer = #{board_want_writer},
+				board_want_destination = #{board_want_destination},
+				board_want_content = #{board_want_content},
+				board_want_people = #{board_want_people},
+				board_want_start = #{board_want_start},
+				board_want_end = #{board_want_end}
+			where board_want_bno = #{board_want_bno}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="suggest_delete" parameterType="int">
+		delete from suggest_board
+		where suggest_bno = #{suggest_bno}
+	</delete>
+	
+	<!-- 게시글 총 갯수 -->
+	<select id="suggest_count" resultType="int">
+		select count(suggest_bno) from suggest_board
+	</select>
+	
+	
+	<!-- 게시글 목록 + 페이징 + 검색 -->
+	<select id="suggest_listPageSearch" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
+		select suggest_bno, suggest_title, suggest_writer, suggest_viewCnt, suggest_like, suggest_regDate
+		from suggest_board
+		
+		<if test='searchType.equals("title")'>
+			where suggest_title LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("content")'>
+			where suggest_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("title_content")'>
+			where suggest_title LIKE concat('%', #{keyword}, '%')
+			or suggest_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("writer")'>
+			where suggest_writer LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		order by board_want_bno desc
+			limit #{displayPost}, #{postNum} 
+	</select>
+	
+	<!-- 게시물 총 갯수 + 검색 적용 -->
+	<select id="suggest_searchCount" parameterType="hashMap" resultType="int">
+		select count(suggest_bno) from suggest_board  
+	  
+		<if test='searchType.equals("title")'>
+		 	WHERE suggest_title LIKE concat('%', #{keyword}, '%')
+		</if>
+		 
+		<if test='searchType.equals("content")'>
+			WHERE suggest_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		 
+		<if test='searchType.equals("title_content")'>
+			WHERE suggest_title LIKE concat('%', #{keyword}, '%') 
+			 or suggest_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		 
+		<if test='searchType.equals("writer")'>
+			WHERE suggest_writer LIKE concat('%', #{keyword}, '%')
+		</if>
+	</select>
+	<!-- 패키지 제안 게시판 끝 -->
 </mapper>
