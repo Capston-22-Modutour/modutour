@@ -58,6 +58,59 @@ public class BoardDTO {
 	}
 	// 자유 게시판 end
 	
+	//여행 후기 게시판 start
+	private int review_bno;
+	private String review_title;
+	private String review_content;
+	private String review_writer;
+	private int review_viewCnt;
+	private int review_like;
+	private Date review_regDate;
+	
+	public int getReview_bno() {
+		return review_bno;
+	}
+	public void setReview_bno(int review_bno) {
+		this.review_bno = review_bno;
+	}
+	public String getReview_title() {
+		return review_title;
+	}
+	public void setReview_title(String review_title) {
+		this.review_title = review_title;
+	}
+	public String getReview_content() {
+		return review_content;
+	}
+	public void setReview_content(String review_content) {
+		this.review_content = review_content;
+	}
+	public String getReview_writer() {
+		return review_writer;
+	}
+	public void setReview_writer(String review_writer) {
+		this.review_writer = review_writer;
+	}
+	public int getReview_viewCnt() {
+		return review_viewCnt;
+	}
+	public void setReview_viewCnt(int review_viewCnt) {
+		this.review_viewCnt = review_viewCnt;
+	}
+	public int getReview_like() {
+		return review_like;
+	}
+	public void setReview_like(int review_like) {
+		this.review_like = review_like;
+	}
+	public Date getReview_regDate() {
+		return review_regDate;
+	}
+	public void setReview_regDate(Date review_regDate) {
+		this.review_regDate = review_regDate;
+	}
+	//여행 후기 게시판 end
+	
 	// 패키지 설계 게시판 start
 	private int board_want_bno;
 	private String board_want_title;

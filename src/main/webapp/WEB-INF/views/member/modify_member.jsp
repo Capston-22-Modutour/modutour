@@ -49,11 +49,18 @@
 										</div>
 									</div>
 									<div class="nav-item dropdown">
-									
-										<a href="#" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 구매내역</a>
-									</div>
-									<div class="nav-item dropdown">
-										<a href="#" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 내 게시글</a>
+										<a href="my_post" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+											<i class="fa fa-laptop me-2"></i>내게시글
+										</a>
+										<div class="dropdown-menu bg-transparent border-0">
+											<a href="/my_freepost" class="dropdown-item">MY 자유 게시판</a> 
+											<a href="/my_packageplan" class="dropdown-item">MY 패키지 설계</a>
+										</div>
+										<div class="nav-item dropdown">
+											<a href="/my_purchase" class="dropdown-item">
+												<i class="far fa-file-alt me-2"></i>&nbsp; 구매내역
+											</a>
+										</div>
 									</div>
 								</div>
 							</nav>

@@ -57,28 +57,63 @@
 					<div class="col-lg-8">
 						<div class="section-title mb-0">
 							<h4 class="m-0 text-uppercase font-weight-bold">
-								<input type="text" size="50" name="board_want_title" value="${view.board_want_title}" />
+								<input type="text" size="50" name="suggest_title" value="${view.suggest_title}" />
 							</h4>
 						</div>
 						<div class="bg-white border border-top-0 p-4 mb-3">
 							<div class="mb-4">
-								<input type="text" name="board_want_writer" value="${member.user_name}" hidden="hidden">
+								<input type="text" name="board_want_writer" value="${view.board_want_writer}" hidden="hidden"> <br /> 
+								<label>요청자</label> <br/> 
+								<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_writer}</label> <br/><br/>
+							
+								<input type="text" name="board_want_destination" value="${view.board_want_destination}" hidden="hidden">
 								<label>목적지</label> <br/> 
-								<input type="text" style="color: black;" name="board_want_destination" class="m-0 text-uppercase font-weight-bold px-8" value="${view.board_want_destination}"> <br /> 
-									
+								<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_destination}</label> <br/><br/>
+								
+								<input type="text" name="board_want_content" value="${view.board_want_content}" hidden="hidden">
 								<label>희망사항</label> <br/>
-								<textarea cols="68" rows="5" name="board_want_content" class="m-0 text-uppercase font-weight-bold px-8" placeholder="${view.board_want_content}"></textarea>
+								<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_content}</label> <br/><br/>
+								
+								<label>제안사항</label> <br/>
+								<textarea cols="68" rows="5" name="suggest_content" class="m-0 text-uppercase font-weight-bold px-8" placeholder="${view.suggest_content}"></textarea>
 								<br /> 
 								
+								<input type="text" name="board_want_people" value="${view.board_want_people}" hidden="hidden">
 								<label>인원수</label> <br/> 
-								<input type="text" style="color: black;" name="board_want_people" class="m-0 text-uppercase font-weight-bold px-8" value="${view.board_want_people}"> <br /> 
+								<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_people}</label> <br/><br/>
 								
 								<label>출발일</label> <br/>
-								<input type="date" style="color: black;" name="board_want_start" class="m-0 text-uppercase font-weight-bold px-8" value="<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />">
+								<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
+									<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />
+								</p>
+								<input type="date" name="board_want_start" value="<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />" hidden="hidden">
 								<br /> 
 								
 								<label>도착일</label> <br/>
-								<input type="date" style="color: black;" name="board_want_end" class="m-0 text-uppercase font-weight-bold px-8" value="<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />">
+								<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
+									<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />
+								</p>
+								<input type="date" name="board_want_end" value="<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />" hidden="hidden">
+								<br/>
+								
+								<label>비용</label> <br/>
+								<input type="text" name="suggest_price" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8" value="${view.suggest_price}"> <br/><br/>
+								
+								<label>가이드 포함 여부</label> <br/> 
+								<select name="suggest_guide" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8" value="${view.suggest_guide}">
+									<option>O</option>
+									<option>X</option>
+								</select> <br />
+								<br/>
+								
+								<label>항공사</label> <br /> 
+								<select name="suggest_air" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8" value="">
+									<option>대한항공</option>
+									<option>아시아나항공</option>
+									<option>에어부산</option>
+									<option>티웨이</option>
+								</select> <br /> <br />
+
 							</div>
 
 							<div class="text-center">

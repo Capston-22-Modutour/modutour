@@ -15,13 +15,13 @@
                 <nav class="navbar navbar-expand-sm bg-dark p-0">
                     <ul class="navbar-nav ml-n2">
                         <li class="nav-item border-right border-secondary">
-                            <a class="nav-link text-body small" href="#"></a>
+                            <a class="nav-link text-body small" href="#">회사소개</a>
                         </li>
                         <li class="nav-item border-right border-secondary">
-                            <a class="nav-link text-body small" href="#">Advertise</a>
+                            <a class="nav-link text-body small" href="#">이용약관</a>
                         </li>
                         <li class="nav-item border-right border-secondary">
-                            <a class="nav-link text-body small" href="#">Contact</a>
+                            <a class="nav-link text-body small" href="#">여행약관</a>
                         </li>
                         
                         <!-- 로그인 시 로그인, 회원가입 숨기기 시작 -->
@@ -94,12 +94,11 @@
             <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
                     <a href="/" class="nav-item nav-link active">Home</a>
-                    <a href="category.html" class="nav-item nav-link">Category</a>
-                    <a href="single.html" class="nav-item nav-link">Single News</a>
+                    <a href="/review/review_listPageSearch?num=1" class="nav-item nav-link">여행후기</a>
+                    <a href="/board/listPageSearch?num=1" class="nav-item nav-link">커뮤니티</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">게시판</a>
                         <div class="dropdown-menu rounded-0 m-0">
-                            <a href="/board/listPageSearch?num=1" class="dropdown-item">자유게시판</a>
                             <a href="/want_board/want_listPageSearch?num=1" class="dropdown-item">패키지 설계</a>
                             <a href="/suggest_board/suggest_listPageSearch?num=1" class="dropdown-item">여행사 입찰</a>
                             <a href="#" class="dropdown-item">패키지 판매</a>
@@ -122,9 +121,8 @@
 				       		</c:when>
 				       		
                         </c:choose>
-                    
-                    
                 </div>
+                
                 <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
                     <input type="text" class="form-control border-0" placeholder="Keyword">
                     <div class="input-group-append">

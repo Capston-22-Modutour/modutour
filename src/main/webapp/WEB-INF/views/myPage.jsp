@@ -29,13 +29,6 @@
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">  
-
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
@@ -63,16 +56,21 @@
 										<a href="#" class="nav-link dropdown-toggle"
 											data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>회원정보</a>
 										<div class="dropdown-menu bg-transparent border-0">
-											<a href="/member/modify_member" class="dropdown-item">정보수정</a> <a
-												href="/member/delete_member" class="dropdown-item">회원탈퇴</a>
+											<a href="/member/modify_member" class="dropdown-item">정보수정</a> 
+											<a href="/member/delete_member" class="dropdown-item">회원탈퇴</a>
 										</div>
 									</div>
 									<div class="nav-item dropdown">
+										<a href="my_post" class="nav-link dropdown-toggle"
+										    data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>내게시글</a>
+										    <div class="dropdown-menu bg-transparent border-0">
+											<a href="/my_freepost" class="dropdown-item">MY 자유 게시판</a> 
+											<a href="/my_packageplan" class="dropdown-item">MY 패키지 설계</a>
+										</div>
+										<div class="nav-item dropdown">
 									
-										<a href="#" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 구매내역</a>
+										<a href="my_purchase" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 구매내역</a>
 									</div>
-									<div class="nav-item dropdown">
-										<a href="#" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 내 게시글</a>
 									</div>
 								</div>
 							</nav>

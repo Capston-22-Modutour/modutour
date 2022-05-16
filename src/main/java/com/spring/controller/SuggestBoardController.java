@@ -28,7 +28,7 @@ public class SuggestBoardController {
 	@Inject
 	private ReplyService replyService;
 	
-	// 패키지 설계 게시글 목록
+	// 패키지 제안 게시글 목록
 	@RequestMapping(value = "/suggest_list", method = RequestMethod.GET)
 	public void getSuggestList(Model model) throws Exception {
 		// Model = Controller와 View 연결해주는 역할
@@ -38,7 +38,7 @@ public class SuggestBoardController {
 		model.addAttribute("list", suggest_list);
 	}
 
-	// 패키지 설계 게시글 작성 get
+	// 패키지 제안 게시글 작성 get
 	@RequestMapping(value = "/suggest_write", method = RequestMethod.GET)
 	public void getSuggestWrite(HttpSession session, Model model) throws Exception {
 		Object loginInfo = session.getAttribute("member");
@@ -48,7 +48,7 @@ public class SuggestBoardController {
 		}
 	}
 
-	// 패키지 설계 게시글 작성 post
+	// 패키지 제안 게시글 작성 post
 	@RequestMapping(value = "/suggest_write", method = RequestMethod.POST)
 	public String postSuggestWrite(BoardDTO dto) throws Exception {
 		service.suggest_write(dto);
@@ -56,7 +56,7 @@ public class SuggestBoardController {
 		return "redirect:/suggest_board/suggest_listPageSearch?num=1";
 	}
 
-	// 패키지 설계 게시글 조회
+	// 패키지 제안 게시글 조회
 	@RequestMapping(value = "/suggest_view", method = RequestMethod.GET)
 	public void getSuggestView(@RequestParam("suggest_bno") int suggest_bno, Model model) throws Exception {
 		BoardDTO dto = service.suggest_view(suggest_bno);
@@ -70,7 +70,7 @@ public class SuggestBoardController {
 		 */
 	}
 
-	// 패키지 설계 게시글 수정
+	// 패키지 제안 게시글 수정
 	@RequestMapping(value = "/suggest_modify", method = RequestMethod.GET)
 	public void getSuggestModify(@RequestParam("suggest_bno") int suggest_bno, Model model) throws Exception {
 		BoardDTO dto = service.suggest_view(suggest_bno);
@@ -78,15 +78,15 @@ public class SuggestBoardController {
 		model.addAttribute("view", dto);
 	}
 
-	// 패키지 설계 게시글 수정
+	// 패키지 제안 게시글 수정
 	@RequestMapping(value = "/suggest_modify", method = RequestMethod.POST)
 	public String postSuggestModify(BoardDTO dto) throws Exception {
 		service.suggest_modify(dto);
 
-		return "redirect:/suggest_board/suggest_view?suggest_bno=" + dto.getBoard_want_bno();
+		return "redirect:/suggest_board/suggest_view?suggest_bno=" + dto.getSuggest_bno();
 	}
 
-	// 패키지 설계 게시글 삭제
+	// 패키지 제안 게시글 삭제
 	@RequestMapping(value = "/suggest_delete", method = RequestMethod.GET)
 	public String getSuggestDelete(@RequestParam("suggest_bno") int suggest_bno) throws Exception {
 		service.suggest_delete(suggest_bno);
@@ -94,7 +94,7 @@ public class SuggestBoardController {
 		return "redirect:/suggest_board/suggest_listPageSearch?num=1";
 	}
 
-	// 패키지 설계 게시글 목록 + 페이징 추가 + 검색
+	// 패키지 제안 게시글 목록 + 페이징 추가 + 검색
 	@RequestMapping(value = "/suggest_listPageSearch", method = RequestMethod.GET)
 	public void getSuggestListPageSearch(Model model, @RequestParam("num") int num,
 			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,

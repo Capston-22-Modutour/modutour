@@ -20,6 +20,12 @@ public class BoardServiceImpl implements BoardService {
 	@Inject
 	private BoardDAO dao;
 
+	//마이페이지 내가 쓴 커뮤니티 목록
+	@Override
+	public List<BoardDTO> my_list() throws Exception {
+		return dao.my_list();
+	}
+	// ----------------------------------------
 	// 게시물 목록
 	@Override
 	public List<BoardDTO> list() throws Exception {
@@ -39,7 +45,7 @@ public class BoardServiceImpl implements BoardService {
 		dao.updateViewCnt(board_bno);
 		return dao.view(board_bno);
 	}
-	
+
 	// 게시글 수정
 	@Override
 	public void modify(BoardDTO dto) throws Exception {
@@ -66,7 +72,8 @@ public class BoardServiceImpl implements BoardService {
 
 	// 게시물 목록 + 페이징 + 검색
 	@Override
-	public List<BoardDTO> listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception {
+	public List<BoardDTO> listPageSearch(int displayPost, int postNum, String searchType, String keyword)
+			throws Exception {
 		return dao.listPageSearch(displayPost, postNum, searchType, keyword);
 	}
 
@@ -75,8 +82,8 @@ public class BoardServiceImpl implements BoardService {
 	public int searchCount(String searchType, String keyword) throws Exception {
 		return dao.searchCount(searchType, keyword);
 	}
-	
-	//게시글 추천관련 메소드 구현
+
+	// 게시글 추천관련 메소드 구현
 	@Override
 	public void updateLike(int board_bno) throws Exception {
 		dao.updateLike(board_bno);
@@ -111,7 +118,7 @@ public class BoardServiceImpl implements BoardService {
 	public void updateLikeCheckCancel(int board_bno, int user_num) throws Exception {
 		dao.updateLikeCheckCancel(board_bno, user_num);
 	}
-	
+
 	// -------------------------------------
 	// 게시물 목록
 	@Override
@@ -153,7 +160,8 @@ public class BoardServiceImpl implements BoardService {
 
 	// 게시물 목록 + 페이징 + 검색
 	@Override
-	public List<BoardDTO> want_listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception {
+	public List<BoardDTO> want_listPageSearch(int displayPost, int postNum, String searchType, String keyword)
+			throws Exception {
 		return dao.want_listPageSearch(displayPost, postNum, searchType, keyword);
 	}
 
@@ -163,7 +171,7 @@ public class BoardServiceImpl implements BoardService {
 		return dao.want_searchCount(searchType, keyword);
 	}
 
-	//패키지 설계 게시글 추천관련 메소드 구현
+	// 패키지 설계 게시글 추천관련 메소드 구현
 	@Override
 	public void want_updateLike(int board_want_bno) throws Exception {
 		dao.want_updateLike(board_want_bno);
@@ -198,7 +206,94 @@ public class BoardServiceImpl implements BoardService {
 	public void want_updateLikeCheckCancel(int board_want_bno, int user_num) throws Exception {
 		dao.want_updateLikeCheckCancel(board_want_bno, user_num);
 	}
-	
+
+	// -------------------------------------
+	// 게시물 목록
+	@Override
+	public List<BoardDTO> review_list() throws Exception {
+		return dao.review_list();
+	}
+
+	// 게시물 작성
+	@Override
+	public void review_write(BoardDTO dto) throws Exception {
+		dao.review_write(dto);
+	}
+
+	// 게시물 조회, 조회수 증가
+	@Transactional(isolation = Isolation.READ_COMMITTED)
+	@Override
+	public BoardDTO review_view(int review_bno) throws Exception {
+		dao.review_updateViewCnt(review_bno);
+		return dao.review_view(review_bno);
+	}
+
+	// 게시글 수정
+	@Override
+	public void review_modify(BoardDTO dto) throws Exception {
+		dao.review_modify(dto);
+	}
+
+	// 게시글 삭제
+	@Override
+	public void review_delete(int review_bno) throws Exception {
+		dao.review_delete(review_bno);
+	}
+
+	// 게시글 총 갯수
+	@Override
+	public int review_count() throws Exception {
+		return dao.review_count();
+	}
+
+	// 게시물 목록 + 페이징 + 검색
+	@Override
+	public List<BoardDTO> review_listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception {
+		return dao.review_listPageSearch(displayPost, postNum, searchType, keyword);
+	}
+
+	// 게시물 총 갯수
+	@Override
+	public int review_searchCount(String searchType, String keyword) throws Exception {
+		return dao.review_searchCount(searchType, keyword);
+	}
+
+	// 패키지 설계 게시글 추천관련 메소드 구현
+	@Override
+	public void review_updateLike(int review_bno) throws Exception {
+		dao.review_updateLike(review_bno);
+	}
+
+	@Override
+	public void review_updateLikeCancel(int review_bno) throws Exception {
+		dao.review_updateLikeCancel(review_bno);
+	}
+
+	@Override
+	public void review_insertLike(int review_bno, int user_num) throws Exception {
+		dao.review_insertLike(review_bno, user_num);
+	}
+
+	@Override
+	public void review_deleteLike(int review_bno, int user_num) throws Exception {
+		dao.review_deleteLike(review_bno, user_num);
+	}
+
+	@Override
+	public int review_likeCheck(int review_bno, int user_num) throws Exception {
+		return dao.review_likeCheck(review_bno, user_num);
+	}
+
+	@Override
+	public void review_updateLikeCheck(int review_bno, int user_num) throws Exception {
+		dao.review_updateLikeCheck(review_bno, user_num);
+	}
+
+	@Override
+	public void review_updateLikeCheckCancel(int review_bno, int user_num) throws Exception {
+		dao.review_updateLikeCheckCancel(review_bno, user_num);
+	}
+
 	// ------------------------------------
 	// 패지키 제안 게시물 목록
 	@Override
@@ -244,7 +339,8 @@ public class BoardServiceImpl implements BoardService {
 
 	// 패키지 제안 게시물 목록 + 페이징 + 검색
 	@Override
-	public List<BoardDTO> suggest_listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception {
+	public List<BoardDTO> suggest_listPageSearch(int displayPost, int postNum, String searchType, String keyword)
+			throws Exception {
 		return dao.suggest_listPageSearch(displayPost, postNum, searchType, keyword);
 	}
 

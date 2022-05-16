@@ -48,6 +48,51 @@
 	<!-- 자유 게시글 좋아요 end -->
 	
 	
+	<!-- 여행후기 게시글 좋아요 start -->
+	<!-- 게시글 추천수 -->
+	<update id="review_updateLike" parameterType="int">
+		update review 
+		set	review_like = review_like + 1
+		where review_bno = #{review_bno}
+	</update>
+
+	<!-- 게시글 추천수취소 -->
+	<update id="review_updateLikeCancel" parameterType="int">
+		update review
+		set	review_like = review_like - 1
+		where review_bno = #{review_bno}
+	</update>
+
+	<!-- 게시글 추천 시 Like 테이블에 insert -->
+	<insert id="review_insertLike" parameterType="com.spring.dto.LikeDTO">
+		insert into review_like(review_like_no , review_bno, user_num)
+		values((SELECT NVL(MAX(review_like_no), 0) + 1 FROM review_like m) ,#{review_bno} ,#{user_num})
+	</insert>
+
+	<!-- 게시글 추천취소 시 delete -->
+	<delete id="review_deleteLike">
+		delete from review_like where review_bno = #{review_bno} and user_num = #{user_num}
+	</delete>
+
+	<!-- 게시글 추천 시 Check를 1로 만들어서 중복방지 -->
+	<update id="review_updateLikeCheck">
+		update review_like set like_check = 1
+		where review_bno = #{review_bno} and user_num = #{user_num}
+	</update>
+
+	<!-- 게시글 추천취소 시 다시 0 -->
+	<update id="review_updateLikeCheckCancel">
+		update review_like set like_check = 0
+		where review_bno = #{review_bno} and user_num = #{user_num}
+	</update>
+
+	<!-- 게시글 추천 중복방지 select문 -->
+	<select id="review_likeCheck" resultType="int">
+		select count(*) from review_like where review_bno = #{review_bno} and user_num = #{user_num}
+	</select>
+	<!-- 여행후기 게시글 좋아요 end -->
+	
+	
 	<!-- 패키지 설계 게시글 좋아요 start -->
 	<!-- 게시글 추천수 -->
 	<update id="want_updateLike" parameterType="int">

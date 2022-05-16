@@ -105,6 +105,12 @@
 										<button type="button" class="btn btn-warning" id="like_btn" onclick="want_updateLike(); return false;">추천 ${view.board_want_like}</button>
 									</div>
 								</c:if>
+								
+								<c:if test="${company != null}">
+									<div style="margin-right: 1px;">
+										<button type="button" class="btn btn-warning" id="like_btn" onclick="want_updateLike(); return false;">추천 ${view.board_want_like}</button>
+									</div>
+								</c:if>
 							</div>
 							
 						</div>
@@ -166,7 +172,10 @@
 												<input type="number" name="suggest_price" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8"> <br/><br/>
 												
 												<label>가이드 포함 여부</label> <br /> 
-												<input type="text" name="suggest_guide" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8"> <br/><br/>
+												<select name="suggest_guide" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
+													<option>O</option>
+													<option>X</option>
+												</select> <br/><br/>
 												
 												<label>항공사</label> <br /> 
 												<select name="suggest_air" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
@@ -184,7 +193,6 @@
 									</div>
 								</form>
 								<!-- 게시글 내용 end -->
-							
 						</div>
 					</div>
 				</div>

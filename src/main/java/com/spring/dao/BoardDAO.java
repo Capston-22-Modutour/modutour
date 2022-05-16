@@ -3,10 +3,13 @@ package com.spring.dao;
 import java.util.List;
 
 import com.spring.dto.BoardDTO;
-import com.spring.dto.LikeDTO;
 
 public interface BoardDAO {
-
+	
+	// 내가 쓴 커뮤니티 목록
+	public List<BoardDTO> my_list() throws Exception;
+		
+	// ----------------------------------------
 	// 자유 게시물 목록
 	public List<BoardDTO> list() throws Exception;
 
@@ -52,6 +55,49 @@ public interface BoardDAO {
 
 	public void updateLikeCheckCancel(int board_bno, int user_num) throws Exception;
 		
+	//----------------------------------------
+	// 리뷰 게시물 목록
+	public List<BoardDTO> review_list() throws Exception;
+
+	// 리뷰 게시물 작성
+	public void review_write(BoardDTO dto) throws Exception;
+
+	// 리뷰 게시물 조회
+	public BoardDTO review_view(int review_bno) throws Exception;
+	
+	// 리뷰 게시글 조회수 증가
+	public void review_updateViewCnt(int review_bno) throws Exception;
+		
+	// 리뷰 게시글 수정
+	public void review_modify(BoardDTO dto) throws Exception;
+
+	// 리뷰 게시글 삭제
+	public void review_delete(int review_bno) throws Exception;
+
+	// 리뷰 게시글 총 갯수
+	public int review_count() throws Exception;
+
+	// 리뷰 게시물 목록 + 페이징 + 검색
+	public List<BoardDTO> review_listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception;
+
+	// 리뷰 게시물 총 갯수 + 검색 적용
+	public int review_searchCount(String searchType, String keyword) throws Exception;
+		
+	// 게시글 추천관련
+	public void review_updateLike(int review_bno) throws Exception;
+		
+	public void review_updateLikeCancel(int review_bno) throws Exception;
+
+	public void review_insertLike(int review_bno, int user_num) throws Exception;
+
+	public void review_deleteLike(int review_bno, int user_num) throws Exception;
+
+	public int review_likeCheck(int review_bno, int user_num) throws Exception;
+
+	public void review_updateLikeCheck(int review_bno, int user_num) throws Exception;
+
+	public void review_updateLikeCheckCancel(int review_bno, int user_num) throws Exception;
+	
 	//----------------------------------------
 	// 패키지 설계 게시물 목록
 	public List<BoardDTO> want_list() throws Exception;

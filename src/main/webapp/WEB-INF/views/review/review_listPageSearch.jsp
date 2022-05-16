@@ -38,7 +38,7 @@
 				<div class="col-lg-8">
 					<div class="section-title mb-0">
 						<h4 class="m-0 text-uppercase font-weight-bold">커뮤니티</h4>
-							<button type="button" class="btn btn-primary font-weight-semi-bold px-4" onclick="location.href='/board/write'">글 작성</button>
+							<button type="button" class="btn btn-primary font-weight-semi-bold px-4" onclick="location.href='/review/review_write'">글 작성</button>
 					</div>
 					<div class="bg-white border border-top-0 p-4 mb-3">
 						<div class="mb-4">
@@ -58,12 +58,12 @@
 									<tbody>
 										<c:forEach items="${list}" var="list">
 											<tr>
-												<td>${list.board_bno}</td>
-												<td><a href="/board/view?board_bno=${list.board_bno}">${list.board_title}</a></td>
-												<td><fmt:formatDate value="${list.board_regDate}" pattern="yyyy-MM-dd"/></td>
-												<td>${list.board_writer}</td>
-												<td>${list.board_like}</td>
-												<td>${list.board_viewCnt}</td>
+												<td>${list.review_bno}</td>
+												<td><a href="/review/review_view?review_bno=${list.review_bno}">${list.review_title}</a></td>
+												<td><fmt:formatDate value="${list.review_regDate}" pattern="yyyy-MM-dd"/></td>
+												<td>${list.review_writer}</td>
+												<td>${list.review_like}</td>
+												<td>${list.review_viewCnt}</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -72,7 +72,7 @@
 							<p class="mb-4">
 								<c:if test="${page.prev}">
 									<span>[ <a
-										href="/board/listPageSearch?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a>]
+										href="/review/review_listPageSearch?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a>]
 									</span>
 								</c:if>
 
@@ -80,7 +80,7 @@
 									var="num">
 									<span> <c:if test="${select != num}">
 											<a
-												href="/board/listPageSearch?num=${num}${page.searchTypeKeyword}">${num}</a>
+												href="/review/review_listPageSearch?num=${num}${page.searchTypeKeyword}">${num}</a>
 										</c:if> <c:if test="${select == num}">
 											<b>${num}</b>
 										</c:if>
@@ -89,7 +89,7 @@
 
 								<c:if test="${page.next}">
 									<span>[ <a
-										href="/board/listPageSearch?num=${page.endPageNum + 1}${page.searchTypeKeyword}">이전</a>]
+										href="/review/review_listPageSearch?num=${page.endPageNum + 1}${page.searchTypeKeyword}">이전</a>]
 									</span>
 								</c:if>
 							</p>
@@ -147,7 +147,7 @@
 				searchType 선택한 검색타입
 				keyword 검색어
 			*/
-			location.href = "/board/listPageSearch?num=1" + "&searchType=" + searchType + "&keyword=" + keyword;
+			location.href = "/review/listPageSearch?num=1" + "&searchType=" + searchType + "&keyword=" + keyword;
 		};
 	</script>
 	

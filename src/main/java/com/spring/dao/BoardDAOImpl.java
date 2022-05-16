@@ -10,7 +10,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.spring.dto.BoardDTO;
-import com.spring.dto.LikeDTO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -21,6 +20,13 @@ public class BoardDAOImpl implements BoardDAO {
 	private static String namespace = "com.spring.mappers.boardMapper";
 	private static String like_namespace = "com.spring.mappers.likeMapper";
 
+	
+	//마이페이지 내가 쓴 커뮤니티 목록
+	@Override
+	public List<BoardDTO> my_list() throws Exception {
+		return sql.selectList(namespace + ".my_list");
+	}
+	// ----------------------------------------
 	// 자유 게시물 목록
 	@Override
 	public List<BoardDTO> list() throws Exception {
@@ -38,13 +44,13 @@ public class BoardDAOImpl implements BoardDAO {
 	public BoardDTO view(int board_bno) throws Exception {
 		return sql.selectOne(namespace + ".view", board_bno);
 	}
-	
+
 	// 자유 게시글 조회수 증가
 	@Override
 	public void updateViewCnt(int board_bno) throws Exception {
 		sql.update(namespace + ".updateViewCnt", board_bno);
 	}
-	
+
 	// 자유 게시글 수정
 	@Override
 	public void modify(BoardDTO dto) throws Exception {
@@ -75,7 +81,8 @@ public class BoardDAOImpl implements BoardDAO {
 
 	// 자유 게시물 목록 + 페이징 + 검색
 	@Override
-	public List<BoardDTO> listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception {
+	public List<BoardDTO> listPageSearch(int displayPost, int postNum, String searchType, String keyword)
+			throws Exception {
 
 		HashMap<String, Object> data = new HashMap<String, Object>();
 
@@ -113,17 +120,17 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void insertLike(int board_bno, int user_num) throws Exception {
 		HashMap<String, Object> data = new HashMap<String, Object>();
-		
+
 		data.put("board_bno", board_bno);
 		data.put("user_num", user_num);
-		
+
 		sql.insert(like_namespace + ".insertLike", data);
 	}
 
 	@Override
 	public void deleteLike(int board_bno, int user_num) throws Exception {
 		HashMap<String, Object> data = new HashMap<String, Object>();
-		
+
 		data.put("board_bno", board_bno);
 		data.put("user_num", user_num);
 		sql.delete(like_namespace + ".deleteLike", data);
@@ -134,7 +141,7 @@ public class BoardDAOImpl implements BoardDAO {
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		data.put("user_num", user_num);
 		data.put("board_bno", board_bno);
-		
+
 		return sql.selectOne(like_namespace + ".likeCheck", data);
 	}
 
@@ -153,8 +160,132 @@ public class BoardDAOImpl implements BoardDAO {
 		data.put("board_bno", board_bno);
 		sql.update(like_namespace + ".updateLikeCheckCancel", data);
 	}
-		
-	
+
+	// ------------------------------------
+	// 자유 게시물 목록
+	@Override
+	public List<BoardDTO> review_list() throws Exception {
+		return sql.selectList(namespace + ".review_list");
+	}
+
+	// 자유 게시물 작성
+	@Override
+	public void review_write(BoardDTO dto) throws Exception {
+		sql.insert(namespace + ".review_write", dto);
+	}
+
+	// 자유 게시물 조회
+	@Override
+	public BoardDTO review_view(int review_bno) throws Exception {
+		return sql.selectOne(namespace + ".review_view", review_bno);
+	}
+
+	// 자유 게시글 조회수 증가
+	@Override
+	public void review_updateViewCnt(int review_bno) throws Exception {
+		sql.update(namespace + ".review_updateViewCnt", review_bno);
+	}
+
+	// 자유 게시글 수정
+	@Override
+	public void review_modify(BoardDTO dto) throws Exception {
+		sql.update(namespace + ".review_modify", dto);
+	}
+
+	// 자유 게시글 삭제
+	@Override
+	public void review_delete(int review_bno) throws Exception {
+		sql.delete(namespace + ".review_delete", review_bno);
+	}
+
+	// 자유 게시글 총 갯수
+	@Override
+	public int review_count() throws Exception {
+		return sql.selectOne(namespace + ".review_count");
+	}
+
+	// 자유 게시물 목록 + 페이징 + 검색
+	@Override
+	public List<BoardDTO> review_listPageSearch(int displayPost, int postNum, String searchType, String keyword)
+			throws Exception {
+
+		HashMap<String, Object> data = new HashMap<String, Object>();
+
+		data.put("displayPost", displayPost);
+		data.put("postNum", postNum);
+
+		data.put("searchType", searchType);
+		data.put("keyword", keyword);
+
+		return sql.selectList(namespace + ".review_listPageSearch", data);
+	}
+
+	// 자유 게시물 총 갯수 + 검색 적용
+	@Override
+	public int review_searchCount(String searchType, String keyword) throws Exception {
+
+		HashMap<String, Object> data = new HashMap();
+
+		data.put("searchType", searchType);
+		data.put("keyword", keyword);
+
+		return sql.selectOne(namespace + ".review_searchCount", data);
+	}
+
+	// 게시글 추천관련 메소드 구현
+	public void review_updateLike(int review_bno) throws Exception {
+		sql.update(like_namespace + ".review_updateLike", review_bno);
+	}
+
+	@Override
+	public void review_updateLikeCancel(int review_bno) throws Exception {
+		sql.update(like_namespace + ".review_updateLikeCancel", review_bno);
+	}
+
+	@Override
+	public void review_insertLike(int review_bno, int user_num) throws Exception {
+		HashMap<String, Object> data = new HashMap<String, Object>();
+
+		data.put("review_bno", review_bno);
+		data.put("user_num", user_num);
+
+		sql.insert(like_namespace + ".review_insertLike", data);
+	}
+
+	@Override
+	public void review_deleteLike(int review_bno, int user_num) throws Exception {
+		HashMap<String, Object> data = new HashMap<String, Object>();
+
+		data.put("review_bno", review_bno);
+		data.put("user_num", user_num);
+		sql.delete(like_namespace + ".review_deleteLike", data);
+	}
+
+	@Override
+	public int review_likeCheck(int review_bno, int user_num) throws Exception {
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("user_num", user_num);
+		data.put("review_bno", review_bno);
+
+		return sql.selectOne(like_namespace + ".review_likeCheck", data);
+	}
+
+	@Override
+	public void review_updateLikeCheck(int review_bno, int user_num) throws Exception {
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("user_num", user_num);
+		data.put("review_bno", review_bno);
+		sql.update(like_namespace + ".review_updateLikeCheck", data);
+	}
+
+	@Override
+	public void review_updateLikeCheckCancel(int review_bno, int user_num) throws Exception {
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("user_num", user_num);
+		data.put("review_bno", review_bno);
+		sql.update(like_namespace + ".review_updateLikeCheckCancel", data);
+	}
+
 	// ------------------------------------
 	// 패키지 설계 게시물 목록
 	@Override
@@ -173,7 +304,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public BoardDTO want_view(int board_want_bno) throws Exception {
 		return sql.selectOne(namespace + ".want_view", board_want_bno);
 	}
-	
+
 	// 패키지 설계 게시물 조회수 증가
 	@Override
 	public void want_updateViewCnt(int board_want_bno) throws Exception {
@@ -200,7 +331,8 @@ public class BoardDAOImpl implements BoardDAO {
 
 	// 패키지 설계 게시물 목록 + 페이징 + 검색
 	@Override
-	public List<BoardDTO> want_listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception {
+	public List<BoardDTO> want_listPageSearch(int displayPost, int postNum, String searchType, String keyword)
+			throws Exception {
 
 		HashMap<String, Object> data = new HashMap<String, Object>();
 
@@ -278,7 +410,7 @@ public class BoardDAOImpl implements BoardDAO {
 		data.put("board_want_bno", board_want_bno);
 		sql.update(like_namespace + ".want_updateLikeCheckCancel", data);
 	}
-	
+
 	// ------------------------------------
 	// 패지키 제안 게시물 목록
 	@Override
@@ -297,7 +429,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public BoardDTO suggest_view(int suggest_bno) throws Exception {
 		return sql.selectOne(namespace + ".suggest_view", suggest_bno);
 	}
-	
+
 	// 패키지 제안 게시물 조회수 증가
 	@Override
 	public void suggest_updateViewCnt(int suggest_bno) throws Exception {
@@ -307,7 +439,7 @@ public class BoardDAOImpl implements BoardDAO {
 	// 패키지 제안 게시글 수정
 	@Override
 	public void suggest_modify(BoardDTO dto) throws Exception {
-		sql.update(namespace + ".want_modify", dto);
+		sql.update(namespace + ".suggest_modify", dto);
 	}
 
 	// 패키지 제안 게시글 삭제
@@ -324,7 +456,8 @@ public class BoardDAOImpl implements BoardDAO {
 
 	// 패키지 제안 게시물 목록 + 페이징 + 검색
 	@Override
-	public List<BoardDTO> suggest_listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception {
+	public List<BoardDTO> suggest_listPageSearch(int displayPost, int postNum, String searchType, String keyword)
+			throws Exception {
 
 		HashMap<String, Object> data = new HashMap<String, Object>();
 

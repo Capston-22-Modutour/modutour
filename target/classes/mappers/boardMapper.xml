@@ -4,6 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mappers.boardMapper">
 	
+	<!-- 마이페이지 내가 쓴 자유 게시글 시작 -->
+	<select id="my_list" resultType="com.spring.dto.BoardDTO">
+		select *
+		from member_board
+		where board_writer = #{user_name}
+	</select>
+	<!-- 마이페이지 내가 쓴 자유 게시글 끝 -->
+	
 	<!-- 자유 게시판 시작 -->
 	<!-- 게시물 목록 -->
 	<!-- 쿼리를 실행한 뒤 결과가 있을 경우 resultType 사용 -->
@@ -108,9 +116,108 @@
 		<if test='searchType.equals("writer")'>
 			WHERE board_writer LIKE concat('%', #{keyword}, '%')
 		</if>
-	 
 	</select>
 	<!-- 자유 게시판 끝 -->
+	
+	<!-- 여행후기 게시판 시작 -->
+	<!-- 게시물 목록 -->
+	<!-- 쿼리를 실행한 뒤 결과가 있을 경우 resultType 사용 -->
+	<select id="review_list" resultType="com.spring.dto.BoardDTO">
+		select *
+		from review
+	</select>
+	
+	<!-- 게시물 작성 -->
+	<!-- 데이터를 넣을 땐 parameterType 사용 -->
+	<insert id="review_write" parameterType="com.spring.dto.BoardDTO">
+		insert into review(review_title, review_content, review_writer)
+					values(#{review_title}, #{review_content}, #{review_writer})
+	</insert>
+	
+	<!-- 게시물 조회 -->
+	<select id="review_view" parameterType="int" resultType="com.spring.dto.BoardDTO">
+		select *
+		from review
+		where review_bno = #{review_bno}
+	</select>
+	
+	<!-- 게시글 조회수 증가 -->
+	<update id="review_updateViewCnt" parameterType="int">
+		update review
+			set review_viewCnt = review_viewCnt + 1
+		where review_bno = #{review_bno}
+	</update>
+	
+	<!-- 게시글 수정 -->
+	<update id="review_modify" parameterType="com.spring.dto.BoardDTO">
+		update review
+			set
+				review_title = #{review_title},
+				review_writer = #{review_writer},
+				review_content = #{review_content}
+			where review_bno = #{review_bno}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="review_delete" parameterType="int">
+		delete from review
+		where review_bno = #{review_bno}
+	</delete>
+	
+	<!-- 게시글 총 갯수 -->
+	<select id="review_count" resultType="int">
+		select count(review_bno) from review
+	</select>
+	
+	<!-- 게시글 목록 + 페이징 + 검색 -->
+	<select id="review_listPageSearch" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
+		select *
+		from review
+		
+		<if test='searchType.equals("title")'>
+			where review_title LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("content")'>
+			where review_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("title_content")'>
+			where review_title LIKE concat('%', #{keyword}, '%')
+			or review_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("writer")'>
+			where review_writer LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		order by review_bno desc
+			limit #{displayPost}, #{postNum} 
+	</select>
+	
+	<!-- 게시물 총 갯수 + 검색 적용 -->
+	<select id="review_searchCount" parameterType="hashMap" resultType="int">
+		select count(review_bno) from review
+	  
+		<if test='searchType.equals("title")'>
+		 	WHERE review_title LIKE concat('%', #{keyword}, '%')
+		</if>
+		 
+		<if test='searchType.equals("content")'>
+			WHERE review_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		 
+		<if test='searchType.equals("title_content")'>
+			WHERE review_title LIKE concat('%', #{keyword}, '%') 
+			 or review_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		 
+		<if test='searchType.equals("writer")'>
+			WHERE review_writer LIKE concat('%', #{keyword}, '%')
+		</if>
+	</select>
+	
+	<!-- 여행후기 게시판 끝 -->
 	
 	<!-- 패키지 설계 게시판 시작 -->
 	<!-- 게시물 목록 -->
@@ -229,11 +336,12 @@
 	<!-- 게시물 작성 -->
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="suggest_write" parameterType="com.spring.dto.BoardDTO">
-		insert into suggest_board(board_want_bno, com_regiNum, board_want_writer, suggest_writer, suggest_title, board_want_destination,
-			board_want_content, suggest_content, board_want_people, board_want_start, board_want_end, suggest_price, suggest_guide, suggest_air)
-					values(#{board_want_bno}, #{com_regiNum}, #{board_want_writer}, #{suggest_writer}, #{suggest_title}, #{board_want_destination},
-					#{board_want_content}, #{suggest_content}, #{board_want_people}, #{board_want_start}, #{board_want_end},
-					#{suggest_price}, #{suggest_guide}, #{suggest_air})
+		insert into suggest_board(board_want_bno, com_regiNum, board_want_writer, suggest_writer, suggest_title, 
+			board_want_destination, board_want_content, suggest_content, board_want_people, board_want_start, 
+			board_want_end, suggest_price, suggest_guide, suggest_air)
+					values(#{board_want_bno}, #{com_regiNum}, #{board_want_writer}, #{suggest_writer}, #{suggest_title}, 
+					#{board_want_destination}, #{board_want_content}, #{suggest_content}, #{board_want_people}, 
+					#{board_want_start}, #{board_want_end},	#{suggest_price}, #{suggest_guide}, #{suggest_air})
 	</insert>
 	
 	<!-- 게시물 조회 -->
@@ -254,14 +362,18 @@
 	<update id="suggest_modify" parameterType="com.spring.dto.BoardDTO">
 		update suggest_board
 			set
-				board_want_title = #{board_want_title},
+				suggest_title = #{suggest_title},
 				board_want_writer = #{board_want_writer},
 				board_want_destination = #{board_want_destination},
 				board_want_content = #{board_want_content},
+				suggest_content = #{suggest_content},
 				board_want_people = #{board_want_people},
 				board_want_start = #{board_want_start},
-				board_want_end = #{board_want_end}
-			where board_want_bno = #{board_want_bno}
+				board_want_end = #{board_want_end},
+				suggest_price = #{suggest_price},
+				suggest_guide = #{suggest_guide},
+				suggest_air = #{suggest_air}
+			where suggest_bno = #{suggest_bno}
 	</update>
 	
 	<!-- 게시글 삭제 -->
@@ -298,7 +410,7 @@
 			where suggest_writer LIKE concat('%', #{keyword}, '%')
 		</if>
 		
-		order by board_want_bno desc
+		order by suggest_bno desc
 			limit #{displayPost}, #{postNum} 
 	</select>
 	
