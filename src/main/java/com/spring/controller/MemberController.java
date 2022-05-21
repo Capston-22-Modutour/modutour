@@ -104,11 +104,13 @@ public class MemberController {
 
 		MemberDTO login = service.login(dto);
 		
+		
 		if (login == null) {
 			session.setAttribute("member", null);
 			rttr.addFlashAttribute("msg", false);
 		} else {
 			session.setAttribute("member", login);
+			session.setAttribute("user_name", login.getUser_name());
 		}
 
 		return "redirect:/";

@@ -22,8 +22,14 @@ public class BoardServiceImpl implements BoardService {
 
 	//마이페이지 내가 쓴 커뮤니티 목록
 	@Override
-	public List<BoardDTO> my_list() throws Exception {
-		return dao.my_list();
+	public List<BoardDTO> my_list(String user_name) throws Exception {
+		return dao.my_list(user_name);
+	}
+	
+	//마이페이지 내가 쓴 패키지 설계 목록
+	@Override
+	public List<BoardDTO> my_package_list(String user_name) throws Exception {
+		return dao.my_package_list(user_name);
 	}
 	// ----------------------------------------
 	// 게시물 목록

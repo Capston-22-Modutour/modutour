@@ -7,7 +7,10 @@ import com.spring.dto.BoardDTO;
 public interface BoardDAO {
 	
 	// 내가 쓴 커뮤니티 목록
-	public List<BoardDTO> my_list() throws Exception;
+	public List<BoardDTO> my_list(String user_name) throws Exception;
+	
+	// 내가 쓴 패키지 설계 목록
+	public List<BoardDTO> my_package_list(String user_name) throws Exception;
 		
 	// ----------------------------------------
 	// 자유 게시물 목록

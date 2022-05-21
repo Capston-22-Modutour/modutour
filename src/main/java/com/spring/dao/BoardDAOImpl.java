@@ -23,8 +23,14 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	//마이페이지 내가 쓴 커뮤니티 목록
 	@Override
-	public List<BoardDTO> my_list() throws Exception {
-		return sql.selectList(namespace + ".my_list");
+	public List<BoardDTO> my_list(String user_name) throws Exception {
+		return sql.selectList(namespace + ".my_list", user_name);
+	}
+	
+	//마이페이지 내가 쓴 패키지 설계 목록
+	@Override
+	public List<BoardDTO> my_package_list(String user_name) throws Exception {
+		return sql.selectList(namespace + ".my_package_list", user_name);
 	}
 	// ----------------------------------------
 	// 자유 게시물 목록
@@ -81,8 +87,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 	// 자유 게시물 목록 + 페이징 + 검색
 	@Override
-	public List<BoardDTO> listPageSearch(int displayPost, int postNum, String searchType, String keyword)
-			throws Exception {
+	public List<BoardDTO> listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception {
 
 		HashMap<String, Object> data = new HashMap<String, Object>();
 

@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.spring.dto.BoardDTO;
 import com.spring.service.BoardService;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class MyPageController {
 	
@@ -37,11 +37,18 @@ public class MyPageController {
 		return "myPage_com";
 	}
 	
-	// 내가 쓴 자유게시글
+	// 내가 쓴 커뮤니티 게시글
 	@RequestMapping(value = "/my_freepost", method = RequestMethod.GET)
-	public String myFreePost(Model model) throws Exception {
+	public String myFreePost(HttpServletRequest request, Model model) throws Exception {
+		
 		List<BoardDTO> list = null;
-		list = service.my_list();
+		
+		HttpSession session = request.getSession();
+		session.getAttribute("member");
+		
+		String user_name = (String)session.getAttribute("user_name");
+		
+		list = service.my_list(user_name);
 
 		model.addAttribute("list", list);
 		
@@ -50,8 +57,19 @@ public class MyPageController {
 	
 	// 내가 쓴 패키지 설계
 	@RequestMapping(value = "/my_packageplan", method = RequestMethod.GET)
-	public String myPackagePlan(Locale locale, Model model) {
+	public String myPackagePlan(HttpServletRequest request , Model model) throws Exception {
+		
+		List<BoardDTO> list = null;
+		
+		HttpSession session = request.getSession();
+		session.getAttribute("member");
+		
+		String user_name = (String)session.getAttribute("user_name");
+		
+		list = service.my_package_list(user_name);
 
+		model.addAttribute("list", list);
+		
 		return "my_packageplan";
 	}
 

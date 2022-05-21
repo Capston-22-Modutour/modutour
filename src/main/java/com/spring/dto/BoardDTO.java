@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class BoardDTO {
 	// 자유 게시판 start
+	private String user_name;
 	private int board_bno;
 	private String board_title;
 	private String board_content;
@@ -14,6 +15,12 @@ public class BoardDTO {
 	private int board_viewCnt;
 	private int board_like;
 	
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
 	public int getBoard_bno() {
 		return board_bno;
 	}

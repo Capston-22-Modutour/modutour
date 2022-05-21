@@ -4,13 +4,23 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mappers.boardMapper">
 	
-	<!-- 마이페이지 내가 쓴 자유 게시글 시작 -->
+	<!-- 마이페이지 start -->
+	<!-- 내가 쓴 커뮤니티 게시글 -->
 	<select id="my_list" resultType="com.spring.dto.BoardDTO">
 		select *
 		from member_board
 		where board_writer = #{user_name}
+		order by board_bno desc
 	</select>
-	<!-- 마이페이지 내가 쓴 자유 게시글 끝 -->
+	
+	<!-- 내가 쓴 패캐지 설계 게시글 -->
+	<select id="my_package_list" resultType="com.spring.dto.BoardDTO">
+		select *
+		from member_board_want
+		where board_want_writer = #{user_name}
+		order by board_want_bno desc
+	</select>
+	<!-- 마이페이지 end -->
 	
 	<!-- 자유 게시판 시작 -->
 	<!-- 게시물 목록 -->
