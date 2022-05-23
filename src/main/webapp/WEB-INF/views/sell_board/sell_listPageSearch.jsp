@@ -57,12 +57,12 @@
 									<tbody>
 										<c:forEach items="${list}" var="list">
 											<tr>
-												<td>${list.suggest_bno}</td>
-												<td><a href="/suggest_board/suggest_view?suggest_bno=${list.suggest_bno}">${list.suggest_title}</a></td>
-												<td><fmt:formatDate value="${list.suggest_regDate}" pattern="yyyy-MM-dd"/></td>
-												<td>${list.suggest_writer}</td>
-												<td>${list.suggest_like}</td>
-												<td>${list.suggest_viewCnt}</td>
+												<td>${list.sell_bno}</td>
+												<td><a href="/sell_board/sell_view?sell_bno=${list.sell_bno}">${list.sell_title}</a></td>
+												<td><fmt:formatDate value="${list.sell_regDate}" pattern="yyyy-MM-dd"/></td>
+												<td>${list.sell_writer}</td>
+												<td>${list.sell_like}</td>
+												<td>${list.sell_viewCnt}</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -70,12 +70,12 @@
 							</h6>
 							<p class="mb-4">
 								<c:if test="${page.prev}">
-									<span>[<a href="/suggest_board/listPageSearch?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a>]</span>
+									<span>[<a href="/sell_board/listPageSearch?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a>]</span>
 								</c:if>
 
 								<c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
 									<span> <c:if test="${select != num}">
-											<a href="/suggest_board/listPageSearch?num=${num}${page.searchTypeKeyword}">${num}</a>
+											<a href="/sell_board/listPageSearch?num=${num}${page.searchTypeKeyword}">${num}</a>
 										</c:if> <c:if test="${select == num}">
 											<b>${num}</b>
 										</c:if>
@@ -84,7 +84,7 @@
 
 								<c:if test="${page.next}">
 									<span>[ <a
-										href="/suggest_board/listPageSearch?num=${page.endPageNum + 1}${page.searchTypeKeyword}">이전</a>]
+										href="/sell_board/listPageSearch?num=${page.endPageNum + 1}${page.searchTypeKeyword}">이전</a>]
 									</span>
 								</c:if>
 							</p>
@@ -142,7 +142,7 @@
 				searchType 선택한 검색타입
 				keyword 검색어
 			*/
-			location.href = "/suggest_board/suggest_listPageSearch?num=1" + "&searchType=" + searchType + "&keyword=" + keyword;
+			location.href = "/sell_board/sell_listPageSearch?num=1" + "&searchType=" + searchType + "&keyword=" + keyword;
 		};
 	</script>
 </body>

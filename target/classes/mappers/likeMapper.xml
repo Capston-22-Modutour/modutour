@@ -136,4 +136,48 @@
 		select count(*) from member_board_want_like where board_want_bno = #{board_want_bno} and user_num = #{user_num}
 	</select>
 	<!-- 패키지 설계 게시글 좋아요 end -->
+	
+	<!-- 패키지 판매 게시글 좋아요 start -->
+	<!-- 게시글 추천수 -->
+	<update id="sell_updateLike" parameterType="int">
+		update sell_board
+		set	sell_like = sell_like + 1
+		where sell_bno = #{sell_bno}
+	</update>
+
+	<!-- 게시글 추천수취소 -->
+	<update id="sell_updateLikeCancel" parameterType="int">
+		update sell_board
+		set	sell_like = sell_like - 1
+		where sell_bno = #{sell_bno}
+	</update>
+
+	<!-- 게시글 추천 시 Like 테이블에 insert -->
+	<insert id="sell_insertLike" parameterType="com.spring.dto.LikeDTO">
+		insert into sell_board_like(sell_like_no , sell_bno, user_num)
+		values((SELECT NVL(MAX(sell_like_no), 0) + 1 FROM sell_board_like m) ,#{sell_bno} ,#{user_num})
+	</insert>
+
+	<!-- 게시글 추천취소 시 delete -->
+	<delete id="sell_deleteLike">
+		delete from sell_board_like where sell_bno = #{sell_bno} and user_num = #{user_num}
+	</delete>
+
+	<!-- 게시글 추천 시 Check를 1로 만들어서 중복방지 -->
+	<update id="sell_updateLikeCheck">
+		update sell_board_like set want_like_check = 1
+		where sell_bno = #{sell_bno} and user_num = #{user_num}
+	</update>
+
+	<!-- 게시글 추천취소 시 다시 0 -->
+	<update id="sell_updateLikeCheckCancel">
+		update sell_board_like set sell_like_check = 0
+		where sell_bno = #{sell_bno} and user_num = #{user_num}
+	</update>
+
+	<!-- 게시글 추천 중복방지 select문 -->
+	<select id="sell_likeCheck" resultType="int">
+		select count(*) from sell_board_like where sell_bno = #{sell_bno} and user_num = #{user_num}
+	</select>
+	<!-- 패키지 판매 게시글 추천수 end -->
 </mapper>

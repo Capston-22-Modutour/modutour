@@ -7,10 +7,10 @@ import com.spring.dto.BoardDTO;
 public interface BoardService {
 	// 내가 쓴 커뮤니티 목록
 	public List<BoardDTO> my_list(String user_name) throws Exception;
-	
+
 	// 내가 쓴 패키지 설계 목록
 	public List<BoardDTO> my_package_list(String user_name) throws Exception;
-	
+
 	// ----------------------------------------
 	// 게시물 목록
 	public List<BoardDTO> list() throws Exception;
@@ -101,22 +101,22 @@ public interface BoardService {
 	// 리뷰 게시물 작성
 	public void review_write(BoardDTO dto) throws Exception;
 
-	// 리뷰  게시물 조회, 조회수 증가
+	// 리뷰 게시물 조회, 조회수 증가
 	public BoardDTO review_view(int review_bno) throws Exception;
 
-	// 리뷰  게시글 수정
+	// 리뷰 게시글 수정
 	public void review_modify(BoardDTO dto) throws Exception;
 
-	// 리뷰  게시글 삭제
+	// 리뷰 게시글 삭제
 	public void review_delete(int review_bno) throws Exception;
 
-	// 리뷰  게시글 총 갯수
+	// 리뷰 게시글 총 갯수
 	public int review_count() throws Exception;
 
-	// 리뷰  게시물 목록 + 페이징 + 검색
+	// 리뷰 게시물 목록 + 페이징 + 검색
 	public List<BoardDTO> review_listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception;
 
-	// 리뷰  게시물 총 갯수 + 검색 적용
+	// 리뷰 게시물 총 갯수 + 검색 적용
 	public int review_searchCount(String searchType, String keyword) throws Exception;
 
 	// 게시글 추천관련
@@ -161,4 +161,47 @@ public interface BoardService {
 
 	// 패지키 제안 게시글 총 갯수 + 검색 적용
 	public int suggest_searchCount(String searchType, String keyword) throws Exception;
+
+	// ----------------------------------------
+	// 패키지 판매 게시물 목록
+	public List<BoardDTO> sell_list() throws Exception;
+
+	// 패키지 판매 게시물 작성
+	public void sell_write(BoardDTO dto) throws Exception;
+
+	// 패키지 판매 게시물 조회
+	public BoardDTO sell_view(int sell_bno) throws Exception;
+
+	// 패키지 판매 게시글 조회수 증가
+	public void sell_updateViewCnt(int sell_bno) throws Exception;
+
+	// 패지키 판매 게시글 수정
+	public void sell_modify(BoardDTO dto) throws Exception;
+
+	// 패지키 판매 게시글 삭제
+	public void sell_delete(int suggest_bno) throws Exception;
+
+	// 패지키 판매 게시글 총 갯수
+	public int sell_count() throws Exception;
+
+	// 패키지 판매 게시글 목록 + 페이징 + 검색
+	public List<BoardDTO> sell_listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception;
+
+	// 패지키 판매 게시글 총 갯수 + 검색 적용
+	public int sell_searchCount(String searchType, String keyword) throws Exception;
+	
+	// 게시글 추천관련
+	public void sell_updateLike(int sell_bno) throws Exception;
+
+	void sell_updateLikeCancel(int sell_bno) throws Exception;
+
+	void sell_insertLike(int sell_bno, int user_num) throws Exception;
+
+	void sell_deleteLike(int sell_bno, int user_num) throws Exception;
+
+	int sell_likeCheck(int sell_bno, int user_num) throws Exception;
+
+	void sell_updateLikeCheck(int sell_bno, int user_num) throws Exception;
+
+	void sell_updateLikeCheckCancel(int sell_bno, int user_num) throws Exception;
 }

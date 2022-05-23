@@ -65,6 +65,7 @@ public class BoardDTO {
 	}
 	// 자유 게시판 end
 	
+	//------------------------------------------------
 	//여행 후기 게시판 start
 	private int review_bno;
 	private String review_title;
@@ -118,6 +119,7 @@ public class BoardDTO {
 	}
 	//여행 후기 게시판 end
 	
+	//------------------------------------------------
 	// 패키지 설계 게시판 start
 	private int board_want_bno;
 	private String board_want_title;
@@ -204,6 +206,7 @@ public class BoardDTO {
 	}
 	// 패키지 설계 게시판 end
 	
+	//------------------------------------------------
 	// 여행사 입찰 게시판 start
 	private int com_regiNum;
 	private int suggest_bno;
@@ -286,4 +289,106 @@ public class BoardDTO {
 	}
 	// 여행사 입찰 게시판 end
 	
+	//------------------------------------------------
+	// 패키지 판매 게시판 start
+	private int sell_bno;
+	private String sell_writer;
+	private String sell_title;
+	private String sell_content;
+	private String sell_destination;
+	private Date sell_start;
+	private Date sell_end;
+	private int sell_price;
+	private int sell_people;
+	private String sell_guide;
+	private String sell_air;
+	private int sell_viewCnt;
+	private int sell_like;
+	private Date sell_regDate;
+
+	public int getSell_bno() {
+		return sell_bno;
+	}
+	public void setSell_bno(int sell_bno) {
+		this.sell_bno = sell_bno;
+	}
+	public String getSell_writer() {
+		return sell_writer;
+	}
+	public void setSell_writer(String sell_writer) {
+		this.sell_writer = sell_writer;
+	}
+	public String getSell_title() {
+		return sell_title;
+	}
+	public void setSell_title(String sell_title) {
+		this.sell_title = sell_title;
+	}
+	public String getSell_content() {
+		return sell_content;
+	}
+	public void setSell_content(String sell_content) {
+		this.sell_content = sell_content;
+	}
+	public String getSell_destination() {
+		return sell_destination;
+	}
+	public void setSell_destination(String sell_destination) {
+		this.sell_destination = sell_destination;
+	}
+	public Date getSell_start() {
+		return sell_start;
+	}
+	public void setSell_start(Date sell_start) {
+		this.sell_start = sell_start;
+	}
+	public Date getSell_end() {
+		return sell_end;
+	}
+	public void setSell_end(Date sell_end) {
+		this.sell_end = sell_end;
+	}
+	public int getSell_price() {
+		return sell_price;
+	}
+	public void setSell_price(int sell_price) {
+		this.sell_price = sell_price;
+	}
+	public int getSell_people() {
+		return sell_people;
+	}
+	public void setSell_people(int sell_people) {
+		this.sell_people = sell_people;
+	}
+	public String getSell_guide() {
+		return sell_guide;
+	}
+	public void setSell_guide(String sell_guide) {
+		this.sell_guide = sell_guide;
+	}
+	public String getSell_air() {
+		return sell_air;
+	}
+	public void setSell_air(String sell_air) {
+		this.sell_air = sell_air;
+	}
+	public int getSell_viewCnt() {
+		return sell_viewCnt;
+	}
+	public void setSell_viewCnt(int sell_viewCnt) {
+		this.sell_viewCnt = sell_viewCnt;
+	}
+	public int getSell_like() {
+		return sell_like;
+	}
+	public void setSell_like(int sell_like) {
+		this.sell_like = sell_like;
+	}
+	public Date getSell_regDate() {
+		return sell_regDate;
+	}
+	public void setSell_regDate(Date sell_regDate) {
+		this.sell_regDate = sell_regDate;
+	}
+	// 패키지 판매 게시판 end
 }

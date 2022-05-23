@@ -35,7 +35,7 @@
 	<div class="container-fluid mt-5 pt-3">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8">
+				<div class="col-lg-12">
 					<div class="section-title mb-0">
 						<h4 class="m-0 text-uppercase font-weight-bold">커뮤니티</h4>
 							<button type="button" class="btn btn-primary font-weight-semi-bold px-4" onclick="location.href='/review/review_write'">글 작성</button>
@@ -46,12 +46,12 @@
 								<table>
 									<thead>
 										<tr>
-											<th>번호</th>
-											<th>제목</th>
-											<th>작성일</th>
-											<th>작성자</th>
-											<th>추천수</th>
-											<th>조회수</th>
+											<th width="5%">번호</th>
+											<th width="20%">제목</th>
+											<th width="10%">작성일</th>
+											<th width="10%">작성자</th>
+											<th width="5%">추천수</th>
+											<th width="5%">조회수</th>
 										</tr>
 									</thead>
 
@@ -105,10 +105,9 @@
 											<c:if test="${page.searchType eq 'title_content'}">selected</c:if>>제목+내용</option>
 										<option value="writer"
 											<c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
-									</select> <input type="text" name="keyword" value="${page.keyword}" />
-									<button type="button"
-										class="btn btn-primary font-weight-semi-bold px-4"
-										id="searchBtn">검색</button>
+									</select> &nbsp;&nbsp;
+									<input type="text" size="50px" name="keyword" value="${page.keyword}" /> &nbsp;&nbsp;
+									<button type="button" class="btn btn-primary font-weight-semi-bold px-4" id="searchBtn">검색</button>
 								</div>
 							</div>
 						</div>

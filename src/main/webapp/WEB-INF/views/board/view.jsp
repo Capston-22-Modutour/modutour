@@ -53,7 +53,7 @@
 	<div class="container-fluid mt-5 pt-3">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8">
+				<div class="col-lg-12">
 					<div class="section-title mb-0">
 						<h4 class="m-0 text-uppercase font-weight-bold">${view.board_title}</h4>
 						<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
@@ -98,7 +98,7 @@
 	<div class="container-fluid mt-5 pt-3">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8">
+				<div class="col-lg-12">
 					<div class="bg-white border border-top-0 p-4 mb-3">
 						<div class="mb-4">
 							<form method="post" action="/reply/write">
@@ -113,7 +113,7 @@
 											<!-- 일반 회원 댓글 -->
 											<p>
 												<input type="text" name="reply_writer" value="${member.user_name}" hidden="hidden">
-												<textarea rows="5" cols="74" name="reply_content" placeholder="회원간의 따뜻한 댓글 부탁드립니다"></textarea>
+												<textarea rows="5" cols="117" name="reply_content" placeholder="회원간의 따뜻한 댓글 부탁드립니다"></textarea>
 											</p>
 											<p>
 												<input type="hidden" name="board_bno" value="${view.board_bno}">
@@ -125,7 +125,7 @@
 										<c:if test="${company != null}">
 											<p>
 												<input type="text" name="reply_writer" value="${company.com_name}" hidden="hidden">
-												<textarea rows="5" cols="74" name="reply_content" placeholder="회원간의 따뜻한 댓글 부탁드립니다"></textarea>
+												<textarea rows="5" cols="117" name="reply_content" placeholder="회원간의 따뜻한 댓글 부탁드립니다"></textarea>
 											</p>
 											<p>
 												<input type="hidden" name="board_bno" value="${view.board_bno}">

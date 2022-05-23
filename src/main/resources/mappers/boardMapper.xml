@@ -22,7 +22,7 @@
 	</select>
 	<!-- 마이페이지 end -->
 	
-	<!-- 자유 게시판 시작 -->
+	<!-- 커뮤니티 start -->
 	<!-- 게시물 목록 -->
 	<!-- 쿼리를 실행한 뒤 결과가 있을 경우 resultType 사용 -->
 	<select id="list" resultType="com.spring.dto.BoardDTO">
@@ -127,9 +127,9 @@
 			WHERE board_writer LIKE concat('%', #{keyword}, '%')
 		</if>
 	</select>
-	<!-- 자유 게시판 끝 -->
+	<!-- 커뮤니티 end -->
 	
-	<!-- 여행후기 게시판 시작 -->
+	<!-- 여행후기 게시판 start -->
 	<!-- 게시물 목록 -->
 	<!-- 쿼리를 실행한 뒤 결과가 있을 경우 resultType 사용 -->
 	<select id="review_list" resultType="com.spring.dto.BoardDTO">
@@ -227,9 +227,9 @@
 		</if>
 	</select>
 	
-	<!-- 여행후기 게시판 끝 -->
+	<!-- 여행후기 게시판 end -->
 	
-	<!-- 패키지 설계 게시판 시작 -->
+	<!-- 패키지 설계 게시판 start -->
 	<!-- 게시물 목록 -->
 	<select id="want_list" resultType="com.spring.dto.BoardDTO">
 		select *
@@ -334,9 +334,9 @@
 		</if>
 	 
 	</select>
-	<!-- 패키지 설계 게시판 끝 -->
+	<!-- 패키지 설계 게시판 end -->
 	
-	<!-- 패키지 제안 게시판 시작 -->
+	<!-- 패키지 제안 게시판 start -->
 	<!-- 게시물 목록 -->
 	<select id="suggest_list" resultType="com.spring.dto.BoardDTO">
 		select *
@@ -445,5 +445,114 @@
 			WHERE suggest_writer LIKE concat('%', #{keyword}, '%')
 		</if>
 	</select>
-	<!-- 패키지 제안 게시판 끝 -->
+	<!-- 패키지 제안 게시판 end -->
+	
+	<!-- 패키지 판매 게시판 start -->
+	<!-- 게시물 목록 -->
+	<select id="sell_list" resultType="com.spring.dto.BoardDTO">
+		select *
+		from sell_board
+	</select>
+	
+	<!-- 게시물 작성 -->
+	<!-- 데이터를 넣을 땐 parameterType 사용 -->
+	<insert id="sell_write" parameterType="com.spring.dto.BoardDTO">
+		insert into suggest_board(sell_bno, suggest_bno, com_regiNum, sell_writer, sell_title, 
+				sell_destination, sell_content, sell_start, sell_end, sell_people, sell_price, sell_guide, sell_air)
+					values(#{sell_bno}, #{suggest_bno}, #{com_regiNum}, #{sell_writer}, #{sell_title}, 
+					#{sell_destination}, #{sell_content}, #{sell_start}, #{sell_end}, #{sell_people}, 
+					#{sell_price}, #{sell_guide}, #{sell_air})
+	</insert>
+	
+	<!-- 게시물 조회 -->
+	<select id="sell_view" parameterType="int" resultType="com.spring.dto.BoardDTO">
+		select *
+		from sell_board
+		where sell_bno = #{sell_bno}		
+	</select>
+	
+	<!-- 게시글 조회수 증가 -->
+	<update id="sell_updateViewCnt" parameterType="int">
+		update sell_board
+			set sell_viewCnt = sell_viewCnt + 1
+		where sell_bno = #{sell_bno}
+	</update>
+	
+	<!-- 게시글 수정 -->
+	<!-- <update id="sell_modify" parameterType="com.spring.dto.BoardDTO">
+		update sell_board
+			set
+				sell_title = #{sell_title},
+				sell_writer = #{sell_writer},
+				sell_destination = #{sell_destination},
+				sell_content = #{sell_content},
+				sell_people = #{sell_people},
+				sell_start = #{sell_start},
+				sell_end = #{sell_end},
+				sell_price = #{sell_price},
+				sell_guide = #{sell_guide},
+				sell_air = #{sell_air}
+			where sell_bno = #{sell_bno}
+	</update> -->
+	
+	<!-- 게시글 삭제 -->
+	<delete id="sell_delete" parameterType="int">
+		delete from sell_board
+		where sell_bno = #{sell_bno}
+	</delete>
+	
+	<!-- 게시글 총 갯수 -->
+	<select id="sell_count" resultType="int">
+		select count(sell_bno) from sell_board
+	</select>
+	
+	
+	<!-- 게시글 목록 + 페이징 + 검색 -->
+	<select id="sell_listPageSearch" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
+		select sell_bno, sell_title, sell_writer, sell_viewCnt, sell_like, sell_regDate
+		from sell_board
+		
+		<if test='searchType.equals("title")'>
+			where sell_title LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("content")'>
+			where sell_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("title_content")'>
+			where sell_title LIKE concat('%', #{keyword}, '%')
+			or sell_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("writer")'>
+			where sell_writer LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		order by sell_bno desc
+			limit #{displayPost}, #{postNum} 
+	</select>
+	
+	<!-- 게시물 총 갯수 + 검색 적용 -->
+	<select id="sell_searchCount" parameterType="hashMap" resultType="int">
+		select count(sell_bno) from sell_board  
+	  
+		<if test='searchType.equals("title")'>
+		 	WHERE sell_title LIKE concat('%', #{keyword}, '%')
+		</if>
+		 
+		<if test='searchType.equals("content")'>
+			WHERE sell_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		 
+		<if test='searchType.equals("title_content")'>
+			WHERE sell_title LIKE concat('%', #{keyword}, '%') 
+			 or sell_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		 
+		<if test='searchType.equals("writer")'>
+			WHERE sell_writer LIKE concat('%', #{keyword}, '%')
+		</if>
+	</select>
+	<!-- 패키지 판매 게시판 end -->
 </mapper>
