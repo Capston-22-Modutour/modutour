@@ -54,6 +54,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
+				<form class="form" role="form" method="post" autocomplete="off" action="/sell_board/sell_write">
 					<div class="section-title mb-0">
 						<h4 class="m-0 text-uppercase font-weight-bold">${view.suggest_title}</h4>
 						<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
@@ -121,14 +122,28 @@
 							
 							<!-- 로그인이 되어있고, 본인 글이 아닐경우에만 추천할 수 있도록 버튼을 출력 -->
 							<div class="text-center">
-								<c:if test="${member.user_id != null and member.user_id != dto.user_id}">
+								<c:if test="${member.user_name == view.board_want_writer}">
 									<div style="margin-right: 1px;">
-										<button type="button" class="btn btn-warning" id="like_btn" onclick="want_updateLike(); return false;">추천 ${view.board_want_like}</button>
+										<button type="submit" class="btn btn-warning">낙찰하기</button>
 									</div>
 								</c:if>
 							</div>
+							
+							<input type="text" name="suggest_bno" value="${view.suggest_bno}" hidden="hidden">
+							<input type="text" name="com_regiNum" value="${view.com_regiNum}" hidden="hidden">
+							<input type="text" name="sell_writer" value="${view.suggest_writer}" hidden="hidden">
+							<input type="text" name="sell_title" value="${view.suggest_title}" hidden="hidden">
+							<input type="text" name="sell_destination" value="${view.board_want_destination}" hidden="hidden">
+							<input type="text" name="sell_content" value="${view.suggest_content}" hidden="hidden">
+							<input type="text" name="sell_start" value="<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />" hidden="hidden">
+							<input type="text" name="sell_end" value="<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />" hidden="hidden">
+							<input type="text" name="sell_price" value="${view.suggest_price}" hidden="hidden">
+							<input type="text" name="sell_people" value="${view.board_want_people}" hidden="hidden">
+							<input type="text" name="sell_guide" value="${view.suggest_guide}" hidden="hidden">
+							<input type="text" name="sell_air" value="${view.suggest_air}" hidden="hidden">
 						</div>
 					</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -226,30 +241,3 @@
     <script src="<c:url value='../resources/js/main.js'/>"></script>
 </body>
 </html>
-<script>
-var board_want_bno = ${view.board_want_bno};
-var user_num = ${member.user_num};
-
- function want_updateLike(){ 
-     $.ajax({
-            type : "POST",  
-            url : "/want_board/want_updateLike",       
-            dataType : "json",   
-            data : {'board_want_bno' : board_want_bno, 'user_num' : user_num},
-            error : function(){
-               alert("통신 에러");
-            },
-            success : function(want_likeCheck) {
-                
-                    if(want_likeCheck == 0){
-                    	alert("추천완료.");
-                    	location.reload();
-                    }
-                    else if (want_likeCheck == 1){
-                     alert("추천취소");
-                    	location.reload();
-                }
-            }
-        });
- }
-</script>

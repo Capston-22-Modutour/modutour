@@ -10,6 +10,9 @@ public interface BoardService {
 
 	// 내가 쓴 패키지 설계 목록
 	public List<BoardDTO> my_package_list(String user_name) throws Exception;
+	
+	// 내 구매목록
+	public List<BoardDTO> my_pucharseList(String user_name) throws Exception;
 
 	// ----------------------------------------
 	// 게시물 목록
@@ -204,4 +207,8 @@ public interface BoardService {
 	void sell_updateLikeCheck(int sell_bno, int user_num) throws Exception;
 
 	void sell_updateLikeCheckCancel(int sell_bno, int user_num) throws Exception;
+	
+	//----------------------------------------
+	// 주문 내역
+	public void purchase(BoardDTO dto) throws Exception;
 }

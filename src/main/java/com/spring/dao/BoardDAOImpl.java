@@ -31,6 +31,11 @@ public class BoardDAOImpl implements BoardDAO {
 	public List<BoardDTO> my_package_list(String user_name) throws Exception {
 		return sql.selectList(namespace + ".my_package_list", user_name);
 	}
+	
+	@Override
+	public List<BoardDTO> my_pucharseList(String user_name) throws Exception {
+		return sql.selectList(namespace + ".my_pucharseList", user_name);
+	}
 
 	// ----------------------------------------
 	// 자유 게시물 목록
@@ -489,49 +494,49 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	// ------------------------------------
-	// 패지키 제안 게시물 목록
+	// 패지키 판매 게시물 목록
 	@Override
 	public List<BoardDTO> sell_list() throws Exception {
 		return sql.selectList(namespace + ".sell_list");
 	}
 
-	// 패키지 제안 게시물 작성
+	// 패키지 판매 게시물 작성
 	@Override
 	public void sell_write(BoardDTO dto) throws Exception {
 		sql.insert(namespace + ".sell_write", dto);
 	}
 
-	// 패키지 제안 게시물 조회
+	// 패키지 판매 게시물 조회
 	@Override
 	public BoardDTO sell_view(int sell_bno) throws Exception {
 		return sql.selectOne(namespace + ".sell_view", sell_bno);
 	}
 
-	// 패키지 제안 게시물 조회수 증가
+	// 패키지 판매 게시물 조회수 증가
 	@Override
 	public void sell_updateViewCnt(int sell_bno) throws Exception {
 		sql.update(namespace + ".sell_updateViewCnt", sell_bno);
 	}
 
-	// 패키지 제안 게시글 수정
+	// 패키지 판매 게시글 수정
 	@Override
 	public void sell_modify(BoardDTO dto) throws Exception {
 		sql.update(namespace + ".sell_modify", dto);
 	}
 
-	// 패키지 제안 게시글 삭제
+	// 패키지 판매 게시글 삭제
 	@Override
 	public void sell_delete(int sell_bno) throws Exception {
 		sql.delete(namespace + ".sell_delete", sell_bno);
 	}
 
-	// 패키지 제안 게시글 총 갯수
+	// 패키지 판매 게시글 총 갯수
 	@Override
 	public int sell_count() throws Exception {
 		return sql.selectOne(namespace + ".sell_count");
 	}
 
-	// 패키지 제안 게시물 목록 + 페이징 + 검색
+	// 패키지 판매 게시물 목록 + 페이징 + 검색
 	@Override
 	public List<BoardDTO> sell_listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception {
 
@@ -546,7 +551,7 @@ public class BoardDAOImpl implements BoardDAO {
 		return sql.selectList(namespace + ".sell_listPageSearch", data);
 	}
 
-	// 패키지 제안 게시물 총 갯수 + 검색 적용
+	// 패키지 판매 게시물 총 갯수 + 검색 적용
 	@Override
 	public int sell_searchCount(String searchType, String keyword) throws Exception {
 
@@ -610,5 +615,12 @@ public class BoardDAOImpl implements BoardDAO {
 		data.put("user_num", user_num);
 		data.put("sell_bno", sell_bno);
 		sql.update(like_namespace + ".sell_updateLikeCheckCancel", data);
+	}
+	
+	// ------------------------------------
+	// 구매 내역
+	@Override
+	public void purchase(BoardDTO dto) throws Exception {
+		sql.insert(namespace + ".purchase", dto);
 	}
 }

@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class BoardDTO {
 	// 자유 게시판 start
+	private int user_num;
 	private String user_name;
 	private int board_bno;
 	private String board_title;
@@ -15,6 +16,12 @@ public class BoardDTO {
 	private int board_viewCnt;
 	private int board_like;
 	
+	public int getUser_num() {
+		return user_num;
+	}
+	public void setUser_num(int user_num) {
+		this.user_num = user_num;
+	}
 	public String getUser_name() {
 		return user_name;
 	}
@@ -296,8 +303,12 @@ public class BoardDTO {
 	private String sell_title;
 	private String sell_content;
 	private String sell_destination;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date sell_start;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date sell_end;
+	
 	private int sell_price;
 	private int sell_people;
 	private String sell_guide;
@@ -391,4 +402,89 @@ public class BoardDTO {
 		this.sell_regDate = sell_regDate;
 	}
 	// 패키지 판매 게시판 end
+	
+	//------------------------------------------------
+	// 구매 내역 start
+	private int order_bno;
+	private String order_title;
+	private String order_writer;
+	private String order_destination;
+	private int order_price;
+	private int order_people;
+	private String order_guide;
+	private String order_air;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date order_start;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date order_end;
+	private Date order_date;
+	
+	public int getOrder_bno() {
+		return order_bno;
+	}
+	public void setOrder_bno(int order_bno) {
+		this.order_bno = order_bno;
+	}
+	public String getOrder_title() {
+		return order_title;
+	}
+	public void setOrder_title(String order_title) {
+		this.order_title = order_title;
+	}
+	public String getOrder_writer() {
+		return order_writer;
+	}
+	public void setOrder_writer(String order_writer) {
+		this.order_writer = order_writer;
+	}
+	public String getOrder_destination() {
+		return order_destination;
+	}
+	public void setOrder_destination(String order_destination) {
+		this.order_destination = order_destination;
+	}
+	public int getOrder_price() {
+		return order_price;
+	}
+	public void setOrder_price(int order_price) {
+		this.order_price = order_price;
+	}
+	public int getOrder_people() {
+		return order_people;
+	}
+	public void setOrder_people(int order_people) {
+		this.order_people = order_people;
+	}
+	public String getOrder_guide() {
+		return order_guide;
+	}
+	public void setOrder_guide(String order_guide) {
+		this.order_guide = order_guide;
+	}
+	public String getOrder_air() {
+		return order_air;
+	}
+	public void setOrder_air(String order_air) {
+		this.order_air = order_air;
+	}
+	public Date getOrder_start() {
+		return order_start;
+	}
+	public void setOrder_start(Date order_start) {
+		this.order_start = order_start;
+	}
+	public Date getOrder_end() {
+		return order_end;
+	}
+	public void setOrder_end(Date order_end) {
+		this.order_end = order_end;
+	}
+	public Date getOrder_date() {
+		return order_date;
+	}
+	public void setOrder_date(Date order_date) {
+		this.order_date = order_date;
+	}
+	// 구매 내역 end
 }

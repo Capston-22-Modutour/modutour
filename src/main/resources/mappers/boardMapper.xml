@@ -20,6 +20,14 @@
 		where board_want_writer = #{user_name}
 		order by board_want_bno desc
 	</select>
+	
+	<!-- 내 구매 내역 -->
+	<select id="my_pucharseList" resultType="com.spring.dto.BoardDTO">
+		select *
+		from order_data
+		where user_num = #{user_num}
+		order by order_date desc
+	</select>
 	<!-- 마이페이지 end -->
 	
 	<!-- 커뮤니티 start -->
@@ -457,7 +465,7 @@
 	<!-- 게시물 작성 -->
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="sell_write" parameterType="com.spring.dto.BoardDTO">
-		insert into suggest_board(sell_bno, suggest_bno, com_regiNum, sell_writer, sell_title, 
+		insert into sell_board(sell_bno, suggest_bno, com_regiNum, sell_writer, sell_title, 
 				sell_destination, sell_content, sell_start, sell_end, sell_people, sell_price, sell_guide, sell_air)
 					values(#{sell_bno}, #{suggest_bno}, #{com_regiNum}, #{sell_writer}, #{sell_title}, 
 					#{sell_destination}, #{sell_content}, #{sell_start}, #{sell_end}, #{sell_people}, 
@@ -479,7 +487,7 @@
 	</update>
 	
 	<!-- 게시글 수정 -->
-	<!-- <update id="sell_modify" parameterType="com.spring.dto.BoardDTO">
+	<update id="sell_modify" parameterType="com.spring.dto.BoardDTO">
 		update sell_board
 			set
 				sell_title = #{sell_title},
@@ -490,10 +498,11 @@
 				sell_start = #{sell_start},
 				sell_end = #{sell_end},
 				sell_price = #{sell_price},
+				sell_people = #{sell_people},
 				sell_guide = #{sell_guide},
 				sell_air = #{sell_air}
 			where sell_bno = #{sell_bno}
-	</update> -->
+	</update>
 	
 	<!-- 게시글 삭제 -->
 	<delete id="sell_delete" parameterType="int">
@@ -555,4 +564,14 @@
 		</if>
 	</select>
 	<!-- 패키지 판매 게시판 end -->
+	
+	<!-- 주문 내역 start -->
+	<!-- 구매 -->
+	<insert id="purchase" parameterType="com.spring.dto.BoardDTO">
+		insert into order_data(sell_bno, user_num, order_title, order_writer, order_destination, order_price, 
+							order_people, order_guide, order_air, order_start, order_end)
+		values(#{sell_bno}, #{user_num}, #{order_title}, #{order_writer}, #{order_destination}, #{order_price}, 
+				#{order_people}, #{order_guide}, #{order_air}, #{order_start}, #{order_end})
+	</insert>
+	<!-- 주문 내역 end -->
 </mapper>

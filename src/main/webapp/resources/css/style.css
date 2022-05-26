@@ -170,6 +170,7 @@ a {
   background-color: transparent;
 }
 
+/*a href hover color*/
 a:hover {
   color: #b38f00;
   text-decoration: underline;
@@ -3218,6 +3219,7 @@ input[type="button"].btn-block {
   border: 0;
 }
 
+/*dropdown-item hover color*/
 .dropdown-item:hover, .dropdown-item:focus {
   color: #16181b;
   text-decoration: none;

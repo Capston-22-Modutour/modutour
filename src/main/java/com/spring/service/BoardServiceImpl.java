@@ -31,6 +31,11 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardDTO> my_package_list(String user_name) throws Exception {
 		return dao.my_package_list(user_name);
 	}
+	
+	@Override
+	public List<BoardDTO> my_pucharseList(String user_name) throws Exception {
+		return dao.my_pucharseList(user_name);
+	}
 	// ----------------------------------------
 	// 게시물 목록
 	@Override
@@ -357,55 +362,55 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	// ------------------------------------
-	// 패지키 제안 게시물 목록
+	// 패지키 판매 게시물 목록
 	@Override
 	public List<BoardDTO> sell_list() throws Exception {
 		return dao.sell_list();
 	}
 
-	// 패키지 제안 게시물 작성
+	// 패키지 판매 게시물 작성
 	@Override
 	public void sell_write(BoardDTO dto) throws Exception {
 		dao.sell_write(dto);
 	}
 
-	// 패키지 제안 게시물 조회
+	// 패키지 판매 게시물 조회
 	@Override
 	public BoardDTO sell_view(int sell_bno) throws Exception {
 		return dao.sell_view(sell_bno);
 	}
 
-	// 패키지 제안 게시물 조회수 증가
+	// 패키지 판매 게시물 조회수 증가
 	@Override
 	public void sell_updateViewCnt(int sell_bno) throws Exception {
 		dao.sell_updateViewCnt(sell_bno);
 	}
 
-	// 패키지 제안 게시글 수정
+	// 패키지 판매 게시글 수정
 	@Override
 	public void sell_modify(BoardDTO dto) throws Exception {
 		dao.sell_modify(dto);
 	}
 
-	// 패키지 제안 게시글 삭제
+	// 패키지 판매 게시글 삭제
 	@Override
 	public void sell_delete(int sell_bno) throws Exception {
 		dao.sell_delete(sell_bno);
 	}
 
-	// 패키지 제안 게시글 총 갯수
+	// 패키지 판매 게시글 총 갯수
 	@Override
 	public int sell_count() throws Exception {
 		return dao.sell_count();
 	}
 
-	// 패키지 제안 게시물 목록 + 페이징 + 검색
+	// 패키지 판매 게시물 목록 + 페이징 + 검색
 	@Override
 	public List<BoardDTO> sell_listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception {
 		return dao.sell_listPageSearch(displayPost, postNum, searchType, keyword);
 	}
 
-	// 패키지 제안 게시물 총 갯수 + 검색 적용
+	// 패키지 판매 게시물 총 갯수 + 검색 적용
 	@Override
 	public int sell_searchCount(String searchType, String keyword) throws Exception {
 		return dao.sell_searchCount(searchType, keyword);
@@ -445,5 +450,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void sell_updateLikeCheckCancel(int sell_bno, int user_num) throws Exception {
 		dao.sell_updateLikeCheckCancel(sell_bno, user_num);
+	}
+	
+	// ------------------------------------
+	// 일반 회원 가입
+	@Override
+	public void purchase(BoardDTO dto) throws Exception {
+		dao.purchase(dto);
 	}
 }

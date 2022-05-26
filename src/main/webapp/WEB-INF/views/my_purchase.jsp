@@ -73,7 +73,7 @@
 					<div class="section-title mb-0">
 						<h4 class="m-0 text-uppercase font-weight-bold">구매내역</h4>
 					</div>
-					<form role="form" method="post" autocomplete="off">
+					<!-- <form role="form" method="post" autocomplete="off"> -->
 						<div class="bg-white border border-top-0 p-4 mb-3">
 							<div class="mb-4">
 								<div class="mb-3">
@@ -81,7 +81,6 @@
 										<i class="fa fa-id-card-alt text-primary mr-2"></i>
 										<h6 class="font-weight-bold mb-0">구매날짜조회</h6>
 									</div>
-									<p class="mb-4">${member.user_id}</p>
 								</div>
 									<p>
 										구매날짜조회: <input type="date" name="search_start"> ~ <input type="date" name="search_end">
@@ -95,84 +94,22 @@
 									<table>
 										<thead>
 											<tr>
-												<th>상품명</th>
-												<th>수량</th>
+												<th>상품번호</th>
+												<th>패키지명</th>
+												<th>구매일자</th>
 												<th>가격</th>
-												<th>합계</th>
 											</tr>
 										</thead>
-										<tr>
-											<th>A패키지
-												<button>상세보기</button>
-											</th>
-											<td>1</td>
-											<td>315000</td>
-											<td>4</td>
-										</tr>
-										<tr>
-											<th>B패키지
-												<button>상세보기</button>
-											</th>
-											<td>1</td>
-											<td>250000</td>
-											<td>4</td>
-										</tr>
-										<tr>
-											<th>C패키지
-												<button>상세보기</button>
-											</th>
-											<td>2</td>
-											<td>3360000</td>
-											<td>4</td>
-										</tr>
-										<tr>
-											<th>D패키지
-												<button>상세보기</button>
-											</th>
-											<td>1</td>
-											<td>2500000</td>
-											<td>4</td>
-										</tr>
-											<tr>
-											<th>E패키지
-												<button>상세보기</button>
-											</th>
-											<td>1</td>
-											<td>347000</td>
-											<td>4</td>
-										</tr>
-										<tr>
-											<th>E패키지
-												<button>상세보기</button>
-											</th>
-											<td>1</td>
-											<td>347000</td>
-											<td>4</td>
-										</tr>
-										<tr>
-											<th>F패키지
-												<button>상세보기</button>
-											</th>
-											<td>1</td>
-											<td>347000</td>
-											<td>4</td>
-										</tr>
-										<tr>
-											<th>G패키지
-												<button>상세보기</button>
-											</th>
-											<td>1</td>
-											<td>347000</td>
-											<td>4</td>
-										</tr>
-										<tr>
-											<th>H패키지
-												<button>상세보기</button>
-											</th>
-											<td>1</td>
-											<td>347000</td>
-											<td>4</td>
-										</tr>
+										<tbody>
+											<c:forEach items="${list}" var="list">
+												<tr>
+													<td>${list.order_bno}</td>
+													<td><a href="/sell_board/sell_view?sell_bno=${list.sell_bno}">${list.order_title}</a></td>
+													<td><fmt:formatDate value="${list.order_date}" pattern="yyyy-MM-dd" /></td>
+													<td>${list.order_price}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
 										<tfoot>
 											<td colspan="3">총 합계</td>
 											<td>999</td>
@@ -180,7 +117,7 @@
 									</table>
 								</div>
 							</div>
-						</form>
+						<!-- </form> -->
 					</div>
 				</div>
 			</div>

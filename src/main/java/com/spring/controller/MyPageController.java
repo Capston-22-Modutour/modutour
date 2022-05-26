@@ -82,8 +82,19 @@ public class MyPageController {
 	
 	// 내 구매목록
 	@RequestMapping(value = "/my_purchase", method = RequestMethod.GET)
-	public String myPurchase(Locale locale, Model model) {
+	public String myPurchase(HttpServletRequest request, Model model) throws Exception {
 
+		List<BoardDTO> list = null;
+		
+		HttpSession session = request.getSession();
+		session.getAttribute("member");
+			
+		String user_name = (String)session.getAttribute("user_name");
+			
+		list = service.my_pucharseList(user_name);
+
+		model.addAttribute("list", list);
+		
 		return "my_purchase";
 	}
 }

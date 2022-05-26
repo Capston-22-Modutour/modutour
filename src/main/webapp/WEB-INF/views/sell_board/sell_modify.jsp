@@ -57,57 +57,53 @@
 					<div class="col-lg-8">
 						<div class="section-title mb-0">
 							<h4 class="m-0 text-uppercase font-weight-bold">
-								<input type="text" size="50" name="suggest_title" value="${view.suggest_title}" />
+								<input type="text" size="50" name="sell_title" value="${view.sell_title}" />
 							</h4>
 						</div>
 						<div class="bg-white border border-top-0 p-4 mb-3">
 							<div class="mb-4">
-								<input type="text" name="board_want_writer" value="${view.board_want_writer}" hidden="hidden"> <br /> 
+								<input type="text" name="sell_writer" value="${view.sell_writer}" hidden="hidden"> <br /> 
 								<label>요청자</label> <br/> 
 								<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_writer}</label> <br/><br/>
 							
-								<input type="text" name="board_want_destination" value="${view.board_want_destination}" hidden="hidden">
+								<input type="text" name="sell_destination" value="${view.sell_destination}" hidden="hidden">
 								<label>목적지</label> <br/> 
-								<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_destination}</label> <br/><br/>
+								<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_destination}</label> <br/><br/>
 								
-								<input type="text" name="board_want_content" value="${view.board_want_content}" hidden="hidden">
+								<input type="text" name="sell_content" value="${view.sell_content}" hidden="hidden">
 								<label>희망사항</label> <br/>
-								<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_content}</label> <br/><br/>
+								<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_content}</label> <br/><br/>
 								
-								<label>제안사항</label> <br/>
-								<textarea cols="68" rows="5" name="suggest_content" class="m-0 text-uppercase font-weight-bold px-8" placeholder="${view.suggest_content}"></textarea>
-								<br /> 
-								
-								<input type="text" name="board_want_people" value="${view.board_want_people}" hidden="hidden">
+								<input type="text" name="sell_people" value="${view.sell_people}" hidden="hidden">
 								<label>인원수</label> <br/> 
-								<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_people}</label> <br/><br/>
+								<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_people}</label> <br/><br/>
 								
 								<label>출발일</label> <br/>
 								<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-									<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />
+									<fmt:formatDate value="${view.sell_start}" pattern="yyyy-MM-dd" />
 								</p>
-								<input type="date" name="board_want_start" value="<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />" hidden="hidden">
+								<input type="date" name="sell_start" value="<fmt:formatDate value="${view.sell_start}" pattern="yyyy-MM-dd" />" hidden="hidden">
 								<br /> 
 								
 								<label>도착일</label> <br/>
 								<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-									<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />
+									<fmt:formatDate value="${view.sell_end}" pattern="yyyy-MM-dd" />
 								</p>
-								<input type="date" name="board_want_end" value="<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />" hidden="hidden">
+								<input type="date" name="sell_end" value="<fmt:formatDate value="${view.sell_end}" pattern="yyyy-MM-dd" />" hidden="hidden">
 								<br/>
 								
 								<label>비용</label> <br/>
-								<input type="text" name="suggest_price" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8" value="${view.suggest_price}"> <br/><br/>
+								<input type="text" name="sell_price" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8" value="${view.sell_price}"> <br/><br/>
 								
 								<label>가이드 포함 여부</label> <br/> 
-								<select name="suggest_guide" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8" value="${view.suggest_guide}">
+								<select name="sell_guide" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8" value="${view.sell_guide}">
 									<option>O</option>
 									<option>X</option>
 								</select> <br />
 								<br/>
 								
 								<label>항공사</label> <br /> 
-								<select name="suggest_air" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8" value="">
+								<select name="sell_air" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8" value="">
 									<option>대한항공</option>
 									<option>아시아나항공</option>
 									<option>에어부산</option>

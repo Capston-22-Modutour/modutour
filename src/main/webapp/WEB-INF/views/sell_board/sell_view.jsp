@@ -54,81 +54,91 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
+				<form class="form" role="form" method="post" autocomplete="off" action="/order/purchase">
 					<div class="section-title mb-0">
-						<h4 class="m-0 text-uppercase font-weight-bold">${view.suggest_title}</h4>
+						<h4 class="m-0 text-uppercase font-weight-bold">${view.sell_title}</h4>
 						<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-							<fmt:formatDate value="${view.suggest_regDate}" pattern="yyyy-MM-dd" />
+							<fmt:formatDate value="${view.sell_regDate}" pattern="yyyy-MM-dd" />
 						</p>
 					</div>
 					<div class="section-title mb-1">
-						<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-0">${view.suggest_writer}</p>
-						<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-0">조회수 ${view.suggest_viewCnt}</p>
+						<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-0">${view.sell_writer}</p>
+						<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-0">조회수 ${view.sell_viewCnt}</p>
 						
 						<!-- 유저 이름과 게시글 작성자가 일치해야 게시글 수정, 삭제 가능 
 							  하지만 동명이인 일시? 추후 id로 개선 필요함
 						-->
-						<c:if test="${company.com_name == view.suggest_writer}">
+						<c:if test="${company.com_name == view.sell_writer}">
 							<div>
-								<a href="/suggest_board/suggest_modify?suggest_bno=${view.suggest_bno}">게시글 수정</a>
-								<a href="/suggest_board/suggest_delete?suggest_bno=${view.suggest_bno}">게시글 삭제</a>
+								<a href="/sell_board/sell_modify?sell_bno=${view.sell_bno}">게시글 수정</a>
+								<a href="/sell_board/sell_delete?sell_bno=${view.sell_bno}">게시글 삭제</a>
 							</div>
 						</c:if>
 					</div>
 					<div class="bg-white border border-top-0 p-4 mb-3">
 						<div class="mb-4">
 							<label>요청자</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_writer}</p>
+							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_writer}</p>
 							<br/>
 							
 							<label>목적지</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_destination}</p>
-							<br/>
-							
-							<label>희망사항</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_content}</p>
+							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_destination}</p>
 							<br/>
 							
 							<label>제안사항</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.suggest_content}</p>
+							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_content}</p>
 							<br/>
 							
 							<label>인원수</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_people}</p>
+							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_people}</p>
 							<br/>
 							
 							<label>출발일</label>
 							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-								<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />
+								<fmt:formatDate value="${view.sell_start}" pattern="yyyy-MM-dd" />
 							</p>
 							<br/>
 							
 							<label>도착일</label>
 							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-								<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />
+								<fmt:formatDate value="${view.sell_end}" pattern="yyyy-MM-dd" />
 							</p> <br/>
 							
 							<label>비용</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.suggest_price}원</p>
+							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_price}원</p>
 							<br/>
 							
 							<label>가이드 포함 여부</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.suggest_guide}</p>
+							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_guide}</p>
 							<br/>
 							
 							<label>항공사</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.suggest_air}</p>
+							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_air}</p>
 							<br/>
 							
 							<!-- 로그인이 되어있고, 본인 글이 아닐경우에만 추천할 수 있도록 버튼을 출력 -->
 							<div class="text-center">
-								<c:if test="${member.user_id != null and member.user_id != dto.user_id}">
+								<c:if test="${member != null}">
 									<div style="margin-right: 1px;">
-										<button type="button" class="btn btn-warning" id="like_btn" onclick="want_updateLike(); return false;">추천 ${view.board_want_like}</button>
+										<button type="submit" class="btn btn-warning">구매하기</button>
 									</div>
 								</c:if>
 							</div>
+							
+							<input type="text" name="sell_bno" value="${view.sell_bno}" hidden="hidden">
+							<input type="text" name="user_num" value="${view.user_num}" hidden="hidden">
+							<input type="text" name="order_title" value="${view.sell_title}" hidden="hidden">
+							<input type="text" name="order_writer" value="${view.sell_writer}" hidden="hidden">
+							<input type="text" name="order_destination" value="${view.sell_destination}" hidden="hidden">
+							<input type="text" name="order_price" value="${view.sell_price}" hidden="hidden">
+							<input type="text" name="order_people" value="${view.sell_people}" hidden="hidden">
+							<input type="text" name="order_guide" value="${view.sell_guide}" hidden="hidden">
+							<input type="text" name="order_air" value="${view.sell_air}" hidden="hidden">
+							<input type="text" name="order_start" value="<fmt:formatDate value="${view.sell_start}" pattern="yyyy-MM-dd" />" hidden="hidden">
+							<input type="text" name="order_end" value="<fmt:formatDate value="${view.sell_end}" pattern="yyyy-MM-dd" />" hidden="hidden">
 						</div>
 					</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -226,30 +236,3 @@
     <script src="<c:url value='../resources/js/main.js'/>"></script>
 </body>
 </html>
-<script>
-var board_want_bno = ${view.board_want_bno};
-var user_num = ${member.user_num};
-
- function want_updateLike(){ 
-     $.ajax({
-            type : "POST",  
-            url : "/want_board/want_updateLike",       
-            dataType : "json",   
-            data : {'board_want_bno' : board_want_bno, 'user_num' : user_num},
-            error : function(){
-               alert("통신 에러");
-            },
-            success : function(want_likeCheck) {
-                
-                    if(want_likeCheck == 0){
-                    	alert("추천완료.");
-                    	location.reload();
-                    }
-                    else if (want_likeCheck == 1){
-                     alert("추천취소");
-                    	location.reload();
-                }
-            }
-        });
- }
-</script>
