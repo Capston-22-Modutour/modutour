@@ -33,8 +33,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public List<BoardDTO> my_pucharseList(String user_name) throws Exception {
-		return dao.my_pucharseList(user_name);
+	public List<BoardDTO> my_pucharseList(Integer user_num) throws Exception {
+		return dao.my_pucharseList(user_num);
 	}
 	// ----------------------------------------
 	// 게시물 목록

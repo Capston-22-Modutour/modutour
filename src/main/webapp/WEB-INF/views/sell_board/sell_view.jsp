@@ -126,7 +126,7 @@
 							</div>
 							
 							<input type="text" name="sell_bno" value="${view.sell_bno}" hidden="hidden">
-							<input type="text" name="user_num" value="${view.user_num}" hidden="hidden">
+							<input type="text" name="user_num" value="${member.user_num}" hidden="hidden">
 							<input type="text" name="order_title" value="${view.sell_title}" hidden="hidden">
 							<input type="text" name="order_writer" value="${view.sell_writer}" hidden="hidden">
 							<input type="text" name="order_destination" value="${view.sell_destination}" hidden="hidden">

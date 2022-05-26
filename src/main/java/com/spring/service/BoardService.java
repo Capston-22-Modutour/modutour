@@ -12,7 +12,7 @@ public interface BoardService {
 	public List<BoardDTO> my_package_list(String user_name) throws Exception;
 	
 	// 내 구매목록
-	public List<BoardDTO> my_pucharseList(String user_name) throws Exception;
+	public List<BoardDTO> my_pucharseList(Integer user_num) throws Exception;
 
 	// ----------------------------------------
 	// 게시물 목록

@@ -33,8 +33,8 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	@Override
-	public List<BoardDTO> my_pucharseList(String user_name) throws Exception {
-		return sql.selectList(namespace + ".my_pucharseList", user_name);
+	public List<BoardDTO> my_pucharseList(Integer user_num) throws Exception {
+		return sql.selectList(namespace + ".my_pucharseList", user_num);
 	}
 
 	// ----------------------------------------

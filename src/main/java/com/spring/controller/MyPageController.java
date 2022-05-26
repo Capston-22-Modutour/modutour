@@ -89,9 +89,9 @@ public class MyPageController {
 		HttpSession session = request.getSession();
 		session.getAttribute("member");
 			
-		String user_name = (String)session.getAttribute("user_name");
-			
-		list = service.my_pucharseList(user_name);
+		Integer user_num = (Integer)session.getAttribute("user_num");
+		
+		list = service.my_pucharseList(user_num);
 
 		model.addAttribute("list", list);
 		

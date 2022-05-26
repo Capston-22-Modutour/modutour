@@ -110,6 +110,7 @@ public class MemberController {
 			rttr.addFlashAttribute("msg", false);
 		} else {
 			session.setAttribute("member", login);
+			session.setAttribute("user_num", login.getUser_num());
 			session.setAttribute("user_name", login.getUser_name());
 		}
 
