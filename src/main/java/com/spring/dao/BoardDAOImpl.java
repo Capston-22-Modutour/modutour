@@ -173,49 +173,55 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	// ------------------------------------
-	// 자유 게시물 목록
+	// 여행후기 베스트 목록
+	@Override
+	public List<BoardDTO> review_bestList() throws Exception {
+		return sql.selectList(namespace + ".review_bestList");
+	}
+	
+	// 여행후기 게시물 목록
 	@Override
 	public List<BoardDTO> review_list() throws Exception {
 		return sql.selectList(namespace + ".review_list");
 	}
 
-	// 자유 게시물 작성
+	// 여행후기 게시물 작성
 	@Override
 	public void review_write(BoardDTO dto) throws Exception {
 		sql.insert(namespace + ".review_write", dto);
 	}
 
-	// 자유 게시물 조회
+	// 여행후기 게시물 조회
 	@Override
 	public BoardDTO review_view(int review_bno) throws Exception {
 		return sql.selectOne(namespace + ".review_view", review_bno);
 	}
 
-	// 자유 게시글 조회수 증가
+	// 여행후기 게시글 조회수 증가
 	@Override
 	public void review_updateViewCnt(int review_bno) throws Exception {
 		sql.update(namespace + ".review_updateViewCnt", review_bno);
 	}
 
-	// 자유 게시글 수정
+	// 여행후기 게시글 수정
 	@Override
 	public void review_modify(BoardDTO dto) throws Exception {
 		sql.update(namespace + ".review_modify", dto);
 	}
 
-	// 자유 게시글 삭제
+	// 여행후기 게시글 삭제
 	@Override
 	public void review_delete(int review_bno) throws Exception {
 		sql.delete(namespace + ".review_delete", review_bno);
 	}
 
-	// 자유 게시글 총 갯수
+	// 여행후기 게시글 총 갯수
 	@Override
 	public int review_count() throws Exception {
 		return sql.selectOne(namespace + ".review_count");
 	}
 
-	// 자유 게시물 목록 + 페이징 + 검색
+	// 여행후기 게시물 목록 + 페이징 + 검색
 	@Override
 	public List<BoardDTO> review_listPageSearch(int displayPost, int postNum, String searchType, String keyword)
 			throws Exception {
@@ -231,7 +237,7 @@ public class BoardDAOImpl implements BoardDAO {
 		return sql.selectList(namespace + ".review_listPageSearch", data);
 	}
 
-	// 자유 게시물 총 갯수 + 검색 적용
+	// 여행후기 게시물 총 갯수 + 검색 적용
 	@Override
 	public int review_searchCount(String searchType, String keyword) throws Exception {
 

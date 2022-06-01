@@ -74,7 +74,7 @@
 			<div class="container-fluid mt-5 pt-3">
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-8">
+						<div class="col-lg-12">
 							<div class="section-title mb-0">
 								<h4 class="m-0 text-uppercase font-weight-bold">
 									<input type="text" size="50" name="board_want_title" placeholder="제목을 입력해 주세요"/>

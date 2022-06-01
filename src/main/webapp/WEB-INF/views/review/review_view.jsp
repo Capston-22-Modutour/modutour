@@ -45,6 +45,11 @@
 	<!-- JavaScript Libraries -->
     <script src="<c:url value='https://code.jquery.com/jquery-3.4.1.min.js'/>"></script>
 </head>
+<style>
+	.btn {
+		margin: 20px 0;
+	}
+</style>
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
@@ -53,7 +58,7 @@
 	<div class="container-fluid mt-5 pt-3">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8">
+				<div class="col-lg-12">
 					<div class="section-title mb-0">
 						<h4 class="m-0 text-uppercase font-weight-bold">${view.review_title}</h4>
 						<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
@@ -77,7 +82,12 @@
 						<div class="mb-4">
 							<p style="color: black;">${view.review_content}</p>
 							<br />
-
+							
+							<c:if test="${view.review_img != null}">
+								<img src="${view.review_img}" width="500px" height="500px"/> <br/>
+								첨부파일 : <a href="/fileDownload.do?file_name=${view.review_img}">${view.review_img}</a>
+							</c:if>
+							
 							<!-- 로그인이 되어있고, 본인 글이 아닐경우에만 추천할 수 있도록 버튼을 출력 -->
 							<div class="text-center">
 								<c:if test="${member.user_id != null and member.user_id != dto.user_id}">
@@ -98,10 +108,10 @@
 	<div class="container-fluid mt-5 pt-3">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8">
+				<div class="col-lg-12">
 					<div class="bg-white border border-top-0 p-4 mb-3">
 						<div class="mb-4">
-							<form method="post" action="/reply/write">
+							<form method="post" action="/review_reply/review_write">
 								<!-- 회원이 아닐 시 댓글 작성 불가 -->
 								<c:if test="${member == null && company == null}">
 									<p>로그인이 필요한 서비스 입니다</p>
@@ -112,11 +122,11 @@
 										<c:if test="${member != null}">
 											<!-- 일반 회원 댓글 -->
 											<p>
-												<input type="text" name="reply_writer" value="${member.user_name}" hidden="hidden">
-												<textarea rows="5" cols="74" name="reply_content" placeholder="회원간의 따뜻한 댓글 부탁드립니다"></textarea>
+												<input type="text" name="review_writer" value="${member.user_name}" hidden="hidden">
+												<textarea rows="5" cols="117" name="review_content" placeholder="회원간의 따뜻한 댓글 부탁드립니다"></textarea>
 											</p>
 											<p>
-												<input type="hidden" name="board_bno" value="${view.review_bno}">
+												<input type="hidden" name="review_bno" value="${view.review_bno}">
 												<button type="submit" class="btn btn-warning">댓글 작성</button>
 											</p>
 										</c:if>
@@ -124,11 +134,11 @@
 										<!-- 기업 회원 댓글 -->
 										<c:if test="${company != null}">
 											<p>
-												<input type="text" name="reply_writer" value="${company.com_name}" hidden="hidden">
-												<textarea rows="5" cols="74" name="reply_content" placeholder="회원간의 따뜻한 댓글 부탁드립니다"></textarea>
+												<input type="text" name="review_writer" value="${company.com_name}" hidden="hidden">
+												<textarea rows="5" cols="117" name="review_content" placeholder="회원간의 따뜻한 댓글 부탁드립니다"></textarea>
 											</p>
 											<p>
-												<input type="hidden" name="board_bno" value="${view.review_bno}">
+												<input type="hidden" name="review_bno" value="${view.review_bno}">
 												<button type="submit" class="btn btn-warning">댓글 작성</button>
 											</p>
 										</c:if>
@@ -140,20 +150,20 @@
 								<c:forEach items="${reply}" var="reply">
 									<li>
 										<div>
-											<p>${reply.reply_writer} / ${reply.reply_rno}
+											<p>${reply.review_writer} / ${reply.review_rno}
 												/
-												<fmt:formatDate value="${reply.reply_regDate}" pattern="yyyy-MM-dd" />
-												<c:if test="${member.user_name == reply.reply_writer}">
-													<a href="/reply/modify?reply_rno=${reply.reply_rno}">댓글 수정</a>
-													<a href="/reply/delete?reply_rno=${reply.reply_rno}">댓글 삭제</a>
+												<fmt:formatDate value="${reply.review_regDate}" pattern="yyyy-MM-dd" />
+												<c:if test="${member.user_name == reply.review_writer}">
+													<a href="/reply/modify?reply_rno=${reply.review_rno}">댓글 수정</a>
+													<a href="/reply/delete?reply_rno=${reply.review_rno}">댓글 삭제</a>
 												</c:if>
 												
-												<c:if test="${company.com_name == reply.reply_writer}">
-													<a href="/reply/modify?reply_rno=${reply.reply_rno}">댓글 수정</a>
-													<a href="/reply/delete?reply_rno=${reply.reply_rno}">댓글 삭제</a>
+												<c:if test="${company.com_name == reply.review_writer}">
+													<a href="/reply/modify?reply_rno=${reply.review_rno}">댓글 수정</a>
+													<a href="/reply/delete?reply_rno=${reply.review_rno}">댓글 삭제</a>
 												</c:if>
 											</p>
-											<p>${reply.reply_content}</p>
+											<p>${reply.review_content}</p>
 										</div>
 									</li>
 								</c:forEach>

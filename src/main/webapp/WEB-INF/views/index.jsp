@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,13 +25,53 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link rel="stylesheet" href="<c:url value='../resources/css/style.css'/>">
+    
 </head>
 
 <body>
     
 	<%------------ header section  ------------%>
 	<jsp:include page="./fix/header.jsp" />
-
+	
+	<!-- 여행후기 베스트 현재시각 기준 일주일까지 추천수 20이상 -->
+	<div class="container-fluid pt-5 mb-3">
+        <div class="container">
+            <div class="section-title">
+                <h4 class="m-0 text-uppercase font-weight-bold">여행후기 베스트</h4>
+                <a href="/review/review_listPageSearch?num=1">더 보기</a>
+            </div>
+            <div class="bg-white border border-top-0 p-4 mb-3">
+				<table>
+					<thead>
+						<tr>
+							<th width="5%" style="font-size: 20px; color: black;">번호</th>
+							<th width="10%" style="font-size: 20px; color: black;">미리보기</th>
+							<th width="20%" style="font-size: 20px; color: black;">제목</th>
+							<th width="10%" style="font-size: 20px; color: black;">작성일</th>
+							<th width="10%" style="font-size: 20px; color: black;">작성자</th>
+							<th width="5%" style="font-size: 20px; color: black;">추천수</th>
+							<th width="5%" style="font-size: 20px; color: black;">조회수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${list}" var="list">
+							<tr>
+								<td>${list.review_bno}</td>
+								<td><img src="${list.review_thumbnail}" width="100px" height="100px"></td>
+								<td><a href="/review/review_view?review_bno=${list.review_bno}">${list.review_title}</a></td>
+								<td><fmt:formatDate value="${list.review_regDate}" pattern="yyyy-MM-dd"/></td>
+								<td>${list.review_writer}</td>
+								<td>${list.review_like}</td>
+								<td>${list.review_viewCnt}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- 여행후기 베스트 end -->
+		
     <!-- Main News Slider Start -->
     <div class="container-fluid">
         <div class="row">
@@ -41,8 +82,8 @@
                         <div class="overlay">
                             <div class="mb-2">
                                 <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                    href="">Business</a>
-                                <a class="text-white" href="">Jan 01, 2045</a>
+                                    href="">Business 1</a>
+                                <a class="text-white" href="">Jan 01, 5000</a>
                             </div>
                             <a class="h2 m-0 text-white text-uppercase font-weight-bold" href="">Lorem ipsum dolor sit amet elit. Proin vitae porta diam...</a>
                         </div>
@@ -52,7 +93,7 @@
                         <div class="overlay">
                             <div class="mb-2">
                                 <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                    href="">Business</a>
+                                    href="">Business 2</a>
                                 <a class="text-white" href="">Jan 01, 2045</a>
                             </div>
                             <a class="h2 m-0 text-white text-uppercase font-weight-bold" href="">Lorem ipsum dolor sit amet elit. Proin vitae porta diam...</a>
@@ -63,7 +104,7 @@
                         <div class="overlay">
                             <div class="mb-2">
                                 <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                    href="">Business</a>
+                                    href="">Business 3</a>
                                 <a class="text-white" href="">Jan 01, 2045</a>
                             </div>
                             <a class="h2 m-0 text-white text-uppercase font-weight-bold" href="">Lorem ipsum dolor sit amet elit. Proin vitae porta diam...</a>
@@ -79,7 +120,7 @@
                             <div class="overlay">
                                 <div class="mb-2">
                                     <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                        href="">Business</a>
+                                        href="">Business 4</a>
                                     <a class="text-white" href=""><small>Jan 01, 2045</small></a>
                                 </div>
                                 <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" href="">Lorem ipsum dolor sit amet elit...</a>
@@ -92,7 +133,7 @@
                             <div class="overlay">
                                 <div class="mb-2">
                                     <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                        href="">Business</a>
+                                        href="">Business 5</a>
                                     <a class="text-white" href=""><small>Jan 01, 2045</small></a>
                                 </div>
                                 <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" href="">Lorem ipsum dolor sit amet elit...</a>
@@ -105,7 +146,7 @@
                             <div class="overlay">
                                 <div class="mb-2">
                                     <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                        href="">Business</a>
+                                        href="">Business 6</a>
                                     <a class="text-white" href=""><small>Jan 01, 2045</small></a>
                                 </div>
                                 <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" href="">Lorem ipsum dolor sit amet elit...</a>
@@ -118,7 +159,7 @@
                             <div class="overlay">
                                 <div class="mb-2">
                                     <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                        href="">Business</a>
+                                        href="">Business 7</a>
                                     <a class="text-white" href=""><small>Jan 01, 2045</small></a>
                                 </div>
                                 <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" href="">Lorem ipsum dolor sit amet elit...</a>
@@ -535,3 +576,14 @@
 </body>
 
 </html>
+
+<script>
+	//Testimonials carousel
+	$(".testimonial-carousel").owlCarousel({
+	    autoplay: true,
+	    smartSpeed: 1000,
+	    items: 1,
+	    dots: true,
+    	loop: true,
+	});
+</script>

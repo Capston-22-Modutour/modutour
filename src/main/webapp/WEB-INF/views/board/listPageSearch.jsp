@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판</title>
+<title>커뮤니티</title>
 
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -38,7 +38,7 @@
 				<div class="col-lg-12">
 					<div class="section-title mb-0">
 						<h4 class="m-0 text-uppercase font-weight-bold">커뮤니티</h4>
-							<button type="button" class="btn btn-primary font-weight-semi-bold px-4" onclick="location.href='/board/write'">글 작성</button>
+						<button type="button" class="btn btn-primary font-weight-semi-bold px-4" onclick="location.href='/board/write'">글 작성</button>
 					</div>
 					<div class="bg-white border border-top-0 p-4 mb-3">
 						<div class="mb-4">
@@ -47,6 +47,7 @@
 									<thead>
 										<tr>
 											<th width="5%" style="font-size: 20px">번호</th>
+											<th width="10%" style="font-size: 20px">미리보기</th>
 											<th width="20%" style="font-size: 20px">제목</th>
 											<th width="10%" style="font-size: 20px">작성일</th>
 											<th width="10%" style="font-size: 20px">작성자</th>
@@ -59,6 +60,7 @@
 										<c:forEach items="${list}" var="list">
 											<tr>
 												<td>${list.board_bno}</td>
+												<td><img src="${list.board_thumbnail}" width="100px" height="100px"></td>
 												<td><a href="/board/view?board_bno=${list.board_bno}">${list.board_title}</a></td>
 												<td><fmt:formatDate value="${list.board_regDate}" pattern="yyyy-MM-dd"/></td>
 												<td>${list.board_writer}</td>

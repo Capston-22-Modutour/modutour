@@ -18,6 +18,37 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	// 댓글 목록
 	@Override
+	public List<ReplyDTO> review_list(int review_bno) throws Exception {
+	    return sql.selectList(namespace + ".review_replyList", review_bno);
+	}
+		
+	// 댓글 조회
+	@Override
+	public ReplyDTO review_view(int review_rno) throws Exception {
+		return sql.selectOne(namespace + ".review_view", review_rno);
+	}	
+		
+	// 댓글 작성
+	@Override
+	public void review_write(ReplyDTO dto) throws Exception {
+	    sql.insert(namespace + ".review_replyWrite", dto);
+	}
+
+	// 댓글 수정
+	@Override
+	public void review_modify(ReplyDTO dto) throws Exception {
+	    sql.update(namespace + ".review_replyModify", dto);
+	}
+
+	// 댓글 삭제
+	@Override
+	public void review_delete(int review_rno) throws Exception {
+	    sql.delete(namespace + ".replyDelete", review_rno);
+	}
+		
+	//--------------
+	// 댓글 목록
+	@Override
 	public List<ReplyDTO> list(int board_bno) throws Exception {
 	    return sql.selectList(namespace + ".replyList", board_bno);
 	}

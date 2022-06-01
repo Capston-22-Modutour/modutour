@@ -3,6 +3,45 @@ package com.spring.dto;
 import java.util.Date;
 
 public class ReplyDTO {
+	
+	private int review_rno;
+	private int review_bno;
+	private String review_writer;
+	private String review_content;
+	private Date review_regDate;
+	
+	public int getReview_rno() {
+		return review_rno;
+	}
+	public void setReview_rno(int review_rno) {
+		this.review_rno = review_rno;
+	}
+	public int getReview_bno() {
+		return review_bno;
+	}
+	public void setReview_bno(int review_bno) {
+		this.review_bno = review_bno;
+	}
+	public String getReview_writer() {
+		return review_writer;
+	}
+	public void setReview_writer(String review_writer) {
+		this.review_writer = review_writer;
+	}
+	public String getReview_content() {
+		return review_content;
+	}
+	public void setReview_content(String review_content) {
+		this.review_content = review_content;
+	}
+	public Date getReview_regDate() {
+		return review_regDate;
+	}
+	public void setReview_regDate(Date review_regDate) {
+		this.review_regDate = review_regDate;
+	}
+
+	//--------------------------------------------
 	private int reply_rno;
 	private int board_bno;
 	private String reply_writer;
@@ -40,6 +79,7 @@ public class ReplyDTO {
 		this.reply_regDate = reply_regDate;
 	}
 	
+	//--------------------------------------------
 	private int board_reply_rno;
 	private int board_want_bno;
 	private String board_want_reply_writer;

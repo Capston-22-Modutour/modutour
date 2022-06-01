@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판</title>
+<title>여행후기 게시판</title>
 
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -31,14 +31,14 @@
 	<jsp:include page="../fix/header.jsp" />
 	<br/>
 
-	<!-- 자유게시판 Start -->
+	<!-- 여행후기 Start -->
 	<div class="container-fluid mt-5 pt-3">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="section-title mb-0">
-						<h4 class="m-0 text-uppercase font-weight-bold">커뮤니티</h4>
-							<button type="button" class="btn btn-primary font-weight-semi-bold px-4" onclick="location.href='/review/review_write'">글 작성</button>
+						<h4 class="m-0 text-uppercase font-weight-bold">여행후기</h4>
+						<button type="button" class="btn btn-primary font-weight-semi-bold px-4" onclick="location.href='/review/review_write'">글 작성</button>
 					</div>
 					<div class="bg-white border border-top-0 p-4 mb-3">
 						<div class="mb-4">
@@ -47,6 +47,7 @@
 									<thead>
 										<tr>
 											<th width="5%">번호</th>
+											<th width="10%">미리보기</th>
 											<th width="20%">제목</th>
 											<th width="10%">작성일</th>
 											<th width="10%">작성자</th>
@@ -59,6 +60,7 @@
 										<c:forEach items="${list}" var="list">
 											<tr>
 												<td>${list.review_bno}</td>
+												<td><img src="${list.review_thumbnail}" width="100px" height="100px"></td>
 												<td><a href="/review/review_view?review_bno=${list.review_bno}">${list.review_title}</a></td>
 												<td><fmt:formatDate value="${list.review_regDate}" pattern="yyyy-MM-dd"/></td>
 												<td>${list.review_writer}</td>
@@ -116,8 +118,7 @@
 			</div>
 		</div>
 	</div>
-	</div>
-	<!-- 자유게시판 End -->
+	<!-- 여행후기 End -->
 
 	<%------------ footer section  ------------%>
 	<jsp:include page="../fix/footer.jsp" />
@@ -149,7 +150,5 @@
 			location.href = "/review/listPageSearch?num=1" + "&searchType=" + searchType + "&keyword=" + keyword;
 		};
 	</script>
-	
-	<input type="button" value="이전" onclick="history.go(-1)">
 </body>
 </html>

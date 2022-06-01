@@ -221,6 +221,12 @@ public class BoardServiceImpl implements BoardService {
 	// -------------------------------------
 	// 게시물 목록
 	@Override
+	public List<BoardDTO> review_bestList() throws Exception {
+		return dao.review_bestList();
+	}
+		
+	// 게시물 목록
+	@Override
 	public List<BoardDTO> review_list() throws Exception {
 		return dao.review_list();
 	}

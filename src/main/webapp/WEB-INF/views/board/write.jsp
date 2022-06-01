@@ -25,6 +25,11 @@
 	<!-- Customized Bootstrap Stylesheet -->
 	<link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>">
 </head>
+<style>
+	.select_img img {
+		margin: 20px 0;
+	}
+</style>
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
@@ -33,7 +38,7 @@
 		<div class="container-fluid mt-5 pt-3">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-8">
+					<div class="col-lg-12">
 						<div class="section-title mb-0">
 							<div class="text-center">
 								<h4 class="m-0 text-uppercase font-weight-bold">
@@ -50,21 +55,26 @@
 	<!-- 회원이 아닐 시 게시글 작성 불가 -->
 	
 	<c:if test="${member != null}">
-		<form class="form" role="form" method="post" autocomplete="off">
+		<form class="form" role="form" method="post" autocomplete="off" enctype="multipart/form-data">
 			<div class="container-fluid mt-5 pt-3">
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-8">
+						<div class="col-lg-12">
 							<div class="section-title mb-0">
 								<h4 class="m-0 text-uppercase font-weight-bold">
-									<input type="text" size="50" name="board_title" placeholder="제목">
+									<input type="text" size="81" name="board_title" placeholder="제목">
 								</h4>
 							</div>
 							<div class="bg-white border border-top-0 p-4 mb-3">
 								<div class="mb-4">
 									<input type="text" name="board_writer" value="${member.user_name}" hidden="hidden">
-									<textarea cols="73" rows="10" name="board_content" placeholder="내용을 입력해 주세요"></textarea>
+									<textarea cols="117" rows="10" name="board_content" placeholder="내용을 입력해 주세요"></textarea>
 									<br>
+									
+									파일 업로드 <br/>
+									<input type="file" id="file_img" name="file"/>
+									
+									<div class="select_img"><img src=""></div>
 									
 									<div class="text-center">
 										<button type="submit" class="btn btn-warning">작성</button> &nbsp;
@@ -115,4 +125,16 @@
     <!-- Template Javascript -->
     <script src="<c:url value='/resources/js/main.js'/>"></script>
 </body>
+	<script>
+		// 사용자가 선택한 이미지 보여줌
+		$("#file_img").change(function(){
+			if(this.files && this.files[0]) {
+				var reader = new FileReader;
+				reader.onload = function(data) {
+					$(".select_img img").attr("src", data.target.result).width(500);        
+				}
+				reader.readAsDataURL(this.files[0]);
+			}
+		});
+	</script>
 </html>

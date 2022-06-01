@@ -41,8 +41,8 @@
 	<!-- 게시물 작성 -->
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="write" parameterType="com.spring.dto.BoardDTO">
-		insert into member_board(board_title, board_content, board_writer)
-					values(#{board_title}, #{board_content}, #{board_writer})
+		insert into member_board(board_title, board_content, board_writer, board_img, board_thumbnail)
+					values(#{board_title}, #{board_content}, #{board_writer}, #{board_img}, #{board_thumbnail})
 	</insert>
 	
 	<!-- 게시물 조회 -->
@@ -138,6 +138,14 @@
 	<!-- 커뮤니티 end -->
 	
 	<!-- 여행후기 게시판 start -->
+	<!-- 리뷰 베스트 -->
+	<select id="review_bestList" resultType="com.spring.dto.BoardDTO">
+		select review_bno, review_title, review_thumbnail, review_content, review_writer, review_like, review_viewCnt , review_regDate
+		from review 
+		where review_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and review_like >= 20
+		order by review_like desc
+	</select>
+	
 	<!-- 게시물 목록 -->
 	<!-- 쿼리를 실행한 뒤 결과가 있을 경우 resultType 사용 -->
 	<select id="review_list" resultType="com.spring.dto.BoardDTO">
@@ -148,8 +156,8 @@
 	<!-- 게시물 작성 -->
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="review_write" parameterType="com.spring.dto.BoardDTO">
-		insert into review(review_title, review_content, review_writer)
-					values(#{review_title}, #{review_content}, #{review_writer})
+		insert into review(review_title, review_content, review_writer, review_img, review_thumbnail)
+					values(#{review_title}, #{review_content}, #{review_writer}, #{review_img}, #{review_thumbnail})
 	</insert>
 	
 	<!-- 게시물 조회 -->

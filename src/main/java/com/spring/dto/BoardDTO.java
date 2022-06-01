@@ -15,6 +15,9 @@ public class BoardDTO {
 	private Date board_regDate;
 	private int board_viewCnt;
 	private int board_like;
+	private String board_img;
+	private String board_thumbnail;
+    private int fileCnt;
 	
 	public int getUser_num() {
 		return user_num;
@@ -70,8 +73,26 @@ public class BoardDTO {
 	public void setBoard_like(int board_like) {
 		this.board_like = board_like;
 	}
+	public String getBoard_img() {
+		return board_img;
+	}
+	public void setBoard_img(String board_img) {
+		this.board_img = board_img;
+	}
+	public String getBoard_thumbnail() {
+		return board_thumbnail;
+	}
+	public void setBoard_thumbnail(String board_thumbnail) {
+		this.board_thumbnail = board_thumbnail;
+	}
+	public int getFileCnt() {
+		return fileCnt;
+	}
+	public void setFileCnt(int fileCnt) {
+		this.fileCnt = fileCnt;
+	}
 	// 자유 게시판 end
-	
+
 	//------------------------------------------------
 	//여행 후기 게시판 start
 	private int review_bno;
@@ -80,6 +101,11 @@ public class BoardDTO {
 	private String review_writer;
 	private int review_viewCnt;
 	private int review_like;
+	private String file_name;
+	//private MultipartFile uploadFile;
+	
+	private String review_img;
+	private String review_thumbnail;
 	private Date review_regDate;
 	
 	public int getReview_bno() {
@@ -117,6 +143,28 @@ public class BoardDTO {
 	}
 	public void setReview_like(int review_like) {
 		this.review_like = review_like;
+	}
+	public String getFile_name() {
+		return file_name;
+	}
+	public void setFile_name(String file_name) {
+		this.file_name = file_name;
+	}
+	public String getReview_img() {
+		return review_img;
+	}
+	public void setReview_img(String review_img) {
+		this.review_img = review_img;
+	}
+	/*
+	 * public MultipartFile getUploadFile() { return uploadFile; } public void
+	 * setUploadFile(MultipartFile uploadFile) { this.uploadFile = uploadFile; }
+	 */
+	public String getReview_thumbnail() {
+		return review_thumbnail;
+	}
+	public void setReview_thumbnail(String file_thumbnail) {
+		this.review_thumbnail = file_thumbnail;
 	}
 	public Date getReview_regDate() {
 		return review_regDate;

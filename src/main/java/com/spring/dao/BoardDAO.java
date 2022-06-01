@@ -62,6 +62,9 @@ public interface BoardDAO {
 	public void updateLikeCheckCancel(int board_bno, int user_num) throws Exception;
 		
 	//----------------------------------------
+	// 리뷰 베스트 목록
+	public List<BoardDTO> review_bestList() throws Exception;
+	
 	// 리뷰 게시물 목록
 	public List<BoardDTO> review_list() throws Exception;
 

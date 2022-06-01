@@ -98,6 +98,9 @@ public interface BoardService {
 	void want_updateLikeCheckCancel(int board_want_bno, int user_num) throws Exception;
 
 	// ----------------------------------------
+	// 리뷰 베스트 목록
+	public List<BoardDTO> review_bestList() throws Exception;
+		
 	// 리뷰 게시물 목록
 	public List<BoardDTO> review_list() throws Exception;
 

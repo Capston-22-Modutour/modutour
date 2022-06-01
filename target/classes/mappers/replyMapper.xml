@@ -3,6 +3,44 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mappers.replyMapper">
+
+	<!-- 여행후기 게시판 댓글 start -->
+	<!-- 댓글 목록 -->
+	<select id="review_replyList" parameterType="int" resultType="com.spring.dto.ReplyDTO">
+	    select
+	        review_rno, review_bno, review_writer, review_content, review_regDate
+	    from review_reply
+	        where review_bno = #{review_bno}        
+	</select>
+	
+	<!-- 댓글 조회 -->
+	<select id="review_view" parameterType="int" resultType="com.spring.dto.ReplyDTO">
+		select *
+		from review_reply
+		where review_rno = #{review_rno}
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="review_replyWrite" parameterType="com.spring.dto.ReplyDTO">
+	    insert into review_reply(review_bno, review_writer, review_content, review_regDate)
+	        value(#{review_bno}, #{review_writer}, #{review_content}, #{review_regDate})
+	</insert>
+	    
+	<!-- 댓글 수정 -->
+	<update id="review_replyModify" parameterType="com.spring.dto.ReplyDTO">
+	    update review_reply set
+	        review_writer = #{review_writer},
+	        review_content = #{review_content}
+	    where review_rno = #{review_rno}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="review_replyDelete" parameterType="int">
+	    delete from review_reply
+	    where review_rno = #{review_rno}
+	</delete>
+	<!-- 여행후기 게시판 댓글 end -->
+	
 	<!-- 자유 게시판 댓글 start -->
 	<!-- 댓글 목록 -->
 	<select id="replyList" parameterType="int" resultType="com.spring.dto.ReplyDTO">

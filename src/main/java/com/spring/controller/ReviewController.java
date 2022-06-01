@@ -1,24 +1,26 @@
 package com.spring.controller;
 
+import java.io.File;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.dto.BoardDTO;
-import com.spring.dto.LikeDTO;
 import com.spring.dto.Page;
 import com.spring.dto.ReplyDTO;
 import com.spring.service.BoardService;
 import com.spring.service.ReplyService;
+import com.spring.utils.UploadFileUtils;
 
 @Controller
 @RequestMapping("/review/*")
@@ -29,8 +31,11 @@ public class ReviewController {
 
 	@Inject
 	private ReplyService replyService;
+	
+	@Resource(name="uploadPath")
+    private String uploadPath;
 
-	// 자유 게시글 목록
+	// 여행후기 목록
 	@RequestMapping(value = "/review_list", method = RequestMethod.GET)
 	public void getList(Model model) throws Exception {
 		// Model = Controller와 View 연결해주는 역할
@@ -40,7 +45,7 @@ public class ReviewController {
 		model.addAttribute("list", list);
 	}
 
-	// 자유 게시글 작성 get
+	// 여행후기 작성 get
 	@RequestMapping(value = "/review_write", method = RequestMethod.GET)
 	public void getWrite(HttpSession session, Model model) throws Exception {
 		Object loginInfo = session.getAttribute("member");
@@ -50,29 +55,59 @@ public class ReviewController {
 		}
 	}
 
-	// 자유 게시글 작성 post
+	// 여행후기 작성 post
 	@RequestMapping(value = "/review_write", method = RequestMethod.POST)
-	public String postWrite(BoardDTO dto) throws Exception {
-		service.review_write(dto);
+	public String postWrite(BoardDTO dto, MultipartFile file) throws Exception {
+		/*
+		 * // 파일 업로드 처리 String file_name = null;
+		 * 
+		 * MultipartFile uploadFile = dto.getUploadFile();
+		 * 
+		 * if (!uploadFile.isEmpty()) { String originalFileName =
+		 * uploadFile.getOriginalFilename(); String ext =
+		 * FilenameUtils.getExtension(originalFileName); //확장자 구하기 UUID uuid =
+		 * UUID.randomUUID(); //UUID 구하기 file_name = uuid + "." + ext;
+		 * uploadFile.transferTo(new File(uploadPath + file_name)); }
+		 * 
+		 * dto.setFile_name(file_name);
+		 * 
+		 * service.review_write(dto);
+		 */
+		
+		String imgUploadPath = uploadPath + File.separator + "upload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String file_name = null;
+		System.out.println(imgUploadPath);
+		if(file != null) {
+		 file_name =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		} else {
+		 file_name = uploadPath + File.separator + "images" + File.separator + "none.png";
+		}
 
+		dto.setReview_img(File.separator + "upload" + ymdPath + File.separator + file_name);
+		dto.setReview_thumbnail(File.separator + "upload" + ymdPath + File.separator + "s" + File.separator + "s_" + file_name);
+		
+		service.review_write(dto);
+		
 		return "redirect:/review/review_listPageSearch?num=1";
 	}
 
-	// 자유 게시글 조회
+	// 여행후기 조회
 	@RequestMapping(value = "/review_view", method = RequestMethod.GET)
 	public void getView(@RequestParam("review_bno") int review_bno, Model model) throws Exception {
+		
 		BoardDTO dto = service.review_view(review_bno);
-
+		
 		model.addAttribute("view", dto);
 
 		// 댓글 조회
 		List<ReplyDTO> reply = null;
-		reply = replyService.list(review_bno);
+		reply = replyService.review_list(review_bno);
 		model.addAttribute("reply", reply);
 		
 	}
 
-	// 자유 게시글 수정
+	// 여행후기 수정
 	@RequestMapping(value = "/review_modify", method = RequestMethod.GET)
 	public void getModify(@RequestParam("review_bno") int review_bno, Model model) throws Exception {
 		BoardDTO dto = service.review_view(review_bno);
@@ -80,7 +115,7 @@ public class ReviewController {
 		model.addAttribute("view", dto);
 	}
 
-	// 자유 게시글 수정
+	// 여행후기 수정
 	@RequestMapping(value = "/review_modify", method = RequestMethod.POST)
 	public String postModify(BoardDTO dto) throws Exception {
 		service.review_modify(dto);
@@ -88,7 +123,7 @@ public class ReviewController {
 		return "redirect:/review/review_view?review_bno=" + dto.getReview_bno();
 	}
 
-	// 자유 게시글 삭제
+	// 여행후기 삭제
 	@RequestMapping(value = "/review_delete", method = RequestMethod.GET)
 	public String getDelete(@RequestParam("review_bno") int review_bno) throws Exception {
 		service.review_delete(review_bno);
@@ -96,7 +131,7 @@ public class ReviewController {
 		return "redirect:/review/review_listPageSearch?num=1";
 	}
 
-	// 자유 게시글 목록 + 페이징 추가 + 검색
+	// 여행후기 목록 + 페이징 추가 + 검색
 	@RequestMapping(value = "/review_listPageSearch", method = RequestMethod.GET)
 	public void getListPageSearch(Model model, @RequestParam("num") int num,
 			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,

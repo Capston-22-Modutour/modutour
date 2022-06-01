@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판</title>
+<title>패키지 판매</title>
 
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -37,7 +37,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="section-title mb-0">
-						<h4 class="m-0 text-uppercase font-weight-bold">여행사 입찰 게시판</h4>
+						<h4 class="m-0 text-uppercase font-weight-bold">패키지 판매</h4>
 					</div>
 					<div class="bg-white border border-top-0 p-4 mb-3">
 						<div class="mb-4">

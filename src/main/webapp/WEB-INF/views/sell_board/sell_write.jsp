@@ -77,7 +77,7 @@
 						<div class="col-lg-8">
 							<div class="section-title mb-0">
 								<h4 class="m-0 text-uppercase font-weight-bold">
-									<input type="text" size="50" name="board_want_title" placeholder="제목을 입력해 주세요"/>
+									<input type="text" size="81" name="board_want_title" placeholder="제목을 입력해 주세요"/>
 								</h4>
 							</div>
 							<div class="bg-white border border-top-0 p-4 mb-3">

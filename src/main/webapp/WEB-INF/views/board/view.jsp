@@ -77,6 +77,11 @@
 						<div class="mb-4">
 							<p style="color: black;">${view.board_content}</p>
 							<br />
+							
+							<c:if test="${view.board_img != null}">
+								<img src="${view.board_img}" width="500px" height="500px"/> <br/>
+								첨부파일 : <a href="/fileDownload.do?file_name=${view.board_img}">${view.board_img}</a>
+							</c:if>
 
 							<!-- 로그인이 되어있고, 본인 글이 아닐경우에만 추천할 수 있도록 버튼을 출력 -->
 							<div class="text-center">

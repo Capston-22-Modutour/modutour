@@ -14,7 +14,38 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Inject
 	private ReplyDAO dao;
+	
+	// 댓글 목록
+	@Override
+	public List<ReplyDTO> review_list(int review_bno) throws Exception {
+		return dao.review_list(review_bno);
+	}
 
+	// 댓글 조회
+	@Override
+	public ReplyDTO review_view(int review_rno) throws Exception {
+		return dao.review_view(review_rno);
+	}
+
+	// 댓글 작성
+	@Override
+	public void review_write(ReplyDTO dto) throws Exception {
+		dao.review_write(dto);
+	}
+
+	// 댓글 수정
+	@Override
+	public void review_modify(ReplyDTO dto) throws Exception {
+		dao.review_modify(dto);
+	}
+
+	// 댓글 삭제
+	@Override
+	public void review_delete(int review_rno) throws Exception {
+		dao.review_delete(review_rno);
+	}
+
+	// -------------
 	// 댓글 목록
 	@Override
 	public List<ReplyDTO> list(int board_bno) throws Exception {
