@@ -101,18 +101,23 @@
 											</tr>
 										</thead>
 										<tbody>
+											<!-- sum 기본값 0으로 생성 -->
+											<c:set var="sum" value="0" />
 											<c:forEach items="${list}" var="list">
 												<tr>
 													<td>${list.order_bno}</td>
 													<td><a href="/sell_board/sell_view?sell_bno=${list.sell_bno}">${list.order_title}</a></td>
 													<td><fmt:formatDate value="${list.order_date}" pattern="yyyy-MM-dd" /></td>
-													<td>${list.order_price}</td>
+													<td><fmt:formatNumber pattern="###,###,###" value="${list.order_price}" />원</td>
 												</tr>
+												
+												<!-- sum에 order_price 삽입 -->
+												<c:set var="sum" value="${sum + (list.order_price)}" />
 											</c:forEach>
 										</tbody>
 										<tfoot>
 											<td colspan="3">총 합계</td>
-											<td>999</td>
+											<td><fmt:formatNumber pattern="###,###,###" value="${sum}" />원<td>
 										</tfoot>
 									</table>
 								</div>

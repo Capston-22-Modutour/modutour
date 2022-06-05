@@ -19,7 +19,26 @@ public class BoardServiceImpl implements BoardService {
 
 	@Inject
 	private BoardDAO dao;
+	
+	// 여행후기 베스트 목록
+	@Override
+	public List<BoardDTO> review_bestList() throws Exception {
+		return dao.review_bestList();
+	}
+	
+	// 패키지 설계 베스트 목록
+	@Override
+	public List<BoardDTO> board_want_bestList() throws Exception {
+		return dao.board_want_bestList();
+	}
+	
+	// 패키지 판매 베스트 목록
+	@Override
+	public List<BoardDTO> sell_bestList() throws Exception {
+		return dao.sell_bestList();
+	}
 
+	// ----------------------------------------
 	//마이페이지 내가 쓴 커뮤니티 목록
 	@Override
 	public List<BoardDTO> my_list(String user_name) throws Exception {
@@ -32,10 +51,12 @@ public class BoardServiceImpl implements BoardService {
 		return dao.my_package_list(user_name);
 	}
 	
+	// 내 구매 목록
 	@Override
 	public List<BoardDTO> my_pucharseList(Integer user_num) throws Exception {
 		return dao.my_pucharseList(user_num);
 	}
+	
 	// ----------------------------------------
 	// 게시물 목록
 	@Override
@@ -83,8 +104,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 게시물 목록 + 페이징 + 검색
 	@Override
-	public List<BoardDTO> listPageSearch(int displayPost, int postNum, String searchType, String keyword)
-			throws Exception {
+	public List<BoardDTO> listPageSearch(int displayPost, int postNum, String searchType, String keyword) throws Exception {
 		return dao.listPageSearch(displayPost, postNum, searchType, keyword);
 	}
 
@@ -221,12 +241,6 @@ public class BoardServiceImpl implements BoardService {
 	// -------------------------------------
 	// 게시물 목록
 	@Override
-	public List<BoardDTO> review_bestList() throws Exception {
-		return dao.review_bestList();
-	}
-		
-	// 게시물 목록
-	@Override
 	public List<BoardDTO> review_list() throws Exception {
 		return dao.review_list();
 	}
@@ -325,8 +339,10 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 패키지 제안 게시물 조회
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public BoardDTO suggest_view(int suggest_bno) throws Exception {
+		dao.suggest_updateViewCnt(suggest_bno);
 		return dao.suggest_view(suggest_bno);
 	}
 
@@ -381,8 +397,10 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 패키지 판매 게시물 조회
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public BoardDTO sell_view(int sell_bno) throws Exception {
+		dao.sell_updateViewCnt(sell_bno);
 		return dao.sell_view(sell_bno);
 	}
 

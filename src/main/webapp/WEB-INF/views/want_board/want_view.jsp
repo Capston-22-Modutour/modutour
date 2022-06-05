@@ -45,6 +45,11 @@
 	<!-- JavaScript Libraries -->
     <script src="<c:url value='https://code.jquery.com/jquery-3.4.1.min.js'/>"></script>
 </head>
+<style>
+	.select_img img {
+		margin: 20px 0;
+	}
+</style>
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
@@ -98,6 +103,13 @@
 							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
 								<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />
 							</p>
+							<br/>
+							
+							<c:if test="${view.board_want_img != null}">
+								<img src="${view.board_want_img}" width="500px" height="500px"/> <br/>
+								첨부파일 : <a href="/fileDownload.do?file_name=${view.board_want_img}">${view.board_want_img}</a>
+							</c:if>
+							
 							<!-- 로그인이 되어있고, 본인 글이 아닐경우에만 추천할 수 있도록 버튼을 출력 -->
 							<div class="text-center">
 								<c:if test="${member.user_id != null and member.user_name != dto.user_name}">
@@ -125,7 +137,7 @@
 							<h4 class="m-0 text-uppercase font-weight-bold">제안합니다</h4>
 						</div>
 						<div class="bg-white border border-top-0 p-3">
-						<form class="form" role="form" method="post" autocomplete="off" action="/suggest_board/suggest_write">
+						<form class="form" role="form" method="post" autocomplete="off" action="/suggest_board/suggest_write" enctype="multipart/form-data">
 							<h4 class="m-0 text-uppercase font-weight-bold">
 								<input type="text" size="35" name="suggest_title" placeholder="제목을 입력해 주세요" />
 							</h4>
@@ -184,6 +196,11 @@
 													<option>에어부산</option>
 													<option>티웨이</option>
 												</select> <br/><br/>
+												
+												파일 업로드 <br/>
+												<input type="file" id="file_img" name="file"/>
+												
+												<div class="select_img"><img src=""></div>
 												
 												<div class="text-center">
 													<button type="submit" class="btn btn-warning">제안하기</button>
@@ -299,31 +316,43 @@
     <!-- Template Javascript -->
     <script src="<c:url value='../resources/js/main.js'/>"></script>
 </body>
-</html>
-<script type="text/javascript">
-var board_want_bno = ${view.board_want_bno};
-var user_num = ${member.user_num};
-
- function want_updateLike(){ 
-     $.ajax({
-            type : "POST",  
-            url : "/want_board/want_updateLike",       
-            dataType : "json",   
-            data : {'board_want_bno' : board_want_bno, 'user_num' : user_num},
-            error : function(){
-               alert("통신 에러");
-            },
-            success : function(want_likeCheck) {
-                
-                    if(want_likeCheck == 0){
-                    	alert("추천완료.");
-                    	location.reload();
-                    }
-                    else if (want_likeCheck == 1){
-                     alert("추천취소");
-                    	location.reload();
-                }
-            }
-        });
- }
+<script>
+	var board_want_bno = ${view.board_want_bno};
+	var user_num = ${member.user_num};
+	
+	 function want_updateLike(){ 
+	     $.ajax({
+	            type : "POST",  
+	            url : "/want_board/want_updateLike",       
+	            dataType : "json",   
+	            data : {'board_want_bno' : board_want_bno, 'user_num' : user_num},
+	            error : function(){
+	               alert("통신 에러");
+	            },
+	            success : function(want_likeCheck) {
+	                
+	                    if(want_likeCheck == 0){
+	                    	alert("추천완료.");
+	                    	location.reload();
+	                    }
+	                    else if (want_likeCheck == 1){
+	                     alert("추천취소");
+	                    	location.reload();
+	                }
+	            }
+	        });
+	 }
 </script>
+<script>
+//사용자가 선택한 이미지 보여줌
+$("#file_img").change(function(){
+	if(this.files && this.files[0]) {
+		var reader = new FileReader;
+		reader.onload = function(data) {
+			$(".select_img img").attr("src", data.target.result).width(500);        
+		}
+		reader.readAsDataURL(this.files[0]);
+	}
+});
+</script>
+</html>

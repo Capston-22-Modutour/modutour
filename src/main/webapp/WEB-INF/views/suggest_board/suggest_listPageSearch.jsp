@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판</title>
+<title>여행사 입찰 게시판</title>
 
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -45,12 +45,13 @@
 								<table>
 									<thead>
 										<tr>
-											<th width="5%">번호</th>
-											<th width="20%">제목</th>
-											<th width="10%">작성일</th>
-											<th width="10%">작성자</th>
-											<th width="5%">추천수</th>
-											<th width="5%">조회수</th>
+											<th width="5%" style="font-size: 20px; color: black;">번호</th>
+											<th width="10%" style="font-size: 20px; color: black;">미리보기</th>
+											<th width="20%" style="font-size: 20px; color: black;">제목</th>
+											<th width="10%" style="font-size: 20px; color: black;">작성일</th>
+											<th width="10%" style="font-size: 20px; color: black;">작성자</th>
+											<th width="5%" style="font-size: 20px; color: black;">추천수</th>
+											<th width="5%" style="font-size: 20px; color: black;">조회수</th>
 										</tr>
 									</thead>
 
@@ -58,6 +59,7 @@
 										<c:forEach items="${list}" var="list">
 											<tr>
 												<td>${list.suggest_bno}</td>
+												<td><img src="${list.suggest_thumbnail}" width="100px" height="100px" /></td>
 												<td><a href="/suggest_board/suggest_view?suggest_bno=${list.suggest_bno}">${list.suggest_title}</a></td>
 												<td><fmt:formatDate value="${list.suggest_regDate}" pattern="yyyy-MM-dd"/></td>
 												<td>${list.suggest_writer}</td>

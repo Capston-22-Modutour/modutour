@@ -45,6 +45,11 @@
 	<!-- JavaScript Libraries -->
     <script src="<c:url value='https://code.jquery.com/jquery-3.4.1.min.js'/>"></script>
 </head>
+<style>
+	img {
+		margin: 20px 0;
+	}
+</style>
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
@@ -120,6 +125,8 @@
 							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.suggest_air}</p>
 							<br/>
 							
+							<img src="${view.suggest_img}"  width="500px" height="500px" />
+							
 							<!-- 로그인이 되어있고, 본인 글이 아닐경우에만 추천할 수 있도록 버튼을 출력 -->
 							<div class="text-center">
 								<c:if test="${member.user_name == view.board_want_writer}">
@@ -141,6 +148,8 @@
 							<input type="text" name="sell_people" value="${view.board_want_people}" hidden="hidden">
 							<input type="text" name="sell_guide" value="${view.suggest_guide}" hidden="hidden">
 							<input type="text" name="sell_air" value="${view.suggest_air}" hidden="hidden">
+							<input type="text" name="sell_img" value="${view.suggest_img}" hidden="hidden">
+							<input type="text" name="sell_thumbnail" value="${view.suggest_thumbnail}" hidden="hidden">
 						</div>
 					</div>
 					</form>

@@ -38,6 +38,7 @@ public class ReviewController {
 	// 여행후기 목록
 	@RequestMapping(value = "/review_list", method = RequestMethod.GET)
 	public void getList(Model model) throws Exception {
+		
 		// Model = Controller와 View 연결해주는 역할
 		List<BoardDTO> list = null;
 		list = service.review_list();

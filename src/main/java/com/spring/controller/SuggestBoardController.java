@@ -1,7 +1,9 @@
 package com.spring.controller;
 
+import java.io.File;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -11,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.dto.BoardDTO;
 import com.spring.dto.Page;
 import com.spring.dto.ReplyDTO;
 import com.spring.service.BoardService;
 import com.spring.service.ReplyService;
+import com.spring.utils.UploadFileUtils;
 
 @Controller
 @RequestMapping("/suggest_board/*")
@@ -28,14 +32,18 @@ public class SuggestBoardController {
 	@Inject
 	private ReplyService replyService;
 	
+	@Resource(name="uploadPath")
+    private String uploadPath;
+	
 	// 패키지 제안 게시글 목록
 	@RequestMapping(value = "/suggest_list", method = RequestMethod.GET)
 	public void getSuggestList(Model model) throws Exception {
+		
 		// Model = Controller와 View 연결해주는 역할
-		List<BoardDTO> suggest_list = null;
-		suggest_list = service.suggest_list();
+		List<BoardDTO> list = null;
+		list = service.suggest_list();
 
-		model.addAttribute("list", suggest_list);
+		model.addAttribute("list", list);
 	}
 
 	// 패키지 제안 게시글 작성 get
@@ -50,7 +58,21 @@ public class SuggestBoardController {
 
 	// 패키지 제안 게시글 작성 post
 	@RequestMapping(value = "/suggest_write", method = RequestMethod.POST)
-	public String postSuggestWrite(BoardDTO dto) throws Exception {
+	public String postSuggestWrite(BoardDTO dto, MultipartFile file) throws Exception {
+		
+		String imgUploadPath = uploadPath + File.separator + "upload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String file_name = null;
+		System.out.println(imgUploadPath);
+		if(file != null) {
+		 file_name =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		} else {
+		 file_name = uploadPath + File.separator + "images" + File.separator + "none.png";
+		}
+
+		dto.setSuggest_img(File.separator + "upload" + ymdPath + File.separator + file_name);
+		dto.setSuggest_thumbnail(File.separator + "upload" + ymdPath + File.separator + "s" + File.separator + "s_" + file_name);
+		
 		service.suggest_write(dto);
 
 		return "redirect:/suggest_board/suggest_listPageSearch?num=1";

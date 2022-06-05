@@ -45,6 +45,11 @@
 	<!-- JavaScript Libraries -->
     <script src="<c:url value='https://code.jquery.com/jquery-3.4.1.min.js'/>"></script>
 </head>
+<style>
+	img {
+		margin: 20px 0;
+	}
+</style>
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
@@ -115,6 +120,10 @@
 							<label>항공사</label>
 							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_air}</p>
 							<br/>
+							
+							<c:if test="${view.sell_img != null}">
+								<img src="${view.sell_img}" width="500px" height="500px">
+							</c:if>
 							
 							<!-- 로그인이 되어있고, 본인 글이 아닐경우에만 추천할 수 있도록 버튼을 출력 -->
 							<div class="text-center">

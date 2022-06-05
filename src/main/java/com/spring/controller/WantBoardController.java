@@ -1,7 +1,9 @@
 package com.spring.controller;
 
+import java.io.File;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -11,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.dto.BoardDTO;
 import com.spring.dto.Page;
 import com.spring.dto.ReplyDTO;
 import com.spring.service.BoardService;
 import com.spring.service.ReplyService;
+import com.spring.utils.UploadFileUtils;
 
 @Controller
 @RequestMapping("/want_board/*")
@@ -28,14 +32,18 @@ public class WantBoardController {
 	@Inject
 	private ReplyService replyService;
 	
+	@Resource(name="uploadPath")
+    private String uploadPath;
+	
 	// 패키지 설계 게시글 목록
 	@RequestMapping(value = "/want_list", method = RequestMethod.GET)
 	public void getWantList(Model model) throws Exception {
+		
 		// Model = Controller와 View 연결해주는 역할
-		List<BoardDTO> want_list = null;
-		want_list = service.want_list();
-
-		model.addAttribute("list", want_list);
+		List<BoardDTO> list = null;
+		list = service.want_list();
+		
+		model.addAttribute("list", list);
 	}
 
 	// 패키지 설계 게시글 작성 get
@@ -50,7 +58,21 @@ public class WantBoardController {
 
 	// 패키지 설계 게시글 작성 post
 	@RequestMapping(value = "/want_write", method = RequestMethod.POST)
-	public String postWantWrite(BoardDTO dto) throws Exception {
+	public String postWantWrite(BoardDTO dto, MultipartFile file) throws Exception {
+		
+		String imgUploadPath = uploadPath + File.separator + "upload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String file_name = null;
+		System.out.println(imgUploadPath);
+		if(file != null) {
+		 file_name =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		} else {
+		 file_name = uploadPath + File.separator + "images" + File.separator + "none.png";
+		}
+
+		dto.setBoard_want_img(File.separator + "upload" + ymdPath + File.separator + file_name);
+		dto.setBoard_want_thumbnail(File.separator + "upload" + ymdPath + File.separator + "s" + File.separator + "s_" + file_name);
+		
 		service.want_write(dto);
 
 		return "redirect:/want_board/want_listPageSearch?num=1";
@@ -59,8 +81,9 @@ public class WantBoardController {
 	// 패키지 설계 게시글 조회
 	@RequestMapping(value = "/want_view", method = RequestMethod.GET)
 	public void getWantView(@RequestParam("board_want_bno") int board_want_bno, Model model) throws Exception {
+		
 		BoardDTO dto = service.want_view(board_want_bno);
-
+		
 		model.addAttribute("view", dto);
 
 		// 패키지 설계 댓글 조회
@@ -109,11 +132,10 @@ public class WantBoardController {
 		page.setSearchType(searchType);
 		page.setKeyword(keyword);
 
-		List<BoardDTO> want_list = null;
-		want_list = service.want_listPageSearch(page.getDisplayPost(), page.getPostNum(), searchType,
-				keyword);
+		List<BoardDTO> list = null;
+		list = service.want_listPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
 
-		model.addAttribute("list", want_list);
+		model.addAttribute("list", list);
 		model.addAttribute("page", page);
 		model.addAttribute("select", num);
 	}

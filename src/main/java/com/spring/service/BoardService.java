@@ -5,6 +5,17 @@ import java.util.List;
 import com.spring.dto.BoardDTO;
 
 public interface BoardService {
+	
+	// 리뷰 베스트 목록
+	public List<BoardDTO> review_bestList() throws Exception;
+	
+	// 패키지 설계 베스트 목록
+	public List<BoardDTO> board_want_bestList() throws Exception;
+	
+	// 패키지 판매 베스트 목록
+	public List<BoardDTO> sell_bestList() throws Exception;
+	
+	// ----------------------------------------
 	// 내가 쓴 커뮤니티 목록
 	public List<BoardDTO> my_list(String user_name) throws Exception;
 
@@ -13,7 +24,7 @@ public interface BoardService {
 	
 	// 내 구매목록
 	public List<BoardDTO> my_pucharseList(Integer user_num) throws Exception;
-
+		
 	// ----------------------------------------
 	// 게시물 목록
 	public List<BoardDTO> list() throws Exception;
@@ -98,8 +109,6 @@ public interface BoardService {
 	void want_updateLikeCheckCancel(int board_want_bno, int user_num) throws Exception;
 
 	// ----------------------------------------
-	// 리뷰 베스트 목록
-	public List<BoardDTO> review_bestList() throws Exception;
 		
 	// 리뷰 게시물 목록
 	public List<BoardDTO> review_list() throws Exception;

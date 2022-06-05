@@ -163,8 +163,8 @@ public class BoardDTO {
 	public String getReview_thumbnail() {
 		return review_thumbnail;
 	}
-	public void setReview_thumbnail(String file_thumbnail) {
-		this.review_thumbnail = file_thumbnail;
+	public void setReview_thumbnail(String review_thumbnail) {
+		this.review_thumbnail = review_thumbnail;
 	}
 	public Date getReview_regDate() {
 		return review_regDate;
@@ -191,6 +191,8 @@ public class BoardDTO {
 	private int board_want_viewCnt;
 	private int board_want_like;
 	private Date board_want_regDate;
+	private String board_want_img;
+	private String board_want_thumbnail;
 
 	public int getBoard_want_bno() {
 		return board_want_bno;
@@ -228,7 +230,6 @@ public class BoardDTO {
 	public void setBoard_want_people(int board_want_people) {
 		this.board_want_people = board_want_people;
 	}
-	
 	public Date getBoard_want_start() {
 		return board_want_start;
 	}
@@ -259,8 +260,20 @@ public class BoardDTO {
 	public void setBoard_want_regDate(Date board_want_regDate) {
 		this.board_want_regDate = board_want_regDate;
 	}
+	public String getBoard_want_img() {
+		return board_want_img;
+	}
+	public void setBoard_want_img(String board_want_img) {
+		this.board_want_img = board_want_img;
+	}
+	public String getBoard_want_thumbnail() {
+		return board_want_thumbnail;
+	}
+	public void setBoard_want_thumbnail(String board_want_thumbnail) {
+		this.board_want_thumbnail = board_want_thumbnail;
+	}
 	// 패키지 설계 게시판 end
-	
+
 	//------------------------------------------------
 	// 여행사 입찰 게시판 start
 	private int com_regiNum;
@@ -275,6 +288,8 @@ public class BoardDTO {
 	private int suggest_viewCnt;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date suggest_regDate;
+	private String suggest_img;
+	private String suggest_thumbnail;
 
 	public int getCom_regiNum() {
 		return com_regiNum;
@@ -342,8 +357,20 @@ public class BoardDTO {
 	public void setSuggest_regDate(Date suggest_regDate) {
 		this.suggest_regDate = suggest_regDate;
 	}
+	public String getSuggest_img() {
+		return suggest_img;
+	}
+	public void setSuggest_img(String suggest_img) {
+		this.suggest_img = suggest_img;
+	}
+	public String getSuggest_thumbnail() {
+		return suggest_thumbnail;
+	}
+	public void setSuggest_thumbnail(String suggest_thumbnail) {
+		this.suggest_thumbnail = suggest_thumbnail;
+	}
 	// 여행사 입찰 게시판 end
-	
+
 	//------------------------------------------------
 	// 패키지 판매 게시판 start
 	private int sell_bno;
@@ -364,6 +391,8 @@ public class BoardDTO {
 	private int sell_viewCnt;
 	private int sell_like;
 	private Date sell_regDate;
+	private String sell_img;
+	private String sell_thumbnail;
 
 	public int getSell_bno() {
 		return sell_bno;
@@ -449,8 +478,20 @@ public class BoardDTO {
 	public void setSell_regDate(Date sell_regDate) {
 		this.sell_regDate = sell_regDate;
 	}
+	public String getSell_img() {
+		return sell_img;
+	}
+	public void setSell_img(String sell_img) {
+		this.sell_img = sell_img;
+	}
+	public String getSell_thumbnail() {
+		return sell_thumbnail;
+	}
+	public void setSell_thumbnail(String sell_thumbnail) {
+		this.sell_thumbnail = sell_thumbnail;
+	}
 	// 패키지 판매 게시판 end
-	
+
 	//------------------------------------------------
 	// 구매 내역 start
 	private int order_bno;

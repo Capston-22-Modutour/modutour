@@ -42,35 +42,33 @@
 					</div>
 					<div class="bg-white border border-top-0 p-4 mb-3">
 						<div class="mb-4">
-							<h6 class="text-uppercase font-weight-bold">
-								<table>
-									<thead>
+							<table>
+								<thead>
+									<tr>
+										<th width="5%" style="font-size: 20px; color: black;">번호</th>
+										<th width="10%" style="font-size: 20px; color: black;">미리보기</th>
+										<th width="20%" style="font-size: 20px; color: black;">제목</th>
+										<th width="10%" style="font-size: 20px; color: black;">작성일</th>
+										<th width="10%" style="font-size: 20px; color: black;">작성자</th>
+										<th width="5%" style="font-size: 20px; color: black;">추천수</th>
+										<th width="5%" style="font-size: 20px; color: black;">조회수</th>
+									</tr>
+								</thead>
+								
+								<tbody>
+									<c:forEach items="${list}" var="list">
 										<tr>
-											<th width="5%">번호</th>
-											<th width="10%">미리보기</th>
-											<th width="20%">제목</th>
-											<th width="10%">작성일</th>
-											<th width="10%">작성자</th>
-											<th width="5%">추천수</th>
-											<th width="5%">조회수</th>
+											<td>${list.review_bno}</td>
+											<td><img src="${list.review_thumbnail}" width="100px" height="100px"></td>
+											<td><a href="/review/review_view?review_bno=${list.review_bno}">${list.review_title}</a></td>
+											<td><fmt:formatDate value="${list.review_regDate}" pattern="yyyy-MM-dd"/></td>
+											<td>${list.review_writer}</td>
+											<td>${list.review_like}</td>
+											<td>${list.review_viewCnt}</td>
 										</tr>
-									</thead>
-
-									<tbody>
-										<c:forEach items="${list}" var="list">
-											<tr>
-												<td>${list.review_bno}</td>
-												<td><img src="${list.review_thumbnail}" width="100px" height="100px"></td>
-												<td><a href="/review/review_view?review_bno=${list.review_bno}">${list.review_title}</a></td>
-												<td><fmt:formatDate value="${list.review_regDate}" pattern="yyyy-MM-dd"/></td>
-												<td>${list.review_writer}</td>
-												<td>${list.review_like}</td>
-												<td>${list.review_viewCnt}</td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-							</h6>
+									</c:forEach>
+								</tbody>
+							</table>
 							<p class="mb-4">
 								<c:if test="${page.prev}">
 									<span>[ <a

@@ -25,6 +25,11 @@
 	<!-- Customized Bootstrap Stylesheet -->
 	<link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>">
 </head>
+<style>
+	.select_img img {
+		margin: 20px 0;
+	}
+</style>
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
@@ -70,7 +75,7 @@
 	
 	<c:if test="${member != null}">
 		<!-- 게시글 내용 Start -->
-		<form class="form" role="form" method="post" autocomplete="off">
+		<form class="form" role="form" method="post" autocomplete="off" enctype="multipart/form-data">
 			<div class="container-fluid mt-5 pt-3">
 				<div class="container">
 					<div class="row">
@@ -100,6 +105,11 @@
 									<label>도착일</label> <br/>
 									<input type="date" style="color: black;" name="board_want_end" class="m-0 text-uppercase font-weight-bold px-8">
 								</div>
+								
+								파일 업로드 <br/>
+								<input type="file" id="board_want_img" name="file"/>
+									
+								<div class="select_img"><img src=""></div>
 		
 								<div class="text-center">
 									<button type="submit" class="btn btn-warning">작성하기</button> &nbsp; 
@@ -130,4 +140,16 @@
     <!-- Template Javascript -->
     <script src="<c:url value='/resources/js/main.js'/>"></script>
 </body>
+<script>
+	// 사용자가 선택한 이미지 보여줌
+	$("#board_want_img").change(function(){
+		if(this.files && this.files[0]) {
+			var reader = new FileReader;
+			reader.onload = function(data) {
+				$(".select_img img").attr("src", data.target.result).width(500);        
+			}
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
+</script>
 </html>

@@ -18,8 +18,6 @@ import com.spring.service.BoardService;
 @Controller
 public class HomeController {
 
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
 	@Inject
 	BoardService service;
 	
@@ -28,10 +26,20 @@ public class HomeController {
 	public String index(Locale locale, Model model) throws Exception {
 		
 		// 여행후기 베스트 게시글 목록
-		List<BoardDTO> list = null;
-		list = service.review_bestList();
+		List<BoardDTO> rvlist = null;
+		rvlist = service.review_bestList();
+		
+		// 여행후기 베스트 게시글 목록
+		List<BoardDTO> wtlist = null;
+		wtlist = service.board_want_bestList();
+		
+		// 패키지 판매 베스트 게시글 목록
+		List<BoardDTO> selist = null;
+		selist = service.sell_bestList();
 
-		model.addAttribute("list", list);
+		model.addAttribute("rvlist", rvlist);
+		model.addAttribute("wtlist", wtlist);
+		model.addAttribute("selist", selist);
 		
 		return "index";
 	}

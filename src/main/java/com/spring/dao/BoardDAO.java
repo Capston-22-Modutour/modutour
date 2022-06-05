@@ -6,6 +6,16 @@ import com.spring.dto.BoardDTO;
 
 public interface BoardDAO {
 	
+	// 리뷰 베스트 목록
+	public List<BoardDTO> review_bestList() throws Exception;
+		
+	// 패키지 설계 베스트 목록
+	public List<BoardDTO> board_want_bestList() throws Exception;
+	
+	// 패키지 판매 베스트 목록
+	public List<BoardDTO> sell_bestList() throws Exception;
+	
+	// ----------------------------------------
 	// 내가 쓴 커뮤니티 목록
 	public List<BoardDTO> my_list(String user_name) throws Exception;
 	
@@ -62,8 +72,6 @@ public interface BoardDAO {
 	public void updateLikeCheckCancel(int board_bno, int user_num) throws Exception;
 		
 	//----------------------------------------
-	// 리뷰 베스트 목록
-	public List<BoardDTO> review_bestList() throws Exception;
 	
 	// 리뷰 게시물 목록
 	public List<BoardDTO> review_list() throws Exception;

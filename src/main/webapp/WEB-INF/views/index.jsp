@@ -54,15 +54,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${list}" var="list">
+						<c:forEach items="${rvlist}" var="rvlist">
 							<tr>
-								<td>${list.review_bno}</td>
-								<td><img src="${list.review_thumbnail}" width="100px" height="100px"></td>
-								<td><a href="/review/review_view?review_bno=${list.review_bno}">${list.review_title}</a></td>
-								<td><fmt:formatDate value="${list.review_regDate}" pattern="yyyy-MM-dd"/></td>
-								<td>${list.review_writer}</td>
-								<td>${list.review_like}</td>
-								<td>${list.review_viewCnt}</td>
+								<td>${rvlist.review_bno}</td>
+								<td><img src="${rvlist.review_thumbnail}" width="100px" height="100px"></td>
+								<td><a href="/review/review_view?review_bno=${rvlist.review_bno}">${rvlist.review_title}</a></td>
+								<td><fmt:formatDate value="${rvlist.review_regDate}" pattern="yyyy-MM-dd"/></td>
+								<td>${rvlist.review_writer}</td>
+								<td>${rvlist.review_like}</td>
+								<td>${rvlist.review_viewCnt}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -71,6 +71,84 @@
 		</div>
 	</div>
 	<!-- 여행후기 베스트 end -->
+	
+	<!-- 패키지 설계 베스트 현재시각 기준 일주일까지 추천수 20이상 -->
+	<div class="container-fluid pt-5 mb-3">
+        <div class="container">
+            <div class="section-title">
+                <h4 class="m-0 text-uppercase font-weight-bold">패키지 설계 베스트</h4>
+                <a href="/want_board/want_listPageSearch?num=1">더 보기</a>
+            </div>
+            <div class="bg-white border border-top-0 p-4 mb-3">
+				<table>
+					<thead>
+						<tr>
+							<th width="5%" style="font-size: 20px; color: black;">번호</th>
+							<th width="10%" style="font-size: 20px; color: black;">미리보기</th>
+							<th width="20%" style="font-size: 20px; color: black;">제목</th>
+							<th width="10%" style="font-size: 20px; color: black;">작성일</th>
+							<th width="10%" style="font-size: 20px; color: black;">작성자</th>
+							<th width="5%" style="font-size: 20px; color: black;">추천수</th>
+							<th width="5%" style="font-size: 20px; color: black;">조회수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${wtlist}" var="wtlist">
+							<tr>
+								<td>${wtlist.board_want_bno}</td>
+								<td><img src="${wtlist.board_want_thumbnail}" width="100px" height="100px"></td>
+								<td><a href="/want_board/want_view?board_want_bno=${wtlist.board_want_bno}">${wtlist.board_want_title}</a></td>
+								<td><fmt:formatDate value="${wtlist.board_want_regDate}" pattern="yyyy-MM-dd"/></td>
+								<td>${wtlist.board_want_writer}</td>
+								<td>${wtlist.board_want_like}</td>
+								<td>${wtlist.board_want_viewCnt}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- 패키지 설계 베스트 end -->
+	
+	<!-- 패키지 판매 베스트 현재시각 기준 일주일까지 추천수 20이상 -->
+	<div class="container-fluid pt-5 mb-3">
+        <div class="container">
+            <div class="section-title">
+                <h4 class="m-0 text-uppercase font-weight-bold">패키지 판매 베스트</h4>
+                <a href="/want_board/want_listPageSearch?num=1">더 보기</a>
+            </div>
+            <div class="bg-white border border-top-0 p-4 mb-3">
+				<table>
+					<thead>
+						<tr>
+							<th width="5%" style="font-size: 20px; color: black;">번호</th>
+							<th width="10%" style="font-size: 20px; color: black;">미리보기</th>
+							<th width="20%" style="font-size: 20px; color: black;">제목</th>
+							<th width="10%" style="font-size: 20px; color: black;">작성일</th>
+							<th width="10%" style="font-size: 20px; color: black;">작성자</th>
+							<th width="5%" style="font-size: 20px; color: black;">추천수</th>
+							<th width="5%" style="font-size: 20px; color: black;">조회수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${selist}" var="selist">
+							<tr>
+								<td>${selist.sell_bno}</td>
+								<td><img src="${selist.sell_thumbnail}" width="100px" height="100px"></td>
+								<td><a href="/sell_board/sell_view?sell_bno=${selist.sell_bno}">${selist.sell_title}</a></td>
+								<td><fmt:formatDate value="${selist.sell_regDate}" pattern="yyyy-MM-dd"/></td>
+								<td>${selist.sell_writer}</td>
+								<td>${selist.sell_like}</td>
+								<td>${selist.sell_viewCnt}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- 패키지 판매 베스트 end -->
 		
     <!-- Main News Slider Start -->
     <div class="container-fluid">

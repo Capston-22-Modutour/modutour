@@ -3,6 +3,32 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mappers.boardMapper">
+
+	<!-- 게시글 베스트 start -->
+	<!-- 리뷰 베스트 -->
+	<select id="review_bestList" resultType="com.spring.dto.BoardDTO">
+		select review_bno, review_title, review_thumbnail, review_content, review_writer, review_like, review_viewCnt , review_regDate
+		from review 
+		where review_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and review_like >= 20
+		order by review_like desc
+	</select>
+	
+	<!-- 패키지 설계 베스트 -->
+	<select id="board_want_bestList" resultType="com.spring.dto.BoardDTO">
+		select board_want_bno, board_want_title, board_want_thumbnail, board_want_content, board_want_writer, board_want_like, board_want_viewCnt , board_want_regDate
+		from member_board_want 
+		where board_want_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and board_want_like >= 20
+		order by board_want_like desc
+	</select>
+	
+	<!-- 패키지 판매 베스트 -->
+	<select id="sell_bestList" resultType="com.spring.dto.BoardDTO">
+		select sell_bno, sell_title, sell_thumbnail, sell_content, sell_writer, sell_like, sell_viewCnt , sell_regDate
+		from sell_board 
+		where sell_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and sell_like >= 20
+		order by sell_like desc
+	</select>
+	<!-- 게시글 베스트 end -->
 	
 	<!-- 마이페이지 start -->
 	<!-- 내가 쓴 커뮤니티 게시글 -->
@@ -138,14 +164,6 @@
 	<!-- 커뮤니티 end -->
 	
 	<!-- 여행후기 게시판 start -->
-	<!-- 리뷰 베스트 -->
-	<select id="review_bestList" resultType="com.spring.dto.BoardDTO">
-		select review_bno, review_title, review_thumbnail, review_content, review_writer, review_like, review_viewCnt , review_regDate
-		from review 
-		where review_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and review_like >= 20
-		order by review_like desc
-	</select>
-	
 	<!-- 게시물 목록 -->
 	<!-- 쿼리를 실행한 뒤 결과가 있을 경우 resultType 사용 -->
 	<select id="review_list" resultType="com.spring.dto.BoardDTO">
@@ -256,15 +274,16 @@
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="want_write" parameterType="com.spring.dto.BoardDTO">
 		insert into member_board_want(board_want_title, board_want_destination, board_want_content, board_want_writer,
-									board_want_people, board_want_start, board_want_end)
+									board_want_people, board_want_start, board_want_end, board_want_img, board_want_thumbnail)
 					values(#{board_want_title}, #{board_want_destination}, #{board_want_content}, #{board_want_writer}, 
-						#{board_want_people}, #{board_want_start}, #{board_want_end})
+						#{board_want_people}, #{board_want_start}, #{board_want_end}, #{board_want_img}, #{board_want_thumbnail})
 	</insert>
 	
 	<!-- 게시물 조회 -->
 	<select id="want_view" parameterType="int" resultType="com.spring.dto.BoardDTO">
 		select board_want_bno, board_want_title, board_want_destination, board_want_content, board_want_writer, 
-			board_want_people, board_want_start, board_want_end, board_want_viewCnt, board_want_like, board_want_regDate
+			board_want_people, board_want_start, board_want_end, board_want_viewCnt, board_want_like, board_want_regDate, 
+			board_want_img, board_want_thumbnail
 		from member_board_want
 		where board_want_bno = #{board_want_bno}		
 	</select>
@@ -304,7 +323,7 @@
 	
 	<!-- 게시글 목록 + 페이징 + 검색 -->
 	<select id="want_listPageSearch" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
-		select board_want_bno, board_want_title, board_want_writer, board_want_viewCnt, board_want_like, board_want_regDate
+		select board_want_bno, board_want_title, board_want_thumbnail, board_want_writer, board_want_viewCnt, board_want_like, board_want_regDate
 		from member_board_want
 		
 		<if test='searchType.equals("title")'>
@@ -364,10 +383,10 @@
 	<insert id="suggest_write" parameterType="com.spring.dto.BoardDTO">
 		insert into suggest_board(board_want_bno, com_regiNum, board_want_writer, suggest_writer, suggest_title, 
 			board_want_destination, board_want_content, suggest_content, board_want_people, board_want_start, 
-			board_want_end, suggest_price, suggest_guide, suggest_air)
+			board_want_end, suggest_price, suggest_guide, suggest_air, suggest_img, suggest_thumbnail)
 					values(#{board_want_bno}, #{com_regiNum}, #{board_want_writer}, #{suggest_writer}, #{suggest_title}, 
 					#{board_want_destination}, #{board_want_content}, #{suggest_content}, #{board_want_people}, 
-					#{board_want_start}, #{board_want_end},	#{suggest_price}, #{suggest_guide}, #{suggest_air})
+					#{board_want_start}, #{board_want_end},	#{suggest_price}, #{suggest_guide}, #{suggest_air}, #{suggest_img}, #{suggest_thumbnail})
 	</insert>
 	
 	<!-- 게시물 조회 -->
@@ -380,8 +399,8 @@
 	<!-- 게시글 조회수 증가 -->
 	<update id="suggest_updateViewCnt" parameterType="int">
 		update suggest_board
-			set board_want_viewCnt = board_want_viewCnt + 1
-		where board_want_bno = #{board_want_bno}
+			set suggest_viewCnt = suggest_viewCnt + 1
+		where suggest_bno = #{suggest_bno}
 	</update>
 	
 	<!-- 게시글 수정 -->
@@ -416,7 +435,7 @@
 	
 	<!-- 게시글 목록 + 페이징 + 검색 -->
 	<select id="suggest_listPageSearch" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
-		select suggest_bno, suggest_title, suggest_writer, suggest_viewCnt, suggest_like, suggest_regDate
+		select suggest_bno, suggest_title, suggest_thumbnail, suggest_writer, suggest_viewCnt, suggest_like, suggest_regDate
 		from suggest_board
 		
 		<if test='searchType.equals("title")'>
@@ -474,10 +493,11 @@
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="sell_write" parameterType="com.spring.dto.BoardDTO">
 		insert into sell_board(sell_bno, suggest_bno, com_regiNum, sell_writer, sell_title, 
-				sell_destination, sell_content, sell_start, sell_end, sell_people, sell_price, sell_guide, sell_air)
+				sell_destination, sell_content, sell_start, sell_end, sell_people, sell_price, sell_guide, sell_air, 
+				sell_img, sell_thumbnail)
 					values(#{sell_bno}, #{suggest_bno}, #{com_regiNum}, #{sell_writer}, #{sell_title}, 
 					#{sell_destination}, #{sell_content}, #{sell_start}, #{sell_end}, #{sell_people}, 
-					#{sell_price}, #{sell_guide}, #{sell_air})
+					#{sell_price}, #{sell_guide}, #{sell_air}, #{sell_img}, #{sell_thumbnail})
 	</insert>
 	
 	<!-- 게시물 조회 -->
@@ -526,7 +546,7 @@
 	
 	<!-- 게시글 목록 + 페이징 + 검색 -->
 	<select id="sell_listPageSearch" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
-		select sell_bno, sell_title, sell_writer, sell_viewCnt, sell_like, sell_regDate
+		select sell_bno, sell_title, sell_thumbnail, sell_writer, sell_viewCnt, sell_like, sell_regDate
 		from sell_board
 		
 		<if test='searchType.equals("title")'>

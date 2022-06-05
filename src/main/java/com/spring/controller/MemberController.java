@@ -104,7 +104,6 @@ public class MemberController {
 
 		MemberDTO login = service.login(dto);
 		
-		
 		if (login == null) {
 			session.setAttribute("member", null);
 			rttr.addFlashAttribute("msg", false);

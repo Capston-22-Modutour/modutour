@@ -19,7 +19,26 @@ public class BoardDAOImpl implements BoardDAO {
 
 	private static String namespace = "com.spring.mappers.boardMapper";
 	private static String like_namespace = "com.spring.mappers.likeMapper";
-
+	
+	// 여행후기 베스트 목록
+	@Override
+	public List<BoardDTO> review_bestList() throws Exception {
+		return sql.selectList(namespace + ".review_bestList");
+	}
+	
+	// 패키지 설계 베스트 목록
+	@Override
+	public List<BoardDTO> board_want_bestList() throws Exception {
+		return sql.selectList(namespace + ".board_want_bestList");
+	}
+	
+	// 패키지 판매 베스트 목록
+	@Override
+	public List<BoardDTO> sell_bestList() throws Exception {
+		return sql.selectList(namespace + ".sell_bestList");
+	}
+		
+	// ----------------------------------------
 	// 마이페이지 내가 쓴 커뮤니티 목록
 	@Override
 	public List<BoardDTO> my_list(String user_name) throws Exception {
@@ -32,11 +51,12 @@ public class BoardDAOImpl implements BoardDAO {
 		return sql.selectList(namespace + ".my_package_list", user_name);
 	}
 	
+	//내 구매내역
 	@Override
 	public List<BoardDTO> my_pucharseList(Integer user_num) throws Exception {
 		return sql.selectList(namespace + ".my_pucharseList", user_num);
 	}
-
+	
 	// ----------------------------------------
 	// 자유 게시물 목록
 	@Override
@@ -173,12 +193,6 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	// ------------------------------------
-	// 여행후기 베스트 목록
-	@Override
-	public List<BoardDTO> review_bestList() throws Exception {
-		return sql.selectList(namespace + ".review_bestList");
-	}
-	
 	// 여행후기 게시물 목록
 	@Override
 	public List<BoardDTO> review_list() throws Exception {

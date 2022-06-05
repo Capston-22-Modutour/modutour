@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판</title>
+<title>패키지 설계 게시판</title>
 
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -38,37 +38,37 @@
 				<div class="col-lg-12">
 					<div class="section-title mb-0">
 						<h4 class="m-0 text-uppercase font-weight-bold">패키지 설계 게시판</h4>
-							<button type="button" class="btn btn-primary font-weight-semi-bold px-4" onclick="location.href='/want_board/want_write'">글 작성</button>
+						<button type="button" class="btn btn-primary font-weight-semi-bold px-4" onclick="location.href='/want_board/want_write'">글 작성</button>
 					</div>
 					<div class="bg-white border border-top-0 p-4 mb-3">
 						<div class="mb-4">
-							<h6 class="text-uppercase font-weight-bold">
-								<table>
-									<thead>
+							<table>
+								<thead>
+									<tr>
+										<th width="5%" style="font-size: 20px; color: black;">번호</th>
+										<th width="10%" style="font-size: 20px; color: black;">미리보기</th>
+										<th width="20%" style="font-size: 20px; color: black;">제목</th>
+										<th width="10%" style="font-size: 20px; color: black;">작성일</th>
+										<th width="10%" style="font-size: 20px; color: black;">작성자</th>
+										<th width="5%" style="font-size: 20px; color: black;">추천수</th>
+										<th width="5%" style="font-size: 20px; color: black;">조회수</th>
+									</tr>
+								</thead>
+									
+								<tbody>
+									<c:forEach items="${list}" var="list">
 										<tr>
-											<th width="5%">번호</th>
-											<th width="20%">제목</th>
-											<th width="10%">작성일</th>
-											<th width="10%">작성자</th>
-											<th width="5%">추천수</th>
-											<th width="5%">조회수</th>
+											<td>${list.board_want_bno}</td>
+											<td><img src="${list.board_want_thumbnail}" width="100px" height="100px"></td>
+											<td><a href="/want_board/want_view?board_want_bno=${list.board_want_bno}">${list.board_want_title}</a></td>
+											<td><fmt:formatDate value="${list.board_want_regDate}" pattern="yyyy-MM-dd"/></td>
+											<td>${list.board_want_writer}</td>
+											<td>${list.board_want_like}</td>
+											<td>${list.board_want_viewCnt}</td>
 										</tr>
-									</thead>
-
-									<tbody>
-										<c:forEach items="${list}" var="list">
-											<tr>
-												<td>${list.board_want_bno}</td>
-												<td><a href="/want_board/want_view?board_want_bno=${list.board_want_bno}">${list.board_want_title}</a></td>
-												<td><fmt:formatDate value="${list.board_want_regDate}" pattern="yyyy-MM-dd"/></td>
-												<td>${list.board_want_writer}</td>
-												<td>${list.board_want_like}</td>
-												<td>${list.board_want_viewCnt}</td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-							</h6>
+									</c:forEach>
+								</tbody>
+							</table>
 							<p class="mb-4">
 								<c:if test="${page.prev}">
 									<span>[<a href="/want_board/listPageSearch?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a>]</span>
@@ -146,7 +146,5 @@
 			location.href = "/want_board/want_listPageSearch?num=1" + "&searchType=" + searchType + "&keyword=" + keyword;
 		};
 	</script>
-	
-	<input type="button" value="이전" onclick="history.go(-1)">
 </body>
 </html>

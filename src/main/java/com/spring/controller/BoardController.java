@@ -38,6 +38,7 @@ public class BoardController {
 	// 자유 게시글 목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public void getList(Model model) throws Exception {
+		
 		// Model = Controller와 View 연결해주는 역할
 		List<BoardDTO> list = null;
 		list = service.list();
@@ -89,7 +90,6 @@ public class BoardController {
 		List<ReplyDTO> reply = null;
 		reply = replyService.list(board_bno);
 		model.addAttribute("reply", reply);
-		
 	}
 
 	// 자유 게시글 수정

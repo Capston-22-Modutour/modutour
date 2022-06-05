@@ -84,6 +84,7 @@ public class MyPageController {
 	@RequestMapping(value = "/my_purchase", method = RequestMethod.GET)
 	public String myPurchase(HttpServletRequest request, Model model) throws Exception {
 
+		// 구매 내역
 		List<BoardDTO> list = null;
 		
 		HttpSession session = request.getSession();

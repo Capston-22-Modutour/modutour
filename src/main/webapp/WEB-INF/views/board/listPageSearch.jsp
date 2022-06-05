@@ -42,35 +42,33 @@
 					</div>
 					<div class="bg-white border border-top-0 p-4 mb-3">
 						<div class="mb-4">
-							<h6 class="text-uppercase font-weight-bold">
-								<table>
-									<thead>
-										<tr>
-											<th width="5%" style="font-size: 20px">번호</th>
-											<th width="10%" style="font-size: 20px">미리보기</th>
-											<th width="20%" style="font-size: 20px">제목</th>
-											<th width="10%" style="font-size: 20px">작성일</th>
-											<th width="10%" style="font-size: 20px">작성자</th>
-											<th width="5%" style="font-size: 20px">추천수</th>
-											<th width="5%" style="font-size: 20px">조회수</th>
-										</tr>
-									</thead>
+							<table>
+								<thead>
+									<tr>
+										<th width="5%" style="font-size: 20px; color: black;">번호</th>
+										<th width="10%" style="font-size: 20px; color: black;">미리보기</th>
+										<th width="20%" style="font-size: 20px; color: black;">제목</th>
+										<th width="10%" style="font-size: 20px; color: black;">작성일</th>
+										<th width="10%" style="font-size: 20px; color: black;">작성자</th>
+										<th width="5%" style="font-size: 20px; color: black;">추천수</th>
+										<th width="5%" style="font-size: 20px; color: black;">조회수</th>
+									</tr>
+								</thead>
 
-									<tbody>
-										<c:forEach items="${list}" var="list">
-											<tr>
-												<td>${list.board_bno}</td>
-												<td><img src="${list.board_thumbnail}" width="100px" height="100px"></td>
-												<td><a href="/board/view?board_bno=${list.board_bno}">${list.board_title}</a></td>
-												<td><fmt:formatDate value="${list.board_regDate}" pattern="yyyy-MM-dd"/></td>
-												<td>${list.board_writer}</td>
-												<td>${list.board_like}</td>
-												<td>${list.board_viewCnt}</td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-							</h6>
+								<tbody>
+									<c:forEach items="${list}" var="list">
+										<tr>
+											<td>${list.board_bno}</td>
+											<td><img src="${list.board_thumbnail}" width="100px" height="100px"></td>
+											<td><a href="/board/view?board_bno=${list.board_bno}">${list.board_title}</a></td>
+											<td><fmt:formatDate value="${list.board_regDate}" pattern="yyyy-MM-dd"/></td>
+											<td>${list.board_writer}</td>
+											<td>${list.board_like}</td>
+											<td>${list.board_viewCnt}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
 							<p class="mb-4">
 								<c:if test="${page.prev}">
 									<span>[ <a
