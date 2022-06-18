@@ -66,7 +66,7 @@
 								</div>
 
 								<div class="text-center">
-									<button type="submit" class="btn btn-primary font-weight-semi-bold px-4">회원탈퇴</button>
+									<button type="submit" class="btn btn-delete font-weight-semi-bold px-4">회원탈퇴</button>
 									&nbsp;
 									<button type="button" onclick="history.go(-1)" class="btn btn-primary font-weight-semi-bold px-4">취소하기</button>
 								</div>

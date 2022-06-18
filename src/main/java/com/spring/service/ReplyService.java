@@ -54,4 +54,20 @@ public interface ReplyService {
 
 	// 패키지 설계 댓글 삭제
 	public void want_delete(int board_reply_rno) throws Exception;
+	
+	//------------------------------------
+	// 패키지 판매 댓글 목록
+	public List<ReplyDTO> sell_list(int sell_bno) throws Exception;
+	
+	// 댓글 조회
+	public ReplyDTO sell_view(int sell_rno) throws Exception;
+
+	// 패키지 판매 댓글 조회
+	public void sell_write(ReplyDTO dto) throws Exception;
+
+	// 패키지 판매 댓글 수정
+	public void sell_modify(ReplyDTO dto) throws Exception;
+
+	// 패키지 판매 댓글 삭제
+	public void sell_delete(int sell_rno) throws Exception;
 }

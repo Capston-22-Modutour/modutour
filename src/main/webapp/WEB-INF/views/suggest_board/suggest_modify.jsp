@@ -78,9 +78,8 @@
 								<textarea cols="68" rows="5" name="suggest_content" class="m-0 text-uppercase font-weight-bold px-8" placeholder="${view.suggest_content}"></textarea>
 								<br /> 
 								
-								<input type="text" name="board_want_people" value="${view.board_want_people}" hidden="hidden">
 								<label>인원수</label> <br/> 
-								<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_people}</label> <br/><br/>
+								<input type="number" name="board_want_people" style="color: black;" value="${view.board_want_people}" class="m-0 text-uppercase font-weight-bold px-8"> <br/><br/>
 								
 								<label>출발일</label> <br/>
 								<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">

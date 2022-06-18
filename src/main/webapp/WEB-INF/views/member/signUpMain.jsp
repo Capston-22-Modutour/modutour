@@ -31,8 +31,8 @@
 	<br/>
 	<div class="container">
 		<center>
-			<button type="button" class="btn btn-primary font-weight-semi-bold px-4" style="height: 100px;" onclick="location.href='/member/signUp'">일반 회원가입</button> 
-			<button type="button" class="btn btn-primary font-weight-semi-bold px-4" style="height: 100px;" onclick="location.href='/member/signUp_com'">기업 회원가입</button>
+			<button type="button" class="btn btn-primary font-weight-semi-bold px-4" style="height: 100px;" onclick="location.href='/member/signUp'">일반회원 가입</button> &nbsp;
+			<button type="button" class="btn btn-primary font-weight-semi-bold px-4" style="height: 100px;" onclick="location.href='/member/signUp_com'">기업회원 가입</button>
 		</center>
 	</div>
 	

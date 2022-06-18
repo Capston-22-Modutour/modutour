@@ -93,7 +93,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
-                    <a href="/" class="nav-item nav-link active">Home</a>
+                    <a href="/" class="nav-item nav-link">Home</a>
                     <a href="/review/review_listPageSearch?num=1" class="nav-item nav-link">여행후기</a>
                     <a href="/board/listPageSearch?num=1" class="nav-item nav-link">커뮤니티</a>
                     <div class="nav-item dropdown">
@@ -104,7 +104,6 @@
                             <a href="/sell_board/sell_listPageSearch?num=1" class="dropdown-item">패키지 판매</a>
                         </div>
                     </div>
-                    
                     
                     <c:choose>
                         	<c:when test = "${member != null || company != null}">
@@ -117,18 +116,8 @@
 					            <c:if test="${member == null}">
                         			<a href="/myPage_com" class="nav-item nav-link">마이페이지</a>
                         		</c:if>
-					            
 				       		</c:when>
-				       		
                         </c:choose>
-                </div>
-                
-                <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
-                    <input type="text" class="form-control border-0" placeholder="Keyword">
-                    <div class="input-group-append">
-                        <button class="input-group-text bg-primary text-dark border-0 px-3"><i
-                                class="fa fa-search"></i></button>
-                    </div>
                 </div>
             </div>
         </nav>

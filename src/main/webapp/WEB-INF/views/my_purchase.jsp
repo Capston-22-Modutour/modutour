@@ -26,6 +26,100 @@
 	<link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>">
 	
 </head>
+<style>
+	body {
+		font-size: 16px;
+		font-family: Consolas, sans-serif;
+	}
+	table {
+		width: 100%;
+	}
+	
+	.sidebar {
+		width: 400px;
+		height: 500px;
+		overflow-y: auto;
+		background: var(--light);
+		transition: 0.5s;
+		z-index: 999;
+	}
+	
+	@media ( min-width : 992px) {
+		.sidebar {
+			margin-left: 0;
+		}
+		.sidebar.open {
+			margin-left: -250px;
+		}
+		.content {
+			width: calc(100% - 250px);
+		}
+	}
+	
+	@media ( max-width : 991.98px) {
+		.sidebar {
+			margin-left: -250px;
+		}
+		.sidebar.open {
+			margin-left: 0;
+		}
+	}
+	
+	.sidebar .navbar .navbar-nav .nav-link {
+		padding: 7px 10px;
+		color: var(--dark);
+		font-weight: 500;
+		border-left: 3px solid var(--light);
+		border-radius: 0 30px 30px 0;
+		outline: none;
+	}
+	
+	.sidebar .navbar .navbar-nav .nav-link:hover, 
+	.sidebar .navbar .navbar-nav .nav-link.active {
+		color: var(--primary);
+		background: #FFFFFF;
+		border-color: var(--primary);
+	}
+	
+	.sidebar .navbar .navbar-nav .nav-link i {
+		width: 40px;
+		height: 40px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		background: #FFFFFF;
+		border-radius: 40px;
+	}
+	
+	.sidebar .navbar .navbar-nav .nav-link:hover i, 
+	.sidebar .navbar .navbar-nav .nav-link.active i {
+		background: var(--light);
+	}
+	
+	.sidebar .navbar .dropdown-toggle::after {
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		border: none;
+		content: "\f107";
+		font-family: "Font Awesome 5 Free";
+		font-weight: 900;
+		transition: .5s;
+	}
+	
+	.sidebar .navbar .dropdown-toggle[aria-expanded=true]::after {
+		transform: rotate(-180deg);
+	}
+	
+	.sidebar .navbar .dropdown-item {
+		padding-left: 25px;
+		border-radius: 0 30px 30px 0;
+	}
+	
+	.text-align {
+		text-align: center;
+	}
+</style>
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="./fix/header.jsp" />
@@ -58,7 +152,7 @@
 											<a href="/my_packageplan" class="dropdown-item">MY 패키지 설계</a>
 										</div>
 										<div class="nav-item dropdown">
-											<a href="my_purchase" class="dropdown-item">
+											<a href="/my_purchase" class="dropdown-item">
 												<i class="far fa-file-alt me-2"></i>&nbsp; 구매내역
 											</a>
 										</div>
@@ -69,7 +163,7 @@
 					</div>
 				<!-- 좌측 사이드바 end -->
 					
-				<div class="col-lg-8">
+				<div class="col-lg-10">
 					<div class="section-title mb-0">
 						<h4 class="m-0 text-uppercase font-weight-bold">구매내역</h4>
 					</div>
@@ -91,7 +185,7 @@
 										<i class="fa fa-id-card-alt text-primary mr-2"></i>
 										<h6 class="font-weight-bold mb-0">주문목록</h6>
 									</div>
-									<table>
+									<table class="styled-table">
 										<thead>
 											<tr>
 												<th>상품번호</th>
@@ -104,11 +198,11 @@
 											<!-- sum 기본값 0으로 생성 -->
 											<c:set var="sum" value="0" />
 											<c:forEach items="${list}" var="list">
-												<tr>
+												<tr class="active-row">
 													<td>${list.order_bno}</td>
 													<td><a href="/sell_board/sell_view?sell_bno=${list.sell_bno}">${list.order_title}</a></td>
-													<td><fmt:formatDate value="${list.order_date}" pattern="yyyy-MM-dd" /></td>
-													<td><fmt:formatNumber pattern="###,###,###" value="${list.order_price}" />원</td>
+													<td><fmt:formatDate value="${list.order_date}" pattern="yyyy-MM-dd"/></td>
+													<td style="color: gray;"><fmt:formatNumber pattern="###,###,###" value="${list.order_price}"/> 원</td>
 												</tr>
 												
 												<!-- sum에 order_price 삽입 -->
@@ -116,8 +210,10 @@
 											</c:forEach>
 										</tbody>
 										<tfoot>
-											<td colspan="3">총 합계</td>
-											<td><fmt:formatNumber pattern="###,###,###" value="${sum}" />원<td>
+											<tr style="font-weight: bold; color: black;">
+												<td colspan="3">총 합계</td>
+												<td><fmt:formatNumber pattern="###,###,###" value="${sum}" /> 원</td>
+											</tr>
 										</tfoot>
 									</table>
 								</div>
@@ -149,101 +245,6 @@
 	<!-- Template Javascript -->
 	<script src="<c:url value='/resources/js/main.js'/>"></script>
 </body>
-</html>
-<style>
-body {
-	font-size: 16px;
-	font-family: Consolas, sans-serif;
-}
-table {
-	width: 100%;
-}
-
-table, th, td {
-	border: 2px solid #bcbcbc;
-}
-.sidebar {
-	width: 400px;
-	height: 500px;
-	overflow-y: auto;
-	background: var(- -light);
-	transition: 0.5s;
-	z-index: 999;
-}
-
-@media ( min-width : 992px) {
-	.sidebar {
-		margin-left: 0;
-	}
-	.sidebar.open {
-		margin-left: -250px;
-	}
-	.content {
-		width: calc(100% - 250px);
-	}
-}
-
-@media ( max-width : 991.98px) {
-	.sidebar {
-		margin-left: -250px;
-	}
-	.sidebar.open {
-		margin-left: 0;
-	}
-}
-
-.sidebar .navbar .navbar-nav .nav-link {
-	padding: 7px 10px;
-	color: var(- -dark);
-	font-weight: 500;
-	border-left: 3px solid var(- -light);
-	border-radius: 0 30px 30px 0;
-	outline: none;
-}
-
-.sidebar .navbar .navbar-nav .nav-link:hover, .sidebar .navbar .navbar-nav .nav-link.active
-	{
-	color: var(- -primary);
-	background: #FFFFFF;
-	border-color: var(- -primary);
-}
-
-.sidebar .navbar .navbar-nav .nav-link i {
-	width: 40px;
-	height: 40px;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	background: #FFFFFF;
-	border-radius: 40px;
-}
-
-.sidebar .navbar .navbar-nav .nav-link:hover i, .sidebar .navbar .navbar-nav .nav-link.active i
-	{
-	background: var(- -light);
-}
-
-.sidebar .navbar .dropdown-toggle::after {
-	position: absolute;
-	top: 15px;
-	right: 15px;
-	border: none;
-	content: "\f107";
-	font-family: "Font Awesome 5 Free";
-	font-weight: 900;
-	transition: .5s;
-}
-
-.sidebar .navbar .dropdown-toggle[aria-expanded=true]::after {
-	transform: rotate(-180deg);
-}
-
-.sidebar .navbar .dropdown-item {
-	padding-left: 25px;
-	border-radius: 0 30px 30px 0;
-}
-</style>
-
 <!-- 드롭박스 기능 -->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</html>

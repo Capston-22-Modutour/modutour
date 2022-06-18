@@ -221,6 +221,12 @@ public interface BoardService {
 	void sell_updateLikeCheckCancel(int sell_bno, int user_num) throws Exception;
 	
 	//----------------------------------------
-	// 주문 내역
+	// 구매
 	public void purchase(BoardDTO dto) throws Exception;
+	
+	// 구매 중복 확인
+	public int purchaseCheck(int sell_bno, int user_num) throws Exception;
+	
+	// 패키지 구매 시 패키지 인원 수 감소
+	public void updatePeople(BoardDTO dto) throws Exception;
 }

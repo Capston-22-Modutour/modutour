@@ -31,7 +31,7 @@
 	<br/>
 	<div class="container">
 		<center>
-			<button type="button" class="btn btn-primary font-weight-semi-bold px-4" style="height: 100px;" onclick="location.href='login_member'">일반회원 로그인</button> 
+			<button type="button" class="btn btn-primary font-weight-semi-bold px-4" style="height: 100px;" onclick="location.href='login_member'">일반회원 로그인</button> &nbsp;
 			<button type="button" class="btn btn-primary font-weight-semi-bold px-4" style="height: 100px;" onclick="location.href='login_company'">기업회원 로그인</button>
 		</center>
 	</div>

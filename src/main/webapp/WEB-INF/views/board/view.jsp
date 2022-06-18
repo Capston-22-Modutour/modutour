@@ -190,8 +190,6 @@
     <!-- Template Javascript -->
     <script src="<c:url value='../resources/js/main.js'/>"></script>
 </body>
-</html>
-
 <script>
 var board_bno = ${view.board_bno};
 var user_num = ${member.user_num};
@@ -219,3 +217,4 @@ var user_num = ${member.user_num};
         });
  }
 </script>
+</html>

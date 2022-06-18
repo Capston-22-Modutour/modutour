@@ -601,5 +601,20 @@
 		values(#{sell_bno}, #{user_num}, #{order_title}, #{order_writer}, #{order_destination}, #{order_price}, 
 				#{order_people}, #{order_guide}, #{order_air}, #{order_start}, #{order_end})
 	</insert>
+	
+	<!-- 구매 중복 확인 -->
+	<select id="purchaseCheck" resultType="int">
+		select count(*)
+		from order_data
+		where sell_bno = #{sell_bno} and user_num = #{user_num}
+	</select>
+	
+	<!-- 판매 상품 정보 -->
+	<update id="updatePeople">
+		update sell_board
+			set
+				sell_people = sell_people - #{order_people}
+			where sell_bno = #{sell_bno}
+	</update>
 	<!-- 주문 내역 end -->
 </mapper>

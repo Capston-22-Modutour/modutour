@@ -26,6 +26,91 @@
 	<!-- Customized Bootstrap Stylesheet -->
 	<link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>">
 </head>
+<style>
+	table{
+		width: 100%;
+	}
+	.sidebar {
+		width: 400px;
+		height: 500px;
+		overflow-y: auto;
+		background: var(--light);
+		transition: 0.5s;
+		z-index: 999;
+	}
+	
+	@media (min-width : 992px) {
+		.sidebar {
+			margin-left: 0;
+		}
+		.sidebar.open {
+			margin-left: -250px;
+		}
+		.content {
+			width: calc(100% - 250px);
+		}
+	}
+	
+	@media (max-width : 991.98px) {
+		.sidebar {
+			margin-left: -250px;
+		}
+		.sidebar.open {
+			margin-left: 0;
+		}
+	}
+	
+	.sidebar .navbar .navbar-nav .nav-link {
+		padding: 7px 10px;
+		color: var(- -dark);
+		font-weight: 500;
+		border-left: 3px solid var(- -light);
+		border-radius: 0 30px 30px 0;
+		outline: none;
+	}
+	
+	.sidebar .navbar .navbar-nav .nav-link:hover, 
+	.sidebar .navbar .navbar-nav .nav-link.active {
+		color: var(- -primary);
+		background: #FFFFFF;
+		border-color: var(--primary);
+	}
+	
+	.sidebar .navbar .navbar-nav .nav-link i {
+		width: 40px;
+		height: 40px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		background: #FFFFFF;
+		border-radius: 40px;
+	}
+	
+	.sidebar .navbar .navbar-nav .nav-link:hover i, 
+	.sidebar .navbar .navbar-nav .nav-link.active i {
+		background: var(--light);
+	}
+	
+	.sidebar .navbar .dropdown-toggle::after {
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		border: none;
+		content: "\f107";
+		font-family: "Font Awesome 5 Free";
+		font-weight: 900;
+		transition: .5s;
+	}
+	
+	.sidebar .navbar .dropdown-toggle[aria-expanded=true]::after {
+		transform: rotate(-180deg);
+	}
+	
+	.sidebar .navbar .dropdown-item {
+		padding-left: 25px;
+		border-radius: 0 30px 30px 0;
+	}
+</style>
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="./fix/header.jsp" />
@@ -63,7 +148,7 @@
 					</div>
 					<!-- 좌측 사이드바 end -->
 
-					<div class="col-lg-8">
+					<div class="col-lg-10">
 						<div class="section-title mb-0">
 							<h4 class="m-0 text-uppercase font-weight-bold">MY 패키지 설계</h4>
 						</div>
@@ -82,19 +167,19 @@
 								<!-- 게시판 메인 페이지 영역 시작 -->
 								<div class="container">
 									<div class="row">
-										<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+										<table class="styled-table">
 											<thead>
 												<tr>
-													<th style="background-color: #eeeeee; text-align: center;">번호</th>
-													<th style="background-color: #eeeeee; text-align: center;">제목</th>
-													<th style="background-color: #eeeeee; text-align: center;">작성일</th>
-													<th style="background-color: #eeeeee; text-align: center;">추천수</th>
-													<th style="background-color: #eeeeee; text-align: center;">조회수</th>
+													<th>번호</th>
+													<th>제목</th>
+													<th>작성일</th>
+													<th>추천수</th>
+													<th>조회수</th>
 												</tr>
 											</thead>
 											<tbody>
 												<c:forEach items="${list}" var="list">
-													<tr>
+													<tr class="active-row">
 														<!-- 내가 작성한 커뮤니티 게시글 목록 -->
 														<td>${list.board_want_bno}</td>
 														<td><a href="/want_board/want_view?board_want_bno=${list.board_want_bno}">${list.board_want_title}</a></td>
@@ -135,88 +220,6 @@
 	<script src="<c:url value='/resources/js/main.js'/>"></script>
 </body>
 </html>
-<style>
-.sidebar {
-	width: 400px;
-	height: 500px;
-	overflow-y: auto;
-	background: var(- -light);
-	transition: 0.5s;
-	z-index: 999;
-}
-
-@media ( min-width : 992px) {
-	.sidebar {
-		margin-left: 0;
-	}
-	.sidebar.open {
-		margin-left: -250px;
-	}
-	.content {
-		width: calc(100% - 250px);
-	}
-}
-
-@media ( max-width : 991.98px) {
-	.sidebar {
-		margin-left: -250px;
-	}
-	.sidebar.open {
-		margin-left: 0;
-	}
-}
-
-.sidebar .navbar .navbar-nav .nav-link {
-	padding: 7px 10px;
-	color: var(- -dark);
-	font-weight: 500;
-	border-left: 3px solid var(- -light);
-	border-radius: 0 30px 30px 0;
-	outline: none;
-}
-
-.sidebar .navbar .navbar-nav .nav-link:hover, .sidebar .navbar .navbar-nav .nav-link.active
-	{
-	color: var(- -primary);
-	background: #FFFFFF;
-	border-color: var(- -primary);
-}
-
-.sidebar .navbar .navbar-nav .nav-link i {
-	width: 40px;
-	height: 40px;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	background: #FFFFFF;
-	border-radius: 40px;
-}
-
-.sidebar .navbar .navbar-nav .nav-link:hover i, .sidebar .navbar .navbar-nav .nav-link.active i
-	{
-	background: var(- -light);
-}
-
-.sidebar .navbar .dropdown-toggle::after {
-	position: absolute;
-	top: 15px;
-	right: 15px;
-	border: none;
-	content: "\f107";
-	font-family: "Font Awesome 5 Free";
-	font-weight: 900;
-	transition: .5s;
-}
-
-.sidebar .navbar .dropdown-toggle[aria-expanded=true]::after {
-	transform: rotate(-180deg);
-}
-
-.sidebar .navbar .dropdown-item {
-	padding-left: 25px;
-	border-radius: 0 30px 30px 0;
-}
-</style>
 
 <!-- 드롭박스 기능 -->
 <script

@@ -71,7 +71,7 @@
 								<br /> 
 								
 								<label>인원수</label> <br/> 
-								<input type="text" style="color: black;" name="board_want_people" class="m-0 text-uppercase font-weight-bold px-8" value="${view.board_want_people}"> <br /> 
+								<input type="number" style="color: black;" name="board_want_people" class="m-0 text-uppercase font-weight-bold px-8" value="${view.board_want_people}"> <br /> 
 								
 								<label>출발일</label> <br/>
 								<input type="date" style="color: black;" name="board_want_start" class="m-0 text-uppercase font-weight-bold px-8" value="<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />">

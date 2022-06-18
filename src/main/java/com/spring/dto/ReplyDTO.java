@@ -116,4 +116,41 @@ public class ReplyDTO {
 	public void setBoard_want_reply_regDate(Date board_want_reply_regDate) {
 		this.board_want_reply_regDate = board_want_reply_regDate;
 	}
+	
+	private int sell_rno;
+	private int sell_bno;
+	private String sell_writer;
+	private String sell_content;
+	private Date sell_regDate;
+
+	public int getSell_rno() {
+		return sell_rno;
+	}
+	public void setSell_rno(int sell_rno) {
+		this.sell_rno = sell_rno;
+	}
+	public int getSell_bno() {
+		return sell_bno;
+	}
+	public void setSell_bno(int sell_bno) {
+		this.sell_bno = sell_bno;
+	}
+	public String getSell_writer() {
+		return sell_writer;
+	}
+	public void setSell_writer(String sell_writer) {
+		this.sell_writer = sell_writer;
+	}
+	public String getSell_content() {
+		return sell_content;
+	}
+	public void setSell_content(String sell_content) {
+		this.sell_content = sell_content;
+	}
+	public Date getSell_regDate() {
+		return sell_regDate;
+	}
+	public void setSell_regDate(Date sell_regDate) {
+		this.sell_regDate = sell_regDate;
+	}
 }

@@ -40,24 +40,23 @@
 						<h4 class="m-0 text-uppercase font-weight-bold">커뮤니티</h4>
 						<button type="button" class="btn btn-primary font-weight-semi-bold px-4" onclick="location.href='/board/write'">글 작성</button>
 					</div>
-					<div class="bg-white border border-top-0 p-4 mb-3">
 						<div class="mb-4">
-							<table>
+							<table class="styled-table">
 								<thead>
 									<tr>
-										<th width="5%" style="font-size: 20px; color: black;">번호</th>
-										<th width="10%" style="font-size: 20px; color: black;">미리보기</th>
-										<th width="20%" style="font-size: 20px; color: black;">제목</th>
-										<th width="10%" style="font-size: 20px; color: black;">작성일</th>
-										<th width="10%" style="font-size: 20px; color: black;">작성자</th>
-										<th width="5%" style="font-size: 20px; color: black;">추천수</th>
-										<th width="5%" style="font-size: 20px; color: black;">조회수</th>
+										<th width="5%">번호</th>
+										<th width="10%">미리보기</th>
+										<th width="20%">제목</th>
+										<th width="10%">작성일</th>
+										<th width="10%">작성자</th>
+										<th width="5%" style="font-size: 16px;">추천수</th>
+										<th width="5%" style="font-size: 16px;">조회수</th>
 									</tr>
 								</thead>
 
 								<tbody>
 									<c:forEach items="${list}" var="list">
-										<tr>
+										<tr class="active-row">
 											<td>${list.board_bno}</td>
 											<td><img src="${list.board_thumbnail}" width="100px" height="100px"></td>
 											<td><a href="/board/view?board_bno=${list.board_bno}">${list.board_title}</a></td>
@@ -69,7 +68,7 @@
 									</c:forEach>
 								</tbody>
 							</table>
-							<p class="mb-4">
+							<p class="mb-4" style="text-align: center; word-spacing: 5px;">
 								<c:if test="${page.prev}">
 									<span>[ <a
 										href="/board/listPageSearch?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a>]
@@ -93,8 +92,8 @@
 									</span>
 								</c:if>
 							</p>
-							<div class="mb-3">
-								<div class="d-flex align-items-center mb-2">
+							<div class="bg-white border border-top-0 p-4 mb-3">
+								<div class="d-flex align-items-center mb-2" style="display: flex; justify-content: center;">
 									<select name="searchType">
 										<!--  jstl에서는 .equals(); 대신 eq 로 짧게 사용 -->
 										<option value="title"
@@ -111,11 +110,9 @@
 								</div>
 							</div>
 						</div>
-					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 	<!-- 자유게시판 End -->
 
@@ -149,7 +146,5 @@
 			location.href = "/board/listPageSearch?num=1" + "&searchType=" + searchType + "&keyword=" + keyword;
 		};
 	</script>
-	
-	<input type="button" value="이전" onclick="history.go(-1)">
 </body>
 </html>

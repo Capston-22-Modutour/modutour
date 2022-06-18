@@ -165,7 +165,7 @@
 
 	<!-- 게시글 추천 시 Check를 1로 만들어서 중복방지 -->
 	<update id="sell_updateLikeCheck">
-		update sell_board_like set want_like_check = 1
+		update sell_board_like set sell_like_check = 1
 		where sell_bno = #{sell_bno} and user_num = #{user_num}
 	</update>
 

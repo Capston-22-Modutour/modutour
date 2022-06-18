@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>화원정보 수정</title>
+	<title>정보 수정</title>
 
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 

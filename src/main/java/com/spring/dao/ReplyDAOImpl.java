@@ -107,4 +107,35 @@ public class ReplyDAOImpl implements ReplyDAO {
 	public void want_delete(int board_reply_rno) throws Exception {
 		sql.delete(namespace + ".want_replyDelete", board_reply_rno);
 	}
+	
+	//--------------
+	//패키지 판매 댓글 목록
+	@Override
+	public List<ReplyDTO> sell_list(int sell_bno) throws Exception {
+		return sql.selectList(namespace + ".sell_replyList", sell_bno);
+	}
+		
+	// 댓글 조회
+	@Override
+	public ReplyDTO sell_view(int sell_rno) throws Exception {
+		return sql.selectOne(namespace + ".sell_view", sell_rno);
+	}
+
+	//패키지 댓글 작성
+	@Override
+	public void sell_write(ReplyDTO dto) throws Exception {
+		sql.insert(namespace + ".sell_replyWrite", dto);
+	}
+
+	//패키지 댓글 수정
+	@Override
+	public void sell_modify(ReplyDTO dto) throws Exception {
+		sql.update(namespace + ".sell_replyModify", dto);
+	}
+
+	//패키지 댓글 삭제
+	@Override
+	public void sell_delete(int sell_rno) throws Exception {
+		sql.delete(namespace + ".sell_replyDelete", sell_rno);
+	}
 }
