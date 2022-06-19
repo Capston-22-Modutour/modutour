@@ -62,13 +62,13 @@
 						<div class="col-lg-12">
 							<div class="section-title mb-0">
 								<h4 class="m-0 text-uppercase font-weight-bold">
-									<input type="text" size="81" name="board_title" placeholder="제목">
+									<input type="text" size="81" name="board_title" placeholder="제목" required="required">
 								</h4>
 							</div>
 							<div class="bg-white border border-top-0 p-4 mb-3">
 								<div class="mb-4">
 									<input type="text" name="board_writer" value="${member.user_name}" hidden="hidden">
-									<textarea cols="117" rows="10" name="board_content" placeholder="내용을 입력해 주세요"></textarea>
+									<textarea cols="117" rows="10" name="board_content" placeholder="내용을 입력해 주세요" required="required"></textarea>
 									<br>
 									
 									파일 업로드 <br/>

@@ -1,40 +1,33 @@
 package com.spring.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.dto.BoardDTO;
-import com.spring.service.BoardService;
+import com.spring.dto.DateDTO;
+import com.spring.service.MyBoardListService;
 
 @Controller
 public class MyPageController {
 	
 	@Inject
-	BoardService service;
+	MyBoardListService service;
 
 	// 마이페이지
 	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
 	public String myPage(Locale locale, Model model) {
 
-		return "myPage";
-	}
-	
-	// 마이페이지
-	@RequestMapping(value = "/myPage_com", method = RequestMethod.GET)
-	public String myPageCom(Locale locale, Model model) {
-
-		return "myPage_com";
+		return "/mypage/myPage";
 	}
 	
 	// 내가 쓴 커뮤니티 게시글
@@ -52,7 +45,24 @@ public class MyPageController {
 
 		model.addAttribute("list", list);
 		
-		return "my_freepost";
+		return "/mypage/my_freepost";
+	}
+	
+	// 내가 쓴 여행후기
+	@RequestMapping(value = "/my_reviewpost", method = RequestMethod.GET)
+	public String myReviewPost(HttpServletRequest request , Model model) throws Exception {
+		
+		List<BoardDTO> list = null;
+		
+		HttpSession session = request.getSession();
+		session.getAttribute("member");
+		
+		int user_num = (Integer)session.getAttribute("user_num");
+		
+		list = service.my_review_list(user_num);
+		model.addAttribute("list", list);
+			
+		return "/mypage/my_reviewpost";
 	}
 	
 	// 내가 쓴 패키지 설계
@@ -70,20 +80,20 @@ public class MyPageController {
 
 		model.addAttribute("list", list);
 		
-		return "my_packageplan";
+		return "/mypage/my_packageplan";
 	}
 
 	// 내가 쓴 자유게시글
 	@RequestMapping(value = "/my_post", method = RequestMethod.GET)
 	public String myPost(Locale locale, Model model) {
 
-		return "my_post";
+		return "/mypage/my_post";
 	}
 	
 	// 내 구매목록
 	@RequestMapping(value = "/my_purchase", method = RequestMethod.GET)
-	public String myPurchase(HttpServletRequest request, Model model) throws Exception {
-
+	public String myPurchase(DateDTO dto, HttpServletRequest request, Model model) throws Exception {
+		
 		// 구매 내역
 		List<BoardDTO> list = null;
 		
@@ -96,6 +106,7 @@ public class MyPageController {
 
 		model.addAttribute("list", list);
 		
-		return "my_purchase";
+		return "/mypage/my_purchase";
 	}
+	
 }

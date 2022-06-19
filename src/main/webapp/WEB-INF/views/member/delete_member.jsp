@@ -172,7 +172,7 @@
 											<i class="fa fa-calendar-check text-primary mr-2"></i>
 											<h6 class="font-weight-bold mb-0">비밀번호 확인</h6>
 										</div>
-										<input type="password" name="user_pw" class="m-0">
+										<input type="password" name="user_pw" class="m-0" required="required">
 										</p>
 									</div>
 

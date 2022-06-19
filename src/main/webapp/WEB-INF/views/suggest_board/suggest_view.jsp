@@ -49,6 +49,28 @@
 	img {
 		margin: 20px 0;
 	}
+	
+	.modal{ 
+        position:fixed; 
+        width:100%; height:100%; 
+        background: rgba(0,0,0,0.2); 
+        top:0; 
+        left:0; 
+        display:none;
+    }
+
+    .modal_content{
+        background:#fff;
+        position: fixed; 
+        top:50%; 
+        left:50%;
+        transform : translate(-50%, -50%);
+        text-align:center;
+        box-sizing:border-box; 
+        line-height:23px;
+        border-style: solid;
+        border-radius: 10px;
+    }
 </style>
 <body>
 	<%------------ header section  ------------%>
@@ -127,16 +149,39 @@
 							
 							<img src="${view.suggest_img}"  width="500px" height="500px" />
 							
+							<%-- 구매 모달창 --%>
+							<div class="modal">
+								<div class="modal_content card" style="width:20rem; height:16rem;">
+							    	<div class="card-body">
+							            <h5>결제</h5>
+							            <h6>안내사항</h6>
+							            <p style="color: black;">낙찰 후 취소는<strong>불가능</strong>합니다.</p>
+							            <p style="color: black;">정말 낙찰하시겠습니까?</p>
+							            <button type="submit" id="suggestOK" class="btn btn-warning">예</button>
+							            <button type="button" class="btn btn-delete" onclick="closeSuggestModal()">아니오</button>
+							        </div>
+							    </div>
+							 </div>
+							
 							<!-- 로그인이 되어있고, 본인 글이 아닐경우에만 추천할 수 있도록 버튼을 출력 -->
 							<div class="text-center">
 								<c:if test="${member.user_name == view.board_want_writer}">
-									<div style="margin-right: 1px;">
-										<button type="submit" class="btn btn-warning">낙찰하기</button>
-									</div>
+									
+									<!-- SuggestBoardController에서 전송한 model, bid 값을 바탕으로 낙찰여부 확인 => 중복 낙찰 방지 -->
+									<!-- bid == 0, sell_board에 중복되는 board_want_bno가 없으므로 낙찰 가능 -->
+									<c:if test="${bid == 0}">
+										<button type="button" onclick="openSuggestModal()" class="btn btn-warning">낙찰하기</button>
+									</c:if>
+									<!-- bid == 1, sell_board에 중복되는 board_want_bno가 있으므로 낙찰 불가능!!! -->
+									<!-- 중복 낙찰 방지 위해 버튼 비활성화 -->
+									<c:if test="${bid == 1}">
+										<button type="button" class="btn btn-delete" disabled="disabled">낙찰이 종료되었습니다</button>
+									</c:if>
 								</c:if>
 							</div>
 							
 							<input type="text" name="suggest_bno" value="${view.suggest_bno}" hidden="hidden">
+							<input type="text" name="board_want_bno" value="${view.board_want_bno}" hidden="hidden">
 							<input type="text" name="com_regiNum" value="${view.com_regiNum}" hidden="hidden">
 							<input type="text" name="sell_writer" value="${view.suggest_writer}" hidden="hidden">
 							<input type="text" name="sell_title" value="${view.suggest_title}" hidden="hidden">
@@ -166,7 +211,7 @@
 				<div class="col-lg-12">
 					<div class="bg-white border border-top-0 p-4 mb-3">
 						<div class="mb-4">
-							<form method="post" action="/want_reply/want_write">
+							<form method="post" action="/suggest_reply/suggest_write">
 								<!-- 회원이 아닐 시 댓글 작성 불가 -->
 								<c:if test="${member == null && company == null}">
 									<p>로그인이 필요한 서비스 입니다</p>
@@ -177,11 +222,11 @@
 										<c:if test="${member != null}">
 											<!-- 일반 회원 댓글 -->
 											<p>
-												<input type="text" name="board_want_reply_writer" value="${member.user_name}" hidden="hidden">
-												<textarea rows="5" cols="117" name="board_want_reply_content" placeholder="회원간의 따뜻한 댓글 부탁드립니다"></textarea>
+												<input type="text" name="suggest_writer" value="${member.user_name}" hidden="hidden">
+												<textarea rows="5" cols="117" name="suggest_content" placeholder="회원간의 따뜻한 댓글 부탁드립니다"></textarea>
 											</p>
 											<p>
-												<input type="hidden" name="board_want_bno" value="${view.board_want_bno}">
+												<input type="hidden" name="suggest_bno" value="${view.suggest_bno}">
 												<button type="submit" class="btn btn-warning">댓글 작성</button>
 											</p>
 										</c:if>
@@ -189,11 +234,11 @@
 										<!-- 기업 회원 댓글 -->
 										<c:if test="${company != null}">
 											<p>
-												<input type="text" name="board_want_reply_writer" value="${company.com_name}" hidden="hidden">
-												<textarea rows="5" cols="117" name="board_want_reply_content" placeholder="회원간의 따뜻한 댓글 부탁드립니다"></textarea>
+												<input type="text" name="suggest_writer" value="${company.com_name}" hidden="hidden">
+												<textarea rows="5" cols="117" name="suggest_content" placeholder="회원간의 따뜻한 댓글 부탁드립니다"></textarea>
 											</p>
 											<p>
-												<input type="hidden" name="board_want_bno" value="${view.board_want_bno}">
+												<input type="hidden" name="suggest_bno" value="${view.suggest_bno}">
 												<button type="submit" class="btn btn-warning">댓글 작성</button>
 											</p>
 										</c:if>
@@ -208,20 +253,20 @@
 								<c:forEach items="${reply}" var="reply">
 									<li>
 										<div>
-											<p>${reply.board_want_reply_writer} / ${reply.board_reply_rno}
+											<p>${reply.suggest_writer} / ${reply.suggest_rno}
 												/
-												<fmt:formatDate value="${reply.board_want_reply_regDate}" pattern="yyyy-MM-dd" />
-												<c:if test="${member.user_name == reply.board_want_reply_writer}">
-													<a href="/want_reply/want_modify?board_reply_rno=${reply.board_reply_rno}">댓글 수정</a>
-													<a href="/want_reply/want_delete?board_reply_rno=${reply.board_reply_rno}">댓글 삭제</a>
+												<fmt:formatDate value="${reply.suggest_regDate}" pattern="yyyy-MM-dd" />
+												<c:if test="${member.user_name == reply.suggest_writer}">
+													<a href="/suggest_reply/suggest_modify?suggest_rno=${reply.suggest_rno}">댓글 수정</a>
+													<a href="/suggest_reply/suggest_delete?suggest_rno=${reply.suggest_rno}">댓글 삭제</a>
 												</c:if>
 												
-												<c:if test="${company.com_name == reply.board_want_reply_writer}">
-													<a href="/want_reply/want_modify?board_reply_rno=${reply.board_reply_rno}">댓글 수정</a>
-													<a href="/want_reply/want_delete?board_reply_rno=${reply.board_reply_rno}">댓글 삭제</a>
+												<c:if test="${company.com_name == reply.suggest_writer}">
+													<a href="/suggest_reply/suggest_modify?suggest_rno=${reply.suggest_rno}">댓글 수정</a>
+													<a href="/suggest_reply/suggest_delete?suggest_rno=${reply.suggest_rno}">댓글 삭제</a>
 												</c:if>
 											</p>
-											<p>${reply.board_want_reply_content}</p>
+											<p>${reply.suggest_content}</p>
 										</div>
 									</li>
 								</c:forEach>
@@ -248,5 +293,31 @@
 
     <!-- Template Javascript -->
     <script src="<c:url value='../resources/js/main.js'/>"></script>
+    
+    <script>
+ 		var board_want_bno = ${view.board_want_bno};
+ 		var suggest_bno = ${view.suggest_bno};
+ 		
+ 		// 낙찰 모달창 열기
+ 		function openSuggestModal() {
+ 			$(".modal").fadeIn();
+ 		}
+ 		
+ 		// 낙찰 모달창 닫기
+ 		function closeSuggestModal() {
+ 			$(".modal").fadeOut();
+ 		}
+ 		
+ 		// 외부영역 클릭 시 팝업 닫기
+ 		$(function(){ 
+ 					$(document).mouseup(function (e){
+ 					var modal_content = $(".modal_content");
+ 					if(modal_content.has(e.target).length === 0){
+ 					closeSuggestModal();
+ 				}
+ 			});
+ 		});
+ 		
+    </script>
 </body>
 </html>

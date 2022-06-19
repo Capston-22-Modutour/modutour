@@ -41,19 +41,19 @@
 							<h3 class="text-center text-info">일반 회원가입</h3>
 							<div class="form-group">
 								<label for="user_id" class="text-info">ID</label> <br/> 
-								<input type="text" name="user_id" id="user_id">
-								<button type="button" class="memberIdCheck">아이디 중복 확인</button>
+								<input type="text" name="user_id" id="user_id" required="required">
+								<button type="button" class="memberIdCheck btn btn-delete">아이디 중복 확인</button>
 								<p class="result">
 									<span class="msg">아이디를 확인하세요</span>
 								</p>
 							</div>
 							<div class="form-group">
 								<label for="user_pw" class="text-info">PW</label> <br/> 
-								<input type="password" name="user_pw" id="user_pw">
+								<input type="password" name="user_pw" id="user_pw" required="required">
 							</div>
 							<div class="form-group">
 								<label for="user_name" class="text-info">이름</label> <br/> 
-								<input type="text" name="user_name" id="user_name">
+								<input type="text" name="user_name" id="user_name" required="required">
 							</div>
 							<div class="form-group">
 								<label for="user_gender" class="text-info">성별</label> <br/> 
@@ -62,23 +62,23 @@
 							</div>
 							<div class="form-group">
 								<label for="user_birth" class="text-info">생일</label> <br/> 
-								<input type="date" name="user_birth" id="user_birth" class="form-control">
+								<input type="date" name="user_birth" id="user_birth" class="form-control" required="required">
 							</div>
 							<div class="form-group">
 								<label class="text-info">전화번호</label> <br/> 
 								<select id="user_phone1" name="user_phone1">
 									<option>010</option>
 								</select> - 
-								<input type="text" id="user_phone2" name="user_phone2" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> - 
-								<input type="text" id="user_phone3" name="user_phone3" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br/>
+								<input type="text" id="user_phone2" name="user_phone2" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required="required"> - 
+								<input type="text" id="user_phone3" name="user_phone3" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required="required"><br/>
 							</div>
 							<div class="form-group">
 								<label for="user_address" class="text-info">주소</label> <br/> 
-								<input type="text" name="user_address" id="user_address" class="form-control">
+								<input type="text" name="user_address" id="user_address" class="form-control" required="required">
 							</div>
 							<div class="form-group">
 								<label for="user_email" class="text-info">이메일</label> <br/> 
-								<input type="text" name="user_email" id="user_email" class="form-control">
+								<input type="text" name="user_email" id="user_email" class="form-control" required="required">
 							</div>
 							<div class="form-group">
 								<button type="submit" id="submit" disabled="disabled" class="btn btn-info btn-md">가입하기</button>

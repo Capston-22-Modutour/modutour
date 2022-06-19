@@ -51,26 +51,26 @@
 	}
 	
 	.modal{ 
-            position:fixed; 
-            width:100%; height:100%; 
-            background: rgba(0,0,0,0.2); 
-            top:0; 
-            left:0; 
-            display:none;
-        }
+        position:fixed; 
+        width:100%; height:100%; 
+        background: rgba(0,0,0,0.2); 
+        top:0; 
+        left:0; 
+        display:none;
+    }
 
-        .modal_content{
-            background:#fff;
-            position: fixed; 
-            top:50%; 
-            left:50%;
-            transform : translate(-50%, -50%);
-            text-align:center;
-            box-sizing:border-box; 
-            line-height:23px;
-            border-style: solid;
-            border-radius: 10px;
-        }
+    .modal_content{
+        background:#fff;
+        position: fixed; 
+        top:50%; 
+        left:50%;
+        transform : translate(-50%, -50%);
+        text-align:center;
+        box-sizing:border-box; 
+        line-height:23px;
+        border-style: solid;
+        border-radius: 10px;
+    }
         
         
         input[type="number"] {
@@ -248,6 +248,8 @@ input[type=number]::-webkit-outer-spin-button {
 								    </div>
 									
 									<div style="margin-right: 1px;">
+									
+										<!-- 구매 여부 확인 purchased == 1 시 구매 O,	purchased == 0 시 구매 X -->
 										<c:if test="${purchased == 1}">
 											<button type="button" class="btn btn-delete" disabled="disabled">이미 구매하신 상품입니다</button>
 										</c:if>

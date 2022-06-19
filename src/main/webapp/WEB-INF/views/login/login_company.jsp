@@ -38,11 +38,11 @@
 							<h3 class="text-center text-info">기업 회원 로그인</h3>
 							<div class="form-group">
 								<label for="username" class="text-info">ID</label> <br/> 
-								<input type="text" name="com_id" id="com_id" class="form-control">
+								<input type="text" name="com_id" id="com_id" class="form-control" required="required">
 							</div>
 							<div class="form-group">
 								<label for="password" class="text-info">PW</label> <br/> 
-								<input type="password" name="com_pw" id="com_pw" class="form-control">
+								<input type="password" name="com_pw" id="com_pw" class="form-control" required="required">
 							</div>
 							<div class="form-group">
 								<input type="submit" name="submit" class="btn btn-info btn-md" value="로그인">

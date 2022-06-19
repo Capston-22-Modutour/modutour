@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.spring.dto.BoardDTO;
 import com.spring.dto.Page;
 import com.spring.dto.ReplyDTO;
-import com.spring.service.BoardService;
+import com.spring.service.OrderService;
 import com.spring.service.ReplyService;
+import com.spring.service.SuggestBoardService;
 import com.spring.utils.UploadFileUtils;
 
 @Controller
@@ -27,7 +29,10 @@ import com.spring.utils.UploadFileUtils;
 public class SuggestBoardController {
 	
 	@Inject
-	BoardService service;
+	OrderService service;
+	
+	@Inject
+	SuggestBoardService sbService;
 
 	@Inject
 	private ReplyService replyService;
@@ -41,8 +46,8 @@ public class SuggestBoardController {
 		
 		// Model = Controller와 View 연결해주는 역할
 		List<BoardDTO> list = null;
-		list = service.suggest_list();
-
+		list = sbService.suggest_list();
+		
 		model.addAttribute("list", list);
 	}
 
@@ -58,13 +63,13 @@ public class SuggestBoardController {
 
 	// 패키지 제안 게시글 작성 post
 	@RequestMapping(value = "/suggest_write", method = RequestMethod.POST)
-	public String postSuggestWrite(BoardDTO dto, MultipartFile file) throws Exception {
+	public String postSuggestWrite(HttpServletRequest request, BoardDTO dto, MultipartFile file) throws Exception {
 		
 		String imgUploadPath = uploadPath + File.separator + "upload";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String file_name = null;
 		System.out.println(imgUploadPath);
-		if(file != null) {
+		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 		 file_name =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
 		} else {
 		 file_name = uploadPath + File.separator + "images" + File.separator + "none.png";
@@ -73,29 +78,41 @@ public class SuggestBoardController {
 		dto.setSuggest_img(File.separator + "upload" + ymdPath + File.separator + file_name);
 		dto.setSuggest_thumbnail(File.separator + "upload" + ymdPath + File.separator + "s" + File.separator + "s_" + file_name);
 		
-		service.suggest_write(dto);
-
+		sbService.suggest_write(dto);
+		
 		return "redirect:/suggest_board/suggest_listPageSearch?num=1";
 	}
 
 	// 패키지 제안 게시글 조회
 	@RequestMapping(value = "/suggest_view", method = RequestMethod.GET)
-	public void getSuggestView(@RequestParam("suggest_bno") int suggest_bno, Model model) throws Exception {
-		BoardDTO dto = service.suggest_view(suggest_bno);
-
+	public void getSuggestView(@RequestParam("suggest_bno") int suggest_bno, HttpServletRequest request, Model model) throws Exception {
+		BoardDTO dto = sbService.suggest_view(suggest_bno);
+		
+		int board_want_bno = dto.getBoard_want_bno();
+		
+		// sell_board 테이블 board_want_bno 중복 검색
+		int want_boardExist = service.packageCheck(board_want_bno);
+		System.out.println("중복 : " + want_boardExist);
+		
+		// sell_board 테이블 board_want_bno 중복 여부 확인
+		if(want_boardExist == 0) { // 중복 X, bid에 0 담아서 model로 전송 => ${bid} 값 == 0
+			model.addAttribute("bid", 0);
+		} else { // 중복 O, bid에 1 담아서 model로 전송 => ${bid} 값 == 1
+			model.addAttribute("bid", 1);
+		}
+		
 		model.addAttribute("view", dto);
-
+		
 		// 패키지 설계 댓글 조회
-		/*
-		 * List<ReplyDTO> reply = null; reply = replyService.want_list(suggest_bno);
-		 * model.addAttribute("reply", reply);
-		 */
+		List<ReplyDTO> reply = null; reply = replyService.suggest_list(suggest_bno);
+		model.addAttribute("reply", reply);
+		 
 	}
 
 	// 패키지 제안 게시글 수정
 	@RequestMapping(value = "/suggest_modify", method = RequestMethod.GET)
 	public void getSuggestModify(@RequestParam("suggest_bno") int suggest_bno, Model model) throws Exception {
-		BoardDTO dto = service.suggest_view(suggest_bno);
+		BoardDTO dto = sbService.suggest_view(suggest_bno);
 
 		model.addAttribute("view", dto);
 	}
@@ -103,7 +120,7 @@ public class SuggestBoardController {
 	// 패키지 제안 게시글 수정
 	@RequestMapping(value = "/suggest_modify", method = RequestMethod.POST)
 	public String postSuggestModify(BoardDTO dto) throws Exception {
-		service.suggest_modify(dto);
+		sbService.suggest_modify(dto);
 
 		return "redirect:/suggest_board/suggest_view?suggest_bno=" + dto.getSuggest_bno();
 	}
@@ -111,7 +128,7 @@ public class SuggestBoardController {
 	// 패키지 제안 게시글 삭제
 	@RequestMapping(value = "/suggest_delete", method = RequestMethod.GET)
 	public String getSuggestDelete(@RequestParam("suggest_bno") int suggest_bno) throws Exception {
-		service.suggest_delete(suggest_bno);
+		sbService.suggest_delete(suggest_bno);
 
 		return "redirect:/suggest_board/suggest_listPageSearch?num=1";
 	}
@@ -126,16 +143,15 @@ public class SuggestBoardController {
 		Page page = new Page();
 
 		page.setNum(num);
-		page.setCount(service.suggest_searchCount(searchType, keyword));
+		page.setCount(sbService.suggest_searchCount(searchType, keyword));
 
 		// 검색 타입과 검색어
 		page.setSearchType(searchType);
 		page.setKeyword(keyword);
 
 		List<BoardDTO> want_list = null;
-		want_list = service.suggest_listPageSearch(page.getDisplayPost(), page.getPostNum(), searchType,
-				keyword);
-
+		want_list = sbService.suggest_listPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
+		
 		model.addAttribute("list", want_list);
 		model.addAttribute("page", page);
 		model.addAttribute("select", num);
@@ -153,16 +169,16 @@ public class SuggestBoardController {
 	@RequestMapping(value = "/suggest_updateLike", method = RequestMethod.POST)
 	public int postSuggestUpdateLike(int suggest_bno, int user_num) throws Exception {
 
-		int suggest_likeCheck = service.want_likeCheck(suggest_bno, user_num);
+		int suggest_likeCheck = sbService.suggest_likeCheck(suggest_bno, user_num);
 		if (suggest_likeCheck == 0) {
 			// 좋아요 처음누름
-			service.want_insertLike(suggest_bno, user_num); // like테이블 삽입
-			service.want_updateLike(suggest_bno); // 게시판테이블 +1
-			service.want_updateLikeCheck(suggest_bno, user_num);// like테이블 구분자 1
+			sbService.suggest_insertLike(suggest_bno, user_num); // like테이블 삽입
+			sbService.suggest_updateLike(suggest_bno); // 게시판테이블 +1
+			sbService.suggest_updateLikeCheck(suggest_bno, user_num);// like테이블 구분자 1
 		} else if (suggest_likeCheck == 1) {
-			service.want_updateLikeCheckCancel(suggest_bno, user_num); // like테이블 구분자0
-			service.want_updateLikeCancel(suggest_bno); // 게시판테이블 - 1
-			service.want_deleteLike(suggest_bno, user_num); // like테이블 삭제
+			sbService.suggest_updateLikeCheckCancel(suggest_bno, user_num); // like테이블 구분자0
+			sbService.suggest_updateLikeCancel(suggest_bno); // 게시판테이블 - 1
+			sbService.suggest_deleteLike(suggest_bno, user_num); // like테이블 삭제
 		}
 		return suggest_likeCheck;
 	}

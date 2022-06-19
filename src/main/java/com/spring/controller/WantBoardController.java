@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.spring.dto.BoardDTO;
 import com.spring.dto.Page;
 import com.spring.dto.ReplyDTO;
-import com.spring.service.BoardService;
 import com.spring.service.ReplyService;
+import com.spring.service.WantBoardService;
 import com.spring.utils.UploadFileUtils;
 
 @Controller
@@ -27,7 +28,7 @@ import com.spring.utils.UploadFileUtils;
 public class WantBoardController {
 	
 	@Inject
-	BoardService service;
+	WantBoardService service;
 
 	@Inject
 	private ReplyService replyService;
@@ -58,20 +59,25 @@ public class WantBoardController {
 
 	// 패키지 설계 게시글 작성 post
 	@RequestMapping(value = "/want_write", method = RequestMethod.POST)
-	public String postWantWrite(BoardDTO dto, MultipartFile file) throws Exception {
+	public String postWantWrite(HttpServletRequest request, BoardDTO dto, MultipartFile file) throws Exception {
 		
 		String imgUploadPath = uploadPath + File.separator + "upload";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String file_name = null;
 		System.out.println(imgUploadPath);
-		if(file != null) {
+		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 		 file_name =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
 		} else {
 		 file_name = uploadPath + File.separator + "images" + File.separator + "none.png";
 		}
+		
+		HttpSession session = request.getSession();
+		session.getAttribute("member");
+		int user_num = (Integer)session.getAttribute("user_num");
 
 		dto.setBoard_want_img(File.separator + "upload" + ymdPath + File.separator + file_name);
 		dto.setBoard_want_thumbnail(File.separator + "upload" + ymdPath + File.separator + "s" + File.separator + "s_" + file_name);
+		dto.setUser_num(user_num);
 		
 		service.want_write(dto);
 

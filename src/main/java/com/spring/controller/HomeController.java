@@ -5,21 +5,19 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.spring.dto.BoardDTO;
-import com.spring.service.BoardService;
+import com.spring.service.BestBoardService;
 
 @Controller
 public class HomeController {
 
 	@Inject
-	BoardService service;
+	BestBoardService service;
 	
 	// 메인 화면 '/' 입력 시 메인화면으로 이동
 	@RequestMapping(value = "/", method = RequestMethod.GET)

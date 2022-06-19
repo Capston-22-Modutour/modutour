@@ -41,19 +41,19 @@
 							<h3 class="text-center text-info">기업 회원가입</h3>
 							<div class="form-group">
 								<label for="com_id" class="text-info">ID</label> <br/> 
-								<input type="text" name="com_id" id="com_id">
-								<button type="button" class="companyIdCheck">아이디 중복 확인</button>
+								<input type="text" name="com_id" id="com_id" required="required">
+								<button type="button" class="companyIdCheck btn btn-delete"">아이디 중복 확인</button>
 								<p class="result">
 									<span class="msg">아이디를 확인하세요</span>
 								</p>
 							</div>
 							<div class="form-group">
 								<label for="com_pw" class="text-info">PW</label> <br/> 
-								<input type="password" name="com_pw" id="com_pw">
+								<input type="password" name="com_pw" id="com_pw" required="required">
 							</div>
 							<div class="form-group">
 								<label for="com_name" class="text-info">이름</label> <br/> 
-								<input type="text" name="com_name" id="com_name">
+								<input type="text" name="com_name" id="com_name" required="required">
 							</div>
 							<div class="form-group">
 								<label for="com_phoneNum" class="text-info">전화번호</label> <br/> 
@@ -61,17 +61,19 @@
 									<option>02</option>
 									<option>031</option>
 									<option>051</option>
+									<option>053</option>
+									<option>062</option>
 								</select> - 
-								<input type="text" name="com_phone2" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> - 
-								<input type="text" name="com_phone3" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br/>
+								<input type="text" name="com_phone2" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required="required"> - 
+								<input type="text" name="com_phone3" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'	);" required="required"><br/>
 							</div>
 							<div class="form-group">
 								<label for="com_address" class="text-info">주소</label> <br/> 
-								<input type="text" name="com_address" id="com_address" class="form-control">
+								<input type="text" name="com_address" id="com_address" class="form-control" required="required">
 							</div>
 							<div class="form-group">
 								<label for="com_email" class="text-info">이메일</label> <br/> 
-								<input type="text" name="com_email" id="com_email" class="form-control">
+								<input type="text" name="com_email" id="com_email" class="form-control" required="required">
 							</div>
 							<div class="form-group">
 								<button type="submit" id="submit" disabled="disabled" class="btn btn-info btn-md">가입하기</button>

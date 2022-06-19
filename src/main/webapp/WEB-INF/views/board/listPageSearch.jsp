@@ -58,7 +58,14 @@
 									<c:forEach items="${list}" var="list">
 										<tr class="active-row">
 											<td>${list.board_bno}</td>
-											<td><img src="${list.board_thumbnail}" width="100px" height="100px"></td>
+											<td>
+												<c:if test="${list.board_thumbnail != null}"><img src="${list.board_thumbnail}" width="100px" height="100px"></c:if>
+												<c:if test="${list.board_thumbnail == null}">
+													<div style="text-align: center;">
+														<svg xmlns="http://www.w3.org/2000/svg" role="img" width="100px" height="100px"><rect width="100%" height="100%" fill="#ffffff"></rect></svg>
+													</div>
+												</c:if>
+											</td>
 											<td><a href="/board/view?board_bno=${list.board_bno}">${list.board_title}</a></td>
 											<td><fmt:formatDate value="${list.board_regDate}" pattern="yyyy-MM-dd"/></td>
 											<td>${list.board_writer}</td>

@@ -38,11 +38,11 @@
 							<h3 class="text-center text-info">일반 회원 로그인</h3>
 							<div class="form-group">
 								<label for="username" class="text-info">ID</label><br> 
-								<input type="text" name="user_id" id="user_id" class="form-control">
+								<input type="text" name="user_id" id="user_id" class="form-control" required="required">
 							</div>
 							<div class="form-group">
 								<label for="password" class="text-info">PW</label><br> 
-								<input type="password" name="user_pw" id="user_pw" class="form-control">
+								<input type="password" name="user_pw" id="user_pw" class="form-control" required="required">
 							</div>
 							<div class="form-group">
 								<input type="submit" name="submit" class="btn btn-info btn-md" value="로그인">

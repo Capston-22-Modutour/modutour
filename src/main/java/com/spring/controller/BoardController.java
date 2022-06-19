@@ -64,14 +64,16 @@ public class BoardController {
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String file_name = null;
 		System.out.println(imgUploadPath);
-		if(file != null) {
-		 file_name =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+			file_name =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+			
+			dto.setBoard_img(File.separator + "upload" + ymdPath + File.separator + file_name);
+			dto.setBoard_thumbnail(File.separator + "upload" + ymdPath + File.separator + "s" + File.separator + "s_" + file_name);
 		} else {
-		 file_name = uploadPath + File.separator + "images" + File.separator + "none.png";
+			file_name = null;//uploadPath + File.separator + "images" + File.separator + "none.png";
 		}
 
-		dto.setBoard_img(File.separator + "upload" + ymdPath + File.separator + file_name);
-		dto.setBoard_thumbnail(File.separator + "upload" + ymdPath + File.separator + "s" + File.separator + "s_" + file_name);
+		
 		
 		service.write(dto);
 
@@ -83,7 +85,7 @@ public class BoardController {
 	public void getView(@RequestParam("board_bno") int board_bno, Model model) throws Exception {
 		
 		BoardDTO dto = service.view(board_bno);
-
+		
 		model.addAttribute("view", dto);
 
 		// 댓글 조회

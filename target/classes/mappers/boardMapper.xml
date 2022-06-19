@@ -39,6 +39,14 @@
 		order by board_bno desc
 	</select>
 	
+	<!-- 내가 쓴 여행후기 게시글 -->
+	<select id="my_review_list" resultType="com.spring.dto.BoardDTO">
+		select *
+		from review
+		where user_num = #{user_num}
+		order by review_bno desc
+	</select>
+	
 	<!-- 내가 쓴 패캐지 설계 게시글 -->
 	<select id="my_package_list" resultType="com.spring.dto.BoardDTO">
 		select *
@@ -174,8 +182,8 @@
 	<!-- 게시물 작성 -->
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="review_write" parameterType="com.spring.dto.BoardDTO">
-		insert into review(review_title, review_content, review_writer, review_img, review_thumbnail)
-					values(#{review_title}, #{review_content}, #{review_writer}, #{review_img}, #{review_thumbnail})
+		insert into review(review_title, user_num, review_content, review_writer, review_img, review_thumbnail)
+					values(#{review_title}, #{user_num}, #{review_content}, #{review_writer}, #{review_img}, #{review_thumbnail})
 	</insert>
 	
 	<!-- 게시물 조회 -->
@@ -273,9 +281,9 @@
 	<!-- 게시물 작성 -->
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="want_write" parameterType="com.spring.dto.BoardDTO">
-		insert into member_board_want(board_want_title, board_want_destination, board_want_content, board_want_writer,
+		insert into member_board_want(board_want_title, user_num, board_want_destination, board_want_content, board_want_writer,
 									board_want_people, board_want_start, board_want_end, board_want_img, board_want_thumbnail)
-					values(#{board_want_title}, #{board_want_destination}, #{board_want_content}, #{board_want_writer}, 
+					values(#{board_want_title}, #{user_num}, #{board_want_destination}, #{board_want_content}, #{board_want_writer}, 
 						#{board_want_people}, #{board_want_start}, #{board_want_end}, #{board_want_img}, #{board_want_thumbnail})
 	</insert>
 	
@@ -492,10 +500,10 @@
 	<!-- 게시물 작성 -->
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="sell_write" parameterType="com.spring.dto.BoardDTO">
-		insert into sell_board(sell_bno, suggest_bno, com_regiNum, sell_writer, sell_title, 
+		insert into sell_board(sell_bno, suggest_bno, board_want_bno, com_regiNum, sell_writer, sell_title, 
 				sell_destination, sell_content, sell_start, sell_end, sell_people, sell_price, sell_guide, sell_air, 
 				sell_img, sell_thumbnail)
-					values(#{sell_bno}, #{suggest_bno}, #{com_regiNum}, #{sell_writer}, #{sell_title}, 
+					values(#{sell_bno}, #{suggest_bno}, #{board_want_bno}, #{com_regiNum}, #{sell_writer}, #{sell_title}, 
 					#{sell_destination}, #{sell_content}, #{sell_start}, #{sell_end}, #{sell_people}, 
 					#{sell_price}, #{sell_guide}, #{sell_air}, #{sell_img}, #{sell_thumbnail})
 	</insert>
@@ -617,4 +625,35 @@
 			where sell_bno = #{sell_bno}
 	</update>
 	<!-- 주문 내역 end -->
+	
+	<!-- 패키지 낙찰 확인 -->
+	<select id="packageCheck" resultType="int">
+		select count(*)
+		from sell_board
+		where board_want_bno = #{board_want_bno}
+	</select>
+	
+	<!-- 고객 구매 확인 -->
+	<select id="purchaseCheckCompany" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
+		select *
+		from order_data
+		where order_writer = #{order_writer}
+		order by order_date desc
+	</select>
+	
+	<!-- 패키지 제안 입찰 목록 확인 -->
+	<select id="SuggestCheckCompany" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
+		select *
+		from suggest_board
+		where com_regiNum = #{com_regiNum}
+		order by suggest_regDate desc
+	</select>
+	
+	<!-- 패키지 판매 목록 확인 -->
+	<select id="SellCheckCompany" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
+		select *
+		from sell_board
+		where com_regiNum = #{com_regiNum}
+		order by sell_regDate desc
+	</select>
 </mapper>

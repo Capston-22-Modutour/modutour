@@ -82,32 +82,32 @@
 						<div class="col-lg-12">
 							<div class="section-title mb-0">
 								<h4 class="m-0 text-uppercase font-weight-bold">
-									<input type="text" size="50" name="board_want_title" placeholder="제목을 입력해 주세요"/>
+									<input type="text" size="50" name="board_want_title" placeholder="제목을 입력해 주세요" required="required"/>
 								</h4>
 							</div>
 							<div class="bg-white border border-top-0 p-4 mb-3">
 								<div class="mb-4">
 									<input type="text" name="board_want_writer" value="${member.user_name}" hidden="hidden">
 									<label>목적지</label> <br/> 
-									<input type="text" style="color: black;" name="board_want_destination" class="m-0 text-uppercase font-weight-bold px-8" placeholder="목적지를 입력해 주세요"> <br /> 
+									<input type="text" style="color: black;" name="board_want_destination" class="m-0 text-uppercase font-weight-bold px-8" placeholder="목적지를 입력해 주세요" required="required"> <br /> 
 										
 									<label>희망사항</label> <br/>
-									<textarea cols="68" rows="5" name="board_want_content" class="m-0 text-uppercase font-weight-bold px-8" placeholder="희망사항을 입력해 주세요"></textarea>
+									<textarea cols="68" rows="5" name="board_want_content" class="m-0 text-uppercase font-weight-bold px-8" placeholder="희망사항을 입력해 주세요" required="required"></textarea>
 									<br /> 
 										
 									<label>인원수</label> <br/> 
-									<input type="text" style="color: black;" name="board_want_people" class="m-0 text-uppercase font-weight-bold px-8" placeholder="인원수를 입력해 주세요"> <br /> 
+									<input type="text" style="color: black;" name="board_want_people" class="m-0 text-uppercase font-weight-bold px-8" placeholder="인원수를 입력해 주세요" required="required"> <br /> 
 										
 									<label>출발일</label> <br/>
-									<input type="date" style="color: black;" name="board_want_start" class="m-0 text-uppercase font-weight-bold px-8">
+									<input type="date" style="color: black;" name="board_want_start" class="m-0 text-uppercase font-weight-bold px-8" required="required">
 									<br /> 
 										
 									<label>도착일</label> <br/>
-									<input type="date" style="color: black;" name="board_want_end" class="m-0 text-uppercase font-weight-bold px-8">
+									<input type="date" style="color: black;" name="board_want_end" class="m-0 text-uppercase font-weight-bold px-8" required="required">
 								</div>
 								
 								파일 업로드 <br/>
-								<input type="file" id="board_want_img" name="file"/>
+								<input type="file" id="board_want_img" name="file" required="required"/>
 									
 								<div class="select_img"><img src=""></div>
 		

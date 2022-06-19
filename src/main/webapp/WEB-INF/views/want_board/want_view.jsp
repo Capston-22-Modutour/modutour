@@ -139,7 +139,7 @@
 						<div class="bg-white border border-top-0 p-3">
 						<form class="form" role="form" method="post" autocomplete="off" action="/suggest_board/suggest_write" enctype="multipart/form-data">
 							<h4 class="m-0 text-uppercase font-weight-bold">
-								<input type="text" size="35" name="suggest_title" placeholder="제목을 입력해 주세요" />
+								<input type="text" size="35" name="suggest_title" placeholder="제목을 입력해 주세요" required="required"/>
 							</h4>
 							<br/>
 								<!-- 게시글 내용 Start -->
@@ -160,11 +160,10 @@
 												<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_content}</label> <br/><br/>
 												
 												<label>제안사항</label> <br />
-												<textarea cols="35" rows="5" name="suggest_content" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8"></textarea> <br /> 
+												<textarea cols="35" rows="5" name="suggest_content" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8" required="required"></textarea> <br /> 
 												
 												<label>인원수</label> <br /> 
-												<input type="number" name="board_want_people" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-												<%-- <input type="text" value="${view.board_want_people}" name="board_want_people" hidden="hidden">  --%>
+												<input type="number" name="board_want_people" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8" required="required">
 												<br />
 															
 												<label>출발일</label> <br /> 
@@ -182,7 +181,7 @@
 												<br/>
 															
 												<label>가격</label> <br /> 
-												<input type="number" name="suggest_price" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8"> <br/><br/>
+												<input type="number" name="suggest_price" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8" required="required"> <br/><br/>
 												
 												<label>가이드 포함 여부</label> <br /> 
 												<select name="suggest_guide" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
@@ -199,7 +198,7 @@
 												</select> <br/><br/>
 												
 												파일 업로드 <br/>
-												<input type="file" id="file_img" name="file"/>
+												<input type="file" id="file_img" name="file" required="required"/>
 												
 												<div class="select_img"><img src=""></div>
 												

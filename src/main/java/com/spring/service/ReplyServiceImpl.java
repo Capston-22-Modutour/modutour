@@ -77,7 +77,7 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	// -------------
-	// 패키지 댓글 목록
+	// 패키지 요청 댓글 목록
 	@Override
 	public List<ReplyDTO> want_list(int board_want_bno) throws Exception {
 		return dao.want_list(board_want_bno);
@@ -105,6 +105,37 @@ public class ReplyServiceImpl implements ReplyService {
 	@Override
 	public void want_delete(int board_reply_rno) throws Exception {
 		dao.want_delete(board_reply_rno);
+	}
+	
+	// -------------
+	// 패키지 제안 댓글 목록
+	@Override
+	public List<ReplyDTO> suggest_list(int suggest_bno) throws Exception {
+		return dao.suggest_list(suggest_bno);
+	}
+		
+	// 댓글 조회
+	@Override
+	public ReplyDTO suggest_view(int suggest_rno) throws Exception {
+		return dao.suggest_view(suggest_rno);
+	}
+
+	// 패키지 댓글 작성
+	@Override
+	public void suggest_write(ReplyDTO dto) throws Exception {
+		dao.suggest_write(dto);
+	}
+
+	// 패키지 댓글 수정
+	@Override
+	public void suggest_modify(ReplyDTO dto) throws Exception {
+		dao.suggest_modify(dto);
+	}
+
+	// 패키지 댓글 삭제
+	@Override
+	public void suggest_delete(int suggest_rno) throws Exception {
+		dao.suggest_delete(suggest_rno);
 	}
 
 	// ------------

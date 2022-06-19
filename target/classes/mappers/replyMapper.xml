@@ -117,7 +117,44 @@
 	</delete>
 	<!-- 패키지 설계 게시판 댓글 end -->
 	
-	<!-- 패키지 설계 게시판  댓글 start-->
+	<!-- 패키지 제안 게시판  댓글 start-->
+	<!-- 댓글 목록 -->
+	<select id="suggest_replyList" parameterType="int" resultType="com.spring.dto.ReplyDTO">
+	    select
+	        suggest_rno, suggest_bno, suggest_writer, suggest_content, suggest_regDate
+	    from suggest_board_reply
+	        where suggest_bno = #{suggest_bno}        
+	</select>
+	
+	<!-- 댓글 조회 -->
+	<select id="suggest_view" parameterType="int" resultType="com.spring.dto.ReplyDTO">
+		select *
+		from suggest_board_reply
+		where suggest_rno = #{suggest_rno}
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="suggest_replyWrite" parameterType="com.spring.dto.ReplyDTO">
+	    insert into suggest_board_reply(suggest_bno, suggest_writer, suggest_content, suggest_regDate)
+	        value(#{suggest_bno}, #{suggest_writer}, #{suggest_content}, #{suggest_regDate})
+	</insert>
+	    
+	<!-- 댓글 수정 -->
+	<update id="suggest_replyModify" parameterType="com.spring.dto.ReplyDTO">
+	    update suggest_board_reply set
+	        suggest_writer = #{suggest_writer},
+	        suggest_content = #{suggest_content}
+	    where suggest_rno = #{suggest_rno} and suggest_bno = #{suggest_bno}    
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="suggest_replyDelete" parameterType="int">
+	    delete from suggest_board_reply
+	    where suggest_rno = #{suggest_rno}
+	</delete>
+	<!-- 패키지 제안 게시판 댓글 end -->
+	
+	<!-- 패키지 판매 게시판  댓글 start-->
 	<!-- 댓글 목록 -->
 	<select id="sell_replyList" parameterType="int" resultType="com.spring.dto.ReplyDTO">
 	    select *

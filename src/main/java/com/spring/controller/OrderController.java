@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.spring.dto.BoardDTO;
-import com.spring.service.BoardService;
+import com.spring.service.OrderService;
 
 
 @Controller
@@ -20,7 +20,7 @@ import com.spring.service.BoardService;
 public class OrderController {
 
 	@Inject
-	BoardService service;
+	OrderService service;
 
 	// 구매 내역 get
 	@RequestMapping(value = "/purchase", method = RequestMethod.GET)
@@ -41,6 +41,7 @@ public class OrderController {
 		
 		if (purchased == 0) { // 구매 기록이 없을 시 order_data 추가
 			service.purchase(boardDTO);
+			service.updatePeople(boardDTO);
 		} else {
 			System.out.println("경고 이미 구매했다");
 		}

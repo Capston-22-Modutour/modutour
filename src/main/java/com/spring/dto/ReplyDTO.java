@@ -117,6 +117,45 @@ public class ReplyDTO {
 		this.board_want_reply_regDate = board_want_reply_regDate;
 	}
 	
+	//--------------------------------------------
+	private int suggest_rno;
+	private int suggest_bno;
+	private String suggest_writer;
+	private String suggest_content;
+	private Date suggest_regDate;
+	
+	public int getSuggest_rno() {
+		return suggest_rno;
+	}
+	public void setSuggest_rno(int suggest_rno) {
+		this.suggest_rno = suggest_rno;
+	}
+	public int getSuggest_bno() {
+		return suggest_bno;
+	}
+	public void setSuggest_bno(int suggest_bno) {
+		this.suggest_bno = suggest_bno;
+	}
+	public String getSuggest_writer() {
+		return suggest_writer;
+	}
+	public void setSuggest_writer(String suggest_writer) {
+		this.suggest_writer = suggest_writer;
+	}
+	public String getSuggest_content() {
+		return suggest_content;
+	}
+	public void setSuggest_content(String suggest_content) {
+		this.suggest_content = suggest_content;
+	}
+	public Date getSuggest_regDate() {
+		return suggest_regDate;
+	}
+	public void setSuggest_regDate(Date suggest_regDate) {
+		this.suggest_regDate = suggest_regDate;
+	}
+
+	//--------------------------------------------
 	private int sell_rno;
 	private int sell_bno;
 	private String sell_writer;

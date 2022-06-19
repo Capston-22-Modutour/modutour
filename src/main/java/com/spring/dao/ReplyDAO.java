@@ -6,7 +6,7 @@ import com.spring.dto.ReplyDTO;
 
 public interface ReplyDAO {
 	
-	//댓글 목록
+	// 댓글 목록
 	public List<ReplyDTO> review_list(int review_bno) throws Exception;
 			
 	// 댓글 조회
@@ -52,6 +52,22 @@ public interface ReplyDAO {
 
 	// 패키지 설계 댓글 삭제
 	public void want_delete(int board_reply_rno) throws Exception;
+	
+	//------------------------------------
+	// 패키지 제안 댓글 목록
+	public List<ReplyDTO> suggest_list(int suggest_bno) throws Exception;
+			
+	// 댓글 조회
+	public ReplyDTO suggest_view(int suggest_rno) throws Exception;
+
+	// 패키지 제안 댓글 조회
+	public void suggest_write(ReplyDTO dto) throws Exception;
+
+	// 패키지 제안 댓글 수정
+	public void suggest_modify(ReplyDTO dto) throws Exception;
+
+	// 패키지 제안 댓글 삭제
+	public void suggest_delete(int suggest_rno) throws Exception;
 	
 	// -------------
 	// 패키지 판매 댓글 목록

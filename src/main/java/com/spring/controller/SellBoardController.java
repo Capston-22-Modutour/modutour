@@ -14,18 +14,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.dto.BoardDTO;
-import com.spring.dto.MemberDTO;
 import com.spring.dto.Page;
 import com.spring.dto.ReplyDTO;
-import com.spring.service.BoardService;
+import com.spring.service.OrderService;
 import com.spring.service.ReplyService;
+import com.spring.service.SellBoardService;
 
 @Controller
 @RequestMapping("/sell_board/*")
 public class SellBoardController {
 	
 	@Inject
-	BoardService service;
+	OrderService service;
+	
+	@Inject
+	SellBoardService slService;
 
 	@Inject
 	private ReplyService replyService;
@@ -35,7 +38,7 @@ public class SellBoardController {
 	public void getSellList(Model model) throws Exception {
 		// Model = Controller와 View 연결해주는 역할
 		List<BoardDTO> sell_list = null;
-		sell_list = service.sell_list();
+		sell_list = slService.sell_list();
 
 		model.addAttribute("list", sell_list);
 	}
@@ -54,7 +57,17 @@ public class SellBoardController {
 	@RequestMapping(value = "/sell_write", method = RequestMethod.POST)
 	public String postSellWrite(HttpServletRequest request, BoardDTO dto) throws Exception {
 		
-		service.sell_write(dto);
+		int board_want_bno = dto.getBoard_want_bno();
+		
+		// sell_board 테이블 board_want_bno 중복 검색
+		int want_boardExist = service.packageCheck(board_want_bno);
+		System.out.println("중복 : " + want_boardExist);
+		
+		if (want_boardExist == 0) { // 중복되는 board_want_bno 값 없을 시 sell_board 추가
+			slService.sell_write(dto);
+		} else {
+			System.out.println("sell_board 테이블에 board_want_bno 존재");
+		}
 
 		return "redirect:/sell_board/sell_listPageSearch?num=1";
 	}
@@ -78,7 +91,7 @@ public class SellBoardController {
 			
 		}
 		
-		BoardDTO dto = service.sell_view(sell_bno);
+		BoardDTO dto = slService.sell_view(sell_bno);
 		
 		model.addAttribute("view", dto);
 		
@@ -92,7 +105,7 @@ public class SellBoardController {
 	// 패키지 설계 게시글 수정
 	@RequestMapping(value = "/sell_modify", method = RequestMethod.GET)
 	public void getSellModify(@RequestParam("sell_bno") int sell_bno, Model model) throws Exception {
-		BoardDTO dto = service.sell_view(sell_bno);
+		BoardDTO dto = slService.sell_view(sell_bno);
 
 		model.addAttribute("view", dto);
 	}
@@ -100,7 +113,7 @@ public class SellBoardController {
 	// 패키지 설계 게시글 수정
 	@RequestMapping(value = "/sell_modify", method = RequestMethod.POST)
 	public String postSellModify(BoardDTO dto) throws Exception {
-		service.sell_modify(dto);
+		slService.sell_modify(dto);
 
 		return "redirect:/sell_board/sell_view?sell_bno=" + dto.getSell_bno();
 	}
@@ -108,7 +121,7 @@ public class SellBoardController {
 	// 패키지 설계 게시글 삭제
 	@RequestMapping(value = "/sell_delete", method = RequestMethod.GET)
 	public String getSellDelete(@RequestParam("sell_bno") int sell_bno) throws Exception {
-		service.sell_delete(sell_bno);
+		slService.sell_delete(sell_bno);
 
 		return "redirect:/sell_board/sell_listPageSearch?num=1";
 	}
@@ -123,14 +136,14 @@ public class SellBoardController {
 		Page page = new Page();
 
 		page.setNum(num);
-		page.setCount(service.sell_searchCount(searchType, keyword));
+		page.setCount(slService.sell_searchCount(searchType, keyword));
 
 		// 검색 타입과 검색어
 		page.setSearchType(searchType);
 		page.setKeyword(keyword);
 
 		List<BoardDTO> sell_list = null;
-		sell_list = service.sell_listPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
+		sell_list = slService.sell_listPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
 
 		model.addAttribute("list", sell_list);
 		model.addAttribute("page", page);
@@ -149,16 +162,16 @@ public class SellBoardController {
 	@RequestMapping(value = "/sell_updateLike", method = RequestMethod.POST)
 	public int postSellUpdateLike(int sell_bno, int user_num) throws Exception {
 
-		int sell_likeCheck = service.sell_likeCheck(sell_bno, user_num);
+		int sell_likeCheck = slService.sell_likeCheck(sell_bno, user_num);
 		if (sell_likeCheck == 0) {
 			// 좋아요 처음누름
-			service.sell_insertLike(sell_bno, user_num); // like테이블 삽입
-			service.sell_updateLike(sell_bno); // 게시판테이블 +1
-			service.sell_updateLikeCheck(sell_bno, user_num);// like테이블 구분자 1
+			slService.sell_insertLike(sell_bno, user_num); // like테이블 삽입
+			slService.sell_updateLike(sell_bno); // 게시판테이블 +1
+			slService.sell_updateLikeCheck(sell_bno, user_num);// like테이블 구분자 1
 		} else if (sell_likeCheck == 1) {
-			service.sell_updateLikeCheckCancel(sell_bno, user_num); // like테이블 구분자0
-			service.sell_updateLikeCancel(sell_bno); // 게시판테이블 - 1
-			service.sell_deleteLike(sell_bno, user_num); // like테이블 삭제
+			slService.sell_updateLikeCheckCancel(sell_bno, user_num); // like테이블 구분자0
+			slService.sell_updateLikeCancel(sell_bno); // 게시판테이블 - 1
+			slService.sell_deleteLike(sell_bno, user_num); // like테이블 삭제
 		}
 		return sell_likeCheck;
 	}
