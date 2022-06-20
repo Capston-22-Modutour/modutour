@@ -170,7 +170,7 @@ table {
 											class="far fa-file-alt me-2"></i>&nbsp; 패키지 제안 목록</a>
 									</div>
 									<div class="nav-item dropdown">
-										<a href="/member_secession" class="dropdown-item"><i
+										<a href="/member/delete_company" class="dropdown-item"><i
 											class="far fa-file-alt me-2"></i>&nbsp; 회원탈퇴</a>
 									</div>
 								</div>

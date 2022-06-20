@@ -11,6 +11,7 @@
 		from review 
 		where review_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and review_like >= 20
 		order by review_like desc
+		limit 0,5
 	</select>
 	
 	<!-- 패키지 설계 베스트 -->
@@ -19,6 +20,7 @@
 		from member_board_want 
 		where board_want_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and board_want_like >= 20
 		order by board_want_like desc
+		limit 0,5
 	</select>
 	
 	<!-- 패키지 판매 베스트 -->
@@ -27,6 +29,7 @@
 		from sell_board 
 		where sell_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and sell_like >= 20
 		order by sell_like desc
+		limit 0,5
 	</select>
 	<!-- 게시글 베스트 end -->
 	
