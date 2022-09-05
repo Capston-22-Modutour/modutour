@@ -32,6 +32,8 @@
 	<%------------ header section  ------------%>
 	<jsp:include page="./fix/header.jsp" />
 	
+	<a href="/test">tab 테스트</a>
+	
 	<!-- Main News Slider Start -->
     <div class="container-fluid pt-5 mb-3">
         <div class="container">

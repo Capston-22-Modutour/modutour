@@ -26,6 +26,12 @@ public class OrderServiceImpl implements OrderService {
 		return dao.purchaseCheck(sell_bno, user_num);
 	}
 	
+	// 패키지 최초 인원수 확인
+	@Override
+	public int checkPeopleCount(int suggest_bno) throws Exception {
+		return dao.checkPeopleCount(suggest_bno);
+	}
+	
 	// 패키지 구매 시 패키지 인원 수 감소
 	@Override
 	public void updatePeople(BoardDTO dto) throws Exception {

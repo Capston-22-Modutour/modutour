@@ -24,11 +24,74 @@
 	
 	<!-- Customized Bootstrap Stylesheet -->
 	<link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>">
+	
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <style>
 	.select_img img {
 		margin: 20px 0;
 	}
+	
+	table {
+	    margin-left:auto; 
+	    margin-right:auto;
+	}
+	
+	/* datepicker CSS */
+	.ui-widget-header { border: 0px solid #dddddd; background: #fff; } 
+
+	.ui-datepicker-calendar>thead>tr>th { font-size: 14px !important; } 
+	
+	.ui-datepicker .ui-datepicker-header { position: relative; padding: 10px 0; } 
+	
+	.ui-state-default,
+	.ui-widget-content .ui-state-default,
+	.ui-widget-header .ui-state-default,
+	.ui-button,
+	html .ui-button.ui-state-disabled:hover,
+	html .ui-button.ui-state-disabled:active { border: 0px solid #c5c5c5; background-color: transparent; font-weight: normal; color: #454545; text-align: center; } 
+	
+	.ui-datepicker .ui-datepicker-title { margin: 0 0em; line-height: 16px; text-align: center; font-size: 14px; padding: 0px; font-weight: bold; } 
+	.ui-datepicker { display: none; background-color: #fff; border-radius: 4px; margin-top: 10px; margin-left: 0px; margin-right: 0px; padding: 20px; padding-bottom: 10px; width: 300px; box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.1); } 
+	.ui-widget.ui-widget-content { border: 1px solid #eee; } 
+	#datepicker:focus>.ui-datepicker { display: block; } 
+	.ui-datepicker-prev,
+	.ui-datepicker-next { cursor: pointer; } 
+	.ui-datepicker-next { float: right; } 
+	.ui-state-disabled { cursor: auto; color: hsla(0, 0%, 80%, 1); } 
+	.ui-datepicker-title { text-align: center; padding: 10px; font-weight: 100; font-size: 20px; } 
+	.ui-datepicker-calendar { width: 100%; } 
+	.ui-datepicker-calendar>thead>tr>th { padding: 5px; font-size: 20px; font-weight: 400; } 
+	.ui-datepicker-calendar>tbody>tr>td>a { color: #000; font-size: 12px !important; font-weight: bold !important; text-decoration: none;}
+	.ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover { cursor: auto; background-color: #fff; } 
+	.ui-datepicker-calendar>tbody>tr>td { border-radius: 100%; width: 44px; height: 30px; cursor: pointer; padding: 5px; font-weight: 100; text-align: center; font-size: 12px; } 
+	.ui-datepicker-calendar>tbody>tr>td:hover { background-color: transparent; opacity: 0.6; } 
+	
+	.ui-state-hover,
+	.ui-widget-content .ui-state-hover,
+	.ui-widget-header .ui-state-hover,
+	.ui-state-focus,
+	.ui-widget-content .ui-state-focus,
+	.ui-widget-header .ui-state-focus,
+	.ui-button:hover,
+	.ui-button:focus { border: 0px solid #cccccc; background-color: transparent; font-weight: normal; color: #2b2b2b; } 
+	.ui-widget-header .ui-icon { background-image: url('./btns.png'); } 
+	.ui-icon-circle-triangle-e { background-position: -20px 0px; background-size: 36px; } 
+	.ui-icon-circle-triangle-w { background-position: -0px -0px; background-size: 36px; } 
+	
+	.ui-datepicker-calendar>tbody>tr>td:first-child a { color: red !important; } 
+	.ui-datepicker-calendar>tbody>tr>td:last-child a { color: #0099ff !important; } 
+	.ui-datepicker-calendar>thead>tr>th:first-child { color: red !important; } 
+	.ui-datepicker-calendar>thead>tr>th:last-child { color: #0099ff !important; } 
+	.ui-state-highlight,
+	.ui-widget-content .ui-state-highlight,
+	.ui-widget-header .ui-state-highlight { border: 0px; background: #f1f1f1; border-radius: 50%; padding-top: 10px; padding-bottom: 10px; } 
+	
+	.inp { padding: 10px 10px; background-color: #f1f1f1; border-radius: 4px; border: 0px; } 
+	.inp:focus { outline: none; background-color: #eee; } 
+	
 </style>
 <body>
 	<%------------ header section  ------------%>
@@ -88,28 +151,114 @@
 							<div class="bg-white border border-top-0 p-4 mb-3">
 								<div class="mb-4">
 									<input type="text" name="board_want_writer" value="${member.user_name}" hidden="hidden">
-									<label>목적지</label> <br/> 
-									<input type="text" style="color: black;" name="board_want_destination" class="m-0 text-uppercase font-weight-bold px-8" placeholder="목적지를 입력해 주세요" required="required"> <br /> 
 										
-									<label>희망사항</label> <br/>
-									<textarea cols="68" rows="5" name="board_want_content" class="m-0 text-uppercase font-weight-bold px-8" placeholder="희망사항을 입력해 주세요" required="required"></textarea>
-									<br /> 
-										
-									<label>인원수</label> <br/> 
-									<input type="text" style="color: black;" name="board_want_people" class="m-0 text-uppercase font-weight-bold px-8" placeholder="인원수를 입력해 주세요" required="required"> <br /> 
-										
-									<label>출발일</label> <br/>
+									
+									<div class="container">
+										<div class="row" style="margin:0 auto; padding: 10px;">
+											<div class="col-lg-12">
+												<h6 class="m-0 text-uppercase font-weight-bold">목적지</h6>
+											</div>
+											<div class="col-lg-12">
+												<input type="text" style="color: black;" name="board_want_destination" class="m-0 text-uppercase font-weight-bold px-8" placeholder="목적지를 입력해 주세요" required="required">
+											</div>
+											<div class="col-lg-12" style="padding: 10px;">
+												<h6 class="m-0 text-uppercase font-weight-bold">희망사항</h6>
+											</div>
+											<div class="col-lg-12">
+												<textarea cols="68" rows="5" name="board_want_content" class="m-0 text-uppercase font-weight-bold px-8" placeholder="희망사항을 입력해 주세요" required="required"></textarea>
+											</div>
+											<div class="col-lg-12" style="padding: 10px;">
+												<h6 class="m-0 text-uppercase font-weight-bold">인원수</h6>
+											</div>
+											<div class="col-lg-12">
+												<input type="number" style="color: black;" name="board_want_people" class="m-0 text-uppercase font-weight-bold px-8" placeholder="인원수를 입력해 주세요" required="required"> 
+											</div>
+											<div class="col-lg-6" style="padding: 10px;">
+												<h6 class="m-0 text-uppercase font-weight-bold">출발일</h6>
+											</div>
+											<div class="col-lg-6" style="padding: 10px;">
+												<h6 class="m-0 text-uppercase font-weight-bold">도착일</h6>
+											</div>
+											<div class="col-lg-6">
+												<input type="text" name="board_want_start" id="datepicker" required="required">
+											</div>
+											<div class="col-lg-6">
+												<input type="text" name="board_want_end" id="datepicker2" required="required">
+											</div>
+											<div class="col-lg-12"style="padding: 10px;">
+												<h6 class="m-0 text-uppercase font-weight-bold">파일 업로드</h6>
+											</div>
+											<div class="col-lg-12">
+												<input type="file" id="board_want_img" name="file" required="required"/>
+												<div class="select_img"><img src=""></div>
+											</div>
+								    	</div>
+								    </div>
+								    
+								    <!-- datepicker script -->
+								    <script>
+										// 이전 날짜들은 선택막기
+										function noBefore(date){
+										    if (date < new Date())
+										        return [false];
+										    return [true];
+										}
+								    
+								        // 1) datepicker 공통 옵션 설정
+								        $.datepicker.setDefaults({
+								            dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+								            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+								            monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+								            monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+								            yearSuffix: '년',
+								            dateFormat: 'yy-mm-dd',
+								            today: "오늘",
+								            clear: "닫기",
+								            autoclose: true,
+								            calendarWeeks : true,
+								            clearBtn: true,
+								            showMonthAfterYear:true,
+								            constrainInput: true    
+								        });
+								
+								        // 2) datepicker 영역 선언
+								        $("#datepicker").datepicker({beforeShowDay: initDate('tdoay')});
+								        $("#datepicker2").datepicker({beforeShowDay: noBefore});
+								
+								        
+								        function initDate(){
+								        	  $('#datepicker').datepicker('option', 'minDate','0');//오늘이후 선택가능
+								        	  $('#datepicker2').datepicker('option', 'minDate','0');//오늘이후 선택가능
+								        	  $('#datepicker').datepicker("option", "onClose", function (selectedDate) {
+								        	    var date = new Date(selectedDate);  
+								        	    date.setDate(date.getDate() + 1);
+								        	    var a = 0;
+								        	    var nextDate = date.toLocaleString().replace(/ /gi, '').split('.').map(item =>{if(a < 3){ a++; return item} }).filter(Boolean).join('.');
+								        	   $("#datepicker2").datepicker( "option", "minDate", nextDate );
+								        	  });
+								        	  $('#datepicker2').datepicker("option", "onClose", function ( selectedDate ) {
+								        	    $("#datepicker").datepicker( "option", "maxDate", selectedDate );
+								        	  });
+								        	}
+								        
+								        // 3) 초기값 설정
+								        // (today / -nD: n일전 / +nD: n일후 / -nM: n달전 / +nM: n달후 / -nY: n년전 / +nY: n년후)
+								        $("#datepicker").datepicker('setDate', initDate('today'));
+								        $("#datepicker2").datepicker('setDate', initDate('+1D'));
+								
+								    </script>
+									
+									
+									
+									<!-- <label>출발일</label> <br/>
 									<input type="date" style="color: black;" name="board_want_start" class="m-0 text-uppercase font-weight-bold px-8" required="required">
 									<br /> 
 										
 									<label>도착일</label> <br/>
-									<input type="date" style="color: black;" name="board_want_end" class="m-0 text-uppercase font-weight-bold px-8" required="required">
+									<input type="date" style="color: black;" name="board_want_end" class="m-0 text-uppercase font-weight-bold px-8" required="required"> -->
 								</div>
 								
-								파일 업로드 <br/>
-								<input type="file" id="board_want_img" name="file" required="required"/>
-									
-								<div class="select_img"><img src=""></div>
+								
 		
 								<div class="text-center">
 									<button type="submit" class="btn btn-warning">작성하기</button> &nbsp; 
@@ -151,5 +300,10 @@
 			reader.readAsDataURL(this.files[0]);
 		}
 	});
+	
+	function showMsg(){
+		alter('gd');
+	}
 </script>
+
 </html>

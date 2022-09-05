@@ -3,15 +3,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
     <meta charset="utf-8">
     <title>마이페이지</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- Favicon -->
-    <link rel="stylesheet" href="<c:url value='../resources/img/favicon.ico'/>">
+    <link rel="stylesheet" href="<c:url value='/resources/img/favicon.ico'/>">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -21,26 +20,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-     <link rel="stylesheet" href="<c:url value='../resources/lib/owlcarousel/assets/owl.carousel.min.css'/>">
+    <link rel="stylesheet" href="<c:url value='/resources/lib/owlcarousel/assets/owl.carousel.min.css'/>">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link rel="stylesheet" href="<c:url value='../resources/css/style.css'/>">
+    <link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>">
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">  
-
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
 </head>
 <style>
 	.sidebar {
@@ -142,16 +126,21 @@
 							<nav class="navbar bg-light navbar-light">
 								<div class="navbar-nav w-100">
 									<div class="nav-item dropdown">
-										<a href="/order" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 주문</a>	
+										<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>회원정보</a>
+										<div class="dropdown-menu bg-transparent border-0">
+											<a href="/member/modify_company" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 정보수정</a>
+											<a href="/member/delete_company" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 회원탈퇴</a>	
+										</div>
 									</div>
 									<div class="nav-item dropdown">
-										<a href="/sale_list" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 판매 입찰 목록</a>	
-									</div>
-									<div class="nav-item dropdown">
-										<a href="/package_offer_list" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 패키지 제안 목록</a>	
-									</div>
-									<div class="nav-item dropdown">
-										<a href="/member/delete_company" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 회원탈퇴</a>	
+										<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>내게시글</a>
+										<div class="dropdown-menu bg-transparent border-0">
+											<a href="/sale_list" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 판매 입찰 목록</a>	
+											<a href="/package_offer_list" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 패키지 제안 목록</a>	
+										</div>
+										<div class="nav-item dropdown">
+											<a href="/order" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 주문내역</a>
+										</div>
 									</div>
 								</div>
 							</nav>

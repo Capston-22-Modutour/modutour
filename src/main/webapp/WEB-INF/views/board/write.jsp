@@ -24,6 +24,26 @@
 	
 	<!-- Customized Bootstrap Stylesheet -->
 	<link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>">
+	
+	
+	<!-- datepicker -->
+    <!-- CSS CDN -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" />
+	<!-- jQuery CDN -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!-- Datepicker CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
+	<!-- 한글 제공 CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous"></script>
+ 	<!-- <script src="<c:url value='https://code.jquery.com/jquery-3.4.1.min.js'/>"></script> -->
+ 	
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+ 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
 </head>
 <style>
 	.select_img img {
@@ -33,8 +53,8 @@
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
+	
 	<c:if test="${member == null}">
-		
 		<div class="container-fluid mt-5 pt-3">
 			<div class="container">
 				<div class="row">
@@ -87,6 +107,8 @@
 				</div>
 			</div>
 		</form>
+		
+    
 	</c:if>
 	
 
@@ -117,7 +139,7 @@
 
 
     <!-- JavaScript Libraries -->
-    <script src="<c:url value='https://code.jquery.com/jquery-3.4.1.min.js'/>"></script>
+    
     <script src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js'/>"></script>
     <script src="<c:url value='/resources/lib/easing/easing.min.js'/>"></script>
     <script src="<c:url value='/resources/lib/owlcarousel/owl.carousel.min.js'/>"></script>
@@ -136,5 +158,22 @@
 				reader.readAsDataURL(this.files[0]);
 			}
 		});
+		
+		
+		$(function(){
+		    $('.datepicker').datepicker();
+		  })
+		  
+		  
+		  $(document).ready(function(){
+			  $('.input-daterange').datepicker({
+			  format: 'yyyy-dd-mm',
+			  autoclose: true,
+			  calendarWeeks : true,
+			  clearBtn: true,
+			  disableTouchKeyboard: true
+			});
+		});
 	</script>
+	
 </html>

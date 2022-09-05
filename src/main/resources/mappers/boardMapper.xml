@@ -393,10 +393,10 @@
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="suggest_write" parameterType="com.spring.dto.BoardDTO">
 		insert into suggest_board(board_want_bno, com_regiNum, board_want_writer, suggest_writer, suggest_title, 
-			board_want_destination, board_want_content, suggest_content, board_want_people, board_want_start, 
+			board_want_destination, board_want_content, suggest_content, board_want_people, min_people,board_want_start, 
 			board_want_end, suggest_price, suggest_guide, suggest_air, suggest_img, suggest_thumbnail)
 					values(#{board_want_bno}, #{com_regiNum}, #{board_want_writer}, #{suggest_writer}, #{suggest_title}, 
-					#{board_want_destination}, #{board_want_content}, #{suggest_content}, #{board_want_people}, 
+					#{board_want_destination}, #{board_want_content}, #{suggest_content}, #{board_want_people}, #{min_people},
 					#{board_want_start}, #{board_want_end},	#{suggest_price}, #{suggest_guide}, #{suggest_air}, #{suggest_img}, #{suggest_thumbnail})
 	</insert>
 	
@@ -504,10 +504,10 @@
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="sell_write" parameterType="com.spring.dto.BoardDTO">
 		insert into sell_board(sell_bno, suggest_bno, board_want_bno, com_regiNum, sell_writer, sell_title, 
-				sell_destination, sell_content, sell_start, sell_end, sell_people, sell_price, sell_guide, sell_air, 
+				sell_destination, sell_content, sell_start, sell_end, sell_people, min_people, sell_price, sell_guide, sell_air, 
 				sell_img, sell_thumbnail)
 					values(#{sell_bno}, #{suggest_bno}, #{board_want_bno}, #{com_regiNum}, #{sell_writer}, #{sell_title}, 
-					#{sell_destination}, #{sell_content}, #{sell_start}, #{sell_end}, #{sell_people}, 
+					#{sell_destination}, #{sell_content}, #{sell_start}, #{sell_end}, #{sell_people}, #{min_people}, 
 					#{sell_price}, #{sell_guide}, #{sell_air}, #{sell_img}, #{sell_thumbnail})
 	</insert>
 	
@@ -620,7 +620,14 @@
 		where sell_bno = #{sell_bno} and user_num = #{user_num}
 	</select>
 	
-	<!-- 판매 상품 정보 -->
+	<!-- 패키지 판매 최초 인원수 확인 -->
+	<select id="checkPeopleCount" resultType="int">
+		select board_want_people
+		from suggest_board
+		where suggest_bno = #{suggest_bno}
+	</select>
+	
+	<!-- 패키지 구매 시 인원수 감소-->
 	<update id="updatePeople">
 		update sell_board
 			set

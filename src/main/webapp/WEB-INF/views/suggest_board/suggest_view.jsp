@@ -26,22 +26,6 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link rel="stylesheet" href="<c:url value='../resources/css/style.css'/>">
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">  
-
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
-	
 	<!-- JavaScript Libraries -->
     <script src="<c:url value='https://code.jquery.com/jquery-3.4.1.min.js'/>"></script>
 </head>
@@ -71,6 +55,7 @@
         border-style: solid;
         border-radius: 10px;
     }
+    
 </style>
 <body>
 	<%------------ header section  ------------%>
@@ -103,53 +88,83 @@
 						</c:if>
 					</div>
 					<div class="bg-white border border-top-0 p-4 mb-3">
+						<div class="container">
+							<div class="row" style="text-align: center;">
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">요청자</h5>
+								</div>
+								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.board_want_writer}</p>
+								</div>
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">목적지</h5>
+								</div>
+								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.board_want_destination}</p>
+								</div>
+								
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">희망사항</h5>
+								</div>
+								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.board_want_content}</p>
+								</div>
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">제안사항</h5>
+								</div>
+								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.suggest_content}</p>
+								</div>
+								
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px; border-right: 1px solid gray;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">인원수</h5>
+								</div>
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px; border-right: 1px solid gray;">
+									<p style="font-size: 20px; display: inline; color: black;">${view.board_want_people} 명</p>
+								</div>
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px; border-right: 1px solid gray;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">최소 출발</h5>
+								</div>
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; display: inline; color: black;">${view.min_people} 명</p>
+								</div>
+								
+								<div class="col-lg-6" style="border-right: 1px solid gray; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold">출발일</h5> 
+									<p style="font-size: 20px; color: black; display: inline;"><fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" /></p>
+								</div>
+								<div class="col-lg-6" style="">
+									<h5 class="m-0 text-uppercase font-weight-bold">도착일</h5>
+									<p style="font-size: 20px; color: black;"><fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" /></p>
+								</div>
+								
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">비용</h5>
+								</div>
+								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.suggest_price} 원</p>
+								</div>
+								
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">가이드 포함 여부</h5>
+								</div>
+								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.suggest_guide}</p>
+								</div>
+								
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">항공사</h5>
+								</div>
+								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.suggest_air}</p>
+								</div>
+								
+								<img src="${view.suggest_img}"  width="500px" height="500px" style="margin: 0 auto; margin-bottom: 30px;"/>	
+							</div>
+						</div>
+						
 						<div class="mb-4">
-							<label>요청자</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_writer}</p>
-							<br/>
-							
-							<label>목적지</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_destination}</p>
-							<br/>
-							
-							<label>희망사항</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_content}</p>
-							<br/>
-							
-							<label>제안사항</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.suggest_content}</p>
-							<br/>
-							
-							<label>인원수</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_people}</p>
-							<br/>
-							
-							<label>출발일</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-								<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />
-							</p>
-							<br/>
-							
-							<label>도착일</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-								<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />
-							</p> <br/>
-							
-							<label>비용</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.suggest_price}원</p>
-							<br/>
-							
-							<label>가이드 포함 여부</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.suggest_guide}</p>
-							<br/>
-							
-							<label>항공사</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.suggest_air}</p>
-							<br/>
-							
-							<img src="${view.suggest_img}"  width="500px" height="500px" />
-							
-							<%-- 구매 모달창 --%>
+							<%-- 낙찰 모달창 --%>
 							<div class="modal">
 								<div class="modal_content card" style="width:20rem; height:16rem;">
 							    	<div class="card-body">
@@ -191,6 +206,7 @@
 							<input type="text" name="sell_end" value="<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />" hidden="hidden">
 							<input type="text" name="sell_price" value="${view.suggest_price}" hidden="hidden">
 							<input type="text" name="sell_people" value="${view.board_want_people}" hidden="hidden">
+							<input type="text" name="min_people" value="${view.min_people}" hidden="hidden">
 							<input type="text" name="sell_guide" value="${view.suggest_guide}" hidden="hidden">
 							<input type="text" name="sell_air" value="${view.suggest_air}" hidden="hidden">
 							<input type="text" name="sell_img" value="${view.suggest_img}" hidden="hidden">

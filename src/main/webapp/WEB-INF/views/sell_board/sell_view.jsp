@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>게시글 조회</title>
+	<title>판매 게시글 조회</title>
 	
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -25,25 +25,15 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link rel="stylesheet" href="<c:url value='../resources/css/style.css'/>">
-
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">  
-
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
 	
 	<!-- JavaScript Libraries -->
     <script src="<c:url value='https://code.jquery.com/jquery-3.4.1.min.js'/>"></script>
+    
+    <!-- datepicker -->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="<c:url value='https://code.jquery.com/jquery-1.12.4.js'/>"></script>
+	<script src="<c:url value='https://code.jquery.com/ui/1.12.1/jquery-ui.js'/>"></script>
+	
 </head>
 <style>
 	img {
@@ -107,7 +97,7 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
   position: relative;
   box-shadow: 0px 0px 1px #474747;
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
 .number-input button:before,
@@ -136,6 +126,20 @@ input[type=number]::-webkit-outer-spin-button {
   text-align: center;
   color:#9be3df;
 }
+
+	.tabnaver {font-size: 0; width: 100%;}
+	.tabnaver li {}
+	/*tab css*/
+	.tab{float:left; width:100%; height:100%;}
+	.tabnav{font-size:0; width:100%; border:1px solid #ddd;}
+	.tabnav li{display: inline-block; height:46px; text-align:center; border-right:1px solid #ddd;}
+	.tabnav li a:before{content:""; position:absolute; left:0; top:0px; width:100%; height:3px; }
+	.tabnav li a.active:before{background:rgb(95, 204, 255, 0.8);}
+	.tabnav li a.active{border-bottom:1px solid #fff;}
+	.tabnav li a{ position:relative; display:block; background: #f8f8f8; color: #000; padding:0 30px; line-height:46px; text-decoration:none; font-size:16px;}
+	.tabnav li a:hover,
+	.tabnav li a.active{background:#fff; color:rgb(95, 204, 255, 0.8); font-weight: 800;}
+	.tabcontent{padding: 20px; border:1px solid #ddd; border-top:none;}
         
 </style>
 <body>
@@ -178,50 +182,291 @@ input[type=number]::-webkit-outer-spin-button {
 						</c:if>
 					</div>
 					<div class="bg-white border border-top-0 p-4 mb-3">
+						<div class="container">
+							<div class="row" style="text-align: center;">
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">판매자</h5>
+								</div>
+								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.sell_writer}</p>
+								</div>
+								
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">목적지</h5>
+								</div>
+								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.sell_destination}</p>
+								</div>
+								
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">내용</h5>
+								</div>
+								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.sell_content}</p>
+								</div>
+								
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline;">판매인원</h5> <br><br>
+									<h5 class="m-0 text-uppercase font-weight-bold">현재예약</h5>
+								</div>
+								<div class="col-lg-3" style="text-align: left; display: inline; margin-bottom: 30px; border-right: 1px solid gray;">
+									<p style="font-size: 20px; color: black; display: inline;">${peopleCnt} 명</p> <br><br>
+									<p style="font-size: 20px; color: black; display: inline;">${peopleCnt - view.sell_people} 명</p>
+								</div>
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">남은인원</h5> <br><br>
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">최소출발</h5>
+								</div>
+								<div class="col-lg-3" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.sell_people} 명</p> <br><br>
+									<p style="font-size: 20px; color: black; display: inline;">${view.min_people} 명</p>
+								</div>
+								
+								<div class="col-lg-6" style="border-right: 1px solid gray; margin-bottom: 50px;">
+									<h5 class="m-0 text-uppercase font-weight-bold">출발일</h5> 
+									<p style="font-size: 20px; color: black; display: inline;"><fmt:formatDate value="${view.sell_start}" pattern="yyyy-MM-dd" /></p>
+								</div>
+								<div class="col-lg-6" style="">
+									<h5 class="m-0 text-uppercase font-weight-bold">도착일</h5>
+									<p style="font-size: 20px; color: black;"><fmt:formatDate value="${view.sell_end}" pattern="yyyy-MM-dd" /></p>
+								</div>
+								
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">비용</h5>
+								</div>
+								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.sell_price}</p>
+								</div>
+								
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">가이드 포함 여부</h5>
+								</div>
+								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.sell_guide}</p>
+								</div>
+								
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">항공사</h5>
+								</div>
+								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.sell_air}</p>
+								</div>
+								
+								
+								<!-- <div class="col-lg-12" style="margin-bottom: 30px;">
+									<div class="tab">
+									 	<ul class="tabnav">
+									 		<li><a href="#tab00">일정표</a>
+									 			<ul class="tabnaver">
+											 		<li class="tabnaver-li"><a href="#tab00">상품정보</a></li>
+											 		<li class="tabnaver-li"><a href="#tab01">1일차</a></li>
+												    <li class="tabnaver-li"><a href="#tab02">2일차</a></li>
+												    <li class="tabnaver-li"><a href="#tab03">3일차</a></li>
+											    </ul>
+									 		</li>
+									 		<li><a href="#tab04">호텔 / 관광지</a>
+									 			<ul class="tabnaver">
+											 		<li><a href="#tab04">호텔정보</a></li>
+											 		<li><a href="#tab05">관광지정보</a></li>
+											    </ul>
+									 		</li>
+										    <li><a href="#tab06">약관 / 주의사항</a>
+										    	<ul class="tabnaver">
+											 		<li><a href="#tab06">호텔정보</a></li>
+											 		<li><a href="#tab07">관광지정보</a></li>
+											    </ul>
+										    </li>
+										    <li><a href="#tab08">참고사항</a>
+										    	<ul class="tabnaver">
+											 		<li><a href="#tab08">호텔정보</a></li>
+											 		<li><a href="#tab09">관광지정보</a></li>
+											    </ul>
+										    </li>
+										    <li><a href="#tab10">선택관광 / 쇼핑안내</a>
+										    	<ul class="tabnaver">
+											 		<li><a href="#tab10">호텔정보</a></li>
+											 		<li><a href="#tab11">관광지정보</a></li>
+											    </ul>
+										    </li>
+									    </ul>
+									    <div class="tabcontent">
+									   		<div class="text-align" id="tab00">
+											    <table class="table text-align" style="border: 1px solid #dddddd">
+													<tr>
+														<th style="background-color: #eeeeee; font-size: 20px;">상품정보</th>
+													</tr>
+											    	<tr>
+														<td><p style="color: black; font-size: 20px; text-align: left;">
+															■ 항공 <br>
+															- 진에어(Jin Air) <br>
+															- 비행시간 (인천-타이베이) 약 2시간 30분<br>
+															
+															■ 호텔<br>
+															- 시외 위치한 특급 호텔<br>
+															(호텔 현재 미정, 출발 2일 전까지 확정 안내)<br>
+															
+															POINT1. 타사비교 필수 -  타이베이 일정<br>
+															대자연의 웅장함 화련 태로각협곡<br>
+															타이베이 랜드마크 101빌딩 전망대<br>
+															홍등 거리가 낭만적인 지우펀 야경<br>
+															
+															POINT2. 타이베이 여행 즐기기<br>
+															세계 4대 박물관 중 하나인 고궁박물관<br>
+															타이베이 대표 야시장 스린야시장  <br>
+															오랜 세월 해식과 풍식작용을 통해 형성된 예류 해상공원<br>
+															소원을 빌며 천등 띄우기 체험을 할 수 있는 스펀<br>
+															(천등 4인 1개 포함)<br>
+															
+															POINT3. 참좋은여행이 준비한 맛있는 식사<br>
+															1. 지우펀 야경과 함께 해열루 상요리<br>
+															2. 대만의 대표 요리 까오지 딤섬<br>
+															3. 화련에서 맛보는 현지 호텔 뷔페식<br>
+															4. 대만에서만 맛볼 수 있는 현지식<br>
+															</p>
+														</td>
+													</tr>
+											    </table>
+										    </div>
+										    <div class="text-align" id="tab01">
+											    <table class="table text-align" style="border: 1px solid #dddddd">
+													<tr>
+														<th style="background-color: #eeeeee; font-size: 20px;">1일차 일정</th>
+													</tr>
+											    	<tr>
+														<td><p style="color: black; font-size: 20px; text-align: left;">미팅시간 : 06:40 <br>
+															미팅장소 : 인천국제공항 제1터미널(T1) 3층 N카운터 14번 출입구  앞 '참좋은여행' <br>
+															연락처 : 공항서비스팀 ☎1644-0767 <br>
+															09:40 LJ081 인천국제공항 출발(약 2시간 30분 소요)</p>
+														</td>
+													</tr>
+											    </table>
+										    </div>
+										    <div class="text-align" id="tab02">
+										    	<table class="table text-align" style="border: 1px solid #dddddd">
+													<tr>
+														<th style="background-color: #eeeeee; font-size: 20px;">2일차 일정</th>
+													</tr>
+												    	<tr>
+															<td><p style="color: black; font-size: 20px; text-align: left;">호텔 조식 후 <br> 열차편으로 화련 이동 [약 2시간30분 소요]</p></td>
+														</tr>
+											    </table>
+										    </div>
+										    <div class="text-align" id="tab03">
+										    	<table class="table text-align" style="border: 1px solid #dddddd">
+													<tr>
+														<th style="background-color: #eeeeee; font-size: 20px;">3일차 일정</th>
+													</tr>
+												    	<tr>
+															<td><div style="color: black; font-size: 20px; text-align: left;">
+																	<h3>타이베이</h3>
+																	<p>호텔 조식 후<br>
+																	
+																	공항으로 이동<br>
+																	
+																	12:40 LJ082 대만 도원 국제공항 출발</p>
+																	
+																	<h3>인천</h3>
+																	<p>LJ082 진에어 출/도착 시간 12:40/16:00<br>
+																	
+																	16:00 인천 국제공항 제1터미널 (T1) 도착</p>
+																</div>
+															</td>
+														</tr>
+											    </table>
+										    </div>
+										</div>
+									</div>
+								</div> -->
+								
+								
+								<div class="col-lg-12" style="margin-bottom: 30px;">
+									<div class="tab">
+										<c:forEach items="${list}" var="list">
+											<ul class="tabnav">
+												<li class="tabnaver-li"><a href="#tab00">${list.tab_title_1}</a></li>
+												<li class="tabnaver-li"><a href="#tab01">${list.tab_title_2}</a></li>
+												<li class="tabnaver-li"><a href="#tab02">${list.tab_title_3}</a></li>
+												<li class="tabnaver-li"><a href="#tab03">${list.tab_title_4}</a></li>
+												<li class="tabnaver-li"><a href="#tab04">${list.tab_title_5}</a></li>
+												<li class="tabnaver-li"><a href="#tab05">${list.tab_title_6}</a></li>
+											</ul>
+											<div class="tabcontent">
+												<div class="text-align" id="tab00">
+													<table class="table text-align" style="border: 1px solid #dddddd">
+														<tr>
+															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_1}</th>
+														</tr>
+														<tr>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_1}</div></td>
+														</tr>
+													</table>
+												</div>
+												<div class="text-align" id="tab01">
+													<table class="table text-align"
+														style="border: 1px solid #dddddd">
+														<tr>
+															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_2}</th>
+														</tr>
+														<tr>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_2}</div></td>
+														</tr>
+													</table>
+												</div>
+												<div class="text-align" id="tab02">
+													<table class="table text-align"
+														style="border: 1px solid #dddddd">
+														<tr>
+															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_3}</th>
+														</tr>
+														<tr>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_3}</div></td>
+														</tr>
+													</table>
+												</div>
+												<div class="text-align" id="tab03">
+													<table class="table text-align"
+														style="border: 1px solid #dddddd">
+														<tr>
+															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_4}</th>
+														</tr>
+														<tr>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_4}</div></td>
+														</tr>
+													</table>
+												</div>
+												<div class="text-align" id="tab04">
+													<table class="table text-align" style="border: 1px solid #dddddd">
+														<tr>
+															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_5}</th>
+														</tr>
+														<tr>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_5}</div></td>
+														</tr>
+													</table>
+												</div>
+												<div class="text-align" id="tab05">
+													<table class="table text-align" style="border: 1px solid #dddddd">
+														<tr>
+															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_6}</th>
+														</tr>
+														<tr>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_6}</div></td>
+														</tr>
+													</table>
+												</div>
+											</div>
+										</c:forEach>
+									</div>
+								</div>
+								
+								
+								<c:if test="${view.sell_img != null}">
+									<img src="${view.sell_img}" width="500px" height="500px" style="margin: 0 auto; margin-bottom: 30px;">
+								</c:if>
+							</div>
+						</div>
+					
 						<div class="mb-4">
-							<label>판매자</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_writer}</p>
-							<br/>
-							
-							<label>목적지</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_destination}</p>
-							<br/>
-							
-							<label>제안사항</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_content}</p>
-							<br/>
-							
-							<label>인원수</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_people}</p>
-							<br/>
-							
-							<label>출발일</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-								<fmt:formatDate value="${view.sell_start}" pattern="yyyy-MM-dd" />
-							</p>
-							<br/>
-							
-							<label>도착일</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-								<fmt:formatDate value="${view.sell_end}" pattern="yyyy-MM-dd" />
-							</p> <br/>
-							
-							<label>비용</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_price}원</p>
-							<br/>
-							
-							<label>가이드 포함 여부</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_guide}</p>
-							<br/>
-							
-							<label>항공사</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.sell_air}</p>
-							<br/>
-							
-							<c:if test="${view.sell_img != null}">
-								<img src="${view.sell_img}" width="500px" height="500px">
-							</c:if>
-							
 							<!-- 로그인이 되어있고, 본인 글이 아닐경우에만 추천할 수 있도록 버튼을 출력 -->
 							<div class="text-center">
 								<c:if test="${member != null}">
@@ -369,6 +614,7 @@ input[type=number]::-webkit-outer-spin-button {
     
     <script>
 	var sell_bno = ${view.sell_bno};
+	var suggest_bno = ${view.suggest_bno};
 	var user_num = ${member.user_num};
 	var sell_people = ${view.sell_people};
 	
@@ -441,7 +687,21 @@ input[type=number]::-webkit-outer-spin-button {
 			purchase.innerText = "구매하기";
 		} 
 	}, 0);
+	</script>
 	
+	<!-- tab -->
+	<script>
+		$(function(){
+			$('.tabcontent > div').hide();
+			$('.tabnav a').click(function () {
+				$('.tabcontent > div').hide().filter(this.hash).fadeIn();
+				$('.tabnav a').removeClass('active');
+				$(this).addClass('active');
+				return false;
+			}).filter(':eq(0)').click();
+			
+			
+		});
 	</script>
 </body>
 </html>

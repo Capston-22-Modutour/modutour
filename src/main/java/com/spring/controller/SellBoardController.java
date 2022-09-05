@@ -93,8 +93,12 @@ public class SellBoardController {
 		
 		BoardDTO dto = slService.sell_view(sell_bno);
 		
-		model.addAttribute("view", dto);
+		int suggest_bno = dto.getSuggest_bno();
 		
+		int people = service.checkPeopleCount(suggest_bno);
+		
+		model.addAttribute("view", dto);
+		model.addAttribute("peopleCnt", people);
 
 		// 패키지 설계 댓글 조회
 		List<ReplyDTO> reply = null;

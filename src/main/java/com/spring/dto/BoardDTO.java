@@ -281,6 +281,7 @@ public class BoardDTO {
 	private String suggest_writer;
 	private String suggest_title;
 	private String suggest_content;
+	private int min_people;
 	private int suggest_price;
 	private String suggest_guide;
 	private String suggest_air;
@@ -320,6 +321,12 @@ public class BoardDTO {
 	}
 	public void setSuggest_content(String suggest_content) {
 		this.suggest_content = suggest_content;
+	}
+	public int getMin_people() {
+		return min_people;
+	}
+	public void setMin_people(int min_people) {
+		this.min_people = min_people;
 	}
 	public int getSuggest_price() {
 		return suggest_price;

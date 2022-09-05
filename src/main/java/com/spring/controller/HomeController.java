@@ -11,13 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.spring.dto.BoardDTO;
+import com.spring.dto.TestDTO;
 import com.spring.service.BestBoardService;
+import com.spring.service.TestService;
 
 @Controller
 public class HomeController {
 
 	@Inject
 	BestBoardService service;
+	
+	@Inject
+	TestService testService;
 	
 	// 메인 화면 '/' 입력 시 메인화면으로 이동
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -41,4 +46,27 @@ public class HomeController {
 		
 		return "index";
 	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(Locale locale, Model model) throws Exception {
+		
+		// Model = Controller와 View 연결해주는 역할
+		List<TestDTO> list = null;
+		list = testService.Testlist();
+		
+		model.addAttribute("list", list);
+		
+		return "/test";
+	}
+	
+	@RequestMapping(value = "/test/write", method = RequestMethod.POST)
+	public String postWrite(TestDTO dto) throws Exception {
+		
+		System.out.println(dto);
+
+		testService.Testwrite(dto);
+
+		return "redirect:/test";
+	}
+	
 }

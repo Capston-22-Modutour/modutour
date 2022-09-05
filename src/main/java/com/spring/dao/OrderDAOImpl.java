@@ -16,7 +16,6 @@ public class OrderDAOImpl implements OrderDAO {
 	private SqlSession sql;
 
 	private static String namespace = "com.spring.mappers.boardMapper";
-	private static String like_namespace = "com.spring.mappers.likeMapper";
 	
 	// ------------------------------------
 	// 구매
@@ -36,6 +35,12 @@ public class OrderDAOImpl implements OrderDAO {
 		return sql.selectOne(namespace + ".purchaseCheck", data);
 	}
 	
+	// 패키지 최초 인원수 확인
+	@Override
+	public int checkPeopleCount(int suggest_bno) throws Exception {
+		return sql.selectOne(namespace + ".checkPeopleCount", suggest_bno);
+	}
+	
 	// 패키지 구매 시 패키지 인원 수 감소
 	@Override
 	public void updatePeople(BoardDTO dto) throws Exception {
@@ -46,4 +51,5 @@ public class OrderDAOImpl implements OrderDAO {
 	public int packageCheck(int board_want_bno) throws Exception {
 		return sql.selectOne(namespace + ".packageCheck", board_want_bno);
 	}
+
 }

@@ -18,37 +18,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">  
 
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-     <link rel="stylesheet" href="<c:url value='../resources/lib/owlcarousel/assets/owl.carousel.min.css'/>">
+    <link rel="stylesheet" href="<c:url value='../resources/lib/owlcarousel/assets/owl.carousel.min.css'/>">
 
     <!-- Customized Bootstrap Stylesheet -->
     <link rel="stylesheet" href="<c:url value='../resources/css/style.css'/>">
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">  
-
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
-	
 	<!-- JavaScript Libraries -->
     <script src="<c:url value='https://code.jquery.com/jquery-3.4.1.min.js'/>"></script>
+    
 </head>
 <style>
 	.select_img img {
 		margin: 20px 0;
 	}
+	.number-size {
+		width: 70px;
+	}
+	
+	[contenteditable] {
+  border: solid 1px lightgreen;
+  padding: 5px;
+  border-radius: 3px;
+}
+	
+	
 </style>
 <body>
 	<%------------ header section  ------------%>
@@ -142,75 +138,185 @@
 								<input type="text" size="35" name="suggest_title" placeholder="제목을 입력해 주세요" required="required"/>
 							</h4>
 							<br/>
-								<!-- 게시글 내용 Start -->
+							<!-- 게시글 내용 Start -->
+							<div class="container">
+								<div class="row">
+									<input type="text" name="board_want_bno" value="${view.board_want_bno}" hidden="hidden">
+									<input type="text" name="board_want_writer"	value="${view.board_want_writer}" hidden="hidden"> 
+									<input type="text" name="com_regiNum" value="${company.com_regiNum}" hidden="hidden">
+									<input type="text" name="suggest_writer" value="${company.com_name}" hidden="hidden">
+									<input type="text" name="board_want_content" value="${view.board_want_content}" hidden="hidden">
+									<input type="text" value="${view.board_want_destination}" name="board_want_destination" hidden="hidden">
+									<input type="date" name="board_want_start" value="<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />"hidden="hidden">
+									<input type="date" name="board_want_end" value="<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />"hidden="hidden">
+											
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+										<h5 class="m-0 text-uppercase font-weight-normal" style="display:inline">목적지</h5>
+									</div>
+									<div class="col-lg-9" style="display: inline;">
+										<p style="font-size: 20px; color: black; display: inline;">${view.board_want_destination}</p>
+									</div>
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+										<h5 class="m-0 text-uppercase font-weight-normal" style="display: inline;">희망사항</h5>
+									</div>
+									<div class="col-lg-9" style="display: inline;">
+										<p style="font-size: 20px; color: black; display: inline;">${view.board_want_content}</p>
+									</div>
+									<div class="col-lg-3" style="bottom: 50%; display: inline; margin-bottom: 30px;">
+										<h5 class="m-0 text-uppercase font-weight-normal" style="display: inline;">제안사항</h5>
+									</div>
+									<div class="col-lg-9" style="display: inline; margin-bottom: 30px;">
+										<textarea cols="25" rows="2" name="suggest_content" style="font-size: 20px; color: black; display: inline;" required="required"></textarea>
+									</div>
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+										<h5 class="m-0 text-uppercase font-weight-normal" style="display: inline;">인원수</h5>
+									</div>
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px; border-right: 1px solid gray;">
+										<input type="number" name="board_want_people" class="number-size" style="font-size: 20px; color: black; display: inline;" min="1" required="required"><p style="display: inline; color: black;"> 명</p>
+									</div>
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+										<h5 class="m-0 text-uppercase font-weight-normal" style="display: inline;">최소 출발</h5>
+									</div>
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+										<input type="number" name="min_people" class="number-size" style="font-size: 20px; color: black; display: inline;" required="required"><p style="display: inline; color: black;"> 명</p>
+									</div>
+									<div class="col-lg-6" style="text-align: center; border-right: 1px solid gray; margin-bottom: 30px;">
+										<h5 class="m-0 text-uppercase font-weight-bold">출발일</h5> 
+										<p style="font-size: 20px; color: black; display: inline;"><fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" /></p>
+									</div>
+									<div class="col-lg-6" style="text-align: center;">
+										<h5 class="m-0 text-uppercase font-weight-bold">도착일</h5>
+										<p style="font-size: 20px; color: black;"><fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" /></p>
+									</div>
+											
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+										<h5 class="m-0 text-uppercase font-weight-normal" style="display: inline;">가격</h5>
+									</div>
+									<div class="col-lg-9" style="display: inline;">
+										<input type="number" name="suggest_price" style="font-size: 20px; color: black; display: inline;" required="required">
+									</div>
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+										<h5 class="m-0 text-uppercase font-weight-normal" style="display: inline;">가이드 포함 여부</h5>
+									</div>
+									<div class="col-lg-9" style="display: inline;">
+										<select name="suggest_guide" style="font-size: 20px; color: black; display: inline;">
+											<option>O</option>
+											<option>X</option>
+										</select>
+									</div>
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+										<h5 class="m-0 text-uppercase font-weight-normal" style="display: inline;">항공사</h5>
+									</div>
+									<div class="col-lg-9" style="display: inline;">
+										<select name="suggest_air" id="air" style="font-size: 20px; color: black; display: inline;">
+											<option>대한항공</option>
+											<option>아시아나항공</option>
+											<option>에어부산</option>
+											<option>티웨이</option>
+										</select>
+									</div>
+									
+									<!-- 여행사 tab 작성 -->
 									<div class="container">
 										<div class="row">
-											<div class="mb-4">
-												<input type="text" name="board_want_bno" value="${view.board_want_bno}" hidden="hidden">
-												<input type="text" name="board_want_writer"	value="${view.board_want_writer}" hidden="hidden"> 
-												<input type="text" name="com_regiNum" value="${company.com_regiNum}" hidden="hidden">
-												<input type="text" name="suggest_writer" value="${company.com_name}" hidden="hidden">
-												<input type="text" name="board_want_content" value="${view.board_want_content}" hidden="hidden">
-													
-												<label>목적지</label>	<br /> 
-												<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_destination}</label>
-												<input type="text" value="${view.board_want_destination}" name="board_want_destination" hidden="hidden"> <br/>
-														
-												<label>희망사항</label> <br />
-												<label style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_content}</label> <br/><br/>
-												
-												<label>제안사항</label> <br />
-												<textarea cols="35" rows="5" name="suggest_content" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8" required="required"></textarea> <br /> 
-												
-												<label>인원수</label> <br /> 
-												<input type="number" name="board_want_people" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8" required="required">
-												<br />
-															
-												<label>출발일</label> <br /> 
-												<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-													<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />
-												</p> 
-												<input type="date" name="board_want_start" value="<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />"hidden="hidden">
-												<br /> 
-															
-												<label>도착일</label> <br /> 
-												<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-													<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />
-												</p>
-												<input type="date" name="board_want_end" value="<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />"hidden="hidden">
-												<br/>
-															
-												<label>가격</label> <br /> 
-												<input type="number" name="suggest_price" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8" required="required"> <br/><br/>
-												
-												<label>가이드 포함 여부</label> <br /> 
-												<select name="suggest_guide" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-													<option>O</option>
-													<option>X</option>
-												</select> <br/><br/>
-												
-												<label>항공사</label> <br /> 
-												<select name="suggest_air" style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-													<option>대한항공</option>
-													<option>아시아나항공</option>
-													<option>에어부산</option>
-													<option>티웨이</option>
-												</select> <br/><br/>
-												
-												파일 업로드 <br/>
-												<input type="file" id="file_img" name="file" required="required"/>
-												
-												<div class="select_img"><img src=""></div>
-												
-												<div class="text-center">
-													<button type="submit" class="btn btn-warning">제안하기</button>
+											<div class="col-lg-12" style="margin-bottom: 30px;">
+												<div class="tab">
+													<c:forEach items="${list}" var="list">
+														<ul class="tabnav">
+															<li class="tabnaver-li"><a href="#tab00">${list.tab_title_1}</a></li>
+															<li class="tabnaver-li"><a href="#tab01">${list.tab_title_2}</a></li>
+															<li class="tabnaver-li"><a href="#tab02">${list.tab_title_3}</a></li>
+															<li class="tabnaver-li"><a href="#tab03">${list.tab_title_4}</a></li>
+															<li class="tabnaver-li"><a href="#tab04">${list.tab_title_5}</a></li>
+															<li class="tabnaver-li"><a href="#tab05">${list.tab_title_6}</a></li>
+														</ul>
+														<div class="tabcontent">
+															<div class="text-align" id="tab00">
+																<table class="table text-align" style="border: 1px solid #dddddd">
+																	<tr>
+																		<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_1}</th>
+																	</tr>
+																	<tr>
+																		<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_1}</div></td>
+																	</tr>
+																</table>
+															</div>
+															<div class="text-align" id="tab01">
+																<table class="table text-align"
+																	style="border: 1px solid #dddddd">
+																	<tr>
+																		<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_2}</th>
+																	</tr>
+																	<tr>
+																		<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_2}</div></td>
+																	</tr>
+																</table>
+															</div>
+															<div class="text-align" id="tab02">
+																<table class="table text-align"
+																	style="border: 1px solid #dddddd">
+																	<tr>
+																		<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_3}</th>
+																	</tr>
+																	<tr>
+																		<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_3}</div></td>
+																	</tr>
+																</table>
+															</div>
+															<div class="text-align" id="tab03">
+																<table class="table text-align"
+																	style="border: 1px solid #dddddd">
+																	<tr>
+																		<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_4}</th>
+																	</tr>
+																	<tr>
+																		<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_4}</div></td>
+																	</tr>
+																</table>
+															</div>
+															<div class="text-align" id="tab04">
+																<table class="table text-align" style="border: 1px solid #dddddd">
+																	<tr>
+																		<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_5}</th>
+																	</tr>
+																	<tr>
+																		<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_5}</div></td>
+																	</tr>
+																</table>
+															</div>
+															<div class="text-align" id="tab05">
+																<table class="table text-align" style="border: 1px solid #dddddd">
+																	<tr>
+																		<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_6}</th>
+																	</tr>
+																	<tr>
+																		<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_6}</div></td>
+																	</tr>
+																</table>
+															</div>
+														</div>
+													</c:forEach>
 												</div>
 											</div>
 										</div>
 									</div>
-								</form>
-								<!-- 게시글 내용 end -->
-						</div>
+									
+									<div class="col-lg-12" style="margin-bottom: 30px; border-bottom: 1px solid rgb(132, 216, 255);">
+										<h5>파일 업로드</h5>
+										<input type="file" id="file_img" name="file" required="required"/>
+													
+										<div class="select_img"><img src=""></div>
+									</div>
+									<div class="col-lg-12">
+										<div class="text-center">
+											<button type="submit" class="btn btn-warning">응찰하기</button>
+										</div>
+									</div>
+								</div>
+							</div>
+					</form>
+					<!-- 게시글 내용 end -->
+					</div>
 					</div>
 				</div>
 				<!-- 여행사 제안 end -->
@@ -354,5 +460,54 @@ $("#file_img").change(function(){
 		reader.readAsDataURL(this.files[0]);
 	}
 });
+
 </script>
+
+	<!-- tab -->
+	<script>
+		var button='<button class="close" type="button" title="Remove this page">×</button>';
+		var tabID = 1;
+		function resetTab(){
+			var tabs=$("#tab-list li:not(:first)");
+			var len=1
+			$(tabs).each(function(k,v){
+				len++;
+				$(this).find('a').html('Tab ' + len + button);
+			})
+			tabID--;
+		}
+	
+		$(document).ready(function() {
+		    $('#btn-add-tab').click(function() {
+		        tabID++;
+		        $('#tab-list').append($('<li><a href="#tab' + tabID + '" role="tab" data-toggle="tab"><span>Tab ' + tabID + '</span> <span class="fa fa-pencil fa-fw text-muted edit"></span> <button class="close" type="button" title="Remove this page">×</button></a></li>'));
+		        $('#tab-content').append($('<div class="tab-pane fade" id="tab' + tabID + '">Tab ' + tabID + ' content</div>'));
+		        $(".edit").click(editHandler);
+		    });
+		    
+		    $('#tab-list').on('click', '.close', function() {
+		        var tabID = $(this).parents('a').attr('href');
+		        $(this).parents('li').remove();
+		        $(tabID).remove();
+	
+		        //display first tab
+		        var tabFirst = $('#tab-list a:first');
+		        resetTab();
+		        tabFirst.tab('show');
+		    });
+	
+		    var list = document.getElementById("tab-list");
+		});
+	
+		var editHandler = function() {
+		  var t = $(this);
+		  t.css("visibility", "hidden");
+		  $(this).prev().attr("contenteditable", "true").focusout(function() {
+		    $(this).removeAttr("contenteditable").off("focusout");
+		    t.css("visibility", "visible");
+		  });
+		};
+	
+		$(".edit").click(editHandler);
+	</script>
 </html>

@@ -63,7 +63,7 @@ table {
 	width: 400px;
 	height: 500px;
 	overflow-y: auto;
-	background: var(- -light);
+	background: var(--light);
 	transition: 0.5s;
 	z-index: 999;
 }
@@ -93,7 +93,7 @@ table {
 	padding: 7px 10px;
 	color: var(- -dark);
 	font-weight: 500;
-	border-left: 3px solid var(- -light);
+	border-left: 3px solid var(--light);
 	border-radius: 0 30px 30px 0;
 	outline: none;
 }
@@ -102,7 +102,7 @@ table {
 	{
 	color: var(- -primary);
 	background: #FFFFFF;
-	border-color: var(- -primary);
+	border-color: var(--primary);
 }
 
 .sidebar .navbar .navbar-nav .nav-link i {
@@ -117,7 +117,7 @@ table {
 
 .sidebar .navbar .navbar-nav .nav-link:hover i, .sidebar .navbar .navbar-nav .nav-link.active i
 	{
-	background: var(- -light);
+	background: var(--light);
 }
 
 .sidebar .navbar .dropdown-toggle::after {
@@ -150,28 +150,27 @@ table {
 		<div class="container-fluid mt-5 pt-3">
 			<div class="container">
 				<div class="row">
-
 					<!-- 좌측 사이드바 start -->
 					<div class="col-lg-2 sidebar pe-4 pb-3">
 						<aside class="single_sidebar_widget post_category_widget">
 							<nav class="navbar bg-light navbar-light">
 								<div class="navbar-nav w-100">
-
 									<div class="nav-item dropdown">
-										<a href="/order" class="dropdown-item"><i
-											class="far fa-file-alt me-2"></i>&nbsp; 주문</a>
+										<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>회원정보</a>
+										<div class="dropdown-menu bg-transparent border-0">
+											<a href="/member/modify_company" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 정보수정</a>
+											<a href="/member/delete_company" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 회원탈퇴</a>	
+										</div>
 									</div>
 									<div class="nav-item dropdown">
-										<a href="/sale_list" class="dropdown-item"><i
-											class="far fa-file-alt me-2"></i>&nbsp; 판매 입찰 목록</a>
-									</div>
-									<div class="nav-item dropdown">
-										<a href="/package_offer_list" class="dropdown-item"><i
-											class="far fa-file-alt me-2"></i>&nbsp; 패키지 제안 목록</a>
-									</div>
-									<div class="nav-item dropdown">
-										<a href="/member/delete_company" class="dropdown-item"><i
-											class="far fa-file-alt me-2"></i>&nbsp; 회원탈퇴</a>
+										<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>내게시글</a>
+										<div class="dropdown-menu bg-transparent border-0">
+											<a href="/sale_list" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 판매 입찰 목록</a>	
+											<a href="/package_offer_list" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 패키지 제안 목록</a>	
+										</div>
+										<div class="nav-item dropdown">
+											<a href="/order" class="dropdown-item"><i class="far fa-file-alt me-2"></i>&nbsp; 주문내역</a>
+										</div>
 									</div>
 								</div>
 							</nav>
