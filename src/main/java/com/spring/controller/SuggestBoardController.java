@@ -19,9 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.spring.dto.BoardDTO;
 import com.spring.dto.Page;
 import com.spring.dto.ReplyDTO;
+import com.spring.dto.TabDTO;
 import com.spring.service.OrderService;
 import com.spring.service.ReplyService;
 import com.spring.service.SuggestBoardService;
+import com.spring.service.TabService;
 import com.spring.utils.UploadFileUtils;
 
 @Controller
@@ -33,9 +35,12 @@ public class SuggestBoardController {
 	
 	@Inject
 	SuggestBoardService sbService;
-
+	
 	@Inject
 	private ReplyService replyService;
+	
+	@Inject
+	TabService tabService;
 	
 	@Resource(name="uploadPath")
     private String uploadPath;
@@ -63,8 +68,9 @@ public class SuggestBoardController {
 
 	// 패키지 제안 게시글 작성 post
 	@RequestMapping(value = "/suggest_write", method = RequestMethod.POST)
-	public String postSuggestWrite(HttpServletRequest request, BoardDTO dto, MultipartFile file) throws Exception {
+	public String postSuggestWrite(HttpServletRequest request, BoardDTO dto, TabDTO tabDto, MultipartFile file) throws Exception {
 		
+		// 이미지 업로드
 		String imgUploadPath = uploadPath + File.separator + "upload";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String file_name = null;
@@ -78,7 +84,15 @@ public class SuggestBoardController {
 		dto.setSuggest_img(File.separator + "upload" + ymdPath + File.separator + file_name);
 		dto.setSuggest_thumbnail(File.separator + "upload" + ymdPath + File.separator + "s" + File.separator + "s_" + file_name);
 		
+		//제안 게시글 추가
 		sbService.suggest_write(dto);
+		
+		//suggest_bno변수에 suggest_board 테이블에서 suggest_bno값을 가져와 삽입
+		int suggest_bno = tabService.TabInquireSuggestBno();
+		tabDto.setSuggest_bno(suggest_bno);
+		
+		//tab 추가
+		tabService.Tabwrite(tabDto);
 		
 		return "redirect:/suggest_board/suggest_listPageSearch?num=1";
 	}
@@ -101,7 +115,12 @@ public class SuggestBoardController {
 			model.addAttribute("bid", 1);
 		}
 		
+		//suggest 게시판 번화와 일치하는 tab 불러오기
+		List<TabDTO> list = null;
+		list = tabService.Tablist(suggest_bno);
+		
 		model.addAttribute("view", dto);
+		model.addAttribute("list", list);
 		
 		// 패키지 설계 댓글 조회
 		List<ReplyDTO> reply = null; reply = replyService.suggest_list(suggest_bno);

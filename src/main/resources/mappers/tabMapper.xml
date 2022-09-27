@@ -2,22 +2,29 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.spring.mappers.testMapper">
+<mapper namespace="com.spring.mappers.tabMapper">
 
+	<!-- tab 작성 전 최근 작성된 suggest_bno 조회 -->
+	<select id="TabInquireSuggestBno" resultType="int">
+		select suggest_bno
+		from suggest_board
+		order by suggest_bno desc LIMIT 0,1
+	</select>
+	
 	<!-- 여행사 작성 tab 목록 -->
-	<select id="Testlist" resultType="com.spring.dto.TestDTO">
+	<select id="Tablist" resultType="com.spring.dto.TabDTO">
 		select *
 		from sell_info
-		where suggest_bno = 3
+		where suggest_bno = #{suggest_bno}
 	</select>
 	
 	<!-- 여행사 tab 작성 -->
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
-	<insert id="Testwrite" parameterType="com.spring.dto.TestDTO">
+	<insert id="Tabwrite" parameterType="com.spring.dto.TabDTO">
 		insert into sell_info(suggest_bno, tab_title_1, tab_content_1, tab_title_2, tab_content_2, 
 							tab_title_3, tab_content_3, tab_title_4, tab_content_4, 
 							tab_title_5, tab_content_5, tab_title_6, tab_content_6)
-					values(3, #{tab_title_1}, #{tab_content_1}, #{tab_title_2}, #{tab_content_2}, 
+					values(#{suggest_bno}, #{tab_title_1}, #{tab_content_1}, #{tab_title_2}, #{tab_content_2}, 
 							#{tab_title_3}, #{tab_content_3}, #{tab_title_4}, #{tab_content_4},
 							#{tab_title_5}, #{tab_content_5}, #{tab_title_6}, #{tab_content_6})
 	</insert>

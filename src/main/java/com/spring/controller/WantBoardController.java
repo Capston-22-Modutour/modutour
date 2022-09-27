@@ -20,6 +20,7 @@ import com.spring.dto.BoardDTO;
 import com.spring.dto.Page;
 import com.spring.dto.ReplyDTO;
 import com.spring.service.ReplyService;
+import com.spring.service.TabService;
 import com.spring.service.WantBoardService;
 import com.spring.utils.UploadFileUtils;
 
@@ -30,6 +31,10 @@ public class WantBoardController {
 	@Inject
 	WantBoardService service;
 
+	@Inject
+	TabService tabService;
+	
+	
 	@Inject
 	private ReplyService replyService;
 	
@@ -61,10 +66,12 @@ public class WantBoardController {
 	@RequestMapping(value = "/want_write", method = RequestMethod.POST)
 	public String postWantWrite(HttpServletRequest request, BoardDTO dto, MultipartFile file) throws Exception {
 		
+		//이미지 업로드
 		String imgUploadPath = uploadPath + File.separator + "upload";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String file_name = null;
 		System.out.println(imgUploadPath);
+		
 		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 		 file_name =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
 		} else {
@@ -86,16 +93,17 @@ public class WantBoardController {
 
 	// 패키지 설계 게시글 조회
 	@RequestMapping(value = "/want_view", method = RequestMethod.GET)
-	public void getWantView(@RequestParam("board_want_bno") int board_want_bno, Model model) throws Exception {
+	public void getWantView(@RequestParam("board_want_bno") int board_want_bno, BoardDTO boardDTO, Model model) throws Exception {
 		
 		BoardDTO dto = service.want_view(board_want_bno);
 		
 		model.addAttribute("view", dto);
-
+		
 		// 패키지 설계 댓글 조회
 		List<ReplyDTO> reply = null;
 		reply = replyService.want_list(board_want_bno);
 		model.addAttribute("reply", reply);
+		
 	}
 
 	// 패키지 설계 게시글 수정

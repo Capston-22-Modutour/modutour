@@ -152,8 +152,49 @@
 								<div class="mb-4">
 									<input type="text" name="board_want_writer" value="${member.user_name}" hidden="hidden">
 										
+										<div class="container">
+							<div class="row" style="text-align: center;">
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">목적지</h5>
+								</div>
+								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<input type="text" style="font-size: 20px; color: black; display: inline;" name="board_want_destination" placeholder="목적지를 입력해 주세요" required="required">
+								</div>
+								
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">희망사항</h5>
+								</div>
+								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
+									<textarea cols="60" rows="5" style="font-size: 20px; color: black; display: inline;" name="board_want_content"></textarea>
+								</div>
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px; border-right: 1px solid gray;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">인원수</h5>
+								</div>
+								<div class="col-lg-9" style="display: inline; margin-bottom: 30px;">
+									<input type="number" style="font-size: 20px; color: black; display: inline;" name="board_want_people" class="number-size" style="font-size: 20px; color: black; display: inline;" min="1" required="required"><p style="display: inline; color: black;"> 명
+								</div>
+								<div class="col-lg-6" style="border-right: 1px solid gray; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold">출발일</h5> <br/>
+									<input type="text" style="font-size: 20px; color: black; display: inline;" name="board_want_start" id="datepicker" required="required">
+								</div>
+								<div class="col-lg-6" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold">도착일</h5> <br/>
+									<input type="text" style="font-size: 20px; color: black; display: inline;" name="board_want_end" id="datepicker2" required="required">
+								</div>
+								
+								<div class="col-lg-3" style="margin-bottom: 30px; border-bottom: 1px solid rgb(132, 216, 255);">
+									<h5 class="m-0 text-uppercase font-weight-bold">파일 업로드</h5>
+								</div>	
+								<div class="col-lg-9" style="display: inline; margin-bottom: 30px;">
+									<input type="file" id="board_want_img" name="file" required="required"/>
+								</div>
+								<div class="col-lg-12" style="display: inline; margin-bottom: 30px;">
+									<div class="select_img"><img src=""></div>
+								</div>
+							</div>
+						</div>
 									
-									<div class="container">
+									<!-- <div class="container">
 										<div class="row" style="margin:0 auto; padding: 10px;">
 											<div class="col-lg-12">
 												<h6 class="m-0 text-uppercase font-weight-bold">목적지</h6>
@@ -193,7 +234,7 @@
 												<div class="select_img"><img src=""></div>
 											</div>
 								    	</div>
-								    </div>
+								    </div> -->
 								    
 								    <!-- datepicker script -->
 								    <script>
@@ -270,6 +311,8 @@
 				</div>
 			</div>
 		</form>
+		
+						
 		<!-- 게시글 내용 end -->
 	</c:if>
 	

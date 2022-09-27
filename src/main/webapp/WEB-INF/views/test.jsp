@@ -117,7 +117,7 @@ body {
 					<form class="form" role="form" method="post" autocomplete="off"
 						action="/test/write">
 						<p>
-							<button id="btn-add-tab" type="button" class="btn btn-primary pull-right">Add Tab</button>
+							<button id="btn-add-tab" type="button" class="btn btn-primary pull-right">탭 추가</button>
 						</p>
 						<!-- Nav tabs -->
 						<ul id="tab-list" class="nav nav-tabs" role="tablist">
@@ -236,6 +236,8 @@ body {
 			</div>
 		</div>
 	</div>
+	
+	
 
 	<!-- JavaScript Libraries -->
 	<script

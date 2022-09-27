@@ -56,6 +56,63 @@
         border-radius: 10px;
     }
     
+/*tab css*/
+.tab {
+
+	text-align:left;
+	height: 100%;
+}
+
+.tabnav {
+	font-size: 0;
+	border: 1px solid #ddd;
+}
+
+.tabnav li {
+	display: inline-block;
+	height: 100%;
+}
+
+.tabnav li a:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0px;
+	width: 100%;
+	height: 3px;
+}
+
+.tabnav li a.active:before {
+	background: rgb(95, 204, 255, 0.8);
+}
+
+.tabnav li a.active {
+	border-bottom: 1px solid #fff;
+}
+
+.tabnav li a {
+	position: relative;
+	display: block;
+	background: #f8f8f8;
+	color: #000;
+	padding: 0 30px;
+	line-height: 46px;
+	text-decoration: none;
+	font-size: 16px;
+}
+
+.tabnav li a:hover, .tabnav li a.active {
+	background: #fff;
+	color: rgb(95, 204, 255, 0.8);
+	font-weight: 800;
+}
+
+.tabcontent {
+	text-align:center;
+	padding: 20px;
+	border: 1px solid #ddd;
+	border-top: none;
+}
 </style>
 <body>
 	<%------------ header section  ------------%>
@@ -142,7 +199,7 @@
 									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">비용</h5>
 								</div>
 								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
-									<p style="font-size: 20px; color: black; display: inline;">${view.suggest_price} 원</p>
+									<p style="font-size: 20px; color: black; display: inline;"><fmt:formatNumber type="number" pattern="###,###,###" value="${view.suggest_price}"/> 원</p>
 								</div>
 								
 								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
@@ -158,6 +215,87 @@
 								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
 									<p style="font-size: 20px; color: black; display: inline;">${view.suggest_air}</p>
 								</div>
+								
+								<div class="col-lg-12" style="margin-bottom: 30px;">
+									<div class="tab">
+										<c:forEach items="${list}" var="list">
+											<ul class="tabnav">
+												<li class="tabnaver-li"><a href="#tab00">${list.tab_title_1}</a></li>
+												<li class="tabnaver-li"><a href="#tab01">${list.tab_title_2}</a></li>
+												<li class="tabnaver-li"><a href="#tab02">${list.tab_title_3}</a></li>
+												<li class="tabnaver-li"><a href="#tab03">${list.tab_title_4}</a></li>
+												<li class="tabnaver-li"><a href="#tab04">${list.tab_title_5}</a></li>
+												<li class="tabnaver-li"><a href="#tab05">${list.tab_title_6}</a></li>
+											</ul>
+											<div class="tabcontent">
+												<div class="text-align" id="tab00">
+													<table class="table text-align" style="border: 1px solid #dddddd">
+														<tr>
+															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_1}</th>
+														</tr>
+														<tr>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_1}</div></td>
+														</tr>
+													</table>
+												</div>
+												<div class="text-align" id="tab01">
+													<table class="table text-align"
+														style="border: 1px solid #dddddd">
+														<tr>
+															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_2}</th>
+														</tr>
+														<tr>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_2}</div></td>
+														</tr>
+													</table>
+												</div>
+												<div class="text-align" id="tab02">
+													<table class="table text-align"
+														style="border: 1px solid #dddddd">
+														<tr>
+															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_3}</th>
+														</tr>
+														<tr>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_3}</div></td>
+														</tr>
+													</table>
+												</div>
+												<div class="text-align" id="tab03">
+													<table class="table text-align"
+														style="border: 1px solid #dddddd">
+														<tr>
+															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_4}</th>
+														</tr>
+														<tr>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_4}</div></td>
+														</tr>
+													</table>
+												</div>
+												<div class="text-align" id="tab04">
+													<table class="table text-align" style="border: 1px solid #dddddd">
+														<tr>
+															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_5}</th>
+														</tr>
+														<tr>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_5}</div></td>
+														</tr>
+													</table>
+												</div>
+												<div class="text-align" id="tab05">
+													<table class="table text-align" style="border: 1px solid #dddddd">
+														<tr>
+															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_6}</th>
+														</tr>
+														<tr>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_6}</div></td>
+														</tr>
+													</table>
+												</div>
+											</div>
+										</c:forEach>
+									</div>
+								</div>
+								
 								
 								<img src="${view.suggest_img}"  width="500px" height="500px" style="margin: 0 auto; margin-bottom: 30px;"/>	
 							</div>
@@ -336,4 +474,17 @@
  		
     </script>
 </body>
+<!-- tab -->
+<script>
+$(function() {
+	$('.tabcontent > div').hide();
+	$('.tabnav a').click(function() {
+		$('.tabcontent > div').hide().filter(this.hash).fadeIn();
+		$('.tabnav a').removeClass('active');
+		$(this).addClass('active');
+		return false;
+	}).filter(':eq(0)').click();
+
+});
+</script>
 </html>

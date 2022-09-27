@@ -1,6 +1,6 @@
 package com.spring.dto;
 
-public class TestDTO {
+public class TabDTO {
 	private int suggest_bno;
 	private String tab_title_1;
 	private String tab_content_1;

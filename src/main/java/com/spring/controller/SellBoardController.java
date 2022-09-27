@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.dto.BoardDTO;
 import com.spring.dto.Page;
 import com.spring.dto.ReplyDTO;
+import com.spring.dto.TabDTO;
 import com.spring.service.OrderService;
 import com.spring.service.ReplyService;
 import com.spring.service.SellBoardService;
+import com.spring.service.TabService;
 
 @Controller
 @RequestMapping("/sell_board/*")
@@ -29,6 +31,9 @@ public class SellBoardController {
 	
 	@Inject
 	SellBoardService slService;
+	
+	@Inject
+	TabService tabService;
 
 	@Inject
 	private ReplyService replyService;
@@ -95,10 +100,15 @@ public class SellBoardController {
 		
 		int suggest_bno = dto.getSuggest_bno();
 		
+		//suggest 게시판 번화와 일치하는 tab 불러오기
+		List<TabDTO> list = null;
+		list = tabService.Tablist(suggest_bno);
+		
 		int people = service.checkPeopleCount(suggest_bno);
 		
 		model.addAttribute("view", dto);
 		model.addAttribute("peopleCnt", people);
+		model.addAttribute("list", list);
 
 		// 패키지 설계 댓글 조회
 		List<ReplyDTO> reply = null;

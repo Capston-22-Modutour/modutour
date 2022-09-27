@@ -76,52 +76,62 @@
 						</c:if>
 					</div>
 					<div class="bg-white border border-top-0 p-4 mb-3">
-						<div class="mb-4">
-							<label>목적지</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_destination}</p>
-							<br/>
-							
-							<label>희망사항</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_content}</p>
-							<br/>
-							
-							<label>인원수</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">${view.board_want_people}</p>
-							<br/>
-							
-							<label>출발일</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-								<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />
-							</p>
-							<br/>
-							
-							<label>도착일</label>
-							<p style="color: black;" class="m-0 text-uppercase font-weight-bold px-8">
-								<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />
-							</p>
-							<br/>
-							
+					
+						<div class="container">
+							<div class="row">
+						
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">목적지</h5>
+								</div>
+								<div class="col-lg-9" style="display: inline;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.board_want_destination}</p>
+								</div>
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">희망사항</h5>
+								</div>
+								<div class="col-lg-9" style="display: inline;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.board_want_content}</p>
+								</div>
+								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">인원수</h5>
+								</div>
+								<div class="col-lg-9" style="display: inline; margin-bottom: 30px;">
+									<p style="font-size: 20px; color: black; display: inline;">${view.board_want_people} 명</p>
+								</div>
+								<div class="col-lg-6" style="text-align: center; border-right: 1px solid gray; margin-bottom: 30px;">
+									<h5 class="m-0 text-uppercase font-weight-bold">출발일</h5> 
+									<p style="font-size: 20px; color: black; display: inline;"><fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" /></p>
+								</div>
+								<div class="col-lg-6" style="text-align: center;">
+									<h5 class="m-0 text-uppercase font-weight-bold">도착일</h5>
+									<p style="font-size: 20px; color: black;"><fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" /></p>
+								</div>
+								
+							</div>
+						</div>
+						
+						<div style="margin-bottom: 30px;">
 							<c:if test="${view.board_want_img != null}">
-								<img src="${view.board_want_img}" width="500px" height="500px"/> <br/>
+								<img src="${view.board_want_img}" width="500px" height="500px"/> <br><br>
 								첨부파일 : <a href="/fileDownload.do?file_name=${view.board_want_img}">${view.board_want_img}</a>
 							</c:if>
-							
-							<!-- 로그인이 되어있고, 본인 글이 아닐경우에만 추천할 수 있도록 버튼을 출력 -->
-							<div class="text-center">
-								<c:if test="${member.user_id != null and member.user_name != dto.user_name}">
-									<div style="margin-right: 1px;">
-										<button type="button" class="btn btn-warning" id="like_btn" onclick="want_updateLike(); return false;">추천 ${view.board_want_like}</button>
-									</div>
-								</c:if>
-								
-								<c:if test="${company != null}">
-									<div style="margin-right: 1px;">
-										<button type="button" class="btn btn-warning" id="like_btn" onclick="want_updateLike(); return false;">추천 ${view.board_want_like}</button>
-									</div>
-								</c:if>
-							</div>
-							
 						</div>
+						
+						<!-- 로그인이 되어있고, 본인 글이 아닐경우에만 추천할 수 있도록 버튼을 출력 -->
+						<div class="text-center">
+							<c:if test="${member.user_id != null and member.user_name != dto.user_name}">
+								<div style="margin-right: 1px;">
+									<button type="button" class="btn btn-warning" id="like_btn" onclick="want_updateLike(); return false;">추천 ${view.board_want_like}</button>
+								</div>
+							</c:if>
+							
+							<c:if test="${company != null}">
+								<div style="margin-right: 1px;">
+									<button type="button" class="btn btn-warning" id="like_btn" onclick="want_updateLike(); return false;">추천 ${view.board_want_like}</button>
+								</div>
+							</c:if>
+						</div>
+							
 					</div>
 				</div>
 				
@@ -151,31 +161,31 @@
 									<input type="date" name="board_want_end" value="<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />"hidden="hidden">
 											
 									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-normal" style="display:inline">목적지</h5>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">목적지</h5>
 									</div>
 									<div class="col-lg-9" style="display: inline;">
 										<p style="font-size: 20px; color: black; display: inline;">${view.board_want_destination}</p>
 									</div>
 									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-normal" style="display: inline;">희망사항</h5>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">희망사항</h5>
 									</div>
 									<div class="col-lg-9" style="display: inline;">
 										<p style="font-size: 20px; color: black; display: inline;">${view.board_want_content}</p>
 									</div>
 									<div class="col-lg-3" style="bottom: 50%; display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-normal" style="display: inline;">제안사항</h5>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">제안사항</h5>
 									</div>
 									<div class="col-lg-9" style="display: inline; margin-bottom: 30px;">
 										<textarea cols="25" rows="2" name="suggest_content" style="font-size: 20px; color: black; display: inline;" required="required"></textarea>
 									</div>
 									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-normal" style="display: inline;">인원수</h5>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">인원수</h5>
 									</div>
 									<div class="col-lg-3" style="display: inline; margin-bottom: 30px; border-right: 1px solid gray;">
 										<input type="number" name="board_want_people" class="number-size" style="font-size: 20px; color: black; display: inline;" min="1" required="required"><p style="display: inline; color: black;"> 명</p>
 									</div>
 									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-normal" style="display: inline;">최소 출발</h5>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">최소 출발</h5>
 									</div>
 									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
 										<input type="number" name="min_people" class="number-size" style="font-size: 20px; color: black; display: inline;" required="required"><p style="display: inline; color: black;"> 명</p>
@@ -190,13 +200,13 @@
 									</div>
 											
 									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-normal" style="display: inline;">가격</h5>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">가격</h5>
 									</div>
 									<div class="col-lg-9" style="display: inline;">
 										<input type="number" name="suggest_price" style="font-size: 20px; color: black; display: inline;" required="required">
 									</div>
 									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-normal" style="display: inline;">가이드 포함 여부</h5>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">가이드 포함 여부</h5>
 									</div>
 									<div class="col-lg-9" style="display: inline;">
 										<select name="suggest_guide" style="font-size: 20px; color: black; display: inline;">
@@ -205,7 +215,7 @@
 										</select>
 									</div>
 									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-normal" style="display: inline;">항공사</h5>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">항공사</h5>
 									</div>
 									<div class="col-lg-9" style="display: inline;">
 										<select name="suggest_air" id="air" style="font-size: 20px; color: black; display: inline;">
@@ -216,93 +226,34 @@
 										</select>
 									</div>
 									
-									<!-- 여행사 tab 작성 -->
-									<div class="container">
-										<div class="row">
-											<div class="col-lg-12" style="margin-bottom: 30px;">
-												<div class="tab">
-													<c:forEach items="${list}" var="list">
-														<ul class="tabnav">
-															<li class="tabnaver-li"><a href="#tab00">${list.tab_title_1}</a></li>
-															<li class="tabnaver-li"><a href="#tab01">${list.tab_title_2}</a></li>
-															<li class="tabnaver-li"><a href="#tab02">${list.tab_title_3}</a></li>
-															<li class="tabnaver-li"><a href="#tab03">${list.tab_title_4}</a></li>
-															<li class="tabnaver-li"><a href="#tab04">${list.tab_title_5}</a></li>
-															<li class="tabnaver-li"><a href="#tab05">${list.tab_title_6}</a></li>
-														</ul>
-														<div class="tabcontent">
-															<div class="text-align" id="tab00">
-																<table class="table text-align" style="border: 1px solid #dddddd">
-																	<tr>
-																		<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_1}</th>
-																	</tr>
-																	<tr>
-																		<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_1}</div></td>
-																	</tr>
-																</table>
-															</div>
-															<div class="text-align" id="tab01">
-																<table class="table text-align"
-																	style="border: 1px solid #dddddd">
-																	<tr>
-																		<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_2}</th>
-																	</tr>
-																	<tr>
-																		<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_2}</div></td>
-																	</tr>
-																</table>
-															</div>
-															<div class="text-align" id="tab02">
-																<table class="table text-align"
-																	style="border: 1px solid #dddddd">
-																	<tr>
-																		<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_3}</th>
-																	</tr>
-																	<tr>
-																		<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_3}</div></td>
-																	</tr>
-																</table>
-															</div>
-															<div class="text-align" id="tab03">
-																<table class="table text-align"
-																	style="border: 1px solid #dddddd">
-																	<tr>
-																		<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_4}</th>
-																	</tr>
-																	<tr>
-																		<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_4}</div></td>
-																	</tr>
-																</table>
-															</div>
-															<div class="text-align" id="tab04">
-																<table class="table text-align" style="border: 1px solid #dddddd">
-																	<tr>
-																		<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_5}</th>
-																	</tr>
-																	<tr>
-																		<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_5}</div></td>
-																	</tr>
-																</table>
-															</div>
-															<div class="text-align" id="tab05">
-																<table class="table text-align" style="border: 1px solid #dddddd">
-																	<tr>
-																		<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_6}</th>
-																	</tr>
-																	<tr>
-																		<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_6}</div></td>
-																	</tr>
-																</table>
-															</div>
-														</div>
-													</c:forEach>
-												</div>
+									
+									<div class="col-lg-12" style="margin-bottom: 10px;">
+										<!-- tab title 생성 버튼 -->
+										<p>
+											<button id="btn-add-tab" type="button" class="btn btn-primary pull-right">탭 추가</button> 탭은 최대 6개 까지 생성가능합니다
+										</p>
+										<!-- tab title box -->
+										<ul id="tab-list" class="nav nav-tabs" role="tablist">
+											<li class="active"><a href="#tab1" role="tab" data-toggle="tab"> 
+												<!-- <span>Tab 1 </span> <span class="fa fa-pencil fa-fw text-muted edit"></span> --> 
+												<input type="text" class="text-size" name="tab_title_1" size="10" id="tab" placeholder="tab1">
+											</a></li>
+										</ul>
+									</div>
+									
+									<div class="col-lg-12" style="margin-bottom: 30px;">
+										<!-- tab content -->
+										<div id="tab-content" class="tab-content">
+											<!-- <div class="tab-pane fade in active" id="tab1">Tab 1 content</div> -->
+											<div class="tab-pane fade in active" id="tab1">
+												<textarea rows="10" cols="54" name="tab_content_1"
+													placeholder="tab1 내용을 입력해주세요"></textarea>
 											</div>
 										</div>
 									</div>
 									
 									<div class="col-lg-12" style="margin-bottom: 30px; border-bottom: 1px solid rgb(132, 216, 255);">
-										<h5>파일 업로드</h5>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">파일 업로드</h5> <br>
 										<input type="file" id="file_img" name="file" required="required"/>
 													
 										<div class="select_img"><img src=""></div>
@@ -463,51 +414,73 @@ $("#file_img").change(function(){
 
 </script>
 
-	<!-- tab -->
-	<script>
-		var button='<button class="close" type="button" title="Remove this page">×</button>';
-		var tabID = 1;
-		function resetTab(){
-			var tabs=$("#tab-list li:not(:first)");
-			var len=1
-			$(tabs).each(function(k,v){
-				len++;
-				$(this).find('a').html('Tab ' + len + button);
-			})
-			tabID--;
-		}
+<!-- tab 관련 스크립트 tab 최대 생성수 6개 까지 -->	
+<script>
+var button = '<button class="close" type="button" title="Remove this page">×</button>';
+var tabID = 1;
+var i = $('#tab').length;
 	
-		$(document).ready(function() {
-		    $('#btn-add-tab').click(function() {
-		        tabID++;
-		        $('#tab-list').append($('<li><a href="#tab' + tabID + '" role="tab" data-toggle="tab"><span>Tab ' + tabID + '</span> <span class="fa fa-pencil fa-fw text-muted edit"></span> <button class="close" type="button" title="Remove this page">×</button></a></li>'));
-		        $('#tab-content').append($('<div class="tab-pane fade" id="tab' + tabID + '">Tab ' + tabID + ' content</div>'));
-		        $(".edit").click(editHandler);
-		    });
-		    
-		    $('#tab-list').on('click', '.close', function() {
-		        var tabID = $(this).parents('a').attr('href');
-		        $(this).parents('li').remove();
-		        $(tabID).remove();
-	
-		        //display first tab
-		        var tabFirst = $('#tab-list a:first');
-		        resetTab();
-		        tabFirst.tab('show');
-		    });
-	
-		    var list = document.getElementById("tab-list");
+function resetTab() {
+	var tabs = $("#tab-list li:not(:first)");
+	var len = 1
+	$(tabs).each(function(k, v) {
+		len++;
+		$(this).find('a').html('Tab ' + len + button);
+	})
+	tabID--;
+}
+
+$(document).ready(function() {
+		$('#btn-add-tab').click(function() {
+			++tabID;
+			i++;
+			/* $('#tab-list').append($('<li><a href="#tab' + tabID + '" role="tab" data-toggle="tab"><span>Tab ' + tabID + '</span> <span class="fa fa-pencil fa-fw text-muted edit"></span> <button class="close" type="button" title="Remove this page">×</button></a></li>')); */
+			$('#tab-list').append($('<li><a href="#tab' + tabID + '" role="tab" data-toggle="tab"><input type="text" name="tab_title_'+tabID+'" size="10" id="tab" placeholder="tab'+tabID+'"> <button class="close" type="button" title="Remove this page">×</button></a></li>'));
+				
+			/* $('#tab-content').append($('<div class="tab-pane fade" id="tab' + tabID + '">Tab ' + tabID + ' content</div>')); */
+			$('#tab-content').append($('<div class="tab-pane fade" id="tab' + tabID + '"> ' + ' <textarea rows="10" cols="54" name="tab_content_'+tabID+'" placeholder="tab'+tabID+' 내용을 입력해주세요"></textarea></div>'));
+			$(".edit").click(editHandler);
+				
+			if(i > 5) {
+				alert("tab은 6개 까지만 생성 가능합니다.");
+				$('#btn-add-tab').attr("disabled",true);
+			} else if (i <= 5){
+				$('#btn-add-tab').removeAttr("disabled");
+			}
 		});
-	
-		var editHandler = function() {
-		  var t = $(this);
-		  t.css("visibility", "hidden");
-		  $(this).prev().attr("contenteditable", "true").focusout(function() {
-		    $(this).removeAttr("contenteditable").off("focusout");
-		    t.css("visibility", "visible");
-		  });
-		};
-	
-		$(".edit").click(editHandler);
-	</script>
+			
+		$('#tab-list').on('click', '.close', function() {
+			i--;
+			var tabID = $(this).parents('a').attr('href');
+			$(this).parents('li').remove();
+			$(tabID).remove();
+
+			if(i > 5) {
+				alert("tab은 6개 까지만 생성 가능합니다.");
+				$('#btn-add-tab').attr("disabled",true);
+			} else if (i <= 5){
+				$('#btn-add-tab').removeAttr("disabled");
+			}
+			//display first tab
+			/* var tabFirst = $('#tab-list a:first');
+			resetTab();
+			tabFirst.tab('show'); */
+		});
+			
+			
+
+		var list = document.getElementById("tab-list");
+	});
+
+var editHandler = function() {
+	var t = $(this);
+	t.css("visibility", "hidden");
+	$(this).prev().attr("contenteditable", "true").focusout(function() {
+		$(this).removeAttr("contenteditable").off("focusout");
+		t.css("visibility", "visible");
+	});
+};
+
+$(".edit").click(editHandler);
+</script>
 </html>

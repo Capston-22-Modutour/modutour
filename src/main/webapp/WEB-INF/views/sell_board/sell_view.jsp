@@ -140,7 +140,65 @@ input[type=number]::-webkit-outer-spin-button {
 	.tabnav li a:hover,
 	.tabnav li a.active{background:#fff; color:rgb(95, 204, 255, 0.8); font-weight: 800;}
 	.tabcontent{padding: 20px; border:1px solid #ddd; border-top:none;}
-        
+
+
+/*tab css*/
+.tab {
+
+	text-align:left;
+	height: 100%;
+}
+
+.tabnav {
+	font-size: 0;
+	border: 1px solid #ddd;
+}
+
+.tabnav li {
+	display: inline-block;
+	height: 100%;
+}
+
+.tabnav li a:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0px;
+	width: 100%;
+	height: 3px;
+}
+
+.tabnav li a.active:before {
+	background: rgb(95, 204, 255, 0.8);
+}
+
+.tabnav li a.active {
+	border-bottom: 1px solid #fff;
+}
+
+.tabnav li a {
+	position: relative;
+	display: block;
+	background: #f8f8f8;
+	color: #000;
+	padding: 0 30px;
+	line-height: 46px;
+	text-decoration: none;
+	font-size: 16px;
+}
+
+.tabnav li a:hover, .tabnav li a.active {
+	background: #fff;
+	color: rgb(95, 204, 255, 0.8);
+	font-weight: 800;
+}
+
+.tabcontent {
+	text-align:center;
+	padding: 20px;
+	border: 1px solid #ddd;
+	border-top: none;
+}
 </style>
 <body>
 	<%------------ header section  ------------%>
@@ -235,7 +293,7 @@ input[type=number]::-webkit-outer-spin-button {
 									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">비용</h5>
 								</div>
 								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
-									<p style="font-size: 20px; color: black; display: inline;">${view.sell_price}</p>
+									<p style="font-size: 20px; color: black; display: inline;"><fmt:formatNumber type="number" pattern="###,###,###" value="${view.sell_price}"/> 원</p>
 								</div>
 								
 								<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
@@ -251,132 +309,6 @@ input[type=number]::-webkit-outer-spin-button {
 								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
 									<p style="font-size: 20px; color: black; display: inline;">${view.sell_air}</p>
 								</div>
-								
-								
-								<!-- <div class="col-lg-12" style="margin-bottom: 30px;">
-									<div class="tab">
-									 	<ul class="tabnav">
-									 		<li><a href="#tab00">일정표</a>
-									 			<ul class="tabnaver">
-											 		<li class="tabnaver-li"><a href="#tab00">상품정보</a></li>
-											 		<li class="tabnaver-li"><a href="#tab01">1일차</a></li>
-												    <li class="tabnaver-li"><a href="#tab02">2일차</a></li>
-												    <li class="tabnaver-li"><a href="#tab03">3일차</a></li>
-											    </ul>
-									 		</li>
-									 		<li><a href="#tab04">호텔 / 관광지</a>
-									 			<ul class="tabnaver">
-											 		<li><a href="#tab04">호텔정보</a></li>
-											 		<li><a href="#tab05">관광지정보</a></li>
-											    </ul>
-									 		</li>
-										    <li><a href="#tab06">약관 / 주의사항</a>
-										    	<ul class="tabnaver">
-											 		<li><a href="#tab06">호텔정보</a></li>
-											 		<li><a href="#tab07">관광지정보</a></li>
-											    </ul>
-										    </li>
-										    <li><a href="#tab08">참고사항</a>
-										    	<ul class="tabnaver">
-											 		<li><a href="#tab08">호텔정보</a></li>
-											 		<li><a href="#tab09">관광지정보</a></li>
-											    </ul>
-										    </li>
-										    <li><a href="#tab10">선택관광 / 쇼핑안내</a>
-										    	<ul class="tabnaver">
-											 		<li><a href="#tab10">호텔정보</a></li>
-											 		<li><a href="#tab11">관광지정보</a></li>
-											    </ul>
-										    </li>
-									    </ul>
-									    <div class="tabcontent">
-									   		<div class="text-align" id="tab00">
-											    <table class="table text-align" style="border: 1px solid #dddddd">
-													<tr>
-														<th style="background-color: #eeeeee; font-size: 20px;">상품정보</th>
-													</tr>
-											    	<tr>
-														<td><p style="color: black; font-size: 20px; text-align: left;">
-															■ 항공 <br>
-															- 진에어(Jin Air) <br>
-															- 비행시간 (인천-타이베이) 약 2시간 30분<br>
-															
-															■ 호텔<br>
-															- 시외 위치한 특급 호텔<br>
-															(호텔 현재 미정, 출발 2일 전까지 확정 안내)<br>
-															
-															POINT1. 타사비교 필수 -  타이베이 일정<br>
-															대자연의 웅장함 화련 태로각협곡<br>
-															타이베이 랜드마크 101빌딩 전망대<br>
-															홍등 거리가 낭만적인 지우펀 야경<br>
-															
-															POINT2. 타이베이 여행 즐기기<br>
-															세계 4대 박물관 중 하나인 고궁박물관<br>
-															타이베이 대표 야시장 스린야시장  <br>
-															오랜 세월 해식과 풍식작용을 통해 형성된 예류 해상공원<br>
-															소원을 빌며 천등 띄우기 체험을 할 수 있는 스펀<br>
-															(천등 4인 1개 포함)<br>
-															
-															POINT3. 참좋은여행이 준비한 맛있는 식사<br>
-															1. 지우펀 야경과 함께 해열루 상요리<br>
-															2. 대만의 대표 요리 까오지 딤섬<br>
-															3. 화련에서 맛보는 현지 호텔 뷔페식<br>
-															4. 대만에서만 맛볼 수 있는 현지식<br>
-															</p>
-														</td>
-													</tr>
-											    </table>
-										    </div>
-										    <div class="text-align" id="tab01">
-											    <table class="table text-align" style="border: 1px solid #dddddd">
-													<tr>
-														<th style="background-color: #eeeeee; font-size: 20px;">1일차 일정</th>
-													</tr>
-											    	<tr>
-														<td><p style="color: black; font-size: 20px; text-align: left;">미팅시간 : 06:40 <br>
-															미팅장소 : 인천국제공항 제1터미널(T1) 3층 N카운터 14번 출입구  앞 '참좋은여행' <br>
-															연락처 : 공항서비스팀 ☎1644-0767 <br>
-															09:40 LJ081 인천국제공항 출발(약 2시간 30분 소요)</p>
-														</td>
-													</tr>
-											    </table>
-										    </div>
-										    <div class="text-align" id="tab02">
-										    	<table class="table text-align" style="border: 1px solid #dddddd">
-													<tr>
-														<th style="background-color: #eeeeee; font-size: 20px;">2일차 일정</th>
-													</tr>
-												    	<tr>
-															<td><p style="color: black; font-size: 20px; text-align: left;">호텔 조식 후 <br> 열차편으로 화련 이동 [약 2시간30분 소요]</p></td>
-														</tr>
-											    </table>
-										    </div>
-										    <div class="text-align" id="tab03">
-										    	<table class="table text-align" style="border: 1px solid #dddddd">
-													<tr>
-														<th style="background-color: #eeeeee; font-size: 20px;">3일차 일정</th>
-													</tr>
-												    	<tr>
-															<td><div style="color: black; font-size: 20px; text-align: left;">
-																	<h3>타이베이</h3>
-																	<p>호텔 조식 후<br>
-																	
-																	공항으로 이동<br>
-																	
-																	12:40 LJ082 대만 도원 국제공항 출발</p>
-																	
-																	<h3>인천</h3>
-																	<p>LJ082 진에어 출/도착 시간 12:40/16:00<br>
-																	
-																	16:00 인천 국제공항 제1터미널 (T1) 도착</p>
-																</div>
-															</td>
-														</tr>
-											    </table>
-										    </div>
-										</div>
-									</div>
-								</div> -->
 								
 								
 								<div class="col-lg-12" style="margin-bottom: 30px;">
