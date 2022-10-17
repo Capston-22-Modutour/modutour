@@ -169,7 +169,7 @@
 					
 				<div class="col-lg-10">
 					<div class="section-title mb-0">
-						<h4 class="m-0 text-uppercase font-weight-bold">구매내역</h4>
+						<h4 class="m-0 text-uppercase font-weight-bold">포인트내역</h4>
 					</div>
 					<!-- <form role="form" method="post" autocomplete="off"> -->
 						<div class="bg-white border border-top-0 p-4 mb-3">
@@ -188,65 +188,34 @@
 									</form>	 -->
 									<div class="d-flex align-items-center mb-2">
 										<i class="fa fa-id-card-alt text-primary mr-2"></i>
-										<h6 class="font-weight-bold mb-0">주문목록</h6>
+										<h6 class="font-weight-bold mb-0">포인트 적립 내역</h6>
 									</div>
-									
 									<table class="styled-table">
 										<thead>
 											<tr>
-												<th>상품번호</th>
-												<th>패키지명</th>
-												<th>구매일자</th>
-												<th>인원수</th>
-												<th>가격</th>
+												<th>포인트</th>
+												<th>적립일자</th>
 											</tr>
 										</thead>
 										<tbody>
 											<!-- sum 기본값 0으로 생성 -->
 											<c:set var="sum" value="0" />
-											<c:set var="peopleSum" value="0" />
 											<c:forEach items="${list}" var="list">
 												<tr class="active-row">
-													<td>${list.order_bno}</td>
-													<td><a href="/sell_board/sell_view?sell_bno=${list.sell_bno}">${list.order_title}</a></td>
-													<td><fmt:formatDate value="${list.order_date}" pattern="yyyy-MM-dd"/></td>
-													<td>${list.order_people} 명</td>
-													<td style="color: gray;"><fmt:formatNumber pattern="###,###,###" value="${list.order_price * list.order_people}"/> 원</td>
+													<td><fmt:formatNumber pattern="###,###,###" value="${list.point}"/></td>
+													<td><fmt:formatDate value="${list.point_regDate}" pattern="yyyy-MM-dd"/></td>
 												</tr>
 												
 												<!-- sum에 order_price 삽입 -->
-												<c:set var="sum" value="${sum + (list.order_price * list.order_people)}" />
-												<c:set var="peopleSum" value="${peopleSum + list.order_people}" />
+												<c:set var="sum" value="${sum + (list.point)}" />
 											</c:forEach>
 										</tbody>
 										<tfoot>
 											<tr style="font-weight: bold; color: black;">
-												<td colspan="3">총 합계</td>
-												<td>${peopleSum} 명</td>
-												<td><fmt:formatNumber pattern="###,###,###" value="${sum}" /> 원</td>
+												<td>총 합계</td>
+												<td>보유 포인트 : <fmt:formatNumber pattern="###,###,###" value="${sum}" /> 점</td>
 											</tr>
 										</tfoot>
-										
-										<!-- 회원 등급 표시 -->
-										<div style="color: black;">회원님의 등급은 
-										<c:choose>
-											<c:when test="${sum < 5000000}">
-												<strong style="font-size: 30px;">Family</strong>
-											</c:when>
-											<c:when test="${5000000 <= sum && sum < 10000000}">
-												<strong style="font-size: 30px;">Silver</strong>
-											</c:when>
-											<c:when test="${10000000 <= sum && sum < 30000000}">
-												<strong style="font-size: 30px;">Gold</strong>
-											</c:when>
-											<c:when test="${30000000 <= sum && sum < 60000000}">
-												<strong style="font-size: 30px;">VIP</strong>
-											</c:when>
-											<c:when test="${60000000 <= sum}">
-												<strong style="font-size: 30px;">VVIP</strong>
-											</c:when>
-										</c:choose>
-										입니다</div>
 									</table>
 								</div>
 							</div>
@@ -288,22 +257,6 @@
 		
 		var search_start = document.getElementById('search_start').value;
 		var currentDate = document.getElementById('currentDate').value;
-		
-		/* function searchDate() {
-			alert("시작 : " + search_start);
-			$.ajax({
-	            type : "GET",  
-	            url : "/my_purchase",       
-	            dataType : "json",   
-	            data : {'currentDate' : currentDate, 'search_start' : search_start},
-	            error : function(){
-	               alert("통신 에러");
-	            },
-	            success : function(data) {
-	                
-	            }
-	        });
-		} */
 		
 		$("div.input-daterange").each(function(){
 		    var $inputs = $(this).find('input');

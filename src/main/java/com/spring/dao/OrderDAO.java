@@ -7,7 +7,6 @@ import com.spring.dto.BoardDTO;
 @Repository
 public interface OrderDAO {
 	
-	//----------------------------------------
 	// 구매
 	public void purchase(BoardDTO dto) throws Exception;
 	

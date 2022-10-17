@@ -147,6 +147,9 @@
 											<a href="/my_purchase" class="dropdown-item">
 												<i class="far fa-file-alt me-2"></i>&nbsp; 구매내역
 											</a>
+											<a href="/my_point" class="dropdown-item">
+												<i class="far fa-file-alt me-2"></i>&nbsp; 포인트내역
+											</a>
 										</div>
 									</div>
 								</div>

@@ -69,12 +69,12 @@
 							</table>
 							<p class="mb-4" style="text-align: center; word-spacing: 5px;">
 								<c:if test="${page.prev}">
-									<span>[<a href="/suggest_board/listPageSearch?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a>]</span>
+									<span>[<a href="/suggest_board/suggest_listPageSearch?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a>]</span>
 								</c:if>
 
 								<c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
 									<span> <c:if test="${select != num}">
-											<a href="/suggest_board/listPageSearch?num=${num}${page.searchTypeKeyword}">${num}</a>
+											<a href="/suggest_board/suggest_listPageSearch?num=${num}${page.searchTypeKeyword}">${num}</a>
 										</c:if> <c:if test="${select == num}">
 											<b>${num}</b>
 										</c:if>
@@ -83,7 +83,7 @@
 
 								<c:if test="${page.next}">
 									<span>[ <a
-										href="/suggest_board/listPageSearch?num=${page.endPageNum + 1}${page.searchTypeKeyword}">이전</a>]
+										href="/suggest_board/suggest_listPageSearch?num=${page.endPageNum + 1}${page.searchTypeKeyword}">이전</a>]
 									</span>
 								</c:if>
 							</p>

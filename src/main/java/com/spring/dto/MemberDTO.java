@@ -16,6 +16,7 @@ public class MemberDTO {
 	private String user_phoneNum;
 	private String user_address;
 	private String user_email;
+	private int user_point;
 	private Date user_joinDate;
 	
 	public int getUser_num() {
@@ -114,6 +115,14 @@ public class MemberDTO {
 
 	public void setUser_email(String user_email) {
 		this.user_email = user_email;
+	}
+	
+	public int getUser_point() {
+		return user_point;
+	}
+
+	public void setUser_point(int user_point) {
+		this.user_point = user_point;
 	}
 
 	public Date getUser_joinDate() {

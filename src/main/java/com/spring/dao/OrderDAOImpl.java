@@ -17,7 +17,6 @@ public class OrderDAOImpl implements OrderDAO {
 
 	private static String namespace = "com.spring.mappers.boardMapper";
 	
-	// ------------------------------------
 	// 구매
 	@Override
 	public void purchase(BoardDTO dto) throws Exception {

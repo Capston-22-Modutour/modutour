@@ -13,7 +13,6 @@ public class OrderServiceImpl implements OrderService {
 	@Inject
 	private OrderDAO dao;
 	
-	// ------------------------------------
 	// 구매
 	@Override
 	public void purchase(BoardDTO dto) throws Exception {

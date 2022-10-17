@@ -54,11 +54,15 @@
 										</a>
 										<div class="dropdown-menu bg-transparent border-0">
 											<a href="/my_freepost" class="dropdown-item">MY 자유 게시판</a> 
+											<a href="/my_reviewpost" class="dropdown-item">MY 여행후기</a>
 											<a href="/my_packageplan" class="dropdown-item">MY 패키지 설계</a>
 										</div>
 										<div class="nav-item dropdown">
 											<a href="/my_purchase" class="dropdown-item">
 												<i class="far fa-file-alt me-2"></i>&nbsp; 구매내역
+											</a>
+											<a href="/my_point" class="dropdown-item">
+												<i class="far fa-file-alt me-2"></i>&nbsp; 포인트내역
 											</a>
 										</div>
 									</div>

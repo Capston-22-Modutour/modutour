@@ -234,7 +234,6 @@ input[type=number]::-webkit-outer-spin-button {
 						-->
 						<c:if test="${company.com_name == view.sell_writer}">
 							<div>
-								<a href="/sell_board/sell_modify?sell_bno=${view.sell_bno}">게시글 수정</a>
 								<a href="/sell_board/sell_delete?sell_bno=${view.sell_bno}">게시글 삭제</a>
 							</div>
 						</c:if>

@@ -1,6 +1,5 @@
 package com.spring.controller;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -15,13 +14,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.spring.dto.BoardDTO;
 import com.spring.dto.DateDTO;
+import com.spring.dto.PointDTO;
 import com.spring.service.MyBoardListService;
+import com.spring.service.PointService;
 
 @Controller
 public class MyPageController {
 	
 	@Inject
 	MyBoardListService service;
+	
+	@Inject
+	PointService pointService;
 
 	// 마이페이지
 	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
@@ -92,7 +96,7 @@ public class MyPageController {
 	
 	// 내 구매목록
 	@RequestMapping(value = "/my_purchase", method = RequestMethod.GET)
-	public String myPurchase(DateDTO dto, HttpServletRequest request, Model model) throws Exception {
+	public String myPurchase(HttpServletRequest request, Model model) throws Exception {
 		
 		// 구매 내역
 		List<BoardDTO> list = null;
@@ -107,6 +111,25 @@ public class MyPageController {
 		model.addAttribute("list", list);
 		
 		return "/mypage/my_purchase";
+	}
+	
+	// 내 구매목록
+	@RequestMapping(value = "/my_point", method = RequestMethod.GET)
+	public String myPoint(HttpServletRequest request, Model model) throws Exception {
+			
+		// 구매 내역
+		List<PointDTO> list = null;
+			
+		HttpSession session = request.getSession();
+		session.getAttribute("member");
+				
+		Integer user_num = (Integer)session.getAttribute("user_num");
+			
+		list = pointService.point_list(user_num);
+
+		model.addAttribute("list", list);
+		
+		return "/mypage/my_point";
 	}
 	
 }

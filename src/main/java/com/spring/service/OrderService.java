@@ -1,7 +1,5 @@
 package com.spring.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import com.spring.dto.BoardDTO;
@@ -9,7 +7,6 @@ import com.spring.dto.BoardDTO;
 @Service
 public interface OrderService {
 	
-	//----------------------------------------
 	// 구매
 	public void purchase(BoardDTO dto) throws Exception;
 	

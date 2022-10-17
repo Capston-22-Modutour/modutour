@@ -37,9 +37,9 @@
 </head>
 <style>
 	.sidebar {
-	    width: 400px;
-	    height: 500px;
-	    overflow-y: auto;
+		display:inline-block;
+		width: 200px;
+	    height: 300px;
 	    background: var(--light);
 	    transition: 0.5s;
 	    z-index: 999;
@@ -128,11 +128,11 @@
 
 	<!-- 일반 유저 정보 start -->
 	<c:if test="${member != null}">
-		<div class="container-fluid mt-5 pt-3">
+		<div class="container-fluid mt-5 pt-3" style="">
 			<div class="container">
 				<div class="row">
 					<!-- 좌측 사이드바 start -->
-					<div class="col-lg-2 sidebar pe-4 pb-3">
+					<div class="sidebar pe-4 pb-3 col-lg-2">
 						<aside class="single_sidebar_widget post_category_widget">
 							<nav class="navbar bg-light navbar-light">
 								<div class="navbar-nav w-100">
@@ -158,6 +158,9 @@
 											<a href="/my_purchase" class="dropdown-item">
 												<i class="far fa-file-alt me-2"></i>&nbsp; 구매내역
 											</a>
+											<a href="/my_point" class="dropdown-item">
+												<i class="far fa-file-alt me-2"></i>&nbsp; 포인트내역
+											</a>
 										</div>
 									</div>
 								</div>
@@ -166,7 +169,7 @@
 					</div>
 					<!-- 좌측 사이드바 end -->
 
-					<div class="col-lg-10">
+					<div class="col-lg-10" style="float: right;">
 						<div class="section-title mb-0">
 							<h4 class="m-0 text-uppercase font-weight-bold">회원 정보</h4>
 						</div>
@@ -267,4 +270,20 @@
     <!-- 드롭박스 기능 -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<script>
+	$(window).scroll(function(){
+	  var scrT = $(window).scrollTop();
+	  console.log(scrT); //스크롤 값 확인용
+	};
+	
+	$(window).scroll(function(){
+		  var scrT = $(window).scrollTop();
+		  console.log(scrT); //스크롤 값 확인용
+		  if(scrT == $(document).height() - $(window).height()){
+		  	//스크롤이 끝에 도달했을때 실행될 이벤트
+		  } else {
+		  	//아닐때 이벤트
+		  }
+	};
+</script>
 </html>
