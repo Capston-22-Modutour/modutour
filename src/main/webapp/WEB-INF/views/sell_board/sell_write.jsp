@@ -92,7 +92,10 @@
 									<input type="text" style="color: black;" name="board_want_destination" class="m-0 text-uppercase font-weight-bold px-8" placeholder="목적지를 입력해 주세요"> <br /> 
 										
 									<label>희망사항</label> <br/>
-									<textarea cols="68" rows="5" name="board_want_content" class="m-0 text-uppercase font-weight-bold px-8" placeholder="희망사항을 입력해 주세요"></textarea>
+									<!-- id='textarea'의 값을 받아 id='result'에 값 넘김 -->
+									<textarea cols="68" rows="5" id="textarea" class="m-0 text-uppercase font-weight-bold px-8" placeholder="희망사항을 입력해 주세요"></textarea>
+									<textarea id="result" name="board_want_content" hidden></textarea>
+									<br>
 									<br /> 
 										
 									<label>인원수</label> <br/> 
@@ -112,7 +115,7 @@
 								<div class="select_img"><img src=""></div>
 		
 								<div class="text-center">
-									<button type="submit" class="btn btn-warning">작성하기</button> &nbsp; 
+									<button type="submit" class="btn btn-warning" onclick="getHtml();">작성하기</button> &nbsp; 
 									<input type="button" class="btn btn-warning" value="취소" onclick="history.go(-1)">
 								</div>
 							</div>
@@ -151,5 +154,11 @@
 			reader.readAsDataURL(this.files[0]);
 		}
 	});
+	
+	// textarea 엔터키 <br>로 변환
+	function getHtml(){
+		var html = $("#textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); //id='textarea'에서 엔터키를 인식해 <br>태그로 변환
+		$("#result").html(html); //id='result'에 <br>태그로 변환된 내용 저장
+	}
 </script>
 </html>

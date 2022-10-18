@@ -88,7 +88,11 @@
 							<div class="bg-white border border-top-0 p-4 mb-3">
 								<div class="mb-4">
 									<input type="text" name="board_writer" value="${member.user_name}" hidden="hidden">
-									<textarea cols="117" rows="10" name="board_content" placeholder="내용을 입력해 주세요" required="required"></textarea>
+									
+									<!-- id='textarea'의 값을 받아 id='result'에 값 넘김 -->
+									<textarea id="textarea" cols="117" rows="10" placeholder="내용을 입력해 주세요" required="required"></textarea>
+									<textarea id="result" name="board_content" hidden></textarea>
+									<br>
 									<br>
 									
 									파일 업로드 <br/>
@@ -97,7 +101,7 @@
 									<div class="select_img"><img src=""></div>
 									
 									<div class="text-center">
-										<button type="submit" class="btn btn-warning">작성</button> &nbsp;
+										<button type="submit" class="btn btn-warning" onclick="getHtml();">작성</button> &nbsp;
 										<input type="button" class="btn btn-warning" value="취소" onclick="history.go(-1)">
 									</div>
 								</div>
@@ -158,6 +162,12 @@
 				reader.readAsDataURL(this.files[0]);
 			}
 		});
+		
+		// textarea 엔터키 <br>로 변환
+		function getHtml(){
+			var html = $("#textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); //id='textarea'에서 엔터키를 인식해 <br>태그로 변환
+			$("#result").html(html); //id='result'에 <br>태그로 변환된 내용 저장
+		}
 		
 		
 		$(function(){

@@ -165,7 +165,10 @@
 									<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">희망사항</h5>
 								</div>
 								<div class="col-lg-9" style="text-align: left; display: inline; margin-bottom: 30px;">
-									<textarea cols="60" rows="5" style="font-size: 20px; color: black; display: inline;" name="board_want_content"></textarea>
+									<!-- id='textarea'의 값을 받아 id='result'에 값 넘김 -->
+									<textarea cols="60" rows="5" id="textarea" style="font-size: 20px; color: black; display: inline;"></textarea>
+									<textarea id="result" name="board_want_content" hidden></textarea>
+									<br>
 								</div>
 								<div class="col-lg-3" style="display: inline; margin-bottom: 30px; border-right: 1px solid gray;">
 									<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">인원수</h5>
@@ -193,49 +196,7 @@
 								</div>
 							</div>
 						</div>
-									
-									<!-- <div class="container">
-										<div class="row" style="margin:0 auto; padding: 10px;">
-											<div class="col-lg-12">
-												<h6 class="m-0 text-uppercase font-weight-bold">목적지</h6>
-											</div>
-											<div class="col-lg-12">
-												<input type="text" style="color: black;" name="board_want_destination" class="m-0 text-uppercase font-weight-bold px-8" placeholder="목적지를 입력해 주세요" required="required">
-											</div>
-											<div class="col-lg-12" style="padding: 10px;">
-												<h6 class="m-0 text-uppercase font-weight-bold">희망사항</h6>
-											</div>
-											<div class="col-lg-12">
-												<textarea cols="68" rows="5" name="board_want_content" class="m-0 text-uppercase font-weight-bold px-8" placeholder="희망사항을 입력해 주세요" required="required"></textarea>
-											</div>
-											<div class="col-lg-12" style="padding: 10px;">
-												<h6 class="m-0 text-uppercase font-weight-bold">인원수</h6>
-											</div>
-											<div class="col-lg-12">
-												<input type="number" style="color: black;" name="board_want_people" class="m-0 text-uppercase font-weight-bold px-8" placeholder="인원수를 입력해 주세요" required="required"> 
-											</div>
-											<div class="col-lg-6" style="padding: 10px;">
-												<h6 class="m-0 text-uppercase font-weight-bold">출발일</h6>
-											</div>
-											<div class="col-lg-6" style="padding: 10px;">
-												<h6 class="m-0 text-uppercase font-weight-bold">도착일</h6>
-											</div>
-											<div class="col-lg-6">
-												<input type="text" name="board_want_start" id="datepicker" required="required">
-											</div>
-											<div class="col-lg-6">
-												<input type="text" name="board_want_end" id="datepicker2" required="required">
-											</div>
-											<div class="col-lg-12"style="padding: 10px;">
-												<h6 class="m-0 text-uppercase font-weight-bold">파일 업로드</h6>
-											</div>
-											<div class="col-lg-12">
-												<input type="file" id="board_want_img" name="file" required="required"/>
-												<div class="select_img"><img src=""></div>
-											</div>
-								    	</div>
-								    </div> -->
-								    
+						
 								    <!-- datepicker script -->
 								    <script>
 										// 이전 날짜들은 선택막기
@@ -288,21 +249,12 @@
 								        $("#datepicker2").datepicker('setDate', initDate('+1D'));
 								
 								    </script>
-									
-									
-									
-									<!-- <label>출발일</label> <br/>
-									<input type="date" style="color: black;" name="board_want_start" class="m-0 text-uppercase font-weight-bold px-8" required="required">
-									<br /> 
-										
-									<label>도착일</label> <br/>
-									<input type="date" style="color: black;" name="board_want_end" class="m-0 text-uppercase font-weight-bold px-8" required="required"> -->
 								</div>
 								
 								
 		
 								<div class="text-center">
-									<button type="submit" class="btn btn-warning">작성하기</button> &nbsp; 
+									<button type="submit" class="btn btn-warning" onclick="getHtml();">작성하기</button> &nbsp; 
 									<input type="button" class="btn btn-warning" value="취소" onclick="history.go(-1)">
 								</div>
 							</div>
@@ -344,8 +296,10 @@
 		}
 	});
 	
-	function showMsg(){
-		alter('gd');
+	// textarea 엔터키 <br>로 변환
+	function getHtml(){
+		var html = $("#textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); //id='textarea'에서 엔터키를 인식해 <br>태그로 변환
+		$("#result").html(html); //id='result'에 <br>태그로 변환된 내용 저장
 	}
 </script>
 

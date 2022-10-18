@@ -176,7 +176,11 @@
 										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">제안사항</h5>
 									</div>
 									<div class="col-lg-9" style="display: inline; margin-bottom: 30px;">
-										<textarea cols="25" rows="2" name="suggest_content" style="font-size: 20px; color: black; display: inline;" required="required"></textarea>
+									<!-- id='textarea'의 값을 받아 id='result'에 값 넘김 -->
+									<textarea cols="25" rows="2" id="textarea" style="font-size: 20px; color: black; display: inline;" required="required"></textarea>
+									<textarea id="result" name="suggest_content" hidden></textarea>
+									<br>
+										
 									</div>
 									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
 										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">인원수</h5>
@@ -246,8 +250,10 @@
 										<div id="tab-content" class="tab-content">
 											<!-- <div class="tab-pane fade in active" id="tab1">Tab 1 content</div> -->
 											<div class="tab-pane fade in active" id="tab1">
-												<textarea rows="10" cols="54" name="tab_content_1"
-													placeholder="tab1 내용을 입력해주세요"></textarea>
+												<!-- id='tab-textarea1'의 값을 받아 id='tab-result1'에 값 넘김 -->
+												<textarea id="tab1-textarea" rows="10" cols="54" placeholder="tab1 내용을 입력해주세요"></textarea>
+												<textarea id="tab1-result" name="tab_content_1" hidden></textarea>
+												<br>
 											</div>
 										</div>
 									</div>
@@ -260,7 +266,7 @@
 									</div>
 									<div class="col-lg-12">
 										<div class="text-center">
-											<button type="submit" class="btn btn-warning">응찰하기</button>
+											<button type="submit" class="btn btn-warning" onclick="getHtml();">응찰하기</button>
 										</div>
 									</div>
 								</div>
@@ -419,7 +425,7 @@ $("#file_img").change(function(){
 var button = '<button class="close" type="button" title="Remove this page">×</button>';
 var tabID = 1;
 var i = $('#tab').length;
-	
+
 function resetTab() {
 	var tabs = $("#tab-list li:not(:first)");
 	var len = 1
@@ -438,7 +444,9 @@ $(document).ready(function() {
 			$('#tab-list').append($('<li><a href="#tab' + tabID + '" role="tab" data-toggle="tab"><input type="text" name="tab_title_'+tabID+'" size="10" id="tab" placeholder="tab'+tabID+'"> <button class="close" type="button" title="Remove this page">×</button></a></li>'));
 				
 			/* $('#tab-content').append($('<div class="tab-pane fade" id="tab' + tabID + '">Tab ' + tabID + ' content</div>')); */
-			$('#tab-content').append($('<div class="tab-pane fade" id="tab' + tabID + '"> ' + ' <textarea rows="10" cols="54" name="tab_content_'+tabID+'" placeholder="tab'+tabID+' 내용을 입력해주세요"></textarea></div>'));
+			//$('#tab-content').append($('<div class="tab-pane fade" id="tab' + tabID + '"> ' + ' <textarea rows="10" cols="54" name="tab_content_'+tabID+'" placeholder="tab'+tabID+' 내용을 입력해주세요"></textarea></div>'));
+			$('#tab-content').append($('<div class="tab-pane fade" id="tab' + tabID + '"> ' + ' <textarea id="tab' + tabID + '-textarea" rows="10" cols="54" placeholder="tab'+tabID+' 내용을 입력해주세요"></textarea></div>'));
+			$('#tab-content').append($('<textarea id="tab' + tabID + '-result" name="tab_content_'+tabID+'" hidden></textarea>'));
 			$(".edit").click(editHandler);
 				
 			if(i > 5) {
@@ -461,10 +469,6 @@ $(document).ready(function() {
 			} else if (i <= 5){
 				$('#btn-add-tab').removeAttr("disabled");
 			}
-			//display first tab
-			/* var tabFirst = $('#tab-list a:first');
-			resetTab();
-			tabFirst.tab('show'); */
 		});
 			
 			
@@ -482,5 +486,25 @@ var editHandler = function() {
 };
 
 $(".edit").click(editHandler);
+
+//textarea 엔터키 <br>로 변환
+function getHtml(){
+	var html = $("#textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); //id='textarea'에서 엔터키를 인식해 <br>태그로 변환
+	var html_tab1 = $("#tab1-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+	var html_tab2 = $("#tab2-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+	var html_tab3 = $("#tab3-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+	var html_tab4 = $("#tab4-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+	var html_tab5 = $("#tab5-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+	var html_tab6 = $("#tab6-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+	$("#result").html(html); //id='result'에 <br>태그로 변환된 내용 저장
+	$("#tab1-result").html(html_tab1);
+	$("#tab2-result").html(html_tab2);
+	$("#tab3-result").html(html_tab3);
+	$("#tab4-result").html(html_tab4);
+	$("#tab5-result").html(html_tab4);
+	$("#tab6-result").html(html_tab6);
+	
+}
+
 </script>
 </html>
