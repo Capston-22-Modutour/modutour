@@ -26,6 +26,25 @@
 	<!-- Customized Bootstrap Stylesheet -->
 	<link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>">
 </head>
+<style>
+	/* 깜빡임 효과 */
+	@keyframes blink-effect {
+		/* 50% {
+    	opacity: 0;
+	  } */
+		0% { 
+	  		background-color: yellow; 
+	  	}
+    	50% { 
+    		background-color: red; color: yellow; 
+    	}
+	}
+
+	.blink {
+	  animation: blink-effect 1s step-end infinite;
+	}
+	
+</style>
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
@@ -44,6 +63,7 @@
 								<thead>
 									<tr>
 										<th width="5%">번호</th>
+										<th width="8%">상태</th>
 										<th width="10%">미리보기</th>
 										<th width="20%">제목</th>
 										<th width="10%">작성일</th>
@@ -57,6 +77,19 @@
 									<c:forEach items="${list}" var="list">
 										<tr class="active-row">
 											<td>${list.sell_bno}</td>
+											<td>
+												<c:choose>
+													<c:when test="${0 < list.sell_people && list.sell_people <= list.board_want_people * 0.1 || 0 < list.sell_people && list.sell_people < 10}">
+														<div class="blink" style="color: red; background-color: #fffb26;">마감임박</div>
+													</c:when>
+													<c:when test="${list.sell_people <= 0}">
+														<div style="color: black; background-color: gray;">판매종료</div>
+													</c:when>
+													<c:otherwise>
+														<div style="color: white; background-color: blue;">판매중</div>
+													</c:otherwise>
+												</c:choose>
+											</td>
 											<td><img src="${list.sell_thumbnail}" width="100px" height="100px"></td>
 											<td><a href="/sell_board/sell_view?sell_bno=${list.sell_bno}">${list.sell_title}</a></td>
 											<td><fmt:formatDate value="${list.sell_regDate}" pattern="yyyy-MM-dd"/></td>
@@ -111,6 +144,8 @@
 	</div>
 	<!-- 여행사 입찰 게시판 end -->
 	
+	<c:out value="${peopleCnt[2]}" />
+	<c:out value="${peopleCnt[3]}" />
 	
 	<%------------ footer section  ------------%>
 	<jsp:include page="../fix/footer.jsp" />

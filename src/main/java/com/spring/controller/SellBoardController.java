@@ -155,10 +155,10 @@ public class SellBoardController {
 		// 검색 타입과 검색어
 		page.setSearchType(searchType);
 		page.setKeyword(keyword);
-
+		
 		List<BoardDTO> sell_list = null;
 		sell_list = slService.sell_listPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
-
+		
 		model.addAttribute("list", sell_list);
 		model.addAttribute("page", page);
 		model.addAttribute("select", num);

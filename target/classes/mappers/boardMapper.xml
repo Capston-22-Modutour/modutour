@@ -557,27 +557,27 @@
 	
 	<!-- 게시글 목록 + 페이징 + 검색 -->
 	<select id="sell_listPageSearch" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
-		select sell_bno, sell_title, sell_thumbnail, sell_writer, sell_viewCnt, sell_like, sell_regDate
-		from sell_board
-		
+		select sb.sell_bno, sb.suggest_bno, sgb.board_want_people, sb.sell_people, sb.sell_title, sb.sell_thumbnail, sb.sell_writer, sb.sell_viewCnt, sb.sell_like, sb.sell_regDate
+		from sell_board sb, suggest_board sgb
+		where sb.suggest_bno = sgb.suggest_bno and
 		<if test='searchType.equals("title")'>
-			where sell_title LIKE concat('%', #{keyword}, '%')
+			sb.sell_title LIKE concat('%', #{keyword}, '%')
 		</if>
 		
 		<if test='searchType.equals("content")'>
-			where sell_content LIKE concat('%', #{keyword}, '%')
+			sb.sell_content LIKE concat('%', #{keyword}, '%')
 		</if>
 		
 		<if test='searchType.equals("title_content")'>
-			where sell_title LIKE concat('%', #{keyword}, '%')
-			or sell_content LIKE concat('%', #{keyword}, '%')
+			sb.sell_title LIKE concat('%', #{keyword}, '%')
+			or sb.sell_content LIKE concat('%', #{keyword}, '%')
 		</if>
 		
 		<if test='searchType.equals("writer")'>
-			where sell_writer LIKE concat('%', #{keyword}, '%')
+			sb.sell_writer LIKE concat('%', #{keyword}, '%')
 		</if>
-		
-		order by sell_bno desc
+		group by sb.sell_bno
+		order by sb.sell_bno desc
 			limit #{displayPost}, #{postNum} 
 	</select>
 	
