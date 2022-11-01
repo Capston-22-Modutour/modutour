@@ -6,6 +6,7 @@ public class PointDTO {
 	
 	//포인트
 	private int user_num;
+	private int sell_bno;
 	private int point;
 	private Date point_regDate;
 	
@@ -14,6 +15,12 @@ public class PointDTO {
 	}
 	public void setUser_num(int user_num) {
 		this.user_num = user_num;
+	}
+	public int getSell_bno() {
+		return sell_bno;
+	}
+	public void setSell_bno(int sell_bno) {
+		this.sell_bno = sell_bno;
 	}
 	public int getPoint() {
 		return point;

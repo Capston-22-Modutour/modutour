@@ -404,18 +404,28 @@ input[type=number]::-webkit-outer-spin-button {
 								
 									<%-- 구매 모달창 --%>
 									<div class="modal">
-							        	<div class="modal_content card" style="width:20rem; height:20rem;">
+							        	<div class="modal_content card" style="width:20rem; height:26rem;">
 								            <div class="card-body">
 								                <h5>결제</h5>
 								                <h6>안내사항</h6>
 								                <p style="color: black;">인원수를 선택해 주세요</p>
-								                <div class="number-input">
+								                <div class="number-input" style="margin-bottom: 10px;">
 													<button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="down"></button>
 														<input class="order_people" id="order_people" min="1" name="order_people" value="1" type="number">
 													<button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
 												</div>
-								                
-								                <p style="color: black;">단순 변심으로 환불은 <strong>불가능</strong>합니다.</p>
+												
+								               	<div style="margin-bottom: 10px; color: black;">
+								               		보유 포인트 <p style="font-size:20px; display: inline;"><fmt:formatNumber type="number" pattern="###,###,###" value="${member.user_point}"/></p> 점
+								               	</div>
+								               	<div style="margin-bottom: 10px; color: black;">
+								               		사용 포인트 <p style="font-size: 20px; display: inline;"><input id="use_point" onkeyup='usePoint()' style="width: 100px;" type="number" value="0" name="point" min="0"></p> 점
+								               	</div>
+								               	
+								               	<div style="color: black; margin-bottom: 10px;">
+									               	총 비용은 <p class="totalCost" id="totalCost" style="font-size: 20px; font-weight:800; display: inline;"><fmt:formatNumber type="number" pattern="###,###,###" value=""/></p>원 입니다
+								               	</div>
+								                <p style="color: black;">단순 변심으로 환불은 <strong>불가능</strong>합니다</p>
 								                <p style="color: black;">정말 구매하시겠습니까?</p>
 								                <button type="submit" id="purchaseOK" class="btn btn-warning">예</button>
 								                <button type="button" class="btn btn-delete" onclick="closePurchaseModal()">아니오</button>
@@ -548,6 +558,12 @@ input[type=number]::-webkit-outer-spin-button {
 	var suggest_bno = ${view.suggest_bno};
 	var user_num = ${member.user_num};
 	var sell_people = ${view.sell_people};
+	var totalCost = ${view.sell_price};
+	var input_point = ${member.user_point};
+	var order_people = document.getElementById('order_people').value;
+	const purchaseOK = document.getElementById('purchaseOK');
+	const purchase = document.getElementById('purchase');
+	var max;
 	
 	function sell_updateLike(){ 
 	    $.ajax({
@@ -591,19 +607,19 @@ input[type=number]::-webkit-outer-spin-button {
 		});
 	});
 	
-	// 인원수 체크 함수
-	setInterval(function () {
+	//포인트 입력 실시간 감지
+	function usePoint() {
+		const use_point = document.getElementById('use_point').value;
+		const user_point = ${member.user_point};
+		var sell_price = ${view.sell_price};
 		var order_people = document.getElementById('order_people').value;
-		const purchaseOK = document.getElementById('purchaseOK');
-		const purchase = document.getElementById('purchase');
 		
-		if(sell_people - order_people < 0) { // 구매 인원 > 패키지 인원 == 패키지 인원 초과시 구매 버튼 비활성화
-			purchaseOK.disabled = true; // 인원초과 시 예 버튼 비활성화
-			purchaseOK.innerText = "인원초과"; // 인원초과 시 버튼 명칭 변경
-			
-			purchase.disabled = true; // 인원초과 시 구매하기 버튼 비활성화
-			purchase.innerText = "매진되었습니다"; // 인원초과 시 구매하기 버튼 명칭 변경
-		} else if (sell_people - order_people == 0){
+		max = sell_price * order_people - use_point;
+		
+		if(use_point > user_point || use_point > sell_price * order_people){
+			purchaseOK.disabled = true; // 포인트초과 시 예 버튼 비활성화
+			purchaseOK.innerText = "포인트초과"; // 포인트초과시 버튼 명칭 변경
+		} else if(sell_people - order_people == 0) { 
 			purchaseOK.disabled = false;
 			purchaseOK.innerText = "예";
 			
@@ -616,7 +632,71 @@ input[type=number]::-webkit-outer-spin-button {
 			purchaseOK.disabled = false;
 			purchaseOK.innerText = "예";
 			purchase.innerText = "구매하기";
+		}
+		
+		
+		if(max < 0) {
+			max *= (-1);
+			
+			//목표 : 	패키지 가격 * 인원수 < 포인트 X
+			//		패키지 가격 * 인원수 < 사용 포인트 limit 걸어야함(최대 포인트사용 값 : 패키지 가격 * 인원수)
+			if(use_point > sell_price * order_people) {
+				//alert("총액을 초과하여 포인트를 사용 할 수 없습니다!");
+				max = sell_price * order_people;
+				use_point = max;
+				
+			}
+		} else {
+			max *= 1;
+		}
+		
+	}
+	
+	
+	// 인원수 체크 함수
+	setInterval(function () {
+		
+		
+		order_people = document.getElementById('order_people').value;
+		const totalCostText = document.getElementById('totalCost');
+		
+		const testPriceText = document.getElementById('testPrice');
+		const testPriceTotal = (totalCost * order_people - input_point);
+		
+	
+		//포인트
+		/* if(testPriceTotal < 0) {
+			max = -(totalCost * order_people - input_point);
+			testPriceText.innerText = max;
+		} else {
+			max = totalCost * order_people;
+			tmp = max - input_point;
+			
+			testPriceText.innerText = tmp;
+		} */
+		
+		
+		//숫자3 자리마다 콤마(,) 삽입
+		//const conversionComma = (totalCost * order_people).toLocaleString('ko-KR');
+		//totalCostText.innerText = conversionComma;
+		//totalCostText.innerText = totalCost;
+		
+		if(sell_people - order_people < 0) { // 구매 인원 > 패키지 인원 == 패키지 인원 초과시 구매 버튼 비활성화
+			purchaseOK.disabled = true; // 인원초과 시 예 버튼 비활성화
+			purchaseOK.innerText = "인원초과"; // 인원초과 시 버튼 명칭 변경
+			
+			purchase.disabled = true; // 인원초과 시 구매하기 버튼 비활성화
+			purchase.innerText = "매진되었습니다"; // 인원초과 시 구매하기 버튼 명칭 변경
+			
+			
+		} else {
+			usePoint();
 		} 
+		
+		//숫자3 자리마다 콤마(,) 삽입
+		const conversionComma = (max).toLocaleString('ko-KR');
+		totalCostText.innerText = conversionComma;
+		
 	}, 0);
 	</script>
 	

@@ -193,8 +193,12 @@
 									<table class="styled-table">
 										<thead>
 											<tr>
-												<th>포인트</th>
-												<th>적립일자</th>
+												<th style="font-size: 16px;">적립 패키지</th>
+												<th style="font-size: 16px;">적립포인트</th>
+												<th style="font-size: 16px;">적립일자</th>
+												<th style="font-size: 16px;">사용 패키지</th>
+												<th style="font-size: 16px;">사용포인트</th>
+												<th style="font-size: 16px;">사용일자</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -202,18 +206,35 @@
 											<c:set var="sum" value="0" />
 											<c:forEach items="${list}" var="list">
 												<tr class="active-row">
+													<td><a  style="font-size: 14px;" href="/sell_board/sell_view?sell_bno=${list.sell_bno}">${list.order_title}</a></td>
 													<td><fmt:formatNumber pattern="###,###,###" value="${list.point}"/></td>
 													<td><fmt:formatDate value="${list.point_regDate}" pattern="yyyy-MM-dd"/></td>
+													<td></td>
+													<td></td>
+													<td></td>
 												</tr>
 												
 												<!-- sum에 order_price 삽입 -->
 												<c:set var="sum" value="${sum + (list.point)}" />
 											</c:forEach>
 										</tbody>
+										<tbody>
+											<c:forEach items="${useList}" var="useList">
+												<tr class="active-row">
+												<td></td>
+												<td></td>
+												<td></td>
+												<td><a style="font-size: 14px;" href="/sell_board/sell_view?sell_bno=${useList.sell_bno}">${useList.order_title}</a></td>
+												<td><fmt:formatNumber pattern="###,###,###" value="${useList.point}"/></td>
+												<td><fmt:formatDate value="${useList.point_regDate}" pattern="yyyy-MM-dd"/></td>
+												</tr>
+												<c:set var="sum" value="${sum + (useList.point)}" />
+											</c:forEach>
+										</tbody>
 										<tfoot>
 											<tr style="font-weight: bold; color: black;">
 												<td>총 합계</td>
-												<td>보유 포인트 : <fmt:formatNumber pattern="###,###,###" value="${sum}" /> 점</td>
+												<td colspan="5">보유 포인트 : <fmt:formatNumber pattern="###,###,###" value="${sum}" /> 점</td>
 											</tr>
 										</tfoot>
 									</table>

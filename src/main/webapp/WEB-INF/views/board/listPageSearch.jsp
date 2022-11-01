@@ -95,7 +95,7 @@
 
 								<c:if test="${page.next}">
 									<span>[ <a
-										href="/board/listPageSearch?num=${page.endPageNum + 1}${page.searchTypeKeyword}">이전</a>]
+										href="/board/listPageSearch?num=${page.endPageNum + 1}${page.searchTypeKeyword}">다음</a>]
 									</span>
 								</c:if>
 							</p>

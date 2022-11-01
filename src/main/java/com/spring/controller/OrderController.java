@@ -44,23 +44,54 @@ public class OrderController {
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		
 		int sell_bno = Integer.parseInt(request.getParameter("sell_bno"));
-		System.out.println("게시글 번호 : " + sell_bno + " 유저번호 : " + user_num);
+		int point = Integer.parseInt(request.getParameter("point"));
+		
+		System.out.println("===========================");
+		
+		if(point == 0) {
+			System.out.println("0이다");
+		} else {
+			System.out.println("포인트 사용했다");
+		}
+		
+		System.out.println("게시글 번호 : " + sell_bno + " 유저번호 : " + user_num + " 패키지 가격 : " + boardDTO.getOrder_price()*boardDTO.getOrder_people() + " 사용포인트 : " + point);
+		System.out.println("패키지 가격 - 포인트 : " + (boardDTO.getOrder_price()*boardDTO.getOrder_people() - point));
 		
 		int peopleCnt = boardDTO.getOrder_people(); //구매 인원수
 		
 		MemberDTO memberDTO = new MemberDTO();
 		PointDTO pointDTO = new PointDTO();
 		pointDTO.setUser_num(user_num);
-		pointDTO.setPoint((boardDTO.getOrder_price()/20) * peopleCnt); //포인트 적립 = 패키지 가격의 5% * 인원수
+		pointDTO.setSell_bno(sell_bno);
+		pointDTO.setPoint(point);
+		
 		
 		int purchased = service.purchaseCheck(sell_bno, user_num);
 		System.out.println("구매여부 : " + purchased);
 		
+		System.out.println("포인트 사용 내역 : " + pointDTO.getPoint());
+		
+		boardDTO.setOrder_price((boardDTO.getOrder_price() * peopleCnt) - pointDTO.getPoint()); //패키지*인원수 가격에 포인트를 뺀 최종 가격
+		
+		System.out.println("최종가격 : " + boardDTO.getOrder_price());
 		if (purchased == 0) { // 구매 기록이 없을 시 order_data 추가
+			
 			service.purchase(boardDTO); //구매
 			service.updatePeople(boardDTO); //판매 인원수 수정
-			pointService.point_input(pointDTO); //member_point 테이블에 포인트 적립 => 포인트 적립 내역 확인용
-			pointService.point_update(user_num); //member_user 테이블 회원 포인트 업데이트 => 포인트 적립, 사용
+			
+			if(pointDTO.getPoint() == 0) { // 포인트 사용 X
+				pointDTO.setPoint((boardDTO.getOrder_price()/20)); //포인트 적립 = 패키지 가격의 5% * 인원수
+				pointService.accumulatePoint(pointDTO); //member_point 테이블에 포인트 적립 => 포인트 적립 내역 확인용
+				System.out.println("포인트 적립  : " + pointDTO.getPoint());
+			} else { // 포인트 사용 O
+				int use_point = pointDTO.getPoint();
+				
+				pointDTO.setPoint(use_point); //포인트 사용
+				System.out.println("포인트 사용 : " + pointDTO.getPoint());
+				pointService.usePoint(pointDTO);
+			}
+			
+			pointService.pointUpdate(user_num); //member_user 테이블 회원 포인트 업데이트 => 포인트 적립, 사용
 		} else {
 			System.out.println("경고 이미 구매했다");
 		}

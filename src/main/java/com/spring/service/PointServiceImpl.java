@@ -17,22 +17,37 @@ public class PointServiceImpl implements PointService {
 	
 	// 보유 포인트 확인
 	@Override
-	public List<PointDTO> point_list(int user_num) throws Exception {
-		return dao.point_list(user_num);
+	public List<PointDTO> pointList(int user_num) throws Exception {
+		return dao.pointList(user_num);
+	}
+	
+	// 사용 포인트 확인
+	@Override
+	public List<PointDTO> pointUseList(int user_num) throws Exception {
+		return dao.pointUseList(user_num);
 	}
 
 	// 포인트 적립
 	@Override
-	public int point_input(PointDTO pointDTO) throws Exception {
-		return dao.point_input(pointDTO);
+	public int accumulatePoint(PointDTO pointDTO) throws Exception {
+		return dao.accumulatePoint(pointDTO);
+	}
+	
+	// 포인트 사용
+	@Override
+	public int usePoint(PointDTO pointDTO) throws Exception {
+		return dao.usePoint(pointDTO);
+	}
+	
+	// 포인트 사용 확인
+	public int usePointCheck(PointDTO pointDTO) throws Exception {
+		return dao.usePointCheck(pointDTO);
 	}
 
 	// 회원 보유 포인트 업데이트
 	@Override
-	public int point_update(int user_num) throws Exception {
-		return dao.point_update(user_num);
+	public int pointUpdate(int user_num) throws Exception {
+		return dao.pointUpdate(user_num);
 	}
-	
-	// 포인트 사용
-	
+
 }

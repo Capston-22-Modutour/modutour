@@ -10,12 +10,21 @@ import com.spring.dto.PointDTO;
 public interface PointService {
 	
 	// 보유 포인트 확인
-	public List<PointDTO> point_list(int user_num) throws Exception;
-		
+	public List<PointDTO> pointList(int user_num) throws Exception;
+	
+	// 사용 포인트 확인
+	public List<PointDTO> pointUseList(int user_num) throws Exception;
+	
 	// 포인트 적립
-	public int point_input(PointDTO pointDTO) throws Exception;
+	public int accumulatePoint(PointDTO pointDTO) throws Exception;
+	
+	// 포인트 적립
+	public int usePoint(PointDTO pointDTO) throws Exception;
+	
+	// 포인트 사용 확인
+	public int usePointCheck(PointDTO pointDTO) throws Exception;
 	
 	// 회원 보유 포인트 업데이트
-	public int point_update(int user_num) throws Exception;
+	public int pointUpdate(int user_num) throws Exception;
 
 }

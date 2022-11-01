@@ -11,15 +11,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.dto.BoardDTO;
-import com.spring.dto.DateDTO;
 import com.spring.dto.PointDTO;
+import com.spring.service.BoardService;
 import com.spring.service.MyBoardListService;
 import com.spring.service.PointService;
 
 @Controller
 public class MyPageController {
+	
+	@Inject
+	BoardService pageService;
 	
 	@Inject
 	MyBoardListService service;
@@ -113,21 +117,24 @@ public class MyPageController {
 		return "/mypage/my_purchase";
 	}
 	
-	// 내 구매목록
+	// 내 포인트목록
 	@RequestMapping(value = "/my_point", method = RequestMethod.GET)
 	public String myPoint(HttpServletRequest request, Model model) throws Exception {
-			
-		// 구매 내역
-		List<PointDTO> list = null;
-			
+		
 		HttpSession session = request.getSession();
 		session.getAttribute("member");
 				
 		Integer user_num = (Integer)session.getAttribute("user_num");
+		
+		// 구매 내역
+		List<PointDTO> list = null;
+		List<PointDTO> useList = null;
 			
-		list = pointService.point_list(user_num);
+		list = pointService.pointList(user_num);
+		useList = pointService.pointUseList(user_num);
 
 		model.addAttribute("list", list);
+		model.addAttribute("useList", useList);
 		
 		return "/mypage/my_point";
 	}

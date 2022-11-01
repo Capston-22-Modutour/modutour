@@ -6,26 +6,44 @@
 
 	<!-- 적립 포인트 확인 -->
 	<select id="checkMyPoint" resultType="HashMap">
-		select m.user_name, m_p.point, m_p.point_regDate
-		from member_user m, member_point m_p 
-		where m.user_num = #{user_num} and m.user_num = m_p.user_num
-		order by m_p.point_regDate desc
+		select ap.sell_bno, od.order_title, ap.point, ap.point_regDate
+		from member_user m, accumulate_point ap, order_data od
+		where m.user_num = #{user_num} and m.user_num = ap.user_num and ap.sell_bno = od.sell_bno
+		group by ap.point_num
+		order by ap.point_regDate desc
+	</select>
+	
+	<!-- 사용 포인트 확인 -->
+	<select id="checkMyUsePoint" resultType="HashMap">
+		select up.sell_bno, od.order_title, up.point, up.point_regDate
+		from member_user m, use_point up, order_data od
+		where m.user_num = #{user_num} and m.user_num = up.user_num and up.sell_bno = od.sell_bno
+		group by up.point_num
+		order by up.point_regDate desc
 	</select>
 	
 	<!-- 포인트 적립 -->
 	<insert id="insertPoint">
-		insert into member_point(user_num, point)
-		values (#{user_num}, #{point})
+		insert into accumulate_point(user_num, sell_bno, point)
+		values (#{user_num}, #{sell_bno}, #{point})
+	</insert>
+	
+	<!-- 포인트 사용 -->
+	<insert id="usePoint">
+		insert into use_point(user_num, sell_bno, point)
+		values (#{user_num}, #{sell_bno}, -#{point})
 	</insert>
 	
 	<!-- 회원 보유 포인트 업데이트 -->
 	<update id="updatePoint">
 		update member_user m set m.user_point = (
-		select sum(m_p.point)
-		from member_point m_p
-		where m_p.user_num = #{user_num}
+			select sum(ap.point) + (select sum(up.point)
+									from use_point up
+									where up.user_num = #{user_num})
+			from accumulate_point ap
+			where ap.user_num = #{user_num}
 		)
-	where m.user_num = #{user_num}
+		where m.user_num = #{user_num}
 	</update>
 	
 </mapper>
