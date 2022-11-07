@@ -37,7 +37,7 @@
 	<!-- 회원 보유 포인트 업데이트 -->
 	<update id="updatePoint">
 		update member_user m set m.user_point = (
-			select sum(ap.point) + (select sum(up.point)
+			select ifnull(sum(ap.point), 0) + (select ifnull(sum(up.point), 0)
 									from use_point up
 									where up.user_num = #{user_num})
 			from accumulate_point ap
