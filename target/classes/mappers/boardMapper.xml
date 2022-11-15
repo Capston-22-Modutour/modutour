@@ -68,6 +68,14 @@
 	<!-- 마이페이지 end -->
 	
 	<!-- 커뮤니티 start -->
+	<!-- 커뮤니티 번호 확인 -->
+	<select id="checkBoardBno" resultType="int">
+		SELECT board_bno
+		FROM member_board
+		ORDER BY board_bno DESC
+		LIMIT 1
+	</select>
+	
 	<!-- 게시물 목록 -->
 	<!-- 쿼리를 실행한 뒤 결과가 있을 경우 resultType 사용 -->
 	<select id="list" resultType="com.spring.dto.BoardDTO">
@@ -78,15 +86,28 @@
 	<!-- 게시물 작성 -->
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="write" parameterType="com.spring.dto.BoardDTO">
-		insert into member_board(board_title, board_content, board_writer, board_img, board_thumbnail)
-					values(#{board_title}, #{board_content}, #{board_writer}, #{board_img}, #{board_thumbnail})
+		insert into member_board(board_title, board_content, board_writer)
+					values(#{board_title}, #{board_content}, #{board_writer})
+	</insert>
+	<!-- 이미지 삽입 -->
+	<insert id="writeImage" parameterType="com.spring.dto.BoardDTO">
+		insert into image_upload_board(division_bno, m_board_bno, img, thumbnail)
+					values(0, #{board_bno}, #{img}, #{thumbnail})
 	</insert>
 	
 	<!-- 게시물 조회 -->
 	<select id="view" parameterType="int" resultType="com.spring.dto.BoardDTO">
 		select *
 		from member_board
-		where board_bno = #{board_bno}		
+		where board_bno = #{board_bno}
+		
+	</select>
+	
+	<!-- 이미지 조회 -->
+	<select id="viewImage" resultType="com.spring.dto.BoardDTO">
+		SELECT iub.m_board_bno, iub.img, iub.thumbnail
+		FROM member_board mb, image_upload_board iub
+		WHERE mb.board_bno = #{board_bno} AND iub.m_board_bno = #{board_bno} AND iub.division_bno = 0
 	</select>
 	
 	<!-- 게시글 조회수 증가 -->

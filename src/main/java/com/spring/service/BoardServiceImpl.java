@@ -17,7 +17,12 @@ public class BoardServiceImpl implements BoardService {
 	@Inject
 	private BoardDAO dao;
 	
-	// ----------------------------------------
+	// 커뮤니티 게시물 번호 확인
+	@Override
+	public int checkBoardBno() throws Exception {
+		return dao.checkBoardBno();
+	}
+		
 	// 게시물 목록
 	@Override
 	public List<BoardDTO> list() throws Exception {
@@ -29,6 +34,11 @@ public class BoardServiceImpl implements BoardService {
 	public void write(BoardDTO dto) throws Exception {
 		dao.write(dto);
 	}
+	// 게시물 이미지
+	@Override
+	public void writeImage(BoardDTO dto) throws Exception {
+		dao.writeImage(dto);
+	}
 
 	// 게시물 조회, 조회수 증가
 	@Transactional(isolation = Isolation.READ_COMMITTED)
@@ -36,6 +46,11 @@ public class BoardServiceImpl implements BoardService {
 	public BoardDTO view(int board_bno) throws Exception {
 		dao.updateViewCnt(board_bno);
 		return dao.view(board_bno);
+	}
+	// 게시물 이미지 조회 
+	@Override
+	public List<BoardDTO> viewImage(int board_bno) throws Exception {
+		return dao.viewImage(board_bno);
 	}
 
 	// 게시글 수정

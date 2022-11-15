@@ -20,7 +20,12 @@ public class BoardDAOImpl implements BoardDAO {
 	private static String namespace = "com.spring.mappers.boardMapper";
 	private static String like_namespace = "com.spring.mappers.likeMapper";
 	
-	// ----------------------------------------
+	// 커뮤니티 게시물 번호 확인
+	@Override
+	public int checkBoardBno() throws Exception {
+		return sql.selectOne(namespace + ".checkBoardBno");
+	}
+		
 	// 자유 게시물 목록
 	@Override
 	public List<BoardDTO> list() throws Exception {
@@ -32,11 +37,21 @@ public class BoardDAOImpl implements BoardDAO {
 	public void write(BoardDTO dto) throws Exception {
 		sql.insert(namespace + ".write", dto);
 	}
+	// 자유 게시물 이미지
+	@Override
+	public void writeImage(BoardDTO dto) throws Exception {
+		sql.insert(namespace + ".writeImage", dto);
+	}
 
 	// 자유 게시물 조회
 	@Override
 	public BoardDTO view(int board_bno) throws Exception {
 		return sql.selectOne(namespace + ".view", board_bno);
+	}
+	// 게시물 이미지
+	@Override
+	public List<BoardDTO> viewImage(int board_bno) throws Exception {
+		return sql.selectList(namespace + ".viewImage", board_bno);
 	}
 
 	// 자유 게시글 조회수 증가

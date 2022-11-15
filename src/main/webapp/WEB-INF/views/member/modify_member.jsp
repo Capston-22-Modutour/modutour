@@ -78,89 +78,89 @@
 						</div>
 						<form role="form" method="post" autocomplete="off">
 							<div class="bg-white border border-top-0 p-4 mb-3">
-								<div class="mb-4">
-									<div class="mb-3">
-										<div class="d-flex align-items-center mb-2">
+								<div class="container">
+									<div class="row">
+										<div class="col-lg-2" style="display: inline; margin-bottom: 30px;">
 											<i class="fa fa-id-card-alt text-primary mr-2"></i>
-											<h6 class="font-weight-bold mb-0">ID</h6>
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">ID</h5>
 										</div>
-										<p name="user_id" class="mb-4">${member.user_id}</p>
-										<input name="user_id" type="text" value="${member.user_id}" hidden="hidden">
-									</div>
-
-									<div class="mb-3">
-										<div class="d-flex align-items-center mb-2">
+										<div class="col-lg-4" style="text-align: left; display: inline; margin-bottom: 30px;">
+											<p style="font-size: 20px; color: black; display: inline;">${member.user_id}</p>
+										</div>
+										
+										<div class="col-lg-2" style="display: inline; margin-bottom: 30px;">
 											<i class="fa fa-signature text-primary mr-2"></i>
-											<h6 class="font-weight-bold mb-0">이름</h6>
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">이름</h5>
 										</div>
-										<p name="user_name" class="mb-4">${member.user_name}</p>
-									</div>
-
-									<div class="mb-3">
-										<div class="d-flex align-items-center mb-2">
+										<div class="col-lg-4" style="text-align: left; display: inline; margin-bottom: 30px;">
+											<p style="font-size: 20px; color: black; display: inline;">${member.user_name}</p>
+										</div>
+										
+										<div class="col-lg-2" style="display: inline; margin-bottom: 30px;">
 											<i class="fa fa-genderless text-primary mr-2"></i>
-											<h6 class="font-weight-bold mb-0">성별</h6>
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">성별</h5>
 										</div>
-										<p name="user_gender" class="mb-4">${member.user_gender}</p>
-									</div>
-
-									<div class="mb-3">
-										<div class="d-flex align-items-center mb-2">
+										<div class="col-lg-4" style="text-align: left; display: inline; margin-bottom: 30px;">
+											<p style="font-size: 20px; color: black; display: inline;">${member.user_gender}</p>
+										</div>
+										
+										<div class="col-lg-2" style="display: inline; margin-bottom: 30px;">
 											<i class="fa fa-birthday-cake text-primary mr-2"></i>
-											<h6 class="font-weight-bold mb-0">생일</h6>
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">생일</h5>
 										</div>
-										<p name="user_birth" class="mb-4">${member.user_birth}</p>
-									</div>
-
-									<div class="mb-3">
-										<div class="d-flex align-items-center mb-2">
+										<div class="col-lg-4" style="text-align: left; display: inline; margin-bottom: 30px;">
+											<p style="font-size: 20px; color: black; display: inline;">${member.user_birth}</p>
+										</div>
+										
+										<div class="col-lg-2" style="display: inline; margin-bottom: 30px;">
 											<i class="fa fa-phone-alt text-primary mr-2"></i>
-											<h6 class="font-weight-bold mb-0">전화번호</h6>
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">전화번호</h5>
 										</div>
-										<label>010</label> - 
-										<input type="hidden" name="user_phone1" value="010">
-										<input type="text" name="user_phone2" value="${member.user_phone2}" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> - 
-										<input type="text" name="user_phone3" value="${member.user_phone3}" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br/>
-									</div>
-
-									<div class="mb-3">
-										<div class="d-flex align-items-center mb-2">
+										<div class="col-lg-4" style="text-align: left; display: inline; margin-bottom: 30px;">
+											<p style="font-size: 20px; color: black; display: inline;">
+												<label>010</label> - 
+												<input type="hidden" name="user_phone1" value="010">
+												<input type="text" name="user_phone2" value="${member.user_phone2}" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> - 
+												<input type="text" name="user_phone3" value="${member.user_phone3}" size='4' maxlength='4' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+											</p>
+										</div>
+										
+										<div class="col-lg-2" style="display: inline; margin-bottom: 30px;">
 											<i class="fa fa-map-marker-alt text-primary mr-2"></i>
-											<h6 class="font-weight-bold mb-0">주소</h6>
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">주소</h5>
 										</div>
-										<input name="user_address" type="text" class="m-0" value="${member.user_address}">
-									</div>
-
-									<div class="mb-3">
-										<div class="d-flex align-items-center mb-2">
+										<div class="col-lg-4" style="text-align: left; display: inline; margin-bottom: 30px;">
+											<input style="font-size: 20px; color: black; display: inline;" name="user_address" type="text" class="m-0" value="${member.user_address}">
+										</div>
+										
+										<div class="col-lg-2" style="display: inline; margin-bottom: 30px;">
 											<i class="fa fa-envelope-open text-primary mr-2"></i>
-											<h6 class="font-weight-bold mb-0">이메일</h6>
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">이메일</h5>
 										</div>
-										<input name="user_email" type="text" class="m-0" value="${member.user_email}">
-									</div>
-
-									<div class="mb-3">
-										<div class="d-flex align-items-center mb-2">
+										<div class="col-lg-4" style="text-align: left; display: inline; margin-bottom: 30px;">
+											<input style="font-size: 20px; color: black; display: inline;" name="user_email" type="text" class="m-0" value="${member.user_email}">
+										</div>
+										
+										<div class="col-lg-2" style="display: inline; margin-bottom: 30px;">
 											<i class="fa fa-calendar-check text-primary mr-2"></i>
-											<h6 class="font-weight-bold mb-0">가입일자</h6>
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">가입일자</h5>
 										</div>
-										<p name="user_joinDate" class="m-0"><fmt:formatDate value="${member.user_joinDate}" pattern="yyyy-MM-dd" />
-										</p>
-									</div>
-									
-									<div class="mb-3">
-										<div class="d-flex align-items-center mb-2">
+										<div class="col-lg-4" style="text-align: left; display: inline; margin-bottom: 30px;">
+											<p style="font-size: 20px; color: black; display: inline;"><fmt:formatDate value="${member.user_joinDate}" pattern="yyyy-MM-dd"/></p>
+										</div>
+										
+										<div class="col-lg-2" style="display: inline; margin-bottom: 30px;">
 											<i class="fa fa-calendar-check text-primary mr-2"></i>
-											<h6 class="font-weight-bold mb-0">비밀번호 확인</h6>
+											<h6 class="m-0 text-uppercase font-weight-bold" style="display:inline">비밀번호 확인</h6>
 										</div>
-										<input type="password" name="user_pw" class="m-0" required="required">
-										</p>
+										<div class="col-lg-4" style="text-align: left; display: inline; margin-bottom: 30px;">
+											<input style="font-size: 20px; color: black; display: inline;" type="password" name="user_pw" class="m-0" required="required">
+										</div>
 									</div>
 								</div>
 
 								<div class="text-center">
-									<button type="submit" class="btn btn-primary font-weight-semi-bold px-4">수정하기</button>
-									&nbsp;
+									<button type="submit" class="btn btn-primary font-weight-semi-bold px-4">수정하기</button> &nbsp;
 									<button type="button" onclick="history.go(-1)" class="btn btn-primary font-weight-semi-bold px-4">취소하기</button>
 								</div>
 							</div>

@@ -174,69 +174,71 @@
 							<h4 class="m-0 text-uppercase font-weight-bold">회원 정보</h4>
 						</div>
 						<div class="bg-white border border-top-0 p-4 mb-3">
-							<div class="mb-4">
-								<div class="mb-3">
-									<div class="d-flex align-items-center mb-2">
+							<div class="container">
+								<div class="row">
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
 										<i class="fa fa-id-card-alt text-primary mr-2"></i>
-										<h6 class="font-weight-bold mb-0">ID</h6>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">ID</h5>
 									</div>
-									<p class="mb-4">${member.user_id}</p>
-								</div>
-								
-								<div class="mb-3">
-									<div class="d-flex align-items-center mb-2">
+									<div class="col-lg-3" style="text-align: left; display: inline; margin-bottom: 30px;">
+										<p style="font-size: 20px; color: black; display: inline;">${member.user_id}</p>
+									</div>
+									
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
 										<i class="fa fa-signature text-primary mr-2"></i>
-										<h6 class="font-weight-bold mb-0">이름</h6>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">이름</h5>
 									</div>
-									<p class="mb-4">${member.user_name}</p>
-								</div>
-								
-								<div class="mb-3">
-									<div class="d-flex align-items-center mb-2">
+									<div class="col-lg-3" style="text-align: left; display: inline; margin-bottom: 30px;">
+										<p style="font-size: 20px; color: black; display: inline;">${member.user_name}</p>
+									</div>
+									
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
 										<i class="fa fa-genderless text-primary mr-2"></i>
-										<h6 class="font-weight-bold mb-0">성별</h6>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">성별</h5>
 									</div>
-									<p class="mb-4">${member.user_gender}</p>
-								</div>
-								
-								<div class="mb-3">
-									<div class="d-flex align-items-center mb-2">
+									<div class="col-lg-3" style="text-align: left; display: inline; margin-bottom: 30px;">
+										<p style="font-size: 20px; color: black; display: inline;">${member.user_gender}</p>
+									</div>
+									
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
 										<i class="fa fa-birthday-cake text-primary mr-2"></i>
-										<h6 class="font-weight-bold mb-0">생일</h6>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">생일</h5>
 									</div>
-									<p class="mb-4">${member.user_birth}</p>
-								</div>
-								
-								<div class="mb-3">
-									<div class="d-flex align-items-center mb-2">
+									<div class="col-lg-3" style="text-align: left; display: inline; margin-bottom: 30px;">
+										<p style="font-size: 20px; color: black; display: inline;">${member.user_birth}</p>
+									</div>
+									
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
 										<i class="fa fa-phone-alt text-primary mr-2"></i>
-										<h6 class="font-weight-bold mb-0">전화번호</h6>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">전화번호</h5>
 									</div>
-									<p class="m-0">${member.user_phoneNum}</p>
-								</div>
-
-								<div class="mb-3">
-									<div class="d-flex align-items-center mb-2">
+									<div class="col-lg-3" style="text-align: left; display: inline; margin-bottom: 30px;">
+										<p style="font-size: 20px; color: black; display: inline;">${member.user_phoneNum}</p>
+									</div>
+									
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
 										<i class="fa fa-map-marker-alt text-primary mr-2"></i>
-										<h6 class="font-weight-bold mb-0">주소</h6>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">주소</h5>
 									</div>
-									<p class="m-0">${member.user_address}</p>
-								</div>
-								
-								<div class="mb-3">
-									<div class="d-flex align-items-center mb-2">
+									<div class="col-lg-3" style="text-align: left; display: inline; margin-bottom: 30px;">
+										<p style="font-size: 20px; color: black; display: inline;">${member.user_address}</p>
+									</div>
+									
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
 										<i class="fa fa-envelope-open text-primary mr-2"></i>
-										<h6 class="font-weight-bold mb-0">이메일</h6>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">이메일</h5>
 									</div>
-									<p class="m-0">${member.user_email}</p>
-								</div>
-								
-								<div class="mb-3">
-									<div class="d-flex align-items-center mb-2">
+									<div class="col-lg-3" style="text-align: left; display: inline; margin-bottom: 30px;">
+										<p style="font-size: 20px; color: black; display: inline;">${member.user_email}</p>
+									</div>
+									
+									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
 										<i class="fa fa-calendar-check text-primary mr-2"></i>
-										<h6 class="font-weight-bold mb-0">가입일자</h6>
+										<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">가입일자</h5>
 									</div>
-									<p class="m-0"><fmt:formatDate value="${member.user_joinDate}" pattern="yyyy-MM-dd"/></p>
+									<div class="col-lg-3" style="text-align: left; display: inline; margin-bottom: 30px;">
+										<p style="font-size: 20px; color: black; display: inline;"><fmt:formatDate value="${member.user_joinDate}" pattern="yyyy-MM-dd"/></p>
+									</div>
 								</div>
 							</div>
 							

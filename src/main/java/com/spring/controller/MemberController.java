@@ -101,6 +101,10 @@ public class MemberController {
 	@RequestMapping(value = "/modify_member", method = RequestMethod.POST)
 	public String postModify_member(HttpSession session, MemberDTO dto) throws Exception {
 
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		
+		dto.setUser_id(member.getUser_id());
+		
 		service.modify(dto);
 		session.invalidate();
 

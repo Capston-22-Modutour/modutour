@@ -18,6 +18,10 @@ public class BoardDTO {
 	private String board_img;
 	private String board_thumbnail;
     private int fileCnt;
+    
+    private int m_board_bno;
+    private String img;
+    private String thumbnail;
 	
 	public int getUser_num() {
 		return user_num;
@@ -90,6 +94,24 @@ public class BoardDTO {
 	}
 	public void setFileCnt(int fileCnt) {
 		this.fileCnt = fileCnt;
+	}
+	public int getM_board_bno() {
+		return board_bno;
+	}
+	public void setM_board_bno(int board_bno) {
+		this.board_bno = board_bno;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 	// 자유 게시판 end
 

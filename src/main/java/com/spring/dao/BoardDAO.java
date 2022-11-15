@@ -9,15 +9,21 @@ import com.spring.dto.BoardDTO;
 @Repository
 public interface BoardDAO {
 	
-	// ----------------------------------------
+	// 커뮤니티 게시물 번호 확인
+	public int checkBoardBno() throws Exception;
+	
 	// 자유 게시물 목록
 	public List<BoardDTO> list() throws Exception;
 
 	// 자유 게시물 작성
 	public void write(BoardDTO dto) throws Exception;
+	// 자유 게시물 이미지
+	public void writeImage(BoardDTO dto) throws Exception;
 
 	// 자유 게시물 조회
 	public BoardDTO view(int board_bno) throws Exception;
+	// 게시물 이미지 조회 
+	public List<BoardDTO> viewImage(int board_bno) throws Exception;
 	
 	// 자유 게시글 조회수 증가
 	public void updateViewCnt(int board_bno) throws Exception;
