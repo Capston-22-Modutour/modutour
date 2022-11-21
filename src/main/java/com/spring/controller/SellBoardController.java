@@ -20,6 +20,7 @@ import com.spring.dto.TabDTO;
 import com.spring.service.OrderService;
 import com.spring.service.ReplyService;
 import com.spring.service.SellBoardService;
+import com.spring.service.SuggestBoardService;
 import com.spring.service.TabService;
 
 @Controller
@@ -28,6 +29,9 @@ public class SellBoardController {
 	
 	@Inject
 	OrderService service;
+	
+	@Inject
+	SuggestBoardService sbService;
 	
 	@Inject
 	SellBoardService slService;
@@ -68,6 +72,13 @@ public class SellBoardController {
 		int want_boardExist = service.packageCheck(board_want_bno);
 		System.out.println("중복 : " + want_boardExist);
 		
+		for(int i=0; i < 5; i++) {
+			System.out.println("이미지 값 : " + request.getParameter("img"));
+			System.out.println("썸네일 값" + request.getParameter("thumbnail"));
+		}
+		
+		System.out.println("제안 게시판 번호 : " + dto.getSuggest_bno());
+		
 		if (want_boardExist == 0) { // 중복되는 board_want_bno 값 없을 시 sell_board 추가
 			slService.sell_write(dto);
 		} else {
@@ -101,15 +112,19 @@ public class SellBoardController {
 		int suggest_bno = dto.getSuggest_bno();
 		
 		//suggest 게시판 번화와 일치하는 tab 불러오기
-		List<TabDTO> list = null;
-		list = tabService.Tablist(suggest_bno);
+		List<TabDTO> tabList = null;
+		tabList = tabService.Tablist(suggest_bno);
+		
+		List<BoardDTO> list = null;
+		list = sbService.suggest_viewImage(suggest_bno);
 		
 		int people = service.checkPeopleCount(suggest_bno);
 		
 		model.addAttribute("view", dto);
 		model.addAttribute("peopleCnt", people);
+		model.addAttribute("tabList", tabList);
 		model.addAttribute("list", list);
-
+		
 		// 패키지 설계 댓글 조회
 		List<ReplyDTO> reply = null;
 		reply = replyService.sell_list(sell_bno);

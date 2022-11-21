@@ -30,9 +30,9 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <style>
-	.select_img img {
+	/* .select_img img {
 		margin: 20px 0;
-	}
+	} */
 	
 	table {
 	    margin-left:auto; 
@@ -92,6 +92,51 @@
 	.inp { padding: 10px 10px; background-color: #f1f1f1; border-radius: 4px; border: 0px; } 
 	.inp:focus { outline: none; background-color: #eee; } 
 	
+	/* 다중 이미지 업로드 */
+	.inputFile,
+	#Preview,
+	#Preview li{
+	    float:left
+	}
+	.inputFile{
+	    margin-bottom: 10px;
+	}
+	.addImgBtn{
+	    width: 80px !important;
+	    height: 80px !important;
+	    line-height: 71px !important;
+	    background-color: #fff !important;
+	    color: #b7b7b7 !important;
+	    border: 2px solid #b7b7b7;
+	    font-size: 35px !important;
+	    padding: 0 !important;
+	}
+	
+	#Preview{
+	    margin-left: 20px;
+	    width: 650px;
+	}
+	#Preview li{
+	    margin-left: 10px;
+	    margin-bottom: 10px;
+	    position: relative;
+	    border: 1px solid #ececec;
+	    cursor:move
+	}
+	.delBtn{
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    font-size: 13px;
+	    background-color: #000;
+	    color: #fff;
+	    width: 18px;
+	    height: 18px;
+	    line-height: 16px;
+	    display: inline-block;
+	    text-align: center;
+	    cursor: pointer;
+	}
 </style>
 <body>
 	<%------------ header section  ------------%>
@@ -173,7 +218,7 @@
 								<div class="col-lg-3" style="display: inline; margin-bottom: 30px; border-right: 1px solid gray;">
 									<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">인원수</h5>
 								</div>
-								<div class="col-lg-9" style="display: inline; margin-bottom: 30px;">
+								<div class="col-lg-9" style="display: inline; margin-bottom: 30px; text-align: left;">
 									<input type="number" style="font-size: 20px; color: black; display: inline;" name="board_want_people" class="number-size" style="font-size: 20px; color: black; display: inline;" min="1" required="required"><p style="display: inline; color: black;"> 명
 								</div>
 								<div class="col-lg-6" style="border-right: 1px solid gray; margin-bottom: 30px;">
@@ -189,10 +234,14 @@
 									<h5 class="m-0 text-uppercase font-weight-bold">파일 업로드</h5>
 								</div>	
 								<div class="col-lg-9" style="display: inline; margin-bottom: 30px;">
-									<input type="file" id="board_want_img" name="file" required="required"/>
+									<div class="form-group">
+										<input class="form-control form-control-user" type="file" multiple="multiple"
+										name="product_detail_image" id="review_img" onchange="setDetailImage(event);" required>
+									</div>
+									<!-- <input type="file" id="board_want_img" name="file" required="required"/> -->
 								</div>
-								<div class="col-lg-12" style="display: inline; margin-bottom: 30px;">
-									<div class="select_img"><img src=""></div>
+								<div class="col-lg-12">
+									<div id="select_img" style="margin-bottom: 30px;"><img src=""></div>
 								</div>
 							</div>
 						</div>
@@ -263,8 +312,6 @@
 				</div>
 			</div>
 		</form>
-		
-						
 		<!-- 게시글 내용 end -->
 	</c:if>
 	
@@ -285,22 +332,40 @@
     <script src="<c:url value='/resources/js/main.js'/>"></script>
 </body>
 <script>
-	// 사용자가 선택한 이미지 보여줌
-	$("#board_want_img").change(function(){
-		if(this.files && this.files[0]) {
-			var reader = new FileReader;
-			reader.onload = function(data) {
-				$(".select_img img").attr("src", data.target.result).width(500);        
-			}
-			reader.readAsDataURL(this.files[0]);
-		}
-	});
-	
 	// textarea 엔터키 <br>로 변환
 	function getHtml(){
 		var html = $("#textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); //id='textarea'에서 엔터키를 인식해 <br>태그로 변환
 		$("#result").html(html); //id='result'에 <br>태그로 변환된 내용 저장
 	}
 </script>
-
+<script>
+	function setDetailImage(event){
+		
+		var maxFileCnt = 5; //최대 업로드 가능 파일수
+		var file_cnt = event.target.files.length; //첨부된 파일수
+		
+		
+		if(file_cnt > maxFileCnt) {
+			alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
+			
+			return false;
+		} else {
+		
+			for(var image of event.target.files){
+				var reader = new FileReader();
+				
+				reader.onload = function(event){
+					var img = document.createElement("img");
+					img.setAttribute("src", event.target.result);
+					img.setAttribute("class", "col-lg-3");
+					document.querySelector("div#select_img").appendChild(img);
+				};
+				
+				console.log(image);
+				reader.readAsDataURL(image);
+				
+			}
+		}
+	}
+</script>
 </html>

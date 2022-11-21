@@ -9,18 +9,24 @@ import com.spring.dto.BoardDTO;
 @Service
 public interface SuggestBoardService {
 	
-	// ----------------------------------------
+	// 패키지 제안 게시물 번호 확인
+	public int suggest_checkBoardBno() throws Exception;
+	
 	// 패키지 제안 게시물 목록
 	public List<BoardDTO> suggest_list() throws Exception;
 
 	// 패키지 제안 게시물 작성
 	public void suggest_write(BoardDTO dto) throws Exception;
+	// 패키지 제안 게시물 이미지
+	public void suggest_writeImage(BoardDTO dto) throws Exception;
 
 	// 패키지 제안 게시물 조회
 	public BoardDTO suggest_view(int suggest_bno) throws Exception;
 
 	// 패키지 제안 게시글 조회수 증가
 	public void suggest_updateViewCnt(int suggest_bno) throws Exception;
+	// 게시물 이미지 조회 
+	public List<BoardDTO> suggest_viewImage(int suggest_bno) throws Exception;
 
 	// 패지키 제안 게시글 수정
 	public void suggest_modify(BoardDTO dto) throws Exception;

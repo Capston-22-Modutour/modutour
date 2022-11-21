@@ -17,7 +17,10 @@ public class WantBoardServiceImpl implements WantBoardService {
 	@Inject
 	private WantBoardDAO dao;
 	
-	// -------------------------------------
+	public int want_checkBoardBno() throws Exception {
+		return dao.want_checkBoardBno();
+	}
+	
 	// 게시물 목록
 	@Override
 	public List<BoardDTO> want_list() throws Exception {
@@ -29,6 +32,10 @@ public class WantBoardServiceImpl implements WantBoardService {
 	public void want_write(BoardDTO dto) throws Exception {
 		dao.want_write(dto);
 	}
+	// 설계 게시물 이미지
+	public void want_writeImage(BoardDTO dto) throws Exception {
+		dao.want_writeImage(dto);
+	}
 
 	// 게시물 조회, 조회수 증가
 	@Transactional(isolation = Isolation.READ_COMMITTED)
@@ -36,6 +43,10 @@ public class WantBoardServiceImpl implements WantBoardService {
 	public BoardDTO want_view(int board_want_bno) throws Exception {
 		dao.want_updateViewCnt(board_want_bno);
 		return dao.want_view(board_want_bno);
+	}
+	// 게시물 이미지 조회 
+	public List<BoardDTO> want_viewImage(int board_want_bno) throws Exception {
+		return dao.want_viewImage(board_want_bno);
 	}
 
 	// 게시글 수정

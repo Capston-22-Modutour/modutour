@@ -17,10 +17,14 @@ public class SuggestBoardDAOImpl implements SuggestBoardDAO {
 	@Inject
 	private SqlSession sql;
 
-	private static String namespace = "com.spring.mappers.boardMapper";
-	private static String like_namespace = "com.spring.mappers.likeMapper";
+	private static final String namespace = "com.spring.mappers.boardMapper";
+	private static final String like_namespace = "com.spring.mappers.likeMapper";
 	
-	// ------------------------------------
+	// 패키지 제안 게시물 번호 확인
+	public int suggest_checkBoardBno() throws Exception {
+		return sql.selectOne(namespace + ".suggest_checkBoardBno");
+	}
+	
 	// 패지키 제안 게시물 목록
 	@Override
 	public List<BoardDTO> suggest_list() throws Exception {
@@ -31,6 +35,10 @@ public class SuggestBoardDAOImpl implements SuggestBoardDAO {
 	@Override
 	public void suggest_write(BoardDTO dto) throws Exception {
 		sql.insert(namespace + ".suggest_write", dto);
+	}
+	// 자유 게시물 이미지
+	public void suggest_writeImage(BoardDTO dto) throws Exception {
+		sql.insert(namespace + ".suggest_writeImage", dto);
 	}
 
 	// 패키지 제안 게시물 조회
@@ -43,6 +51,10 @@ public class SuggestBoardDAOImpl implements SuggestBoardDAO {
 	@Override
 	public void suggest_updateViewCnt(int suggest_bno) throws Exception {
 		sql.update(namespace + ".suggest_updateViewCnt", suggest_bno);
+	}
+	// 게시물 이미지 조회 
+	public List<BoardDTO> suggest_viewImage(int suggest_bno) throws Exception {
+		return sql.selectList(namespace + ".suggest_viewImage", suggest_bno);
 	}
 
 	// 패키지 제안 게시글 수정

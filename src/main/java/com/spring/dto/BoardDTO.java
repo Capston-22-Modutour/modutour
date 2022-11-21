@@ -19,7 +19,7 @@ public class BoardDTO {
 	private String board_thumbnail;
     private int fileCnt;
     
-    private int m_board_bno;
+    private int division_bno;
     private String img;
     private String thumbnail;
 	
@@ -95,11 +95,11 @@ public class BoardDTO {
 	public void setFileCnt(int fileCnt) {
 		this.fileCnt = fileCnt;
 	}
-	public int getM_board_bno() {
-		return board_bno;
+	public int getDivision_bno() {
+		return division_bno;
 	}
-	public void setM_board_bno(int board_bno) {
-		this.board_bno = board_bno;
+	public void setDivision_bno(int division_bno) {
+		this.division_bno = division_bno;
 	}
 	public String getImg() {
 		return img;

@@ -31,9 +31,6 @@
     
 </head>
 <style>
-	.select_img img {
-		margin: 20px 0;
-	}
 	.number-size {
 		width: 70px;
 	}
@@ -43,7 +40,52 @@
   padding: 5px;
   border-radius: 3px;
 }
+
+/* 다중 이미지 업로드 */
+	.inputFile,
+	#Preview,
+	#Preview li{
+	    float:left
+	}
+	.inputFile{
+	    margin-bottom: 10px;
+	}
+	.addImgBtn{
+	    width: 80px !important;
+	    height: 80px !important;
+	    line-height: 71px !important;
+	    background-color: #fff !important;
+	    color: #b7b7b7 !important;
+	    border: 2px solid #b7b7b7;
+	    font-size: 35px !important;
+	    padding: 0 !important;
+	}
 	
+	#Preview{
+	    margin-left: 20px;
+	    width: 650px;
+	}
+	#Preview li{
+	    margin-left: 10px;
+	    margin-bottom: 10px;
+	    position: relative;
+	    border: 1px solid #ececec;
+	    cursor:move
+	}
+	.delBtn{
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    font-size: 13px;
+	    background-color: #000;
+	    color: #fff;
+	    width: 18px;
+	    height: 18px;
+	    line-height: 16px;
+	    display: inline-block;
+	    text-align: center;
+	    cursor: pointer;
+	}
 	
 </style>
 <body>
@@ -110,12 +152,22 @@
 							</div>
 						</div>
 						
-						<div style="margin-bottom: 30px;">
+						<div class="container">
+								<div class="row" style="text-align: center; margin-bottom: 30px;">
+									<c:forEach var="list" items="${list}">
+										<div class="col-lg-6 bigPicture" style="margin-bottom: 30px;">
+											<img src="${list.img}" width="200px" height="200px" onerror="this.remove ? this.remove() : this.removeNode();"/>
+										</div>
+									</c:forEach>
+								</div>
+							</div>
+						
+						<%-- <div style="margin-bottom: 30px;">
 							<c:if test="${view.board_want_img != null}">
 								<img src="${view.board_want_img}" width="500px" height="500px"/> <br><br>
 								첨부파일 : <a href="/fileDownload.do?file_name=${view.board_want_img}">${view.board_want_img}</a>
 							</c:if>
-						</div>
+						</div> --%>
 						
 						<!-- 로그인이 되어있고, 본인 글이 아닐경우에만 추천할 수 있도록 버튼을 출력 -->
 						<div class="text-center">
@@ -143,135 +195,141 @@
 							<h4 class="m-0 text-uppercase font-weight-bold">제안합니다</h4>
 						</div>
 						<div class="bg-white border border-top-0 p-3">
-						<form class="form" role="form" method="post" autocomplete="off" action="/suggest_board/suggest_write" enctype="multipart/form-data">
-							<h4 class="m-0 text-uppercase font-weight-bold">
-								<input type="text" size="35" name="suggest_title" placeholder="제목을 입력해 주세요" required="required"/>
-							</h4>
-							<br/>
-							<!-- 게시글 내용 Start -->
-							<div class="container">
-								<div class="row">
-									<input type="text" name="board_want_bno" value="${view.board_want_bno}" hidden="hidden">
-									<input type="text" name="board_want_writer"	value="${view.board_want_writer}" hidden="hidden"> 
-									<input type="text" name="com_regiNum" value="${company.com_regiNum}" hidden="hidden">
-									<input type="text" name="suggest_writer" value="${company.com_name}" hidden="hidden">
-									<input type="text" name="board_want_content" value="${view.board_want_content}" hidden="hidden">
-									<input type="text" value="${view.board_want_destination}" name="board_want_destination" hidden="hidden">
-									<input type="date" name="board_want_start" value="<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />"hidden="hidden">
-									<input type="date" name="board_want_end" value="<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />"hidden="hidden">
+							<form class="form" role="form" method="post" autocomplete="off" action="/suggest_board/suggest_write" enctype="multipart/form-data">
+								<h4 class="m-0 text-uppercase font-weight-bold">
+									<input type="text" size="35" name="suggest_title" placeholder="제목을 입력해 주세요" required="required"/>
+								</h4>
+								<br/>
+								<!-- 게시글 내용 Start -->
+								<div class="container">
+									<div class="row">
+										<input type="text" name="board_want_bno" value="${view.board_want_bno}" hidden="hidden">
+										<input type="text" name="board_want_writer"	value="${view.board_want_writer}" hidden="hidden"> 
+										<input type="text" name="com_regiNum" value="${company.com_regiNum}" hidden="hidden">
+										<input type="text" name="suggest_writer" value="${company.com_name}" hidden="hidden">
+										<input type="text" name="board_want_content" value="${view.board_want_content}" hidden="hidden">
+										<input type="text" value="${view.board_want_destination}" name="board_want_destination" hidden="hidden">
+										<input type="date" name="board_want_start" value="<fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" />"hidden="hidden">
+										<input type="date" name="board_want_end" value="<fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" />"hidden="hidden">
+												
+										<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">목적지</h5>
+										</div>
+										<div class="col-lg-9" style="display: inline;">
+											<p style="font-size: 20px; color: black; display: inline;">${view.board_want_destination}</p>
+										</div>
+										<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">희망사항</h5>
+										</div>
+										<div class="col-lg-9" style="display: inline;">
+											<p style="font-size: 20px; color: black; display: inline;">${view.board_want_content}</p>
+										</div>
+										<div class="col-lg-3" style="bottom: 50%; display: inline; margin-bottom: 30px;">
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">제안사항</h5>
+										</div>
+										<div class="col-lg-9" style="display: inline; margin-bottom: 30px;">
+										<!-- id='textarea'의 값을 받아 id='result'에 값 넘김 -->
+										<textarea cols="25" rows="2" id="textarea" style="font-size: 20px; color: black; display: inline;" required="required"></textarea>
+										<textarea id="result" name="suggest_content" hidden></textarea>
+										<br>
 											
-									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-bold" style="display:inline">목적지</h5>
-									</div>
-									<div class="col-lg-9" style="display: inline;">
-										<p style="font-size: 20px; color: black; display: inline;">${view.board_want_destination}</p>
-									</div>
-									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">희망사항</h5>
-									</div>
-									<div class="col-lg-9" style="display: inline;">
-										<p style="font-size: 20px; color: black; display: inline;">${view.board_want_content}</p>
-									</div>
-									<div class="col-lg-3" style="bottom: 50%; display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">제안사항</h5>
-									</div>
-									<div class="col-lg-9" style="display: inline; margin-bottom: 30px;">
-									<!-- id='textarea'의 값을 받아 id='result'에 값 넘김 -->
-									<textarea cols="25" rows="2" id="textarea" style="font-size: 20px; color: black; display: inline;" required="required"></textarea>
-									<textarea id="result" name="suggest_content" hidden></textarea>
-									<br>
+										</div>
+										<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">인원수</h5>
+										</div>
+										<div class="col-lg-3" style="display: inline; margin-bottom: 30px; border-right: 1px solid gray;">
+											<input type="number" name="board_want_people" class="number-size" style="font-size: 20px; color: black; display: inline;" min="1" required="required"><p style="display: inline; color: black;"> 명</p>
+										</div>
+										<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">최소 출발</h5>
+										</div>
+										<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+											<input type="number" name="min_people" class="number-size" style="font-size: 20px; color: black; display: inline;" required="required"><p style="display: inline; color: black;"> 명</p>
+										</div>
+										<div class="col-lg-6" style="text-align: center; border-right: 1px solid gray; margin-bottom: 30px;">
+											<h5 class="m-0 text-uppercase font-weight-bold">출발일</h5> 
+											<p style="font-size: 20px; color: black; display: inline;"><fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" /></p>
+										</div>
+										<div class="col-lg-6" style="text-align: center;">
+											<h5 class="m-0 text-uppercase font-weight-bold">도착일</h5>
+											<p style="font-size: 20px; color: black;"><fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" /></p>
+										</div>
+												
+										<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">가격</h5>
+										</div>
+										<div class="col-lg-9" style="display: inline;">
+											<input type="number" name="suggest_price" style="font-size: 20px; color: black; display: inline;" required="required">
+										</div>
+										<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">가이드 포함 여부</h5>
+										</div>
+										<div class="col-lg-9" style="display: inline;">
+											<select name="suggest_guide" style="font-size: 20px; color: black; display: inline;">
+												<option>O</option>
+												<option>X</option>
+											</select>
+										</div>
+										<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">항공사</h5>
+										</div>
+										<div class="col-lg-9" style="display: inline;">
+											<select name="suggest_air" id="air" style="font-size: 20px; color: black; display: inline;">
+												<option>대한항공</option>
+												<option>아시아나항공</option>
+												<option>에어부산</option>
+												<option>티웨이</option>
+											</select>
+										</div>
 										
-									</div>
-									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">인원수</h5>
-									</div>
-									<div class="col-lg-3" style="display: inline; margin-bottom: 30px; border-right: 1px solid gray;">
-										<input type="number" name="board_want_people" class="number-size" style="font-size: 20px; color: black; display: inline;" min="1" required="required"><p style="display: inline; color: black;"> 명</p>
-									</div>
-									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">최소 출발</h5>
-									</div>
-									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
-										<input type="number" name="min_people" class="number-size" style="font-size: 20px; color: black; display: inline;" required="required"><p style="display: inline; color: black;"> 명</p>
-									</div>
-									<div class="col-lg-6" style="text-align: center; border-right: 1px solid gray; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-bold">출발일</h5> 
-										<p style="font-size: 20px; color: black; display: inline;"><fmt:formatDate value="${view.board_want_start}" pattern="yyyy-MM-dd" /></p>
-									</div>
-									<div class="col-lg-6" style="text-align: center;">
-										<h5 class="m-0 text-uppercase font-weight-bold">도착일</h5>
-										<p style="font-size: 20px; color: black;"><fmt:formatDate value="${view.board_want_end}" pattern="yyyy-MM-dd" /></p>
-									</div>
+										
+										<div class="col-lg-12" style="margin-bottom: 10px;">
+											<!-- tab title 생성 버튼 -->
+											<p>
+												<button id="btn-add-tab" type="button" class="btn btn-primary pull-right">탭 추가</button> 탭은 최대 6개 까지 생성가능합니다
+											</p>
+											<!-- tab title box -->
+											<ul id="tab-list" class="nav nav-tabs" role="tablist">
+												<li class="active"><a href="#tab1" role="tab" data-toggle="tab"> 
+													<!-- <span>Tab 1 </span> <span class="fa fa-pencil fa-fw text-muted edit"></span> --> 
+													<input type="text" class="text-size" name="tab_title_1" size="10" id="tab" placeholder="tab1">
+												</a></li>
+											</ul>
+										</div>
+										
+										<div class="col-lg-12" style="margin-bottom: 30px;">
+											<!-- tab content -->
+											<div id="tab-content" class="tab-content">
+												<!-- <div class="tab-pane fade in active" id="tab1">Tab 1 content</div> -->
+												<div class="tab-pane fade in active" id="tab1">
+													<!-- id='tab-textarea1'의 값을 받아 id='tab-result1'에 값 넘김 -->
+													<textarea id="tab1-textarea" rows="10" cols="54" placeholder="tab1 내용을 입력해주세요"></textarea>
+													<textarea id="tab1-result" name="tab_content_1" hidden></textarea>
+													<br>
+												</div>
+											</div>
+										</div>
+										
+										<div class="col-lg-12" style="margin-bottom: 30px; border-bottom: 1px solid rgb(132, 216, 255);">
+											<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">파일 업로드</h5> <br>
+											<!-- <input type="file" id="file_img" name="file" required="required"/> -->
+														
+											<div class="form-group">
+												<input class="form-control form-control-user" type="file" multiple="multiple"
+												name="product_detail_image" id="review_img" onchange="setDetailImage(event);" required>
+											</div>
 											
-									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">가격</h5>
-									</div>
-									<div class="col-lg-9" style="display: inline;">
-										<input type="number" name="suggest_price" style="font-size: 20px; color: black; display: inline;" required="required">
-									</div>
-									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">가이드 포함 여부</h5>
-									</div>
-									<div class="col-lg-9" style="display: inline;">
-										<select name="suggest_guide" style="font-size: 20px; color: black; display: inline;">
-											<option>O</option>
-											<option>X</option>
-										</select>
-									</div>
-									<div class="col-lg-3" style="display: inline; margin-bottom: 30px;">
-										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">항공사</h5>
-									</div>
-									<div class="col-lg-9" style="display: inline;">
-										<select name="suggest_air" id="air" style="font-size: 20px; color: black; display: inline;">
-											<option>대한항공</option>
-											<option>아시아나항공</option>
-											<option>에어부산</option>
-											<option>티웨이</option>
-										</select>
-									</div>
-									
-									
-									<div class="col-lg-12" style="margin-bottom: 10px;">
-										<!-- tab title 생성 버튼 -->
-										<p>
-											<button id="btn-add-tab" type="button" class="btn btn-primary pull-right">탭 추가</button> 탭은 최대 6개 까지 생성가능합니다
-										</p>
-										<!-- tab title box -->
-										<ul id="tab-list" class="nav nav-tabs" role="tablist">
-											<li class="active"><a href="#tab1" role="tab" data-toggle="tab"> 
-												<!-- <span>Tab 1 </span> <span class="fa fa-pencil fa-fw text-muted edit"></span> --> 
-												<input type="text" class="text-size" name="tab_title_1" size="10" id="tab" placeholder="tab1">
-											</a></li>
-										</ul>
-									</div>
-									
-									<div class="col-lg-12" style="margin-bottom: 30px;">
-										<!-- tab content -->
-										<div id="tab-content" class="tab-content">
-											<!-- <div class="tab-pane fade in active" id="tab1">Tab 1 content</div> -->
-											<div class="tab-pane fade in active" id="tab1">
-												<!-- id='tab-textarea1'의 값을 받아 id='tab-result1'에 값 넘김 -->
-												<textarea id="tab1-textarea" rows="10" cols="54" placeholder="tab1 내용을 입력해주세요"></textarea>
-												<textarea id="tab1-result" name="tab_content_1" hidden></textarea>
-												<br>
+											<div id="select_img" style="margin-bottom: 30px;"><img src=""></div>
+											
+										</div>
+										<div class="col-lg-12">
+											<div class="text-center">
+												<button type="submit" class="btn btn-warning" onclick="getHtml();">응찰하기</button>
 											</div>
 										</div>
 									</div>
-									
-									<div class="col-lg-12" style="margin-bottom: 30px; border-bottom: 1px solid rgb(132, 216, 255);">
-										<h5 class="m-0 text-uppercase font-weight-bold" style="display: inline;">파일 업로드</h5> <br>
-										<input type="file" id="file_img" name="file" required="required"/>
-													
-										<div class="select_img"><img src=""></div>
-									</div>
-									<div class="col-lg-12">
-										<div class="text-center">
-											<button type="submit" class="btn btn-warning" onclick="getHtml();">응찰하기</button>
-										</div>
-									</div>
 								</div>
-							</div>
-					</form>
+						</form>
 					<!-- 게시글 내용 end -->
 					</div>
 					</div>
@@ -408,7 +466,7 @@
 </script>
 <script>
 //사용자가 선택한 이미지 보여줌
-$("#file_img").change(function(){
+/* $("#file_img").change(function(){
 	if(this.files && this.files[0]) {
 		var reader = new FileReader;
 		reader.onload = function(data) {
@@ -416,7 +474,7 @@ $("#file_img").change(function(){
 		}
 		reader.readAsDataURL(this.files[0]);
 	}
-});
+}); */
 
 </script>
 
@@ -493,18 +551,46 @@ function getHtml(){
 	var html_tab1 = $("#tab1-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 	var html_tab2 = $("#tab2-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 	var html_tab3 = $("#tab3-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
-	var html_tab4 = $("#tab4-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
-	var html_tab5 = $("#tab5-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
-	var html_tab6 = $("#tab6-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+	//var html_tab4 = $("#tab4-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+	//var html_tab5 = $("#tab5-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+	//var html_tab6 = $("#tab6-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 	$("#result").html(html); //id='result'에 <br>태그로 변환된 내용 저장
 	$("#tab1-result").html(html_tab1);
 	$("#tab2-result").html(html_tab2);
 	$("#tab3-result").html(html_tab3);
-	$("#tab4-result").html(html_tab4);
-	$("#tab5-result").html(html_tab4);
-	$("#tab6-result").html(html_tab6);
-	
+	//$("#tab4-result").html(html_tab4);
+	//$("#tab5-result").html(html_tab5);
+	//$("#tab6-result").html(html_tab6);
 }
-
+</script>
+<script>
+	function setDetailImage(event){
+		
+		var maxFileCnt = 5; //최대 업로드 가능 파일수
+		var file_cnt = event.target.files.length; //첨부된 파일수
+		
+		
+		if(file_cnt > maxFileCnt) {
+			alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
+			
+			return false;
+		} else {
+		
+			for(var image of event.target.files){
+				var reader = new FileReader();
+				
+				reader.onload = function(event){
+					var img = document.createElement("img");
+					img.setAttribute("src", event.target.result);
+					img.setAttribute("class", "col-lg-3");
+					document.querySelector("div#select_img").appendChild(img);
+				};
+				
+				console.log(image);
+				reader.readAsDataURL(image);
+				
+			}
+		}
+	}
 </script>
 </html>

@@ -9,15 +9,21 @@ import com.spring.dto.BoardDTO;
 @Service
 public interface WantBoardService {
 	
-	// ----------------------------------------
+	// 패키지 설계 게시물 번호 확인
+	public int want_checkBoardBno() throws Exception;
+	
 	// 패키지 설계 게시물 목록
 	public List<BoardDTO> want_list() throws Exception;
 
 	// 패키지 설계 게시물 작성
 	public void want_write(BoardDTO dto) throws Exception;
+	// 설계 게시물 이미지
+	public void want_writeImage(BoardDTO dto) throws Exception;
 
 	// 패키지 설계 게시물 조회, 조회수 증가
 	public BoardDTO want_view(int board_want_bno) throws Exception;
+	// 게시물 이미지 조회 
+	public List<BoardDTO> want_viewImage(int board_want_bno) throws Exception;
 
 	// 패키지 설계 게시글 수정
 	public void want_modify(BoardDTO dto) throws Exception;

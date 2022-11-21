@@ -17,10 +17,14 @@ public class WantBoardDAOImpl implements WantBoardDAO {
 	@Inject
 	private SqlSession sql;
 
-	private static String namespace = "com.spring.mappers.boardMapper";
-	private static String like_namespace = "com.spring.mappers.likeMapper";
+	private static final String namespace = "com.spring.mappers.boardMapper";
+	private static final String like_namespace = "com.spring.mappers.likeMapper";
 	
-	// ------------------------------------
+	// 패키지 설계 게시물 번호 확인
+	public int want_checkBoardBno() throws Exception {
+		return sql.selectOne(namespace + ".want_checkBoardBno");
+	}
+		
 	// 패키지 설계 게시물 목록
 	@Override
 	public List<BoardDTO> want_list() throws Exception {
@@ -31,6 +35,10 @@ public class WantBoardDAOImpl implements WantBoardDAO {
 	@Override
 	public void want_write(BoardDTO dto) throws Exception {
 		sql.insert(namespace + ".want_write", dto);
+	}
+	// 설계 게시물 이미지
+	public void want_writeImage(BoardDTO dto) throws Exception {
+		sql.insert(namespace +".want_writeImage", dto);
 	}
 
 	// 패키지 설계 게시물 조회
@@ -43,6 +51,10 @@ public class WantBoardDAOImpl implements WantBoardDAO {
 	@Override
 	public void want_updateViewCnt(int board_want_bno) throws Exception {
 		sql.update(namespace + ".want_updateViewCnt", board_want_bno);
+	}
+	// 게시물 이미지 조회 
+	public List<BoardDTO> want_viewImage(int board_want_bno) throws Exception {
+		return sql.selectList(namespace + ".want_viewImage", board_want_bno);
 	}
 
 	// 패키지 설계 게시글 수정

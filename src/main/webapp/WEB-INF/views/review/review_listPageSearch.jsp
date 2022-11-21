@@ -58,7 +58,7 @@
 									<c:forEach items="${list}" var="list">
 										<tr class="active-row">
 											<td>${list.review_bno}</td>
-											<td><img src="${list.review_thumbnail}" width="100px" height="100px"></td>
+											<td><img src="${list.board_thumbnail}" width="100px" height="100px"></td>
 											<td><a href="/review/review_view?review_bno=${list.review_bno}">${list.review_title}</a></td>
 											<td><fmt:formatDate value="${list.review_regDate}" pattern="yyyy-MM-dd"/></td>
 											<td>${list.review_writer}</td>

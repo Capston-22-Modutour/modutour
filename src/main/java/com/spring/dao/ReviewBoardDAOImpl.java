@@ -20,7 +20,12 @@ public class ReviewBoardDAOImpl implements ReviewBoardDAO {
 	private static String namespace = "com.spring.mappers.boardMapper";
 	private static String like_namespace = "com.spring.mappers.likeMapper";
 	
-	// ------------------------------------
+	// 커뮤니티 게시물 번호 확인
+	@Override
+	public int review_checkBoardBno() throws Exception {
+		return sql.selectOne(namespace + ".review_checkBoardBno");
+	}
+		
 	// 여행후기 게시물 목록
 	@Override
 	public List<BoardDTO> review_list() throws Exception {
@@ -32,11 +37,21 @@ public class ReviewBoardDAOImpl implements ReviewBoardDAO {
 	public void review_write(BoardDTO dto) throws Exception {
 		sql.insert(namespace + ".review_write", dto);
 	}
+	// 자유 게시물 이미지 삽입
+	@Override
+	public void review_writeImage(BoardDTO dto) throws Exception {
+		sql.insert(namespace + ".review_writeImage", dto);
+	}
 
 	// 여행후기 게시물 조회
 	@Override
 	public BoardDTO review_view(int review_bno) throws Exception {
 		return sql.selectOne(namespace + ".review_view", review_bno);
+	}
+	// 게시물 이미지 조회
+	@Override
+	public List<BoardDTO> review_viewImage(int review_bno) throws Exception {
+		return sql.selectList(namespace + ".review_viewImage", review_bno);
 	}
 
 	// 여행후기 게시글 조회수 증가

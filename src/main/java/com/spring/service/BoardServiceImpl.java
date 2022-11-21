@@ -34,7 +34,7 @@ public class BoardServiceImpl implements BoardService {
 	public void write(BoardDTO dto) throws Exception {
 		dao.write(dto);
 	}
-	// 게시물 이미지
+	// 게시물 이미지 삽입
 	@Override
 	public void writeImage(BoardDTO dto) throws Exception {
 		dao.writeImage(dto);

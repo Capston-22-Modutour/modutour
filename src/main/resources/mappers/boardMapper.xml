@@ -7,27 +7,33 @@
 	<!-- 게시글 베스트 start -->
 	<!-- 리뷰 베스트 -->
 	<select id="review_bestList" resultType="com.spring.dto.BoardDTO">
-		select review_bno, review_title, review_thumbnail, review_content, review_writer, review_like, review_viewCnt , review_regDate
-		from review 
-		where review_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and review_like >= 20
-		order by review_like desc
+		select rv.review_bno, rv.review_title, rv.review_content, rv.review_writer, rv.review_like, rv.review_viewCnt , rv.review_regDate,
+				iub.thumbnail as review_thumbnail
+		from review rv, image_upload_board iub
+		where rv.review_bno = iub.division_bno and rv.review_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and rv.review_like >= 20 and classify_board = 4
+		group by rv.review_bno
+		order by rv.review_like desc
 		limit 0,5
 	</select>
 	
 	<!-- 패키지 설계 베스트 -->
 	<select id="board_want_bestList" resultType="com.spring.dto.BoardDTO">
-		select board_want_bno, board_want_title, board_want_thumbnail, board_want_content, board_want_writer, board_want_like, board_want_viewCnt , board_want_regDate
-		from member_board_want 
-		where board_want_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and board_want_like >= 20
-		order by board_want_like desc
+		select mbw.board_want_bno, mbw.board_want_title, mbw.board_want_content, mbw.board_want_writer, mbw.board_want_like, mbw.board_want_viewCnt , mbw.board_want_regDate,
+				iub.thumbnail as board_want_thumbnail
+		from member_board_want mbw, image_upload_board iub
+		where mbw.board_want_bno = iub.division_bno and mbw.board_want_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and mbw.board_want_like >= 20
+		group by mbw.board_want_bno
+		order by mbw.board_want_like desc
 		limit 0,5
 	</select>
 	
 	<!-- 패키지 판매 베스트 -->
 	<select id="sell_bestList" resultType="com.spring.dto.BoardDTO">
-		select sell_bno, sell_title, sell_thumbnail, sell_content, sell_writer, sell_like, sell_viewCnt , sell_regDate
-		from sell_board 
-		where sell_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and sell_like >= 20
+		select sell_bno, sell_title, sell_content, sell_writer, sell_like, sell_viewCnt , sell_regDate,
+				iub.thumbnail as sell_thumbnail
+		from sell_board, image_upload_board iub
+		where sell_bno = iub.division_bno AND sell_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and sell_like >= 20
+		group by sell_bno
 		order by sell_like desc
 		limit 0,5
 	</select>
@@ -91,8 +97,8 @@
 	</insert>
 	<!-- 이미지 삽입 -->
 	<insert id="writeImage" parameterType="com.spring.dto.BoardDTO">
-		insert into image_upload_board(division_bno, m_board_bno, img, thumbnail)
-					values(0, #{board_bno}, #{img}, #{thumbnail})
+		insert into image_upload_board(classify_board, division_bno, img, thumbnail)
+					values(0, #{division_bno}, #{img}, #{thumbnail})
 	</insert>
 	
 	<!-- 게시물 조회 -->
@@ -105,9 +111,9 @@
 	
 	<!-- 이미지 조회 -->
 	<select id="viewImage" resultType="com.spring.dto.BoardDTO">
-		SELECT iub.m_board_bno, iub.img, iub.thumbnail
+		SELECT iub.classify_board, iub.img, iub.thumbnail
 		FROM member_board mb, image_upload_board iub
-		WHERE mb.board_bno = #{board_bno} AND iub.m_board_bno = #{board_bno} AND iub.division_bno = 0
+		WHERE mb.board_bno = #{board_bno} AND iub.division_bno = #{board_bno} AND iub.classify_board = 0
 	</select>
 	
 	<!-- 게시글 조회수 증가 -->
@@ -148,7 +154,7 @@
 	
 	<!-- 게시글 목록 + 페이징 + 검색 -->
 	<select id="listPageSearch" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
-		select *
+		<!-- select *
 		from member_board
 		
 		<if test='searchType.equals("title")'>
@@ -169,7 +175,32 @@
 		</if>
 		
 		order by board_bno desc
-			limit #{displayPost}, #{postNum} 
+			limit #{displayPost}, #{postNum}  -->
+			
+		SELECT mb.*, iub.img as board_thumbnail
+		FROM member_board mb, image_upload_board iub
+		WHERE mb.board_bno = iub.division_bno AND classify_board = 0
+		
+		<if test='searchType.equals("title")'>
+			and board_title LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("content")'>
+			and board_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("title_content")'>
+			and board_title LIKE concat('%', #{keyword}, '%')
+			or board_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("writer")'>
+			and board_writer LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		group by board_bno
+		order by board_bno desc
+			limit #{displayPost}, #{postNum}
 	</select>
 	
 	<!-- 게시물 총 갯수 + 검색 적용 -->
@@ -196,6 +227,14 @@
 	<!-- 커뮤니티 end -->
 	
 	<!-- 여행후기 게시판 start -->
+	<!-- 커뮤니티 번호 확인 -->
+	<select id="review_checkBoardBno" resultType="int">
+		SELECT review_bno
+		FROM review
+		ORDER BY review_bno DESC
+		LIMIT 1
+	</select>
+	
 	<!-- 게시물 목록 -->
 	<!-- 쿼리를 실행한 뒤 결과가 있을 경우 resultType 사용 -->
 	<select id="review_list" resultType="com.spring.dto.BoardDTO">
@@ -206,8 +245,13 @@
 	<!-- 게시물 작성 -->
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="review_write" parameterType="com.spring.dto.BoardDTO">
-		insert into review(review_title, user_num, review_content, review_writer, review_img, review_thumbnail)
-					values(#{review_title}, #{user_num}, #{review_content}, #{review_writer}, #{review_img}, #{review_thumbnail})
+		insert into review(review_title, user_num, review_content, review_writer)
+					values(#{review_title}, #{user_num}, #{review_content}, #{review_writer})
+	</insert>
+	<!-- 이미지 삽입 -->
+	<insert id="review_writeImage" parameterType="com.spring.dto.BoardDTO">
+		insert into image_upload_board(classify_board, division_bno, img, thumbnail)
+					values(4, #{division_bno}, #{img}, #{thumbnail})
 	</insert>
 	
 	<!-- 게시물 조회 -->
@@ -215,6 +259,12 @@
 		select *
 		from review
 		where review_bno = #{review_bno}
+	</select>
+	<!-- 이미지 조회 -->
+	<select id="review_viewImage" resultType="com.spring.dto.BoardDTO">
+		SELECT iub.division_bno, iub.img, iub.thumbnail
+		FROM review rv, image_upload_board iub
+		WHERE rv.review_bno = #{review_bno} AND iub.division_bno = #{review_bno} AND iub.classify_board = 4
 	</select>
 	
 	<!-- 게시글 조회수 증가 -->
@@ -247,7 +297,7 @@
 	
 	<!-- 게시글 목록 + 페이징 + 검색 -->
 	<select id="review_listPageSearch" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
-		select *
+		<!-- select *
 		from review
 		
 		<if test='searchType.equals("title")'>
@@ -268,7 +318,32 @@
 		</if>
 		
 		order by review_bno desc
-			limit #{displayPost}, #{postNum} 
+			limit #{displayPost}, #{postNum}  -->
+			
+		SELECT rv.*, iub.img as board_thumbnail
+		FROM review rv, image_upload_board iub
+		WHERE rv.review_bno = iub.division_bno AND classify_board = 4
+		
+		<if test='searchType.equals("title")'>
+			and review_title LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("content")'>
+			and review_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("title_content")'>
+			and review_title LIKE concat('%', #{keyword}, '%')
+			or review_content LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("writer")'>
+			and review_writer LIKE concat('%', #{keyword}, '%')
+		</if>
+		
+		group by review_bno
+		order by review_bno desc
+			limit #{displayPost}, #{postNum}
 	</select>
 	
 	<!-- 게시물 총 갯수 + 검색 적용 -->
@@ -296,6 +371,14 @@
 	<!-- 여행후기 게시판 end -->
 	
 	<!-- 패키지 설계 게시판 start -->
+	<!-- 커뮤니티 번호 확인 -->
+	<select id="want_checkBoardBno" resultType="int">
+		SELECT board_want_bno
+		FROM member_board_want
+		ORDER BY board_want_bno DESC
+		LIMIT 1
+	</select>
+	
 	<!-- 게시물 목록 -->
 	<select id="want_list" resultType="com.spring.dto.BoardDTO">
 		select *
@@ -306,18 +389,28 @@
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="want_write" parameterType="com.spring.dto.BoardDTO">
 		insert into member_board_want(board_want_title, user_num, board_want_destination, board_want_content, board_want_writer,
-									board_want_people, board_want_start, board_want_end, board_want_img, board_want_thumbnail)
+									board_want_people, board_want_start, board_want_end)
 					values(#{board_want_title}, #{user_num}, #{board_want_destination}, #{board_want_content}, #{board_want_writer}, 
-						#{board_want_people}, #{board_want_start}, #{board_want_end}, #{board_want_img}, #{board_want_thumbnail})
+						#{board_want_people}, #{board_want_start}, #{board_want_end})
+	</insert>
+	<!-- 이미지 삽입 -->
+	<insert id="want_writeImage" parameterType="com.spring.dto.BoardDTO">
+		insert into image_upload_board(classify_board, division_bno, img, thumbnail)
+					values(1, #{division_bno}, #{img}, #{thumbnail})
 	</insert>
 	
 	<!-- 게시물 조회 -->
 	<select id="want_view" parameterType="int" resultType="com.spring.dto.BoardDTO">
 		select board_want_bno, board_want_title, board_want_destination, board_want_content, board_want_writer, 
-			board_want_people, board_want_start, board_want_end, board_want_viewCnt, board_want_like, board_want_regDate, 
-			board_want_img, board_want_thumbnail
+			board_want_people, board_want_start, board_want_end, board_want_viewCnt, board_want_like, board_want_regDate
 		from member_board_want
 		where board_want_bno = #{board_want_bno}		
+	</select>
+	<!-- 이미지 조회 -->
+	<select id="want_viewImage" resultType="com.spring.dto.BoardDTO">
+		SELECT iub.division_bno, iub.img, iub.thumbnail
+		FROM member_board_want mbw, image_upload_board iub
+		WHERE mbw.board_want_bno = #{board_want_bno} AND iub.division_bno = #{board_want_bno} AND iub.classify_board = 1
 	</select>
 	
 	<!-- 게시글 조회수 증가 -->
@@ -355,27 +448,29 @@
 	
 	<!-- 게시글 목록 + 페이징 + 검색 -->
 	<select id="want_listPageSearch" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
-		select board_want_bno, board_want_title, board_want_thumbnail, board_want_writer, board_want_viewCnt, board_want_like, board_want_regDate
-		from member_board_want
+		select mbw.*, iub.img as board_want_thumbnail
+		from member_board_want mbw, image_upload_board iub
+		where mbw.board_want_bno = iub.division_bno AND classify_board = 1
 		
 		<if test='searchType.equals("title")'>
-			where board_want_title LIKE concat('%', #{keyword}, '%')
+			AND mbw.board_want_title LIKE concat('%', #{keyword}, '%')
 		</if>
 		
 		<if test='searchType.equals("content")'>
-			where board_want_content LIKE concat('%', #{keyword}, '%')
+			AND mbw.board_want_content LIKE concat('%', #{keyword}, '%')
 		</if>
 		
 		<if test='searchType.equals("title_content")'>
-			where board_want_title LIKE concat('%', #{keyword}, '%')
-			or board_want_content LIKE concat('%', #{keyword}, '%')
+			AND mbw.board_want_title LIKE concat('%', #{keyword}, '%')
+			or mbw.board_want_content LIKE concat('%', #{keyword}, '%')
 		</if>
 		
 		<if test='searchType.equals("writer")'>
-			where board_want_writer LIKE concat('%', #{keyword}, '%')
+			AND mbw.board_want_writer LIKE concat('%', #{keyword}, '%')
 		</if>
 		
-		order by board_want_bno desc
+		group by mbw.board_want_bno
+		order by mbw.board_want_bno desc
 			limit #{displayPost}, #{postNum} 
 	</select>
 	
@@ -404,6 +499,14 @@
 	<!-- 패키지 설계 게시판 end -->
 	
 	<!-- 패키지 제안 게시판 start -->
+	<!-- 커뮤니티 번호 확인 -->
+	<select id="suggest_checkBoardBno" resultType="int">
+		SELECT suggest_bno
+		FROM suggest_board
+		ORDER BY suggest_bno DESC
+		LIMIT 1
+	</select>
+	
 	<!-- 게시물 목록 -->
 	<select id="suggest_list" resultType="com.spring.dto.BoardDTO">
 		select *
@@ -415,10 +518,15 @@
 	<insert id="suggest_write" parameterType="com.spring.dto.BoardDTO">
 		insert into suggest_board(board_want_bno, com_regiNum, board_want_writer, suggest_writer, suggest_title, 
 			board_want_destination, board_want_content, suggest_content, board_want_people, min_people,board_want_start, 
-			board_want_end, suggest_price, suggest_guide, suggest_air, suggest_img, suggest_thumbnail)
+			board_want_end, suggest_price, suggest_guide, suggest_air)
 					values(#{board_want_bno}, #{com_regiNum}, #{board_want_writer}, #{suggest_writer}, #{suggest_title}, 
 					#{board_want_destination}, #{board_want_content}, #{suggest_content}, #{board_want_people}, #{min_people},
-					#{board_want_start}, #{board_want_end},	#{suggest_price}, #{suggest_guide}, #{suggest_air}, #{suggest_img}, #{suggest_thumbnail})
+					#{board_want_start}, #{board_want_end},	#{suggest_price}, #{suggest_guide}, #{suggest_air})
+	</insert>
+	<!-- 이미지 삽입 -->
+	<insert id="suggest_writeImage" parameterType="com.spring.dto.BoardDTO">
+		insert into image_upload_board(classify_board, division_bno, img, thumbnail)
+					values(2, #{division_bno}, #{img}, #{thumbnail})
 	</insert>
 	
 	<!-- 게시물 조회 -->
@@ -426,6 +534,12 @@
 		select *
 		from suggest_board
 		where suggest_bno = #{suggest_bno}		
+	</select>
+	<!-- 이미지 조회 -->
+	<select id="suggest_viewImage" resultType="com.spring.dto.BoardDTO">
+		SELECT iub.division_bno, iub.img, iub.thumbnail
+		FROM suggest_board sb, image_upload_board iub
+		WHERE sb.suggest_bno = #{suggest_bno} AND iub.division_bno = #{suggest_bno} AND iub.classify_board = 2
 	</select>
 	
 	<!-- 게시글 조회수 증가 -->
@@ -467,26 +581,29 @@
 	
 	<!-- 게시글 목록 + 페이징 + 검색 -->
 	<select id="suggest_listPageSearch" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
-		select suggest_bno, suggest_title, suggest_thumbnail, suggest_writer, suggest_viewCnt, suggest_like, suggest_regDate
-		from suggest_board
+		select suggest_bno, suggest_title, suggest_writer, suggest_viewCnt, suggest_like, suggest_regDate,
+				iub.thumbnail as suggest_thumbnail
+		from suggest_board, image_upload_board iub
+		where suggest_bno = iub.division_bno AND classify_board = 2
 		
 		<if test='searchType.equals("title")'>
-			where suggest_title LIKE concat('%', #{keyword}, '%')
+			AND suggest_title LIKE concat('%', #{keyword}, '%')
 		</if>
 		
 		<if test='searchType.equals("content")'>
-			where suggest_content LIKE concat('%', #{keyword}, '%')
+			AND suggest_content LIKE concat('%', #{keyword}, '%')
 		</if>
 		
 		<if test='searchType.equals("title_content")'>
-			where suggest_title LIKE concat('%', #{keyword}, '%')
+			AND suggest_title LIKE concat('%', #{keyword}, '%')
 			or suggest_content LIKE concat('%', #{keyword}, '%')
 		</if>
 		
 		<if test='searchType.equals("writer")'>
-			where suggest_writer LIKE concat('%', #{keyword}, '%')
+			AND suggest_writer LIKE concat('%', #{keyword}, '%')
 		</if>
 		
+		group by suggest_bno
 		order by suggest_bno desc
 			limit #{displayPost}, #{postNum} 
 	</select>
@@ -525,11 +642,15 @@
 	<!-- 데이터를 넣을 땐 parameterType 사용 -->
 	<insert id="sell_write" parameterType="com.spring.dto.BoardDTO">
 		insert into sell_board(sell_bno, suggest_bno, board_want_bno, com_regiNum, sell_writer, sell_title, 
-				sell_destination, sell_content, sell_start, sell_end, sell_people, min_people, sell_price, sell_guide, sell_air, 
-				sell_img, sell_thumbnail)
+				sell_destination, sell_content, sell_start, sell_end, sell_people, min_people, sell_price, sell_guide, sell_air)
 					values(#{sell_bno}, #{suggest_bno}, #{board_want_bno}, #{com_regiNum}, #{sell_writer}, #{sell_title}, 
 					#{sell_destination}, #{sell_content}, #{sell_start}, #{sell_end}, #{sell_people}, #{min_people}, 
-					#{sell_price}, #{sell_guide}, #{sell_air}, #{sell_img}, #{sell_thumbnail})
+					#{sell_price}, #{sell_guide}, #{sell_air})
+	</insert>
+	<!-- 이미지 삽입 -->
+	<insert id="sell_writeImage" parameterType="com.spring.dto.BoardDTO">
+		insert into image_upload_board(classify_board, division_bno, img, thumbnail)
+					values(3, #{division_bno}, #{sell_img}, #{sell_thumbnail})
 	</insert>
 	
 	<!-- 게시물 조회 -->
@@ -537,6 +658,12 @@
 		select *
 		from sell_board
 		where sell_bno = #{sell_bno}		
+	</select>
+	<!-- 이미지 조회 -->
+	<select id="sell_viewImage" resultType="com.spring.dto.BoardDTO">
+		SELECT iub.division_bno, iub.img, iub.thumbnail
+		FROM sell_board sb, image_upload_board iub
+		WHERE sb.suggest_bno = #{suggest_bno} AND iub.division_bno = #{suggest_bno} AND iub.classify_board = 2
 	</select>
 	
 	<!-- 게시글 조회수 증가 -->
@@ -578,9 +705,10 @@
 	
 	<!-- 게시글 목록 + 페이징 + 검색 -->
 	<select id="sell_listPageSearch" parameterType="hashMap" resultType="com.spring.dto.BoardDTO">
-		select sb.sell_bno, sb.suggest_bno, sgb.board_want_people, sb.sell_people, sb.sell_title, sb.sell_thumbnail, sb.sell_writer, sb.sell_viewCnt, sb.sell_like, sb.sell_regDate
-		from sell_board sb, suggest_board sgb
-		where sb.suggest_bno = sgb.suggest_bno and
+		select sb.sell_bno, sb.suggest_bno, sgb.board_want_people, sb.sell_people, sb.sell_title, sb.sell_writer, sb.sell_viewCnt, 
+		sb.sell_like, sb.sell_regDate, iub.thumbnail as sell_thumbnail
+		from sell_board sb, suggest_board sgb, image_upload_board iub
+		where sb.suggest_bno = sgb.suggest_bno AND iub.division_bno = sb.suggest_bno AND
 		<if test='searchType.equals("title")'>
 			sb.sell_title LIKE concat('%', #{keyword}, '%')
 		</if>

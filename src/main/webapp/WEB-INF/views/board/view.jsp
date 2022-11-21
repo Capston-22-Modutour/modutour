@@ -45,30 +45,6 @@
 	<!-- JavaScript Libraries -->
     <script src="<c:url value='https://code.jquery.com/jquery-3.4.1.min.js'/>"></script>
 </head>
-<style>
-	.bigPictureWrapper {
-		position: absolute;
-		display: none;
-		justify-content: center;
-		align-items: center;
-		top:0%;
-		width:100%;
-		height:100%;
-		background-color: gray; 
-		z-index: 100;
-		background:rgba(255,255,255,0.5);
-	}
-	.bigPicture {
-		position: relative;
-		display:flex;
-		justify-content: center;
-		align-items: center;
-	}
-		
-	.bigPicture img {
-		width:1000px;
-	}
-	</style>
 <body>
 	<%------------ header section  ------------%>
 	<jsp:include page="../fix/header.jsp" />
@@ -110,17 +86,9 @@
 							<div class="container">
 								<div class="row" style="text-align: center; margin-bottom: 30px;">
 									<c:forEach var="list" items="${list}">
-										<c:if test="${not empty list}">
-											<c:if test="${list.img eq null}">
-											
-											</c:if>
-											<c:if test="${list.img ne null}">
-												<div class="col-lg-6" style="margin-bottom: 30px;">
-													<img src="${list.img}" width="500px" height="500px"/>
-												</div>
-											</c:if>
-											
-										</c:if>
+										<div class="col-lg-6 bigPicture" style="margin-bottom: 30px;">
+											<img src="${list.img}" width="500px" height="500px" onerror="this.remove ? this.remove() : this.removeNode();"/>
+										</div>
 									</c:forEach>
 								</div>
 							</div>
@@ -258,32 +226,5 @@ var user_num = ${member.user_num};
             }
         });
  }
-</script>
-
-<script>
-$(document).ready(function (e){
-	
-	$(document).on("click","img",function(){
-		var path = $(this).attr('src')
-		showImage(path);
-	});//end click event
-	
-	function showImage(fileCallPath){
-	    
-	    $(".bigPictureWrapper").css("display","flex").show();
-	    
-	    $(".bigPicture")
-	    .html("<img src='"+fileCallPath+"' >")
-	    .animate({width:'100%', height: '100%'}, 1000);
-	    
-	  }//end fileCallPath
-	  
-	$(".bigPictureWrapper").on("click", function(e){
-	    $(".bigPicture").animate({width:'0%', height: '0%'}, 1000);
-	    setTimeout(function(){
-	      $('.bigPictureWrapper').hide();
-	    }, 1000);
-	  });//end bigWrapperClick event
-});
 </script>
 </html>

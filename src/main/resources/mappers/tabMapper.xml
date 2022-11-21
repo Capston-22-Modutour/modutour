@@ -8,7 +8,8 @@
 	<select id="TabInquireSuggestBno" resultType="int">
 		select suggest_bno
 		from suggest_board
-		order by suggest_bno desc LIMIT 0,1
+		order by suggest_bno desc 
+		LIMIT 1
 	</select>
 	
 	<!-- 여행사 작성 tab 목록 -->

@@ -37,7 +37,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public void write(BoardDTO dto) throws Exception {
 		sql.insert(namespace + ".write", dto);
 	}
-	// 자유 게시물 이미지
+	// 자유 게시물 이미지 삽입
 	@Override
 	public void writeImage(BoardDTO dto) throws Exception {
 		sql.insert(namespace + ".writeImage", dto);
@@ -48,7 +48,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public BoardDTO view(int board_bno) throws Exception {
 		return sql.selectOne(namespace + ".view", board_bno);
 	}
-	// 게시물 이미지
+	// 게시물 이미지 조회
 	@Override
 	public List<BoardDTO> viewImage(int board_bno) throws Exception {
 		return sql.selectList(namespace + ".viewImage", board_bno);

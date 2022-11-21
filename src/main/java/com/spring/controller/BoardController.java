@@ -3,12 +3,7 @@ package com.spring.controller;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -102,7 +97,7 @@ public class BoardController {
             String blankImageThum = null;
             
             int board_bno = (service.checkBoardBno()+1);
-            dto.setM_board_bno(board_bno);
+            dto.setDivision_bno(board_bno);
             
             if(originFileName == "") {
             	System.out.println("originFileName : 빈칸!!!!");
@@ -118,8 +113,8 @@ public class BoardController {
                 File blankThumFile = new File(blankImageThum);
             	
             	//dto 세팅
-                dto.setImg(null);
-    			dto.setThumbnail(null);
+                dto.setImg(dtoBlankImage);
+    			dto.setThumbnail(dtoBlankThubmnail);
                 
                 try {
                 	if(mf.isEmpty() ) { // 이미지 업로드 없을시
@@ -191,13 +186,11 @@ public class BoardController {
 		List<BoardDTO> list = null;
 		list = service.viewImage(board_bno);
 		
-		if(list == null) {
-			System.out.println("null이다");
-			System.out.println("목록 : " + list);
-		} else {
-			System.out.println("null 아니다");
-			System.out.println("목록 : " + list.toString());
-		}
+		/*
+		 * if(list.get(0).getImg() == null) { System.out.println("null이다");
+		 * System.out.println("목록 : " + list); } else { System.out.println("null 아니다");
+		 * System.out.println("목록 : " + list); }
+		 */
 		
 		model.addAttribute("view", dto);
 		model.addAttribute("list", list);

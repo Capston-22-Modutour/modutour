@@ -17,7 +17,11 @@ public class SuggestBoardServiceImpl implements SuggestBoardService {
 	@Inject
 	private SuggestBoardDAO dao;
 	
-	// ------------------------------------
+	// 패키지 제안 게시물 번호 확인
+	public int suggest_checkBoardBno() throws Exception {
+		return dao.suggest_checkBoardBno();
+	}
+	
 	// 패지키 제안 게시물 목록
 	@Override
 	public List<BoardDTO> suggest_list() throws Exception {
@@ -28,6 +32,10 @@ public class SuggestBoardServiceImpl implements SuggestBoardService {
 	@Override
 	public void suggest_write(BoardDTO dto) throws Exception {
 		dao.suggest_write(dto);
+	}
+	// 패키지 제안 게시물 이미지
+	public void suggest_writeImage(BoardDTO dto) throws Exception {
+		dao.suggest_writeImage(dto);
 	}
 
 	// 패키지 제안 게시물 조회
@@ -42,6 +50,10 @@ public class SuggestBoardServiceImpl implements SuggestBoardService {
 	@Override
 	public void suggest_updateViewCnt(int suggest_bno) throws Exception {
 		dao.suggest_updateViewCnt(suggest_bno);
+	}
+	// 게시물 이미지 조회 
+	public List<BoardDTO> suggest_viewImage(int suggest_bno) throws Exception {
+		return dao.suggest_viewImage(suggest_bno);
 	}
 
 	// 패키지 제안 게시글 수정

@@ -218,23 +218,23 @@
 								
 								<div class="col-lg-12" style="margin-bottom: 30px;">
 									<div class="tab">
-										<c:forEach items="${list}" var="list">
+										<c:forEach items="${tabList}" var="tabList">
 											<ul class="tabnav">
-												<li class="tabnaver-li"><a href="#tab00">${list.tab_title_1}</a></li>
-												<li class="tabnaver-li"><a href="#tab01">${list.tab_title_2}</a></li>
-												<li class="tabnaver-li"><a href="#tab02">${list.tab_title_3}</a></li>
-												<li class="tabnaver-li"><a href="#tab03">${list.tab_title_4}</a></li>
-												<li class="tabnaver-li"><a href="#tab04">${list.tab_title_5}</a></li>
-												<li class="tabnaver-li"><a href="#tab05">${list.tab_title_6}</a></li>
+												<li class="tabnaver-li"><a href="#tab00">${tabList.tab_title_1}</a></li>
+												<li class="tabnaver-li"><a href="#tab01">${tabList.tab_title_2}</a></li>
+												<li class="tabnaver-li"><a href="#tab02">${tabList.tab_title_3}</a></li>
+												<li class="tabnaver-li"><a href="#tab03">${tabList.tab_title_4}</a></li>
+												<li class="tabnaver-li"><a href="#tab04">${tabList.tab_title_5}</a></li>
+												<li class="tabnaver-li"><a href="#tab05">${tabList.tab_title_6}</a></li>
 											</ul>
 											<div class="tabcontent">
 												<div class="text-align" id="tab00">
 													<table class="table text-align" style="border: 1px solid #dddddd">
 														<tr>
-															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_1}</th>
+															<th style="background-color: #eeeeee; font-size: 20px;">${tabList.tab_title_1}</th>
 														</tr>
 														<tr>
-															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_1}</div></td>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${tabList.tab_content_1}</div></td>
 														</tr>
 													</table>
 												</div>
@@ -242,10 +242,10 @@
 													<table class="table text-align"
 														style="border: 1px solid #dddddd">
 														<tr>
-															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_2}</th>
+															<th style="background-color: #eeeeee; font-size: 20px;">${tabList.tab_title_2}</th>
 														</tr>
 														<tr>
-															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_2}</div></td>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${tabList.tab_content_2}</div></td>
 														</tr>
 													</table>
 												</div>
@@ -253,10 +253,10 @@
 													<table class="table text-align"
 														style="border: 1px solid #dddddd">
 														<tr>
-															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_3}</th>
+															<th style="background-color: #eeeeee; font-size: 20px;">${tabList.tab_title_3}</th>
 														</tr>
 														<tr>
-															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_3}</div></td>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${tabList.tab_content_3}</div></td>
 														</tr>
 													</table>
 												</div>
@@ -264,30 +264,30 @@
 													<table class="table text-align"
 														style="border: 1px solid #dddddd">
 														<tr>
-															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_4}</th>
+															<th style="background-color: #eeeeee; font-size: 20px;">${tabList.tab_title_4}</th>
 														</tr>
 														<tr>
-															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_4}</div></td>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${tabList.tab_content_4}</div></td>
 														</tr>
 													</table>
 												</div>
 												<div class="text-align" id="tab04">
 													<table class="table text-align" style="border: 1px solid #dddddd">
 														<tr>
-															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_5}</th>
+															<th style="background-color: #eeeeee; font-size: 20px;">${tabList.tab_title_5}</th>
 														</tr>
 														<tr>
-															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_5}</div></td>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${tabList.tab_content_5}</div></td>
 														</tr>
 													</table>
 												</div>
 												<div class="text-align" id="tab05">
 													<table class="table text-align" style="border: 1px solid #dddddd">
 														<tr>
-															<th style="background-color: #eeeeee; font-size: 20px;">${list.tab_title_6}</th>
+															<th style="background-color: #eeeeee; font-size: 20px;">${tabList.tab_title_6}</th>
 														</tr>
 														<tr>
-															<td><div style="color: black; font-size: 20px; text-align: left;">${list.tab_content_6}</div></td>
+															<td><div style="color: black; font-size: 20px; text-align: left;">${tabList.tab_content_6}</div></td>
 														</tr>
 													</table>
 												</div>
@@ -297,7 +297,16 @@
 								</div>
 								
 								
-								<img src="${view.suggest_img}"  width="500px" height="500px" style="margin: 0 auto; margin-bottom: 30px;"/>	
+								
+								<div class="container">
+									<div class="row" style="text-align: center; margin-bottom: 30px;">
+										<c:forEach var="list" items="${list}">
+											<div class="col-lg-6 bigPicture" style="margin-bottom: 30px;">
+												<img src="${list.img}" width="500px" height="500px" onerror="this.remove ? this.remove() : this.removeNode();"/>
+											</div>
+										</c:forEach>
+									</div>
+								</div>
 							</div>
 						</div>
 						
@@ -347,8 +356,10 @@
 							<input type="text" name="min_people" value="${view.min_people}" hidden="hidden">
 							<input type="text" name="sell_guide" value="${view.suggest_guide}" hidden="hidden">
 							<input type="text" name="sell_air" value="${view.suggest_air}" hidden="hidden">
-							<input type="text" name="sell_img" value="${view.suggest_img}" hidden="hidden">
-							<input type="text" name="sell_thumbnail" value="${view.suggest_thumbnail}" hidden="hidden">
+							<%-- <input type="text" name="img" value="${view.suggest_img}" hidden="hidden">
+							<input type="text" name="thumbnail" value="${view.suggest_thumbnail}" hidden="hidden"> --%>
+						<!-- 	<input type="text" id="text_img" name=sell_img"> -->
+						
 						</div>
 					</div>
 					</form>

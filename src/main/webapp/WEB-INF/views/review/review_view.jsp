@@ -83,10 +83,20 @@
 							<p style="color: black;">${view.review_content}</p>
 							<br />
 							
-							<c:if test="${view.review_img != null}">
+							<%-- <c:if test="${view.review_img != null}">
 								<img src="${view.review_img}" width="500px" height="500px"/> <br/>
 								첨부파일 : <a href="/fileDownload.do?file_name=${view.review_img}">${view.review_img}</a>
-							</c:if>
+							</c:if> --%>
+							
+							<div class="container">
+								<div class="row" style="text-align: center; margin-bottom: 30px;">
+									<c:forEach var="list" items="${list}">
+										<div class="col-lg-6 bigPicture" style="margin-bottom: 30px;">
+											<img src="${list.img}" width="500px" height="500px" onerror="this.remove ? this.remove() : this.removeNode();"/>
+										</div>
+									</c:forEach>
+								</div>
+							</div>
 							
 							<!-- 로그인이 되어있고, 본인 글이 아닐경우에만 추천할 수 있도록 버튼을 출력 -->
 							<div class="text-center">

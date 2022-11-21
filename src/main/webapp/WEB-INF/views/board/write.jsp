@@ -152,7 +152,7 @@
 										<input class="form-control form-control-user" type="file" multiple="multiple"
 										name="product_detail_image" id="file_img" onchange="setDetailImage(event);">
 									</div>
-									<div id="select_img"><img src=""></div>
+									<div id="select_img" style="margin-bottom: 30px;"><img src=""></div>
 									
 									
 									<div class="text-center">

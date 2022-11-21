@@ -26,8 +26,55 @@
 	<link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>">
 </head>
 <style>
-	.select_img img {
+	/* .select_img img {
 		margin: 20px 0;
+	}
+	 */
+	 
+	/* 다중 이미지 업로드 */
+	.inputFile,
+	#Preview,
+	#Preview li{
+	    float:left
+	}
+	.inputFile{
+	    margin-bottom: 10px;
+	}
+	.addImgBtn{
+	    width: 80px !important;
+	    height: 80px !important;
+	    line-height: 71px !important;
+	    background-color: #fff !important;
+	    color: #b7b7b7 !important;
+	    border: 2px solid #b7b7b7;
+	    font-size: 35px !important;
+	    padding: 0 !important;
+	}
+	
+	#Preview{
+	    margin-left: 20px;
+	    width: 650px;
+	}
+	#Preview li{
+	    margin-left: 10px;
+	    margin-bottom: 10px;
+	    position: relative;
+	    border: 1px solid #ececec;
+	    cursor:move
+	}
+	.delBtn{
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    font-size: 13px;
+	    background-color: #000;
+	    color: #fff;
+	    width: 18px;
+	    height: 18px;
+	    line-height: 16px;
+	    display: inline-block;
+	    text-align: center;
+	    cursor: pointer;
 	}
 </style>
 <body>
@@ -75,9 +122,12 @@
 									<br>
 									
 									파일 업로드 <br/>
-									<input type="file" id="review_img" name="file" required="required"/>
-									
-									<div class="select_img"><img src=""></div>
+									<!-- <input type="file" id="review_img" name="file" required="required"/> -->
+									<div class="form-group">
+										<input class="form-control form-control-user" type="file" multiple="multiple"
+										name="product_detail_image" id="review_img" onchange="setDetailImage(event);" required>
+									</div>
+									<div id="select_img" style="margin-bottom: 30px;"><img src=""></div>
 									
 									<div class="text-center">
 										<button type="submit" id="submit" class="btn btn-warning" onclick="getHtml();">작성</button> &nbsp;
@@ -141,5 +191,35 @@
 		$("#result").html(html); //id='result'에 <br>태그로 변환된 내용 저장
 	}
 	
+</script>
+<script>
+	function setDetailImage(event){
+		
+		var maxFileCnt = 5; //최대 업로드 가능 파일수
+		var file_cnt = event.target.files.length; //첨부된 파일수
+		
+		
+		if(file_cnt > maxFileCnt) {
+			alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
+			
+			return false;
+		} else {
+		
+			for(var image of event.target.files){
+				var reader = new FileReader();
+				
+				reader.onload = function(event){
+					var img = document.createElement("img");
+					img.setAttribute("src", event.target.result);
+					img.setAttribute("class", "col-lg-3");
+					document.querySelector("div#select_img").appendChild(img);
+				};
+				
+				console.log(image);
+				reader.readAsDataURL(image);
+				
+			}
+		}
+	}
 </script>
 </html>

@@ -17,7 +17,12 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	@Inject
 	private ReviewBoardDAO dao;
 	
-	// -------------------------------------
+	// 커뮤니티 게시물 번호 확인
+	@Override
+	public int review_checkBoardBno() throws Exception {
+		return dao.review_checkBoardBno();
+	}
+		
 	// 게시물 목록
 	@Override
 	public List<BoardDTO> review_list() throws Exception {
@@ -29,6 +34,11 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	public void review_write(BoardDTO dto) throws Exception {
 		dao.review_write(dto);
 	}
+	// 게시물 이미지 삽입
+	@Override
+	public void review_writeImage(BoardDTO dto) throws Exception {
+		dao.review_writeImage(dto);
+	}
 
 	// 게시물 조회, 조회수 증가
 	@Transactional(isolation = Isolation.READ_COMMITTED)
@@ -36,6 +46,11 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	public BoardDTO review_view(int review_bno) throws Exception {
 		dao.review_updateViewCnt(review_bno);
 		return dao.review_view(review_bno);
+	}
+	// 게시물 이미지 조회 
+	@Override
+	public List<BoardDTO> review_viewImage(int review_bno) throws Exception {
+		return dao.review_viewImage(review_bno);
 	}
 
 	// 게시글 수정

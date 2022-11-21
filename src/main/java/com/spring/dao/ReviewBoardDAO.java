@@ -9,18 +9,25 @@ import com.spring.dto.BoardDTO;
 @Repository
 public interface ReviewBoardDAO {
 	
-	//----------------------------------------
+	// 커뮤니티 게시물 번호 확인
+	public int review_checkBoardBno() throws Exception;
+		
 	// 리뷰 게시물 목록
 	public List<BoardDTO> review_list() throws Exception;
 
 	// 리뷰 게시물 작성
 	public void review_write(BoardDTO dto) throws Exception;
+	// 리뷰 게시물 이미지
+	public void review_writeImage(BoardDTO dto) throws Exception;
 
 	// 리뷰 게시물 조회
 	public BoardDTO review_view(int review_bno) throws Exception;
 	
 	// 리뷰 게시글 조회수 증가
 	public void review_updateViewCnt(int review_bno) throws Exception;
+	// 게시물 이미지 조회 
+	public List<BoardDTO> review_viewImage(int review_bno) throws Exception;
+
 		
 	// 리뷰 게시글 수정
 	public void review_modify(BoardDTO dto) throws Exception;

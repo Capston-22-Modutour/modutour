@@ -211,11 +211,11 @@
 													<td><a href="/sell_board/sell_view?sell_bno=${list.sell_bno}">${list.order_title}</a></td>
 													<td><fmt:formatDate value="${list.order_date}" pattern="yyyy-MM-dd"/></td>
 													<td>${list.order_people} 명</td>
-													<td style="color: gray;"><fmt:formatNumber pattern="###,###,###" value="${list.order_price * list.order_people}"/> 원</td>
+													<td style="color: gray;"><fmt:formatNumber pattern="###,###,###" value="${list.order_price}"/> 원</td>
 												</tr>
 												
 												<!-- sum에 order_price 삽입 -->
-												<c:set var="sum" value="${sum + (list.order_price * list.order_people)}" />
+												<c:set var="sum" value="${sum + (list.order_price)}" />
 												<c:set var="peopleSum" value="${peopleSum + list.order_people}" />
 											</c:forEach>
 										</tbody>
