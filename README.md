@@ -8,6 +8,17 @@
 - 사용자가 선택한 패키지 판매
 <br>
 
+# 개발 환경
+- IDE : Eclipse(2020-06)
+- DB : mariaDB
+  - GUI : HeidiSQL
+- Spring Framwork (Lecacy Project)
+- Server : Tomcat v9.0 Server at localhost_Modu
+- JSP
+- Java
+- JavaScript and JQuery
+- BootStrap
+
 # DB
 https://drive.google.com/file/d/1GspJtle_GHnuf9FV9wUJexCOClPQHm-i/view?usp=sharing
 <br>
