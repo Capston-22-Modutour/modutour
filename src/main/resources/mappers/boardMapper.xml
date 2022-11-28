@@ -32,7 +32,7 @@
 		select sell_bno, sell_title, sell_content, sell_writer, sell_like, sell_viewCnt , sell_regDate,
 				iub.thumbnail as sell_thumbnail
 		from sell_board, image_upload_board iub
-		where sell_bno = iub.division_bno AND sell_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and sell_like >= 20
+		where suggest_bno = iub.division_bno AND sell_regDate >= DATE_ADD(NOW(),INTERVAL -1 WEEK) and sell_like >= 20 AND iub.classify_board = 2
 		group by sell_bno
 		order by sell_like desc
 		limit 0,5

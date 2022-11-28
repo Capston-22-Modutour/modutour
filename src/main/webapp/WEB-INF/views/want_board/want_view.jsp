@@ -279,6 +279,7 @@
 												<option>아시아나항공</option>
 												<option>에어부산</option>
 												<option>티웨이</option>
+												<option>X</option>
 											</select>
 										</div>
 										
@@ -551,14 +552,14 @@ function getHtml(){
 	var html_tab1 = $("#tab1-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 	var html_tab2 = $("#tab2-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 	var html_tab3 = $("#tab3-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
-	//var html_tab4 = $("#tab4-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+	var html_tab4 = $("#tab4-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 	//var html_tab5 = $("#tab5-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 	//var html_tab6 = $("#tab6-textarea").val().replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 	$("#result").html(html); //id='result'에 <br>태그로 변환된 내용 저장
 	$("#tab1-result").html(html_tab1);
 	$("#tab2-result").html(html_tab2);
 	$("#tab3-result").html(html_tab3);
-	//$("#tab4-result").html(html_tab4);
+	$("#tab4-result").html(html_tab4);
 	//$("#tab5-result").html(html_tab5);
 	//$("#tab6-result").html(html_tab6);
 }

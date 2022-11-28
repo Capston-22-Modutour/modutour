@@ -78,11 +78,6 @@
 							<p style="color: black;">${view.board_content}</p>
 							<br />
 							
-							<%-- <c:if test="${list.img != null}">
-								<img src="${list.img}" width="500px" height="500px"/> <br/>
-								첨부파일 : <a href="/fileDownload.do?file_name=${list.img}">${list.img}</a>
-							</c:if> --%>
-							
 							<div class="container">
 								<div class="row" style="text-align: center; margin-bottom: 30px;">
 									<c:forEach var="list" items="${list}">

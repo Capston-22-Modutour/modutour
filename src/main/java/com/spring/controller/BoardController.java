@@ -204,9 +204,9 @@ public class BoardController {
 	// 자유 게시글 수정
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void getModify(@RequestParam("board_bno") int board_bno, Model model) throws Exception {
-		//BoardDTO dto = service.view(board_bno);
+		BoardDTO dto = service.view(board_bno);
 
-		//model.addAttribute("view", dto);
+		model.addAttribute("view", dto);
 	}
 
 	// 자유 게시글 수정

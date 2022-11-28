@@ -70,4 +70,24 @@ public class HomeController {
 		return "redirect:/test";
 	}
 	
+	//회사소개
+	@RequestMapping(value = "/company", method = RequestMethod.GET)
+	public String company(Locale locale, Model model) throws Exception {
+			
+		return "header_introduction/company";
+	}
+	
+	//회사소개
+	@RequestMapping(value = "/travelRule", method = RequestMethod.GET)
+	public String travelRule(Locale locale, Model model) throws Exception {
+			
+		return "header_introduction/travelRule";
+	}
+		
+	//회사소개
+	@RequestMapping(value = "/useRule", method = RequestMethod.GET)
+	public String useRule(Locale locale, Model model) throws Exception {
+			
+		return "header_introduction/useRule";
+	}
 }

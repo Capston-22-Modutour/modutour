@@ -16,13 +16,13 @@
 	                <nav class="navbar navbar-expand-sm bg-dark p-0">
 	                    <ul class="navbar-nav ml-n2">
 	                        <li class="nav-item border-right border-secondary">
-	                            <a class="nav-link text-body small" href="#">회사소개</a>
+	                            <a class="nav-link text-body small" href="/company">회사소개</a>
 	                        </li>
 	                        <li class="nav-item border-right border-secondary">
-	                            <a class="nav-link text-body small" href="#">이용약관</a>
+	                            <a class="nav-link text-body small" href="/travelRule">이용약관</a>
 	                        </li>
 	                        <li class="nav-item border-right border-secondary">
-	                            <a class="nav-link text-body small" href="#">여행약관</a>
+	                            <a class="nav-link text-body small" href="/useRule">여행약관</a>
 	                        </li>
 	                        
 	                        <!-- 로그인 시 로그인, 회원가입 숨기기 시작 -->

@@ -59,7 +59,7 @@
 										<tr class="active-row">
 											<td>${list.board_want_bno}</td>
 											<td><img src="${list.board_want_thumbnail}" width="100px" height="100px"></td>
-											<td><a href="/want_board/want_view?board_want_bno=${list.board_want_bno}">${list.board_want_title}</a></td>
+											<td style="text-align: left;"><a href="/want_board/want_view?board_want_bno=${list.board_want_bno}">${list.board_want_title}</a></td>
 											<td><fmt:formatDate value="${list.board_want_regDate}" pattern="yyyy-MM-dd"/></td>
 											<td>${list.board_want_writer}</td>
 											<td>${list.board_want_like}</td>
