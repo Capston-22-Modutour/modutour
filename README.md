@@ -20,7 +20,7 @@
 - BootStrap
 
 # DB
-https://drive.google.com/file/d/1GspJtle_GHnuf9FV9wUJexCOClPQHm-i/view?usp=sharing
+- <a href="https://drive.google.com/file/d/1GspJtle_GHnuf9FV9wUJexCOClPQHm-i/view?usp=sharing">DB</a>
 <br>
 
 # 이미지
