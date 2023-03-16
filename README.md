@@ -12,11 +12,9 @@
 - IDE : Eclipse(2020-06)
 - DB : mariaDB
   - GUI : HeidiSQL
-- Spring Framwork (Lecacy Project)
+- Spring Framwork
 - Server : Tomcat v9.0 Server at localhost_Modu
-- JSP
-- Java
-- JavaScript and JQuery
+- Language : JSP, Java, JavaScript and JQuery
 - BootStrap
 
 # DB
